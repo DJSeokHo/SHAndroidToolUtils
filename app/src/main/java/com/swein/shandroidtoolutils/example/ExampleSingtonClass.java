@@ -22,4 +22,11 @@ public class ExampleSingtonClass {
 //        return this.isMyListFragmentShow;
 //    }
 
+    /**
+     * use this when destroy
+     */
+    public void clearParam() {
+
+    }
+
 }
