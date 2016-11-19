@@ -1,4 +1,4 @@
-package com.swein.shandroidtoolutils.tools.manager.item;
+package com.swein.storage.singleton.item;
 
 /**
  * Created by seokho on 16/11/2016.

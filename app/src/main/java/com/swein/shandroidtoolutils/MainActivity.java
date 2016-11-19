@@ -3,7 +3,7 @@ package com.swein.shandroidtoolutils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.swein.shandroidtoolutils.tools.util.ToastUtils;
+import com.swein.framework.tools.util.ToastUtils;
 
 
 public class MainActivity extends AppCompatActivity {

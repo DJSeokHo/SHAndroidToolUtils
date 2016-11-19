@@ -1,4 +1,4 @@
-package com.swein.shandroidtoolutils.example;
+package com.swein.storage.singleton.example;
 
 /**
  * Created by seokho on 16/11/2016.
