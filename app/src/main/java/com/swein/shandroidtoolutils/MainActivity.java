@@ -16,5 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         ToastUtils.showCustomLongToastNormal(this, "text");
         ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
+
+
     }
 }

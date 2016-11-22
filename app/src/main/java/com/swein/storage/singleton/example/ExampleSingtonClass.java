@@ -6,7 +6,7 @@ package com.swein.storage.singleton.example;
 
 public class ExampleSingtonClass {
 
-//    private boolean isMyListFragmentShow = false;
+    private String string = "";
 
     private static ExampleSingtonClass instance = new ExampleSingtonClass();
 
@@ -14,19 +14,18 @@ public class ExampleSingtonClass {
         return instance;
     }
 
-//    public void setIsMyListFragmentShow(boolean isMyListFragmentShow) {
-//        this.isMyListFragmentShow = isMyListFragmentShow;
-//    }
-//
-//    public boolean getIsMyListFragmentShow() {
-//        return this.isMyListFragmentShow;
-//    }
+    public void setmString(String string) {
+        this.string = string;
+    }
 
-    /**
-     * use this when destroy
-     */
-    public void clearParam() {
+    public String getmString() {
+        return this.string;
+    }
 
+
+    //use this when destroy if you need clear
+    public void clearStringParam() {
+        this.string = "";
     }
 
 }
