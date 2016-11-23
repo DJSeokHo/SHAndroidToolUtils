@@ -16,6 +16,12 @@ import static android.app.Notification.DEFAULT_SOUND;
 public class NotificationUIUtils {
 
 
+    public static void createNotification(Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel) {
+//Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel
+
+
+    }
+
     public static void sendNormalNotification(Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel) {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
         Notification notification = null;
