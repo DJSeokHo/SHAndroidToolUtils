@@ -8,6 +8,8 @@ public class ExampleSingtonClass {
 
     private String string = "";
 
+    private ExampleSingtonClass() {}
+
     private static ExampleSingtonClass instance = new ExampleSingtonClass();
 
     public static ExampleSingtonClass getInstance() {
