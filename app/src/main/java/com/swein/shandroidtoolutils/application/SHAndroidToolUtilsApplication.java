@@ -2,6 +2,7 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
+import com.swein.framework.helper.information.app.usage.handler.CrashExceptionHandler;
 import com.swein.framework.helper.information.app.usage.manager.AppTrackerManager;
 import com.swein.framework.helper.information.app.usage.tracker.report.TrackingReport;
 
