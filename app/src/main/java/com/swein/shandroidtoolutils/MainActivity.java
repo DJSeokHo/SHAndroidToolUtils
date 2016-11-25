@@ -3,6 +3,8 @@ package com.swein.shandroidtoolutils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.swein.framework.helper.information.app.usage.manager.AppTrackerManager;
 import com.swein.framework.helper.information.app.usage.tracker.report.TrackingReport;
@@ -18,14 +20,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ToastUtils.showCustomLongToastNormal(this, "text");
-        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
+//        ToastUtils.showCustomLongToastNormal(this, "text");
+//        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
 
-        //make crash
-//        String s = null;
-//        Log.d("seokho", String.valueOf(s.equals("any string")));
-
+        findViewById(R.id.btnMakeCrash).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //make crash
+                String s = null;
+                Log.d("seokho", String.valueOf(s.equals("any string")));
+            }
+        });
     }
+
 
     @Override
     protected void onStart() {
