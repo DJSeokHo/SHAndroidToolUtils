@@ -7,6 +7,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.swein.framework.tools.util.ToastUtils;
 import com.swein.framework.tools.util.time.DateUtil;
 
 import java.util.Calendar;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ToastUtils.showCustomLongToastNormal(this, "text");
-//        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
+        ToastUtils.showCustomLongToastNormal(this, "text");
+        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
 
         datePicker = (DatePicker)findViewById(R.id.datePicker);
         timePicker = (TimePicker)findViewById(R.id.time_picker);
