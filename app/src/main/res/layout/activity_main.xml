@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,16 +8,76 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.swein.shandroidtoolutils.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
 
-    <Button
-        android:id="@+id/btnMakeCrash"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/titleContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:paddingLeft="19dp">
+
+        <TextView
+            android:id="@+id/selectedDateTitleTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="#444444"
+            android:textSize="9pt"/>
+
+        <TextView
+            android:id="@+id/selectedTimeTitleTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#444444"
+            android:textSize="9pt"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="279dp"
         android:layout_height="wrap_content"
-        android:text="click"/>
-</RelativeLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="-20dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layout_marginTop="-20dp"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginLeft="-33dp"
+            android:layout_marginRight="-60dp"
+            android:calendarTextColor="#7a7a7a"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:scaleX="0.8"
+            android:scaleY="0.8"/>
+
+
+        <TimePicker
+            android:id="@+id/time_picker"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="0dp"
+            android:numbersTextColor="#7a7a7a"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:timePickerMode="spinner"
+            />
+    </LinearLayout>
+</LinearLayout>
