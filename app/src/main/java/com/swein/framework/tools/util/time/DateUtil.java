@@ -2,7 +2,10 @@ package com.swein.framework.tools.util.time;
 
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -234,4 +237,50 @@ public class DateUtil
 //
 //        return ret;
 //    }
+
+    public static Long TimeStringToTimeStamp(String string) {
+
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long tempLong = 0;
+
+        try {
+            Date date = format.parse(string);
+            tempLong = date.getTime();
+
+        }
+        catch ( ParseException e ) {
+            e.printStackTrace();
+        }
+
+        return tempLong;
+    }
+
+    public static Date TimeStampToDate(long timeStamp) {
+
+        SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long timeLong = new Long(timeStamp);
+        String d = simpleDateFormat.format(timeLong);
+        Date date = null;
+
+        try {
+            date = simpleDateFormat.parse(d);
+        }
+        catch ( ParseException e ) {
+            e.printStackTrace();
+        }
+
+       return date;
+
+    }
+
+    public static String TimeStampToTimeString(long timeStamp) {
+
+        SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long timeLong = new Long(timeStamp);
+        String d = simpleDateFormat.format(timeLong);
+
+        return d;
+
+    }
+
 }
