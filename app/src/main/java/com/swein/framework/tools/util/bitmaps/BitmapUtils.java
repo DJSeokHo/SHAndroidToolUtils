@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util;
+package com.swein.framework.tools.util.bitmaps;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

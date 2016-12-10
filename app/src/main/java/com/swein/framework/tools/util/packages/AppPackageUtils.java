@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util;
+package com.swein.framework.tools.util.packages;
 
 import android.content.ComponentName;
 import android.content.Context;

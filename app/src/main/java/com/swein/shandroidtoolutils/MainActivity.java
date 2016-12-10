@@ -3,19 +3,22 @@ package com.swein.shandroidtoolutils;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.swein.framework.tools.util.ToastUtils;
 import com.swein.framework.tools.util.time.DateUtil;
 
 import java.util.Calendar;
 
+import static com.swein.framework.tools.util.dialog.DialogUtils.createNormalProgressDialogWithoutButton;
+import static com.swein.framework.tools.util.popup.PopupWindowUtils.createPopupWindowWithView;
+
 
 public class MainActivity extends AppCompatActivity {
-
-    private final static String TAG = "MainActivity";
 
     private DatePicker datePicker;
     private TimePicker timePicker;
@@ -23,14 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView selectedDateTitleTV;
     private TextView selectedTimeTitleTV;
 
+    private Button button;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ToastUtils.showCustomLongToastNormal(this, "text");
-        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
+//        ToastUtils.showCustomLongToastNormal(this, "text");
+//        ToastUtils.showCustomLongToastWithImageResourceId(this, "image and text", R.mipmap.ic_launcher);
 
         datePicker = (DatePicker)findViewById(R.id.datePicker);
         timePicker = (TimePicker)findViewById(R.id.time_picker);
@@ -98,6 +104,21 @@ public class MainActivity extends AppCompatActivity {
         // 날짜/시간 뷰 초기화
         selectedDateTitleTV.setText(DateUtil.toMonthDateLongWeekDay(now));
         selectedTimeTitleTV.setText(DateUtil.toHourMinute(now));
+
+        button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                createPopupWindowWithView(getApplicationContext(), getLayoutInflater(), R.layout.popup_window_view, 560, 720, Gravity.CENTER, 20, 20, getWindow().getDecorView());
+
+//
+            }
+        });
+
+        createNormalProgressDialogWithoutButton(this, "test", "progress");
+
+
 
     }
 

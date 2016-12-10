@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util;
+package com.swein.framework.tools.util.notification;
 
 import android.app.Notification;
 import android.app.NotificationManager;
