@@ -10,11 +10,13 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.swein.framework.tools.util.debug.SeokHoTest;
+import com.swein.framework.tools.util.other.CountDownTimerTask;
 import com.swein.framework.tools.util.time.DateUtil;
 
 import java.util.Calendar;
 
-import static com.swein.framework.tools.util.dialog.DialogUtils.createNormalProgressDialogWithoutButton;
+import static com.swein.framework.tools.util.other.CountDownTimerTask.countdownTimerTask;
 import static com.swein.framework.tools.util.popup.PopupWindowUtils.createPopupWindowWithView;
 
 
@@ -116,9 +118,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        createNormalProgressDialogWithoutButton(this, "test", "progress");
+//        createNormalProgressDialogWithoutButton(this, "test", "progress");
 
 
+        countdownTimerTask(Calendar.SECOND, 5, new CountDownTimerTask.RunMethod() {
+            @Override
+            public void runMethod() {
+                SeokHoTest.testSeokHo(MainActivity.class.getName(), "run run run??");
+            }
+        });
 
     }
 
