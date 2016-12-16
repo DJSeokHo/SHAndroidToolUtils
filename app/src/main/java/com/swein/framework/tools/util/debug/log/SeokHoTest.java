@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.debug;
+package com.swein.framework.tools.util.debug.log;
 
 import android.util.Log;
 
