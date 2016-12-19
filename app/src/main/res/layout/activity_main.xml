@@ -12,79 +12,10 @@
     tools:context="com.swein.shandroidtoolutils.MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/titleContentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginTop="3dp"
-        android:orientation="horizontal"
-        android:paddingLeft="19dp">
-
-        <TextView
-            android:id="@+id/selectedDateTitleTV"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text=""
-            android:textColor="#444444"
-            android:textSize="9pt"/>
-
-        <TextView
-            android:id="@+id/selectedTimeTitleTV"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text=""
-            android:textColor="#444444"
-            android:textSize="9pt"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="279dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="-20dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:layout_marginTop="-20dp"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_marginLeft="-33dp"
-            android:layout_marginRight="-60dp"
-            android:calendarTextColor="#7a7a7a"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
-            android:scaleX="0.8"
-            android:scaleY="0.8"/>
-
-
-        <TimePicker
-            android:id="@+id/time_picker"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="0dp"
-            android:numbersTextColor="#7a7a7a"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:timePickerMode="spinner"
-            />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="button"
-        />
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>
