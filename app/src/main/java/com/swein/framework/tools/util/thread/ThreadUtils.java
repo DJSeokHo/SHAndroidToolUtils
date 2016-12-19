@@ -1,8 +1,7 @@
 package com.swein.framework.tools.util.thread;
 
 import android.os.Handler;
-
-import com.swein.framework.tools.util.debug.log.SeokHoTest;
+import android.os.Looper;
 
 /**
  * Created by seokho on 19/12/2016.
@@ -12,33 +11,26 @@ public class ThreadUtils {
 
     private final static String TAG = "ThreadUtils";
 
-    public static void createThreadWithoutUI(final Runnable runnable) {
+    private static Handler handle = new Handler( Looper.getMainLooper() );
+
+    public static void createThreadWithoutUI(int delayMillis, final Runnable runnable) {
 
         new Thread(){
             public void run(){
 
-                for(int i = 0; i < 10000; i++) {
-
-                    runnable.run();
-
-                }
+                runnable.run();
 
             }
         }.start();
     }
 
-    public static void createThreadWithUI(final Runnable runnable) {
-
-        final Handler handler = new Handler();
+    public static void createThreadWithUI(final int delayMillis, final Runnable runnable) {
 
         new Thread(){
             public void run(){
 
-                for(int i = 0; i < 10000; i++) {
+                handle.postDelayed( runnable , delayMillis );
 
-                    handler.post(runnable);
-
-                }
             }
         }.start();
     }
