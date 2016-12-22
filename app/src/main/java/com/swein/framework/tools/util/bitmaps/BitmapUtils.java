@@ -3,6 +3,7 @@ package com.swein.framework.tools.util.bitmaps;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
@@ -27,6 +28,16 @@ public class BitmapUtils {
         bitmap = BitmapFactory.decodeFile(path);
 
         return bitmap;
+    }
+
+
+    public static byte[] bitmapToByte(Bitmap bitmap) {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bitmapByte = byteArrayOutputStream.toByteArray();
+
+        return bitmapByte;
     }
 
 }
