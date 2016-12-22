@@ -1,5 +1,8 @@
 package com.swein.framework.tools.util.files;
 
+import android.net.Uri;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -138,6 +141,10 @@ public class FileIOUtils {
             inputChannel.close();
             outputChannel.close();
         }
+    }
+
+    private Uri getUriFromFile(File file) {
+        return Uri.fromFile(file);
     }
 
 }
