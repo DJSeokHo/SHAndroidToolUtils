@@ -2,8 +2,6 @@ package com.swein.framework.tools.util.other;
 
 import android.os.Handler;
 
-import com.swein.framework.tools.util.debug.log.SeokHoTest;
-
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
