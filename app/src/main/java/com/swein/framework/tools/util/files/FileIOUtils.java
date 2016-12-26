@@ -1,10 +1,13 @@
 package com.swein.framework.tools.util.files;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,6 +52,41 @@ public class FileIOUtils {
         DirectoryCopy(fromPath, toPath);
     }
 
+    /**
+     * file to byte
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static byte[] getByte(File file) throws Exception
+    {
+        byte[] bytes = null;
+        if(file!=null)
+        {
+            InputStream is = new FileInputStream(file);
+            int length = (int) file.length();
+            if(length > Integer.MAX_VALUE)
+            {
+                Log.e(FileIOUtils.class.getName(), "this file is max");
+                return null;
+            }
+            bytes = new byte[length];
+            int offset = 0;
+            int numRead = 0;
+            while(offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0)
+            {
+                offset += numRead;
+            }
+
+            if(offset < bytes.length)
+            {
+                Log.d(FileIOUtils.class.getName(), "file length is error");
+                return null;
+            }
+            is.close();
+        }
+        return bytes;
+    }
 
     /**
      * function A
@@ -56,7 +94,7 @@ public class FileIOUtils {
      * @param toPath
      * @return
      */
-    private static int DirectoryCopy(String fromPath, String toPath) {
+    public static int DirectoryCopy(String fromPath, String toPath) {
         //target dir
         File[] currentFiles;
         File root = new File(fromPath);
@@ -102,7 +140,7 @@ public class FileIOUtils {
      * @param toPath
      * @return
      */
-    private static int copySdcardFile(String fromPath, String toPath)
+    public static int copySdcardFile(String fromPath, String toPath)
     {
 
         try {
@@ -129,7 +167,7 @@ public class FileIOUtils {
         }
     }
 
-    private void copyFileUsingFileChannels(File source, File dest)
+    public void copyFileUsingFileChannels(File source, File dest)
             throws IOException {
         FileChannel inputChannel = null;
         FileChannel outputChannel = null;
@@ -143,8 +181,68 @@ public class FileIOUtils {
         }
     }
 
-    private Uri getUriFromFile(File file) {
+    public Uri getUriFromFile(File file) {
         return Uri.fromFile(file);
     }
+
+
+
+    public static void copyFileToUriUsingFileChannels(Context context, File source, Uri dest)
+            throws IOException {
+
+        FileDescriptor outputFileDescriptor = context.getContentResolver().openFileDescriptor(dest, "w").getFileDescriptor();
+
+        FileChannel inputChannel = null;
+        FileChannel outputChannel = null;
+        try {
+            inputChannel = new FileInputStream(source).getChannel();
+            outputChannel = new FileOutputStream(outputFileDescriptor).getChannel();
+
+            outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+
+        } finally {
+            inputChannel.close();
+            outputChannel.close();
+        }
+    }
+
+
+
+    public static void copyUriToUriUsingFileChannels(Context context, Uri source, Uri dest)
+            throws IOException {
+
+        FileDescriptor inputFileDescriptor = context.getContentResolver().openFileDescriptor(dest, "r").getFileDescriptor();
+        FileDescriptor outputFileDescriptor = context.getContentResolver().openFileDescriptor(dest, "w").getFileDescriptor();
+
+        FileChannel inputChannel = null;
+        FileChannel outputChannel = null;
+        try {
+            inputChannel = new FileInputStream(inputFileDescriptor).getChannel();
+            outputChannel = new FileOutputStream(outputFileDescriptor).getChannel();
+
+            outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+
+        } finally {
+            inputChannel.close();
+            outputChannel.close();
+        }
+    }
+
+
+    public static FileDescriptor UriFromFileToFileDescriptor(Context context, File file) {
+
+        FileDescriptor fileDescriptor = null;
+
+        try {
+            fileDescriptor = context.getContentResolver().openFileDescriptor(Uri.fromFile(file), "r").getFileDescriptor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return fileDescriptor;
+    }
+
+
 
 }
