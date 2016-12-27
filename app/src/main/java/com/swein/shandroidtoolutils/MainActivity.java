@@ -18,11 +18,22 @@ import android.widget.TextView;
 
 import com.swein.framework.sfa.SAF;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.handler.HandlerUtils;
+import com.swein.framework.tools.util.json.JSonUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -40,10 +51,27 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
 
-//        startActivityForResult(SAF.getPerformFileSearchIntent(SAF.MIME_TYPE_ALL_FILE_ALL_TYPE), SAF.SAF_READ_REQUEST_CODE);
+        final JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray.put(new JSONObject().put("one", "1"));
+            jsonArray.put(new JSONObject().put("two", "2"));
+            jsonArray.put(new JSONObject().put("three", "3"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-//        startActivityForResult(SAF.getCreateFileIntent(SAF.MIME_TYPE_ALL_FILE_ALL_TYPE, "seokho.txt"), SAF.SAF_WRITE_REQUEST_CODE);
+        HandlerUtils.runHandlerMethodWithMessage(42, new Runnable() {
+            @Override
+            public void run() {
+                String string = JSonUtils.jsonStringToJSonString(jsonArray);
+                textView.setText(string);
 
+                Map map = JSonUtils.jsonStringToMap(string);
+
+                ILog.iLogDebug(MainActivity.this, map.get("one").toString());
+
+            }
+        });
 
     }
 
