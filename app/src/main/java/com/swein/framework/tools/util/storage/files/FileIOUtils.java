@@ -1,9 +1,10 @@
-package com.swein.framework.tools.util.files;
+package com.swein.framework.tools.util.storage.files;
 
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -50,6 +51,29 @@ public class FileIOUtils {
      */
     public static void DirectoryFileCopy(String fromPath, String toPath) {
         DirectoryCopy(fromPath, toPath);
+    }
+
+    private static byte[] getByte(Context context, Uri uri) throws Exception
+    {
+
+        byte[] buf;
+        byte[] videoBytes = null;
+
+        if(uri != null)
+        {
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            FileInputStream fis = getFileInputStream(context, uri);
+
+            buf = new byte[1024];
+            int n;
+            while (-1 != (n = fis.read(buf))) {
+                byteArrayOutputStream.write(buf, 0, n);
+            }
+
+            videoBytes = byteArrayOutputStream.toByteArray();
+        }
+        return videoBytes;
     }
 
     /**
@@ -243,6 +267,23 @@ public class FileIOUtils {
         return fileDescriptor;
     }
 
+    private static FileOutputStream getFileOutputStream(Context context, Uri uri) {
+        try {
+            return new FileOutputStream(context.getContentResolver().openFileDescriptor( uri, "w").getFileDescriptor());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static FileInputStream getFileInputStream(Context context, Uri uri) {
+        try {
+            return new FileInputStream(context.getContentResolver().openFileDescriptor( uri, "r").getFileDescriptor());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

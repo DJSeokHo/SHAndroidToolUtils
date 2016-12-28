@@ -26,7 +26,17 @@ public class ILog {
         Log.d(HEAD + context.getPackageName() + TAG, String.valueOf(l));
     }
 
+    public static void iLogDebug(String className, String string) {
+        Log.d(HEAD + className + TAG, string);
+    }
 
+    public static void iLogDebug(String className, int i) {
+        Log.d(HEAD + className + TAG, String.valueOf(i));
+    }
+
+    public static void iLogDebug(String className, long l) {
+        Log.d(HEAD + className + TAG, String.valueOf(l));
+    }
 
     //exception
     public static void iLogException(Context context, String string) {
