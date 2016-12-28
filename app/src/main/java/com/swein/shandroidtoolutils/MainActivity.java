@@ -1,22 +1,17 @@
 package com.swein.shandroidtoolutils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
-import android.provider.DocumentsContract;
-import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.swein.framework.sfa.SAF;
+import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.handler.HandlerUtils;
 import com.swein.framework.tools.util.json.JSonUtils;
@@ -25,14 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
@@ -42,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private ImageView imageView;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
+        button = (Button) findViewById(R.id.button);
 
         final JSONArray jsonArray = new JSONArray();
         try {
@@ -72,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, NewActivity.class);
+            }
+        });
+
 
     }
 
