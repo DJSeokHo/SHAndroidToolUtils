@@ -1,4 +1,4 @@
-package com.swein.storage.singleton.item;
+package com.swein.data.singleton.item;
 
 /**
  * Created by seokho on 16/11/2016.

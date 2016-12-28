@@ -1,4 +1,4 @@
-package com.swein.storage.preferences.example;
+package com.swein.data.preferences.example;
 
 import android.app.Activity;
 import android.content.Context;

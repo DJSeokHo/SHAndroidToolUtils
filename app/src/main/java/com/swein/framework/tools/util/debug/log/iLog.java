@@ -26,6 +26,10 @@ public class ILog {
         Log.d(HEAD + context.getPackageName() + TAG, String.valueOf(l));
     }
 
+    public static void iLogDebug(Context context, boolean b) {
+        Log.d(HEAD + context.getPackageName() + TAG, String.valueOf(b));
+    }
+
     public static void iLogDebug(String className, String string) {
         Log.d(HEAD + className + TAG, string);
     }
@@ -36,6 +40,10 @@ public class ILog {
 
     public static void iLogDebug(String className, long l) {
         Log.d(HEAD + className + TAG, String.valueOf(l));
+    }
+
+    public static void iLogDebug(String className, boolean b) {
+        Log.d(HEAD + className + TAG, String.valueOf(b));
     }
 
     //exception

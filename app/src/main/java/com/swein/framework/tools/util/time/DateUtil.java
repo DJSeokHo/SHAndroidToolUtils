@@ -58,47 +58,6 @@ public class DateUtil
         return calendar;
     }
 
-//    public static void fromApiFormat(String str, ApiDateTime dateTime) {
-//        dateTime.year = Integer.parseInt(str.substring(0, 4));
-//        dateTime.month = Integer.parseInt(str.substring(4, 6))-1;
-//        dateTime.date = Integer.parseInt(str.substring(6, 8));
-//        dateTime.hour = Integer.parseInt(str.substring(8, 10));
-//        dateTime.minute = Integer.parseInt(str.substring(10, 12));
-//    }
-//
-//    public static Calendar fromApiDateTime(ApiDateTime dateTime) {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.clear();
-//        calendar.set(dateTime.year, dateTime.month, dateTime.date, dateTime.hour, dateTime.minute);
-//
-//        return calendar;
-//    }
-
-//    public static String toYearMonthDateLongWeekDayHourMinute(DateTimePickerViewHolder holder) {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.clear();
-//        calendar.set(holder.datePicker.getYear(), holder.datePicker.getMonth(), holder.datePicker.getDayOfMonth(), 1, 1, 1);
-//
-//        if (Build.VERSION.SDK_INT < 23) {
-//            return String.format("%04d.%02d.%02d(%s) %2d:%02d"
-//                    , holder.datePicker.getYear()
-//                    , holder.datePicker.getMonth() + 1
-//                    , holder.datePicker.getDayOfMonth()
-//                    , calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.KOREA)
-//                    , holder.timePicker.getCurrentHour()
-//                    , holder.timePicker.getCurrentMinute() * 10);
-//        }
-//        else{
-//            return String.format("%04d.%02d.%02d(%s) %2d:%02d"
-//                    , holder.datePicker.getYear()
-//                    , holder.datePicker.getMonth() + 1
-//                    , holder.datePicker.getDayOfMonth()
-//                    , calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.KOREA)
-//                    , holder.timePicker.getHour()
-//                    , holder.timePicker.getMinute() * 10);
-//        }
-//    }
-
     public static String toYearMonthDateLongWeekDayHourMinute(Calendar calendar) {
 
         return String.format("%04d.%02d.%02d(%s) %2d:%02d"
@@ -110,17 +69,6 @@ public class DateUtil
                 , calendar.get(Calendar.MINUTE));
     }
 
-//    public static String toMonthDateLongWeekDay(DateTimePickerViewHolder holder) {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.clear();
-//        calendar.set(holder.datePicker.getYear(), holder.datePicker.getMonth(), holder.datePicker.getDayOfMonth(), 1, 1, 1);
-//
-//        return String.format("%02d/%02d(%s)"
-//                , holder.datePicker.getMonth() + 1
-//                , holder.datePicker.getDayOfMonth()
-//                , calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.KOREA));
-//    }
-
     public static String toMonthDateLongWeekDay(Calendar calendar) {
 
         return String.format("%02d/%02d(%s)"
@@ -129,33 +77,12 @@ public class DateUtil
                 , calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.KOREA));
     }
 
-//    public static String toMonthDate(DateTimePickerViewHolder holder) {
-//
-//        return String.format("%02d/%02d"
-//                , holder.datePicker.getMonth() + 1
-//                , holder.datePicker.getDayOfMonth());
-//    }
-
     public static String toMonthDate(Calendar calendar) {
 
         return String.format("%02d/%02d"
                 , calendar.get(Calendar.MONTH) + 1
                 , calendar.get(Calendar.DAY_OF_MONTH));
     }
-
-//    public static String toHourMinute(DateTimePickerViewHolder holder) {
-//
-//        if (Build.VERSION.SDK_INT < 23) {
-//            return String.format("%02d:%02d"
-//                    , holder.timePicker.getCurrentHour()
-//                    , holder.timePicker.getCurrentMinute() * 10);
-//        }
-//        else{
-//            return String.format("%02d:%02d"
-//                    , holder.timePicker.getHour()
-//                    , holder.timePicker.getMinute() * 10);
-//        }
-//    }
 
     public static String toHourMinute(Calendar calendar) {
 
@@ -194,49 +121,6 @@ public class DateUtil
 
         return ret;
     }
-
-//    public static String toDisplayDifferenceBigDecimal(Calendar calendarFrom, Calendar calendarTo)
-//    {
-//        Log.d(TAG, "toDisplayDifference("+calendarFrom+", "+calendarTo+"):");
-//
-//        Calendar calendar1 = (Calendar) calendarFrom.clone();
-//        Calendar calendar2 = (Calendar) calendarTo.clone();
-//
-//        // 초 제거
-//        calendar1.clear(Calendar.SECOND);
-//        calendar2.clear(Calendar.SECOND);
-//
-//        // 밀리초 제거
-//        calendar1.clear(Calendar.MILLISECOND);
-//        calendar2.clear(Calendar.MILLISECOND);
-//
-//        long calMillis_two;
-//        long calMillis_one;
-//        long stamp = 0;
-//        String ret = "";
-//
-//        calMillis_two = calendar2.getTimeInMillis();
-//        calMillis_one = calendar1.getTimeInMillis();
-//
-//
-//        try {
-//            stamp = Arith.div(Math.abs(Arith.sub(calMillis_two, calMillis_one)), 1000, 1);
-//            long nDays = Arith.div(stamp, Arith.mullong(Arith.mulint(60, 60), 24), 1);
-//            long nHours = Arith.div(stamp, Arith.mullong(60, 60), 1) % 24;
-//            long nMinutes = Arith.div(stamp, 60, 1) % 60;
-//
-//            Log.d("seokho ", nDays + " " + nHours + " " + nMinutes);
-//
-//            ret = (nDays > 0 ? nDays + "일 " : "");
-//            ret += (nHours > 0 ? nHours + "시 " : "");
-//            ret += (nMinutes > 0 ? nMinutes + "분" : "0분");
-//
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ret;
-//    }
 
     public static Long TimeStringToTimeStamp(String string) {
 
@@ -283,27 +167,27 @@ public class DateUtil
 
     }
 
-    public String getCurrentYear() {
+    public static String getCurrentYear() {
         return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
     }
 
-    public String getCurrentMonth() {
+    public static String getCurrentMonth() {
         return String.valueOf(Calendar.getInstance().get(Calendar.MONTH));
     }
 
-    public String getCurrentDayOfMonth() {
+    public static String getCurrentDayOfMonth() {
         return String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
     }
 
-    public String getCurrentHour() {
+    public static String getCurrentHour() {
         return String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
     }
 
-    public String getCurrentMinute() {
+    public static String getCurrentMinute() {
         return String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     }
 
-    public String getCurrentSecond() {
+    public static String getCurrentSecond() {
         return String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
     }
 
