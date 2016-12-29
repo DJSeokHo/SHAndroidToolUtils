@@ -10,6 +10,8 @@ import android.content.Intent;
 
 public class ActivityUtils {
 
+
+
     public static void startNewActivityWithoutFinish(Context packageContext, Class<?> cls) {
         Intent intent = new Intent(packageContext, cls);
         packageContext.startActivity(intent);
@@ -20,5 +22,7 @@ public class ActivityUtils {
         packageContext.startActivity(intent);
         ((Activity) packageContext).finish();
     }
+
+
 
 }
