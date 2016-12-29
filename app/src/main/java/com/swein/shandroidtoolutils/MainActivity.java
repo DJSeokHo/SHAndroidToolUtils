@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        HandlerUtils.runHandlerMethodWithMessage(42, new Runnable() {
+        HandlerUtils.getInstance().runHandlerMethodWithMessage(42, new Runnable() {
             @Override
             public void run() {
                 String string = JSonUtils.jsonStringToJSonString(jsonArray);
@@ -58,9 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 Map map = JSonUtils.jsonStringToMap(string);
 
                 ILog.iLogDebug(MainActivity.this, map.get("one").toString());
-
             }
         });
+
+        HandlerUtils.getInstance().handlerSendMessage(42);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -63,4 +63,8 @@ public class ILog {
         Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(b));
     }
 
+    public static void iLogException(String className, String string) {
+        Log.i(HEAD + className + TAG, string);
+    }
+
 }
