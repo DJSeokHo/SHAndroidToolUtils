@@ -10,7 +10,7 @@ import android.util.Log;
 public class ILog {
 
     private static String HEAD = "[- ILog Print -] ";
-    private static String TAG = " ||=============>> ";
+    private static String TAG = " ||===> ";
 
 
     //debug
@@ -57,6 +57,10 @@ public class ILog {
 
     public static void iLogException(Context context, long l) {
         Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(l));
+    }
+
+    public static void iLogException(Context context, boolean b) {
+        Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(b));
     }
 
 }
