@@ -22,9 +22,6 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-import static android.app.PendingIntent.getActivity;
-
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        HandlerUtils.getInstance().runHandlerMethodWithMessage(42, new Runnable() {
+        HandlerUtils.getInstance().runHandlerMethodWithMessage(HandlerUtils.UPDATE_BUTTON, new Runnable() {
             @Override
             public void run() {
                 String string = JSonUtils.jsonStringToJSonString(jsonArray);
@@ -61,7 +58,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        HandlerUtils.getInstance().handlerSendMessage(42);
+        HandlerUtils.getInstance().runHandlerMethodWithMessage(HandlerUtils.UPDATE_EDITTEXT_STATE, new Runnable() {
+            @Override
+            public void run() {
+                String string = JSonUtils.jsonStringToJSonString(jsonArray);
+                textView.setText(string);
+
+                Map map = JSonUtils.jsonStringToMap(string);
+
+                ILog.iLogDebug(MainActivity.this, map.get("one").toString());
+            }
+        });
+
+        HandlerUtils.getInstance().runHandlerMethodWithMessage(HandlerUtils.UPDATE_IMAGE_VIEW, new Runnable() {
+            @Override
+            public void run() {
+                String string = JSonUtils.jsonStringToJSonString(jsonArray);
+                textView.setText(string);
+
+                Map map = JSonUtils.jsonStringToMap(string);
+
+                ILog.iLogDebug(MainActivity.this, map.get("one").toString());
+            }
+        });
+
+        HandlerUtils.getInstance().runHandlerMethodWithMessage(HandlerUtils.UPDATE_TEXT_VIEW, new Runnable() {
+            @Override
+            public void run() {
+                String string = JSonUtils.jsonStringToJSonString(jsonArray);
+                textView.setText(string);
+
+                Map map = JSonUtils.jsonStringToMap(string);
+
+                ILog.iLogDebug(MainActivity.this, map.get("one").toString());
+            }
+        });
+
+        HandlerUtils.getInstance().handlerSendMessage(HandlerUtils.UPDATE_IMAGE_VIEW);
+
+        HandlerUtils.getInstance().showHandlerMessageList();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,4 +149,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
