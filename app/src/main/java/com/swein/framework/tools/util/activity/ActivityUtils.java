@@ -30,9 +30,7 @@ public class ActivityUtils {
     public static void startNewActivityWithoutFinishWithBundleData(Context packageContext, Class<?> cls, BundleData bundleData) {
         Intent intent = new Intent(packageContext, cls);
         intent.putExtras(bundleData.getBundle());
-        ILog.iLogException(ActivityUtils.class.getName(), bundleData.getBundle().getString(KeyData.BUNDLE_STRING_KEY));
         packageContext.startActivity(intent);
-
     }
 
     public static void startNewActivityWithFinishWithBundleData(Context packageContext, Class<?> cls, BundleData bundleData) {
