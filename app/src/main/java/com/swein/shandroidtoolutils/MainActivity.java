@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         ILog.iLogDebug(MainActivity.this, map.get("one").toString());
                     }
                 });
-                HandlerUtils.handlerSendMessage();
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, NewActivity.class);
+
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, NewActivity.class);
             }
         });
 

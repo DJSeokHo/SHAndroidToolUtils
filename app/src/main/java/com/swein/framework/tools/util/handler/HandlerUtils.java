@@ -86,10 +86,12 @@ public class HandlerUtils {
             return;
         }
 
-        new Timer().schedule(new TimerTask() {
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.sendEmptyMessage(message);
+                timer.cancel();
             }
         }, delay, period);
 
