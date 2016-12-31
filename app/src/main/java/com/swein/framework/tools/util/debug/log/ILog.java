@@ -57,31 +57,31 @@ public class ILog {
 
     //exception
     public static void iLogException(Context context, String string) {
-        Log.i(HEAD + context.getPackageName() + TAG, string);
+        Log.e(HEAD + context.getPackageName() + TAG, string);
     }
 
     public static void iLogException(Context context, int i) {
-        Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(i));
+        Log.e(HEAD + context.getPackageName() + TAG, String.valueOf(i));
     }
 
     public static void iLogException(Context context, long l) {
-        Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(l));
+        Log.e(HEAD + context.getPackageName() + TAG, String.valueOf(l));
     }
 
     public static void iLogException(Context context, boolean b) {
-        Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(b));
+        Log.e(HEAD + context.getPackageName() + TAG, String.valueOf(b));
     }
 
     public static void iLogException(Context context, Uri uri) {
-        Log.i(HEAD + context.getPackageName() + TAG, String.valueOf(uri));
+        Log.e(HEAD + context.getPackageName() + TAG, String.valueOf(uri));
     }
 
     public static void iLogException(String className, String string) {
-        Log.i(HEAD + className + TAG, string);
+        Log.e(HEAD + className + TAG, string);
     }
 
     public static void iLogException(String className, Uri uri) {
-        Log.i(HEAD + className + TAG, String.valueOf(uri));
+        Log.e(HEAD + className + TAG, String.valueOf(uri));
     }
 
 }

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.swein.data.bundle.BundleData;
+import com.swein.data.singleton.key.KeyData;
 import com.swein.framework.sfa.SAF;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -89,52 +91,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, NewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(KeyData.BUNDLE_TRANSMIT_STRING_VALUE, "Hello, Bundle");
+                BundleData bundleData = new BundleData(bundle);
+
+                ActivityUtils.startNewActivityWithoutFinishWithBundleData(MainActivity.this, NewActivity.class, bundleData);
             }
         });
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        if (requestCode == SAF.SAF_READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-
-            Uri uri = null;
-            if (data != null) {
-                uri = data.getData();
-
-                ILog.iLogDebug(this, "Uri: " + uri.toString());
-
-                SAF.dumpUriFileMetaData(this, uri);
-
-            }
-        }
-        else if (requestCode == SAF.SAF_WRITE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri = null;
-            if (data != null) {
-                uri = data.getData();
-
-                ILog.iLogDebug(this, "Uri: " + uri.toString());
-
-                SAF.dumpUriFileMetaData(this, uri);
-
-                startActivityForResult(SAF.getEditDocumentIntent(SAF.MIME_TYPE_TEXT_FILE_TXT_TYPE), SAF.SAF_EDIT_REQUEST_CODE);
-
-            }
-        }
-        else if (requestCode == SAF.SAF_EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri = null;
-            if (data != null) {
-                uri = data.getData();
-
-                SAF.alterDocument(this, uri, "lsj");
-
-            }
-
-        }
     }
 
     @Override
