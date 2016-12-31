@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.swein.data.bundle.BundleData;
 import com.swein.data.singleton.key.KeyData;
+import com.swein.data.singleton.request.RequestData;
 import com.swein.framework.sfa.SAF;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -79,25 +80,43 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HandlerUtils.createHandlerMethodWithMessage(new Runnable() {
-                    @Override
-                    public void run() {
-                        String string = JSonUtils.jsonStringToJSonString(jsonArray);
-                        textViewSub.setText(string);
-
-                        Map map = JSonUtils.jsonStringToMap(string);
-
-                        ILog.iLogDebug(MainActivity.this, map.get("one").toString());
-                    }
-                });
-
+//                HandlerUtils.createHandlerMethodWithMessage(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        String string = JSonUtils.jsonStringToJSonString(jsonArray);
+//                        textViewSub.setText(string);
+//
+//                        Map map = JSonUtils.jsonStringToMap(string);
+//
+//                        ILog.iLogDebug(MainActivity.this, map.get("one").toString());
+//                    }
+//                });
+//                HandlerUtils.handlerSendMessageDelay(3000, 1);
                 Bundle bundle = new Bundle();
                 bundle.putString(KeyData.BUNDLE_TRANSMIT_STRING_VALUE, "Hello, Bundle");
                 BundleData bundleData = new BundleData(bundle);
 
-                ActivityUtils.startNewActivityWithoutFinishWithBundleData(MainActivity.this, NewActivity.class, bundleData);
+//                ActivityUtils.startNewActivityWithoutFinishWithBundleData(MainActivity.this, NewActivity.class, bundleData);
+                ActivityUtils.startNewActivityWithoutFinishForResult(MainActivity.this, NewActivity.class, RequestData.ACTIVITY_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        final String string = ActivityUtils.getActivityResultString(requestCode, resultCode, data);
+
+        HandlerUtils.createHandlerMethodWithMessage(new Runnable() {
+            @Override
+            public void run() {
+
+                textViewSub.setText(string);
+
+            }
+        });
+
+        HandlerUtils.handlerSendMessage();
     }
 
     @Override

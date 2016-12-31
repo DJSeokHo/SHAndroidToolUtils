@@ -15,5 +15,6 @@ public class KeyData {
     }
 
     public final static String BUNDLE_TRANSMIT_STRING_VALUE = "BUNDLE_TRANSMIT_STRING_VALUE";
+    public final static String ACTIVITY_RESULT_STRING_VALUE = "ACTIVITY_RESULT_STRING_VALUE";
 
 }
