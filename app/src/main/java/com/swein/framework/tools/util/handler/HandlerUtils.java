@@ -5,11 +5,17 @@ import android.os.Message;
 
 import com.swein.data.singleton.example.ExampleSingtonClass;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.random.RandomNumberUtils;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,95 +25,66 @@ import java.util.TimerTask;
 
 public class HandlerUtils {
 
+    private static Handler handler = null;
 
-    public final static String UPDATE_BUTTON = "UPDATE_BUTTON";
-    public final static String UPDATE_IMAGE_VIEW = "UPDATE_IMAGE_VIEW";
-    public final static String UPDATE_TEXT_VIEW = "UPDATE_TEXT_VIEW";
-    public final static String UPDATE_EDITTEXT_STATE = "UPDATE_EDITTEXT_STATE";
+    private static int message = -1;
 
-    private Handler handler = null;
-    private final static int HANDLER_MESSAGE_OFFSET = 100;
+    private static void createHandlerMessage() {
 
-    private List<Integer> handlerMessageList = new ArrayList<>();
-    private List<String> keyList = new ArrayList<>();
-
-    private HandlerUtils() {}
-
-    private static HandlerUtils instance = new HandlerUtils();
-
-    public static HandlerUtils getInstance() {
-        return instance;
-    }
-
-    public void addMessageIntoHandlerMessageList(String key) {
-
-        keyList.add(key);
-        handlerMessageList.add(keyList.indexOf(key) + HANDLER_MESSAGE_OFFSET);
-        ILog.iLogDebug(HandlerUtils.class.getName(), keyList.size() + " " + handlerMessageList.size());
-        for(int i = 0; i < keyList.size(); i++) {
-            ILog.iLogDebug(HandlerUtils.class.getName(), keyList.get(i) + " " + handlerMessageList.get(i) + " " + keyList.indexOf(keyList.get(i)));
+        if(-1 != message) {
+            ILog.iLogDebug(HandlerUtils.class.getName(), "Already created a message " + message);
+            return;
         }
+        message = RandomNumberUtils.getRandomIntegerNumber(100, 200);
+
     }
 
-    public int getHandlerMessageFromHandlerMessageList(String key) {
-        return handlerMessageList.get(keyList.indexOf(key));
-    }
+    private static int getCreatedHandlerMessage() {
 
-    public void removeHandlerMessageFromHandlerMessageList(String key) {
-
-        handlerMessageList.remove(keyList.indexOf(key));
-        keyList.remove(key);
-
-        ILog.iLogDebug(HandlerUtils.class.getName(), keyList.size() + " " + handlerMessageList.size());
-        for(int i = 0; i < keyList.size(); i++) {
-            ILog.iLogDebug(HandlerUtils.class.getName(), keyList.get(i) + " " + handlerMessageList.get(i) + " " + keyList.indexOf(keyList.get(i)));
+        if(-1 != message) {
+            return message;
         }
 
+        return -1;
     }
 
-    public void showHandlerMessageList() {
-        ILog.iLogDebug(HandlerUtils.class.getName(), keyList.size() + " " + handlerMessageList.size());
-        for(int i = 0; i < keyList.size(); i++) {
-            ILog.iLogDebug(HandlerUtils.class.getName(), keyList.get(i) + " " + handlerMessageList.get(i) + " " + keyList.indexOf(keyList.get(i)));
+    public static void createHandlerMethodWithMessage(final Runnable runnable) {
+
+        if(null != handler) {
+            return;
         }
-    }
 
-    public void clearHandlerMessageList() {
-
-        keyList.clear();
-        handlerMessageList.clear();
-
-    }
-
-    public void runHandlerMethodWithMessage(final String key, final Runnable runnable) {
-
-        addMessageIntoHandlerMessageList(key);
+        createHandlerMessage();
 
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                ILog.iLogDebug(HandlerUtils.class.getName(), msg.what + " " + getHandlerMessageFromHandlerMessageList(key));
-                if(msg.what == getHandlerMessageFromHandlerMessageList(key)) {
+
+                if(msg.what == getCreatedHandlerMessage()) {
                     runnable.run();
-                    clearHandler();
-                    removeHandlerMessageFromHandlerMessageList(key);
+                    clearHandlerMessage();
                 }
             }
         };
     }
 
-    public void handlerSendMessage(final String key) {
+    public static void handlerSendMessage() {
 
         if(null == handler) {
             ILog.iLogException(HandlerUtils.class.getName(), "try runHandlerMethodWithMessage first");
             return;
         }
 
-        handler.sendEmptyMessage(getHandlerMessageFromHandlerMessageList(key));
+        handler.sendEmptyMessage(getCreatedHandlerMessage());
 
     }
 
-    public void handlerSendMessageDelay(final int message, long delay, long period) {
+    public static void handlerSendMessageDelay(long delay, long period) {
+
+        if(null == handler) {
+            ILog.iLogException(HandlerUtils.class.getName(), "try runHandlerMethodWithMessage first");
+            return;
+        }
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -118,8 +95,9 @@ public class HandlerUtils {
 
     }
 
-    private void clearHandler() {
+    private static void clearHandlerMessage() {
         handler = null;
+        message = -1;
     }
 
 }

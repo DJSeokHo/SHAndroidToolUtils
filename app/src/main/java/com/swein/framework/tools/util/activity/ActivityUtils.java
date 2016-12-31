@@ -15,6 +15,7 @@ public class ActivityUtils {
     public static void startNewActivityWithoutFinish(Context packageContext, Class<?> cls) {
         Intent intent = new Intent(packageContext, cls);
         packageContext.startActivity(intent);
+
     }
 
     public static void startNewActivityWithFinish(Context packageContext, Class<?> cls) {
