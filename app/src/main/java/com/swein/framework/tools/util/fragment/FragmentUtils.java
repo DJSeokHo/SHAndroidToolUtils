@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +46,34 @@ public class FragmentUtils {
         bundle = fragment.getArguments();
         if(null == bundle) {
             ILog.iLogException(FragmentUtils.class.getName(), "Bundle is null");
-            return null;
+            return "Error: Bundle is null";
         }
         return bundle.getString(key);
+    }
+
+    public void replaceFragmentv4CommitWithAddToBackStack(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId) {
+
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+
+        fragmentTransaction.replace(containerViewId, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+    public void replaceFragmentv4CommitWithBundleWithAddToBackStack(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
+
+        if(null == bundle) {
+            Log.e(FragmentUtils.class.getName(), "Input bundle first");
+            return;
+        }
+
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+
+        fragmentTransaction.replace(containerViewId, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 }
