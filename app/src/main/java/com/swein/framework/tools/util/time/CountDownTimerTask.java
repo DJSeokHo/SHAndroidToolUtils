@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.other;
+package com.swein.framework.tools.util.time;
 
 import android.os.Handler;
 
