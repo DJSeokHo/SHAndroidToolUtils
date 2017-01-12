@@ -8,13 +8,32 @@ public class ExampleSingtonClass {
 
     private String string = "";
 
+
+
     private ExampleSingtonClass() {}
 
-    private static ExampleSingtonClass instance = new ExampleSingtonClass();
+    private static ExampleSingtonClass instance = null;
+
+    private static Object obj= new Object();
 
     public static ExampleSingtonClass getInstance() {
+
+        if(null == instance){
+
+            synchronized(ExampleSingtonClass.class){
+
+                if(null == instance){
+
+                    instance = new ExampleSingtonClass();
+
+                }
+            }
+        }
+
         return instance;
     }
+
+
 
     public void setmString(String string) {
         this.string = string;

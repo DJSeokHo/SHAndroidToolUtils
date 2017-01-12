@@ -4,7 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 /**
  * Created by seokho on 17/11/2016.
@@ -156,5 +161,56 @@ public class DialogUtils {
         alertDialog.show();
     }
 
+
+    public static ProgressDialog createProgressDialog(Context context, String msg, boolean cancelAble, boolean canceledOnTouchOutside){
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage(msg);
+        progressDialog.setCancelable(cancelAble);
+        progressDialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+        progressDialog.show();
+        return progressDialog;
+    }
+
+    public static void createCustomListViewDialog(Context context , String title , String positiveBtnTitle , String negativeBtnTitle , ListAdapter listAdapter , final Runnable onPositiveBtnClicked , final Runnable onNegativeBtnClicked , int textColor, int padding) {
+
+        if (textColor == -1) {
+            textColor = Color.WHITE;
+        }
+
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder( context );
+        builderSingle.setIcon( null );
+        builderSingle.setCancelable(false);
+
+        TextView titleTv = new TextView( context );
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.WRAP_CONTENT );
+        titleTv.setPadding( padding , padding , padding , padding );
+        titleTv.setLayoutParams(lp);
+        titleTv.setText(title);
+        titleTv.setTextColor(textColor);
+        titleTv.setTypeface(null, Typeface.BOLD);
+        titleTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+        builderSingle.setCustomTitle(titleTv);
+
+        builderSingle.setNegativeButton(negativeBtnTitle, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (onNegativeBtnClicked != null) onNegativeBtnClicked.run();
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(listAdapter, null);
+        builderSingle.setPositiveButton(positiveBtnTitle, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (onPositiveBtnClicked != null) onPositiveBtnClicked.run();
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.show();
+    }
 
 }
