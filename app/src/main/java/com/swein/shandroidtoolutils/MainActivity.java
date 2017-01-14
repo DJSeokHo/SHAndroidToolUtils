@@ -1,8 +1,6 @@
 package com.swein.shandroidtoolutils;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,11 +11,11 @@ import android.widget.TextView;
 import com.swein.data.bundle.BundleData;
 import com.swein.data.singleton.key.KeyData;
 import com.swein.data.singleton.request.RequestData;
-import com.swein.framework.sfa.SAF;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.handler.HandlerUtils;
 import com.swein.framework.tools.util.json.JSonUtils;
+import com.swein.framework.tools.util.sound.SoundUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +23,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import com.swein.shandroidtoolutils.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 ActivityUtils.startNewActivityWithoutFinishForResult(MainActivity.this, NewActivity.class, RequestData.ACTIVITY_REQUEST_CODE);
             }
         });
+
+        SoundUtils.getInstance().createMediaPlayerWithSoundResource(this, R.raw.sound);
+        SoundUtils.getInstance().playSoundResource();
+
     }
 
     @Override
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        SoundUtils.getInstance().stopPlaySoundResource();
         super.onDestroy();
     }
 }
