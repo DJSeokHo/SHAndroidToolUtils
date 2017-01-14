@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.swein.data.bundle.BundleData;
+import com.swein.data.singleton.DeviceInfo;
 import com.swein.data.singleton.key.KeyData;
 import com.swein.data.singleton.request.RequestData;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.handler.HandlerUtils;
 import com.swein.framework.tools.util.json.JSonUtils;
+import com.swein.framework.tools.util.popup.ToastUtils;
 import com.swein.framework.tools.util.sound.SoundUtils;
 
 import org.json.JSONArray;
@@ -103,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
         SoundUtils.getInstance().createMediaPlayerWithSoundResource(this, R.raw.sound);
         SoundUtils.getInstance().playSoundResource();
 
+        if(DeviceInfoUtils.initDeviceScreenDisplayMetricsPixels(this)) {
+            ToastUtils.showCustomLongToastNormal(this, DeviceInfo.getInstance().deviceScreenWidth + " " + DeviceInfo.getInstance().deviceScreenHeight);
+        }
+
     }
 
     @Override
@@ -120,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         HandlerUtils.handlerSendMessage();
+
     }
 
     @Override
