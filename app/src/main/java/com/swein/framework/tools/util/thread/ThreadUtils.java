@@ -9,10 +9,6 @@ import android.os.Looper;
 
 public class ThreadUtils {
 
-    private final static String TAG = "ThreadUtils";
-
-    private static Handler handle = new Handler( Looper.getMainLooper() );
-
     public static void createThreadWithoutUI(int delayMillis, final Runnable runnable) {
 
         new Thread(){
@@ -26,10 +22,12 @@ public class ThreadUtils {
 
     public static void createThreadWithUI(final int delayMillis, final Runnable runnable) {
 
+        final Handler handle = new Handler(Looper.getMainLooper());
+
         new Thread(){
             public void run(){
 
-                handle.postDelayed( runnable , delayMillis );
+                handle.postDelayed(runnable , delayMillis);
 
             }
         }.start();

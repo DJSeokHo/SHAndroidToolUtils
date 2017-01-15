@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 public class DialogUtils {
 
-    static int progressState = 0;
-
     public static void createNormalDialogWithOneButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 

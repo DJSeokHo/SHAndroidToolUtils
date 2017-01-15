@@ -1,4 +1,4 @@
-package com.swein.data.bundle;
+package com.swein.data.local;
 
 import android.os.Bundle;
 
@@ -23,7 +23,6 @@ public class BundleData<T> {
         this.bundle = bundle;
         this.bundleArrayList = new ArrayList<>();
     }
-
 
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;

@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.swein.data.singleton.key.KeyData;
-import com.swein.data.singleton.request.RequestData;
+import com.swein.data.global.activity.RequestData;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 
 public class NewActivity extends AppCompatActivity {

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
 
-import com.swein.data.singleton.DeviceInfo;
+import com.swein.data.singleton.device.DeviceInfo;
 
 /**
  * Created by seokho on 14/01/2017.

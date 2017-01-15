@@ -8,17 +8,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.swein.data.bundle.BundleData;
-import com.swein.data.singleton.DeviceInfo;
-import com.swein.data.singleton.key.KeyData;
-import com.swein.data.singleton.request.RequestData;
+import com.swein.data.global.activity.RequestData;
+import com.swein.data.global.file.FileStorageData;
+import com.swein.data.local.BundleData;
+import com.swein.data.singleton.device.DeviceInfo;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.handler.HandlerUtils;
 import com.swein.framework.tools.util.json.JSonUtils;
-import com.swein.framework.tools.util.popup.ToastUtils;
 import com.swein.framework.tools.util.sound.SoundUtils;
+import com.swein.framework.tools.util.storage.FileStorageUtils;
+import com.swein.framework.tools.util.toast.ToastUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-import com.swein.shandroidtoolutils.R;
+import static com.swein.data.global.key.BundleDataKey.BUNDLE_TRANSMIT_STRING_VALUE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 //                });
 //                HandlerUtils.handlerSendMessageDelay(3000, 1);
                 Bundle bundle = new Bundle();
-                bundle.putString(KeyData.BUNDLE_TRANSMIT_STRING_VALUE, "Hello, Bundle");
+                bundle.putString(BUNDLE_TRANSMIT_STRING_VALUE, "Hello, Bundle");
                 BundleData bundleData = new BundleData(bundle);
 
 //                ActivityUtils.startNewActivityWithoutFinishWithBundleData(MainActivity.this, NewActivity.class, bundleData);
@@ -109,6 +110,17 @@ public class MainActivity extends AppCompatActivity {
         if(DeviceInfoUtils.initDeviceScreenDisplayMetricsPixels(this)) {
             ToastUtils.showCustomLongToastNormal(this, DeviceInfo.getInstance().deviceScreenWidth + " " + DeviceInfo.getInstance().deviceScreenHeight);
         }
+
+        String fileStorageRootFolderPath = FileStorageUtils.createExternalStorageDirectoryFolder(
+                FileStorageData.FILE_STROAGE_ROOT_FOLDER,
+                FileStorageData.FILE_STORAGE_ROOT_PATH);
+
+        FileStorageUtils.writeExternalStorageDirectoryFileWithContent(
+                fileStorageRootFolderPath,
+                "seokho.txt",
+                "hello, seokho");
+
+        ToastUtils.showLongToastNormal(this, FileStorageUtils.readExternalStorageDirectoryFile(fileStorageRootFolderPath, "seokho.txt"));
 
     }
 

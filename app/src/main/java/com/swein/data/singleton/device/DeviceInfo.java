@@ -1,4 +1,4 @@
-package com.swein.data.singleton;
+package com.swein.data.singleton.device;
 
 /**
  * Created by seokho on 14/01/2017.

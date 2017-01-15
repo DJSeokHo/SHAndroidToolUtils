@@ -1,4 +1,4 @@
-package com.swein.data.singleton.request;
+package com.swein.data.global.activity;
 
 /**
  * Created by seokho on 31/12/2016.

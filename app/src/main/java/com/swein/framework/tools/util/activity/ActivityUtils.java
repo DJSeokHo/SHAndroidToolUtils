@@ -5,11 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.swein.data.bundle.BundleData;
-import com.swein.data.singleton.key.KeyData;
-import com.swein.data.singleton.request.RequestData;
-import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.shandroidtoolutils.MainActivity;
+import com.swein.data.local.BundleData;
+import com.swein.data.global.activity.RequestData;
+
+import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VALUE;
 
 /**
  * Created by seokho on 29/12/2016.
@@ -62,7 +61,7 @@ public class ActivityUtils {
 
     public static void setActivityResultStringWithFinish(Activity activity, String result, int resultCode) {
         Bundle bundle = new Bundle();
-        bundle.putString(KeyData.ACTIVITY_RESULT_STRING_VALUE, result);
+        bundle.putString(ACTIVITY_RESULT_STRING_VALUE, result);
         Intent intent = new Intent();
         intent.putExtras(bundle);
         activity.setResult(resultCode, intent);
@@ -74,7 +73,7 @@ public class ActivityUtils {
         if(RequestData.ACTIVITY_REQUEST_CODE == requestCode && RequestData.ACTIVITY_RESULT_CODE == resultCode) {
             Bundle data = ActivityUtils.getActivityResultBundleDataFromPreActivity(intent);
 
-            String string = (String) data.get(KeyData.ACTIVITY_RESULT_STRING_VALUE);
+            String string = (String) data.get(ACTIVITY_RESULT_STRING_VALUE);
 
             return string;
         }
