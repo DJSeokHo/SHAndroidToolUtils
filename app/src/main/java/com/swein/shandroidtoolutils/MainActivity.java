@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if(null == data) {
+            return;
+        }
+
         final String string = ActivityUtils.getActivityResultString(requestCode, resultCode, data);
 
         HandlerUtils.createHandlerMethodWithMessage(new Runnable() {
