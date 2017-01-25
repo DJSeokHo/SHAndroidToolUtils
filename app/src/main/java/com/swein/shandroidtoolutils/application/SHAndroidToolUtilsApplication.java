@@ -8,7 +8,6 @@ import android.app.Application;
 
 public class SHAndroidToolUtilsApplication extends Application {
 
-    private final static String TAG = "SHAndroidToolUtilsApplication";
 
     @Override
     public void onCreate() {

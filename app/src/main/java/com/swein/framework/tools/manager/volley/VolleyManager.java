@@ -198,6 +198,19 @@ public class VolleyManager {
     }
 
     //Method : GET, POST, PUT, DELETE [step 2]
+    public static String getUrlByRequestMethodSSL(int method, String host, String path, String resourceName) {
+
+        String url = null;
+
+        if (Request.Method.GET == method) {
+            url = PROTOCOL_SCHEME_SSL + host + path + resourceName;
+        } else if (Request.Method.POST == method) {
+            url = PROTOCOL_SCHEME_SSL + host + path + resourceName;
+        }
+        return url;
+    }
+
+    //Method : GET, POST, PUT, DELETE [step 2]
     public static String getUrlByRequestMethod(int method, String host, String path, String resourceName) {
 
         String url = null;
