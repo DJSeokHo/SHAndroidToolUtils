@@ -17,7 +17,8 @@ import android.widget.TextView;
 
 public class DialogUtils {
 
-    public static void createNormalDialogWithOneButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText) {
+    public static void createNormalDialogWithOneButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText,
+                                                       DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         if(title == null || title.length() == 0) {
@@ -35,12 +36,7 @@ public class DialogUtils {
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(cancelAble)
-                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        dialog.dismiss();
-                    }
-                });
+                .setPositiveButton(positiveButtonText, onClickListener);
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -50,7 +46,8 @@ public class DialogUtils {
 
     }
 
-    public static void createNormalDialogWithTwoButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText, String negativeButtonText) {
+    public static void createNormalDialogWithTwoButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText, String negativeButtonText,
+                                                       DialogInterface.OnClickListener positiveButton, DialogInterface.OnClickListener negativeButton) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         if(title == null || title.length() == 0) {
@@ -68,18 +65,8 @@ public class DialogUtils {
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(cancelAble)
-                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                });
-
+                .setPositiveButton(positiveButtonText, positiveButton)
+                .setNegativeButton(negativeButtonText, negativeButton);
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -88,7 +75,8 @@ public class DialogUtils {
         alertDialog.show();
     }
 
-    public static void createNormalDialogWithThreeButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText, String negativeButtonText, String otherButtonText) {
+    public static void createNormalDialogWithThreeButton(Context context, String title, String message, boolean cancelAble, String positiveButtonText, String negativeButtonText, String otherButtonText,
+                                                         DialogInterface.OnClickListener positiveButton, DialogInterface.OnClickListener negativeButton, DialogInterface.OnClickListener neutralButton) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         if(title == null || title.length() == 0) {
@@ -106,22 +94,9 @@ public class DialogUtils {
         alertDialogBuilder
                 .setMessage(message)
                 .setCancelable(cancelAble)
-                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                })
-                .setNeutralButton(otherButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                    }
-                } );
+                .setPositiveButton(positiveButtonText, positiveButton)
+                .setNegativeButton(negativeButtonText, negativeButton)
+                .setNeutralButton(otherButtonText, neutralButton);
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -131,7 +106,9 @@ public class DialogUtils {
     }
 
 
-    public static void createListItemDialogWithTwoButton(final Context context, String title, ListAdapter listAdapter, DialogInterface.OnClickListener onClickListener, boolean cancelAble, String positiveButtonText, String negativeButtonText) {
+    public static void createListItemDialogWithTwoButton(final Context context, String title, ListAdapter listAdapter, DialogInterface.OnClickListener adapter,
+                                                         boolean cancelAble, String positiveButtonText, String negativeButtonText,
+                                                         DialogInterface.OnClickListener positiveButton, DialogInterface.OnClickListener negativeButton) {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -139,18 +116,9 @@ public class DialogUtils {
 
         alertDialogBuilder
                 .setCancelable(cancelAble)
-                .setAdapter(listAdapter, onClickListener)
-                .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setAdapter(listAdapter, adapter)
+                .setPositiveButton(positiveButtonText, positiveButton)
+                .setNegativeButton(negativeButtonText, negativeButton);
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -169,7 +137,8 @@ public class DialogUtils {
         return progressDialog;
     }
 
-    public static void createCustomListViewDialog(Context context , String title , String positiveBtnTitle , String negativeBtnTitle , ListAdapter listAdapter , final Runnable onPositiveBtnClicked , final Runnable onNegativeBtnClicked , int textColor, int padding) {
+    public static void createCustomListViewDialog(Context context , String title , String positiveBtnTitle , String negativeBtnTitle , ListAdapter listAdapter ,
+                                                  DialogInterface.OnClickListener positiveButton, DialogInterface.OnClickListener negativeButton , int textColor, int padding) {
 
         if (textColor == -1) {
             textColor = Color.WHITE;
@@ -189,24 +158,10 @@ public class DialogUtils {
         titleTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         builderSingle.setCustomTitle(titleTv);
 
-        builderSingle.setNegativeButton(negativeBtnTitle, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (onNegativeBtnClicked != null) onNegativeBtnClicked.run();
-                dialog.dismiss();
-            }
-        });
+        builderSingle.setNegativeButton(negativeBtnTitle, negativeButton);
 
         builderSingle.setAdapter(listAdapter, null);
-        builderSingle.setPositiveButton(positiveBtnTitle, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                if (onPositiveBtnClicked != null) onPositiveBtnClicked.run();
-                dialog.dismiss();
-            }
-        });
+        builderSingle.setPositiveButton(positiveBtnTitle, positiveButton);
 
         builderSingle.show();
     }
