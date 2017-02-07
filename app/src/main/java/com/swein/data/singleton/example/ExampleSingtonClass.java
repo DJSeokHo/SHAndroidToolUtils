@@ -14,8 +14,6 @@ public class ExampleSingtonClass {
 
     private static ExampleSingtonClass instance = null;
 
-    private static Object obj= new Object();
-
     public static ExampleSingtonClass getInstance() {
 
         if(null == instance){
