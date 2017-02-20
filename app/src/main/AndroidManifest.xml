@@ -28,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.swein.listview.pattern.delegate.activity.DelegateExampleActivity"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

@@ -7,9 +7,6 @@ import android.os.Bundle;
 
 import com.swein.data.global.activity.RequestData;
 import com.swein.data.local.BundleData;
-import com.swein.framework.tools.util.toast.ToastUtils;
-
-import java.util.Date;
 
 import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VALUE;
 
@@ -83,20 +80,4 @@ public class ActivityUtils {
 
         return "";
     }
-
-    public static void doubleBackPressToExitWithAction(Context context, Runnable runnable, int resoureID) {
-
-        Date lastBackBtnPressDate = new Date();
-        Date newPressDate = new Date();
-        if (newPressDate.getTime() - lastBackBtnPressDate.getTime() <= 1500) {
-            runnable.run();
-            ((Activity)context).finish();
-        }
-        else {
-            lastBackBtnPressDate = newPressDate;
-            ToastUtils.showCustomShortToastNormal(context, context.getString(resoureID));
-        }
-
-    }
-
 }

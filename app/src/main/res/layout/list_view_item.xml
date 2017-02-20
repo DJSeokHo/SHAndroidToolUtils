@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textColor="#000000"
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        />
+
+    <Button
+        android:id="@+id/buttonSet"
+        android:textAllCaps="false"
+        android:text="set"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:focusable="false"/>
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:textAllCaps="false"
+        android:text="x"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:focusable="false"/>
+
+
+
+</LinearLayout>

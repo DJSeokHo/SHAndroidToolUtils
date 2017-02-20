@@ -8,14 +8,8 @@ import android.view.View;
 
 public class ViewUtils {
 
-    public static void viewSetClickListener(View v, final Runnable runnable) {
-
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runnable.run();
-            }
-        });
+    public static void viewSetClickListener(View v, View.OnClickListener onClickListener) {
+        v.setOnClickListener(onClickListener);
     }
 
 }
