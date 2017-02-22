@@ -43,4 +43,18 @@ public class KeyBoardUtils {
         imm.showSoftInput( view , InputMethodManager.SHOW_FORCED );
     }
 
+    public static boolean isSHowKeyboard(Context context, View v) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
+        if (imm.hideSoftInputFromWindow(v.getWindowToken(), 0)) {
+            imm.showSoftInput(v, 0);
+
+            //soft keyboard shown
+            return true;
+        } else {
+
+            //soft keyboard dismissed
+            return false;
+        }
+    }
+
 }

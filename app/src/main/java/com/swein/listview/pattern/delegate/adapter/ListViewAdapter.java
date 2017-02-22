@@ -1,14 +1,12 @@
 package com.swein.listview.pattern.delegate.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.swein.listview.pattern.delegate.interfaces.ListViewDelegator;
 import com.swein.listview.pattern.delegate.viewholder.ListViewItemViewHolder;
-import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +21,6 @@ public class ListViewAdapter extends BaseAdapter {
 
     private ArrayList<HashMap<String, String>> data;
 
-    private LayoutInflater layoutInflater;
-
     private ListViewDelegator listViewDelegator;
 
     public void setListViewDelegator(ListViewDelegator listViewDelegator){
@@ -33,7 +29,6 @@ public class ListViewAdapter extends BaseAdapter {
 
     public ListViewAdapter(Context context) {
         this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
     }
 
     public void setData(ArrayList<HashMap<String, String>> data) {
@@ -62,11 +57,11 @@ public class ListViewAdapter extends BaseAdapter {
 
         if(null == convertView) {
 
-            convertView = layoutInflater.inflate(R.layout.list_view_item, null);
+            listViewItemViewHolder = new ListViewItemViewHolder(context);
 
-            listViewItemViewHolder = new ListViewItemViewHolder();
+            listViewItemViewHolder.findView();
 
-            listViewItemViewHolder.findView(convertView);
+            convertView = listViewItemViewHolder.returnRootview();
 
             convertView.setTag(listViewItemViewHolder);
 
@@ -75,24 +70,22 @@ public class ListViewAdapter extends BaseAdapter {
             listViewItemViewHolder = (ListViewItemViewHolder)convertView.getTag();
         }
 
-        listViewItemViewHolder.textView.setText(data.get(position).get("itemTitle").toString());
+        listViewItemViewHolder.textViewSetText( data.get(position).get("itemTitle").toString() );
 
-        listViewItemViewHolder.buttonSet.setOnClickListener(new View.OnClickListener() {
+        listViewItemViewHolder.buttonSetOnClick( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick( View v ) {
                 listViewDelegator.setViewText(data.get(position).get("itemTitle").toString());
             }
-        });
+        } );
 
-        listViewItemViewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+        listViewItemViewHolder.buttonDeleteOnClick( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick( View v ) {
                 listViewDelegator.deleteListItem(position);
                 notifyDataSetChanged();
             }
-        });
+        } );
 
         return convertView;
     }
