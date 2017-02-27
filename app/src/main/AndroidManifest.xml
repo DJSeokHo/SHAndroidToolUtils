@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.swein.shandroidtoolutils">
+<manifest package="com.swein.shandroidtoolutils"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <receiver
         android:name="com.google.android.gms.analytics.AnalyticsReceiver"
@@ -30,7 +30,9 @@
         </activity>
         <activity
             android:name="com.swein.listview.pattern.delegate.activity.DelegateExampleActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.swein.media.player.videoview.activity.VideoViewActivity" />
+        <activity android:name="com.swein.media.player.mediaplayer.activity.MediaPlayerActivity"></activity>
     </application>
 
 </manifest>
