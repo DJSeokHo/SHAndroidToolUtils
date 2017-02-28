@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.swein.media.player.videoview.activity.VideoViewActivity;
+import com.swein.recycleview.list.activity.RecyclerViewListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        startActivity(new Intent(this, DelegateExampleActivity.class));
-        startActivity(new Intent(this, VideoViewActivity.class));
+//        startActivity(new Intent(this, VideoViewActivity.class));
+        startActivity(new Intent(this, RecyclerViewListActivity.class));
 
     }
 
