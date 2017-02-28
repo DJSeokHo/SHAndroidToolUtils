@@ -49,15 +49,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter< RecyclerViewListI
                 recyclerViewListDelegator.deleteListItem( position );
             }
         } );
-
-        recyclerViewListItemViewHolder.textViewSetOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick( View view ) {
-                ILog.iLogDebug( RecyclerViewAdapter.class.getSimpleName(), RecyclerViewListData.getInstance().getList().get( position ) );
-            }
-        } );
-
-
     }
 
     @Override

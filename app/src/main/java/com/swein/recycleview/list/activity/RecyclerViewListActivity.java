@@ -1,38 +1,100 @@
 package com.swein.recycleview.list.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.recycleview.list.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.list.data.RecyclerViewListData;
 import com.swein.recycleview.list.decoration.RecyclerViewListDecoration;
 import com.swein.recycleview.list.delegator.RecyclerViewListDelegator;
 import com.swein.shandroidtoolutils.R;
 
-public class RecyclerViewListActivity extends AppCompatActivity implements RecyclerViewListDelegator{
+public class RecyclerViewListActivity extends AppCompatActivity implements RecyclerViewListDelegator, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerViewList;
 
     private RecyclerViewAdapter recyclerViewAdapter;
+    private SwipeRefreshLayout  swipeRefreshLayout;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient     client;
+
+    private LinearLayoutManager linearLayoutManager;
+    private int lastVisibleItem;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_recycler_view_list );
 
+        linearLayoutManager = new LinearLayoutManager( this );
+
         RecyclerViewListData.getInstance().initList();
 
         recyclerViewAdapter = new RecyclerViewAdapter( this, this );
 
-        recyclerViewList = (RecyclerView)findViewById( R.id.recycleViewList );
-        recyclerViewList.addItemDecoration(new RecyclerViewListDecoration( this, RecyclerViewListDecoration.VERTICAL_LIST));
-        recyclerViewList.setLayoutManager(new LinearLayoutManager( this));
-        recyclerViewList.setAdapter(recyclerViewAdapter);
-        recyclerViewList.setItemAnimator(new DefaultItemAnimator());
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById( R.id.swipeRefreshLayoutList );
 
+
+        swipeRefreshLayout.setOnRefreshListener( this );
+
+        //first enter page to show progress bar
+        swipeRefreshLayout.setProgressViewOffset( false, 0, (int)TypedValue
+                .applyDimension( TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics() ) );
+
+
+        recyclerViewList = (RecyclerView)findViewById( R.id.recycleViewList );
+        recyclerViewList.addItemDecoration( new RecyclerViewListDecoration( this, RecyclerViewListDecoration.VERTICAL_LIST ) );
+        recyclerViewList.setLayoutManager( linearLayoutManager );
+        recyclerViewList.setAdapter( recyclerViewAdapter );
+        recyclerViewList.setItemAnimator( new DefaultItemAnimator() );
+
+        recyclerViewList.addOnScrollListener( new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
+                super.onScrollStateChanged( recyclerView, newState );
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
+                        == RecyclerViewListData.getInstance().getList().size()) {
+
+                    //load more data
+                    ThreadUtils.createThreadWithUI( 0, new Runnable() {
+                        @Override
+                        public void run() {
+                            RecyclerViewListData.getInstance().loadList();
+                            recyclerViewAdapter.notifyDataSetChanged();
+                        }
+                    } );
+
+                }
+            }
+
+            @Override
+            public void onScrolled( RecyclerView recyclerView, int dx, int dy ) {
+                super.onScrolled( recyclerView, dx, dy );
+
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+            }
+        } );
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder( this ).addApi( AppIndex.API ).build();
     }
 
     @Override
@@ -41,5 +103,48 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
         recyclerViewAdapter.notifyItemRemoved( position );
         //rebind view position after remove item
         recyclerViewAdapter.notifyItemRangeChanged( position, RecyclerViewListData.getInstance().getList().size() );
+    }
+
+    @Override
+    public void onRefresh() {
+        RecyclerViewListData.getInstance().initList();
+        recyclerViewAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing( false );
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName( "RecyclerViewList Page" ) // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl( Uri.parse( "http://[ENTER-YOUR-URL-HERE]" ) )
+                .build();
+        return new Action.Builder( Action.TYPE_VIEW )
+                .setObject( object )
+                .setActionStatus( Action.STATUS_TYPE_COMPLETED )
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start( client, getIndexApiAction() );
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end( client, getIndexApiAction() );
+        client.disconnect();
     }
 }

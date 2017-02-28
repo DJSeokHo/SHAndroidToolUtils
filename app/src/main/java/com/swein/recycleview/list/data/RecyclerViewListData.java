@@ -9,21 +9,21 @@ import java.util.List;
 
 public class RecyclerViewListData {
 
-    private List<String> list;
+    private List< String > list;
 
     private RecyclerViewListData() {
-        list = new ArrayList<String>();
+        list = new ArrayList< String >();
     }
 
     private static RecyclerViewListData instance = null;
 
     public static RecyclerViewListData getInstance() {
 
-        if(null == instance){
+        if ( null == instance ) {
 
-            synchronized(RecyclerViewListData.class){
+            synchronized ( RecyclerViewListData.class ) {
 
-                if(null == instance){
+                if ( null == instance ) {
 
                     instance = new RecyclerViewListData();
 
@@ -36,20 +36,28 @@ public class RecyclerViewListData {
 
     public void initList() {
 
-        for ( int i = 'A'; i < 'z'; i++ ) {
+        list.clear();
+
+        for ( int i = 'A'; i <= 'z'; i++ ) {
             list.add( "" + (char)i );
         }
     }
 
-    public void setList(List<String> list) {
+    public void loadList() {
+        for ( int i = 0; i < 10; i++ ) {
+            list.add( String.valueOf( i ) );
+        }
+    }
+
+    public void setList( List< String > list ) {
         this.list = list;
     }
 
-    public List<String> getList() {
+    public List< String > getList() {
         return this.list;
     }
 
-    public void removeListItem(int position) {
+    public void removeListItem( int position ) {
         list.remove( position );
     }
 
