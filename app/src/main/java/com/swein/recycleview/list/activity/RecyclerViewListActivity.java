@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.recycleview.list.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.list.data.RecyclerViewListData;
@@ -26,11 +24,6 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
 
     private RecyclerViewAdapter recyclerViewAdapter;
     private SwipeRefreshLayout  swipeRefreshLayout;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient     client;
 
     private LinearLayoutManager linearLayoutManager;
     private int lastVisibleItem;
@@ -91,10 +84,6 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
 
             }
         } );
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder( this ).addApi( AppIndex.API ).build();
     }
 
     @Override
@@ -128,23 +117,4 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
                 .build();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start( client, getIndexApiAction() );
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end( client, getIndexApiAction() );
-        client.disconnect();
-    }
 }
