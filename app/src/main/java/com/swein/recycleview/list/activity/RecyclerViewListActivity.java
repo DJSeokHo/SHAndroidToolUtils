@@ -50,7 +50,7 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
                         .getDisplayMetrics() ) );
 
 
-        recyclerViewList = (RecyclerView)findViewById( R.id.recycleViewList );
+        recyclerViewList = (RecyclerView)findViewById( R.id.recyclerViewList );
         recyclerViewList.addItemDecoration( new RecyclerViewListDecoration( this, RecyclerViewListDecoration.VERTICAL_LIST ) );
         recyclerViewList.setLayoutManager( linearLayoutManager );
         recyclerViewList.setAdapter( recyclerViewAdapter );

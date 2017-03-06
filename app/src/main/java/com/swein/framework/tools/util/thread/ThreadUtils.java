@@ -9,7 +9,7 @@ import android.os.Looper;
 
 public class ThreadUtils {
 
-    public static void createThreadWithoutUI(int delayMillis, final Runnable runnable) {
+    public static void createThreadWithoutUI(final Runnable runnable) {
 
         new Thread(){
             public void run(){

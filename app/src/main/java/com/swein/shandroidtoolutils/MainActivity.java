@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.swein.recycleview.list.activity.RecyclerViewListActivity;
+import com.swein.recycleview.random.activity.RecyclerViewRandomActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        startActivity(new Intent(this, DelegateExampleActivity.class));
 //        startActivity(new Intent(this, VideoViewActivity.class));
-        startActivity(new Intent(this, RecyclerViewListActivity.class));
+//        startActivity(new Intent(this, RecyclerViewListActivity.class));
+        startActivity(new Intent(this, RecyclerViewRandomActivity.class));
 
     }
 
