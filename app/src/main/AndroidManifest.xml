@@ -28,11 +28,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.swein.listview.pattern.delegate.activity.DelegateExampleActivity"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name="com.swein.media.player.videoview.activity.VideoViewActivity" />
-        <activity android:name="com.swein.recycleview.list.activity.RecyclerViewListActivity" />
+
+        <activity
+            android:name="com.swein.recycleview.list.activity.RecyclerViewListActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

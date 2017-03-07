@@ -32,12 +32,9 @@ public class RecyclerViewListItemViewHolder extends ViewHolder implements View.O
         recyclerViewListItemTextView.setText( string );
     }
 
-
-
     public void buttonViewSetOnClickListener(View.OnClickListener onClickListener) {
         recyclerViewListItemButton.setOnClickListener( onClickListener );
     }
-
 
     @Override
     public void onClick( View view ) {

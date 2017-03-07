@@ -11,6 +11,11 @@ import com.swein.recycleview.random.delegator.RecyclerViewRandomDelegator;
 import com.swein.recycleview.random.viewholder.RecyclerViewRandomItemViewHolder;
 import com.swein.shandroidtoolutils.R;
 
+import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.ALL;
+import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.NORMAL;
+import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.SELECT;
+import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.checkState;
+
 /**
  * Created by seokho on 02/03/2017.
  */
@@ -36,18 +41,60 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
 
     }
 
-    @Override
-    public void onBindViewHolder( RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder, final int position ) {
+    private void tagCloudCheckStateListener(RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder, int position) {
+        switch ( checkState ) {
+            case NORMAL:
+                recyclerViewRandomItemViewHolder.hideImageView();
+                break;
 
-        recyclerViewRandomItemViewHolder.textViewSetText( RecyclerViewRandomData.getInstance().getList().get( position ) );
-        recyclerViewRandomItemViewHolder.imageViewSetImageResource( R.drawable.image_button_unchecked );
-        recyclerViewRandomItemViewHolder.tagCloudItemSetOnClickListener( new View.OnClickListener() {
+            case SELECT:
+                recyclerViewRandomItemViewHolder.showImageView();
+                if(RecyclerViewRandomData.getInstance().getList().get( position ).tagCheckState) {
+                    recyclerViewRandomItemViewHolder.setImageViewChecked();
+                }
+                else {
+                    recyclerViewRandomItemViewHolder.setImageViewUnChecked();
+                }
+                break;
+
+            case ALL:
+                recyclerViewRandomItemViewHolder.showImageView();
+                if(RecyclerViewRandomData.getInstance().getList().get( position ).tagCheckState) {
+                    recyclerViewRandomItemViewHolder.setImageViewChecked();
+                }
+                else {
+                    recyclerViewRandomItemViewHolder.setImageViewUnChecked();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onBindViewHolder( final RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder, final int position ) {
+
+        tagCloudCheckStateListener(recyclerViewRandomItemViewHolder, position);
+
+        recyclerViewRandomItemViewHolder.tagCloudItemLayoutSetBackGround();
+        recyclerViewRandomItemViewHolder.textViewSetText( RecyclerViewRandomData.getInstance().getList().get( position ).tagName );
+
+        recyclerViewRandomItemViewHolder.tagCloudItemLayoutSetOnClickListener( new View.OnClickListener() {
+
             @Override
             public void onClick( View view ) {
-                recyclerViewRandomDelegator.onItemClicked(position);
+
+                if(!checkState.equals( NORMAL )) {  //select mode
+                    recyclerViewRandomDelegator.setItemCheckState( RecyclerViewRandomData.getInstance().getList().get( position ) );
+                    recyclerViewRandomItemViewHolder.tagCloudItemSetCheckState( RecyclerViewRandomData.getInstance().getList().get( position ).tagCheckState );
+                }
+                else {  //single click mode
+                    recyclerViewRandomDelegator.singleTagSearch(RecyclerViewRandomData.getInstance().getList().get( position ));
+                    recyclerViewRandomItemViewHolder.hideImageView();
+                }
+
             }
         } );
     }
+
 
     @Override
     public int getItemCount() {

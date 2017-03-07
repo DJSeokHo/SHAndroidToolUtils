@@ -1,6 +1,5 @@
 package com.swein.recycleview.random.data;
 
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.random.RandomNumberUtils;
 import com.swein.framework.tools.util.random.RandomStringUtils;
 
@@ -13,13 +12,10 @@ import java.util.List;
 
 public class RecyclerViewRandomData {
 
-    private List< String > list;
-
-    private List<Integer> containerItemCount;
+    private List< ListItemData > list;
 
     private RecyclerViewRandomData() {
-        list = new ArrayList< String >();
-        containerItemCount = new ArrayList<Integer>();
+        list = new ArrayList< ListItemData >();
     }
 
     private static RecyclerViewRandomData instance = null;
@@ -44,18 +40,15 @@ public class RecyclerViewRandomData {
     public void initList() {
 
         //create random string
-        int count = RandomNumberUtils.getRandomIntegerNumber(11, 30);
+        int count = RandomNumberUtils.getRandomIntegerNumber(11, 50);
 
         list.clear();
 
-        ILog.iLogDebug( RecyclerViewRandomData.class.getSimpleName(), count );
-
         for ( int i = 0; i < count; i++ ) {
-            int length = RandomNumberUtils.getRandomIntegerNumber(8, 1);
-
-            list.add( RandomStringUtils.createRandomString(length) );
-
-            ILog.iLogDebug( RecyclerViewRandomData.class.getSimpleName(), list.get( i ).toString() );
+            int length = RandomNumberUtils.getRandomIntegerNumber(15, 1);
+            String tagName = RandomStringUtils.createRandomString(length);
+            ListItemData listItemData = new ListItemData(tagName, false, null );
+            list.add( listItemData );
         }
     }
 
@@ -74,46 +67,27 @@ public class RecyclerViewRandomData {
 //    }
 
     public void loadList() {
-        for ( int i = 0; i < 30; i++ ) {
-            int length = RandomNumberUtils.getRandomIntegerNumber(8, 1);
+        int count = RandomNumberUtils.getRandomIntegerNumber(11, 30);
 
-            list.add( RandomStringUtils.createRandomString(length) );
+        for ( int i = 0; i < count; i++ ) {
+            int length = RandomNumberUtils.getRandomIntegerNumber(15, 1);
 
-            ILog.iLogDebug( RecyclerViewRandomData.class.getSimpleName(), list.get( i ).toString() );
+            String tagName = RandomStringUtils.createRandomString(length);
+            ListItemData listItemData = new ListItemData(tagName, false, null );
+            list.add( listItemData );
         }
     }
 
-    public void setList( List< String > list ) {
+    public void setList( List< ListItemData > list ) {
         this.list = list;
     }
 
-    public List< String > getList() {
+    public List< ListItemData > getList() {
         return this.list;
     }
 
     public void removeListItem( int position ) {
         list.remove( position );
     }
-
-    public void setContainerItemCount(){
-
-        for(String title : list) {
-
-            int itemCount = 0;
-
-
-
-
-        }
-
-//        containerItemCount
-
-    }
-
-    public void getContainerItemCount(){
-
-    }
-
-
 
 }

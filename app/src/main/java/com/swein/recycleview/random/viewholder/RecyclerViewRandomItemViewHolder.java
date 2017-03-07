@@ -30,11 +30,6 @@ public class RecyclerViewRandomItemViewHolder extends RecyclerView.ViewHolder {
         recyclerViewRandomItemTextView.setText( string );
         recyclerViewRandomItemTextView.setSingleLine();
     }
-
-    public void imageViewSetImageResource( int imageResource ) {
-        recyclerViewRandomItemCheckImageView.setImageResource( imageResource );
-    }
-
     public void showImageView() {
         recyclerViewRandomItemCheckImageView.setVisibility( View.VISIBLE );
     }
@@ -43,12 +38,38 @@ public class RecyclerViewRandomItemViewHolder extends RecyclerView.ViewHolder {
         recyclerViewRandomItemCheckImageView.setVisibility( View.GONE );
     }
 
-    public void tagCloudItemSetOnClickListener( View.OnClickListener onClickListener ) {
-        tagCloudItem.setOnClickListener( onClickListener );
+    public void setImageViewChecked() {
+        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.image_button_checked);
+    }
+
+    public void setImageViewUnChecked() {
+        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.image_button_unchecked);
     }
 
     public void tagCloudItemLayoutSetBackGround() {
         tagCloudItem.setBackgroundResource( R.drawable.recycler_view_random_item_custom_textview_background );
     }
+
+    public void tagCloudItemLayoutSetOnClickListener(View.OnClickListener onClickListener) {
+        tagCloudItem.setOnClickListener( onClickListener );
+    }
+
+    public void tagCloudItemSetCheckState(boolean checkState) {
+
+        if(checkState) {
+            showImageView();
+            setImageViewChecked();
+        }
+        else {
+            showImageView();
+            setImageViewUnChecked();
+        }
+
+    }
+
+    public void hideViewHolder() {
+        itemView.setVisibility( View.GONE );
+    }
+
 
 }

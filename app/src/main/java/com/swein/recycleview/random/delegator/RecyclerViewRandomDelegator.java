@@ -6,6 +6,12 @@ package com.swein.recycleview.random.delegator;
 
 public interface RecyclerViewRandomDelegator {
 
-    void onItemClicked(int position);
+    void setItemCheckState(Object object);
+
+    void setAllItemSelected();
+
+    void setAllItemUnSelected();
+
+    void singleTagSearch(Object object);
 
 }
