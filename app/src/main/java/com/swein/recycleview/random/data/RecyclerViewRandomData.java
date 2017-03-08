@@ -37,6 +37,9 @@ public class RecyclerViewRandomData {
         return instance;
     }
 
+    /**
+     * init list
+     */
     public void initList() {
 
         //create random string
@@ -52,20 +55,9 @@ public class RecyclerViewRandomData {
         }
     }
 
-//    public int getMaxLengthItemFromStringList() {
-//
-//        int max = 0;
-//
-//        for(int i = 0; i < list.size(); i++) {
-//            if(max <= list.get( i ).length()) {
-//                max = list.get( i ).length();
-//            }
-//        }
-//
-//        return max;
-//
-//    }
-
+    /**
+     * load more data
+     */
     public void loadList() {
         int count = RandomNumberUtils.getRandomIntegerNumber(11, 30);
 

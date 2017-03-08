@@ -24,7 +24,7 @@ import com.swein.shandroidtoolutils.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewRandomActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewRandomDelegator, ListenerInterface {
+public class RecyclerViewRandomActivity extends AppCompatActivity implements RecyclerViewRandomDelegator, ListenerInterface {
 
     private RecyclerView recyclerViewRandom;
 
@@ -103,41 +103,14 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
             }
         } );
 
-        swipeRefreshLayoutRandom.setOnRefreshListener( this );
+        swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
 
         //first enter page to show progress bar
         swipeRefreshLayoutRandom.setProgressViewOffset( false, 0, (int)TypedValue
                 .applyDimension( TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics() ) );
 
-        recyclerViewRandom.addOnScrollListener( new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
-                super.onScrollStateChanged( recyclerView, newState );
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
-                        == RecyclerViewRandomData.getInstance().getList().size()) {
-
-                    //load more data
-                    ThreadUtils.createThreadWithUI( 0, new Runnable() {
-                        @Override
-                        public void run() {
-                            RecyclerViewRandomData.getInstance().loadList();
-                            recyclerViewAdapter.notifyDataSetChanged();
-                        }
-                    } );
-
-                }
-            }
-
-            @Override
-            public void onScrolled( RecyclerView recyclerView, int dx, int dy ) {
-                super.onScrolled( recyclerView, dx, dy );
-
-                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
-
-            }
-        } );
+        recyclerViewRandom.addOnScrollListener( onScrollListener() );
 
         checkImageButton.setOnClickListener( onClickListener() );
 
@@ -178,20 +151,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
                 setAllItemUnSelected();
                 break;
         }
-
-    }
-
-    @Override
-    public void onRefresh() {
-
-        RecyclerViewRandomData.getInstance().initList();
-        recyclerViewAdapter.notifyDataSetChanged();
-        swipeRefreshLayoutRandom.setRefreshing( false );
-
-        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
-        checkState = NORMAL;
-        searchImageButton.setVisibility( View.GONE );
-        setAllItemUnSelected();
 
     }
 
@@ -350,6 +309,62 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
         };
 
         return textWatcher;
+    }
+
+    @Override
+    public RecyclerView.OnScrollListener onScrollListener() {
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
+                super.onScrollStateChanged( recyclerView, newState );
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
+                        == RecyclerViewRandomData.getInstance().getList().size()) {
+
+                    //load more data
+                    ThreadUtils.createThreadWithUI( 0, new Runnable() {
+                        @Override
+                        public void run() {
+                            RecyclerViewRandomData.getInstance().loadList();
+                            recyclerViewAdapter.notifyDataSetChanged();
+                            checkSelectedItem();
+                        }
+                    } );
+
+                }
+            }
+
+            @Override
+            public void onScrolled( RecyclerView recyclerView, int dx, int dy ) {
+                super.onScrolled( recyclerView, dx, dy );
+
+                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
+
+            }
+        };
+
+        return onScrollListener;
+    }
+
+    @Override
+    public SwipeRefreshLayout.OnRefreshListener onRefreshListener() {
+
+        SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RecyclerViewRandomData.getInstance().initList();
+                recyclerViewAdapter.notifyDataSetChanged();
+                swipeRefreshLayoutRandom.setRefreshing( false );
+
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
+                checkState = NORMAL;
+                searchImageButton.setVisibility( View.GONE );
+                setAllItemUnSelected();
+            }
+        };
+
+        return onRefreshListener;
     }
 
 }

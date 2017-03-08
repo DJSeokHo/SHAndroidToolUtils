@@ -22,8 +22,8 @@ import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.c
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandomItemViewHolder > {
 
-    private Context context;
-    private RecyclerViewRandomDelegator recyclerViewRandomDelegator;
+    private Context context;    //Context
+    private RecyclerViewRandomDelegator recyclerViewRandomDelegator;    //Delegator for Controller
 
     public RecyclerViewAdapter(Context context, RecyclerViewRandomDelegator recyclerViewRandomDelegator) {
         this.context = context;
@@ -41,6 +41,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
 
     }
 
+    /**
+     * refresh list and check item state (be selected or not) in selection mode
+     * @param recyclerViewRandomItemViewHolder
+     * @param position
+     */
     private void tagCloudCheckStateListener(RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder, int position) {
         switch ( checkState ) {
             case NORMAL:
@@ -95,9 +100,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
         } );
     }
 
-
     @Override
     public int getItemCount() {
         return RecyclerViewRandomData.getInstance().getList().size();
     }
 }
+
+
