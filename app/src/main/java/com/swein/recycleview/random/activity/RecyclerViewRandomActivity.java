@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -21,7 +24,7 @@ import com.swein.shandroidtoolutils.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewRandomActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewRandomDelegator {
+public class RecyclerViewRandomActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, RecyclerViewRandomDelegator, ListenerInterface {
 
     private RecyclerView recyclerViewRandom;
 
@@ -31,8 +34,12 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
     private GridLayoutManager gridLayoutManager;
     private int               lastVisibleItem;
 
-    private Button checkButton;
-    private Button searchButton;
+    private ImageButton checkImageButton;
+    private ImageButton searchImageButton;
+    private ImageButton clearImageButton;
+    private ImageButton searchTagImageButton;
+
+    private EditText tagEditText;
 
     private final static int MAX_SPAN_SIZE = 14;
 
@@ -55,10 +62,13 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
     }
 
     private void initView() {
-        checkButton = (Button)findViewById( R.id.checkButton );
-        searchButton = (Button)findViewById( R.id.searchButton );
+        checkImageButton = (ImageButton)findViewById( R.id.checkImageButton );
+        searchImageButton = (ImageButton)findViewById( R.id.searchImageButton );
+        clearImageButton = (ImageButton)findViewById( R.id.clearImageButton );
+        searchTagImageButton = (ImageButton)findViewById( R.id.searchTagImageButton );
         swipeRefreshLayoutRandom = (SwipeRefreshLayout)findViewById( R.id.swipeRefreshLayoutRandom );
         recyclerViewRandom = (RecyclerView)findViewById( R.id.recyclerViewRandom );
+        tagEditText = (EditText)findViewById( R.id.tagEditText );
     }
 
     private void initPara() {
@@ -129,35 +139,15 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
             }
         } );
 
-        checkButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick( View view ) {
-                setCheckButtonAfterClicked();
-            }
-        } );
+        checkImageButton.setOnClickListener( onClickListener() );
 
-        searchButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick( View view ) {
-                final List<ListItemData> listItemDataList = new ArrayList<ListItemData>();
+        searchImageButton.setOnClickListener( onClickListener() );
 
-                ThreadUtils.createThreadWithoutUI(new Runnable() {
-                    @Override
-                    public void run() {
-                        for(ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
-                            if(listItemData.tagCheckState) {
-                                listItemDataList.add(listItemData);
-                            }
-                        }
+        clearImageButton.setOnClickListener( onClickListener() );
 
-                        for(ListItemData listItemData : listItemDataList) {
-                            ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), listItemData.tagName + " " + listItemData.tagCheckState );
-                        }
-                    }
-                } );
+        searchTagImageButton.setOnClickListener( onClickListener() );
 
-            }
-        } );
+        tagEditText.addTextChangedListener( textWatcher() );
     }
 
     private void initData() {
@@ -168,22 +158,22 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
 
         switch ( checkState ) {
             case NORMAL:
-                searchButton.setVisibility( View.VISIBLE );
-                checkButton.setText( "select" );
+                searchImageButton.setVisibility( View.VISIBLE );
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
                 checkState = SELECT;
                 recyclerViewAdapter.notifyDataSetChanged();
                 break;
 
             case SELECT:
-                searchButton.setVisibility( View.VISIBLE );
-                checkButton.setText( "all" );
+                searchImageButton.setVisibility( View.VISIBLE );
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
                 checkState = ALL;
                 setAllItemSelected();
                 break;
 
             case ALL:
-                searchButton.setVisibility( View.GONE );
-                checkButton.setText( "normal" );
+                searchImageButton.setVisibility( View.GONE );
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
                 checkState = NORMAL;
                 setAllItemUnSelected();
                 break;
@@ -198,9 +188,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
         recyclerViewAdapter.notifyDataSetChanged();
         swipeRefreshLayoutRandom.setRefreshing( false );
 
-        checkButton.setText( "normal" );
+        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
         checkState = NORMAL;
-        searchButton.setVisibility( View.GONE );
+        searchImageButton.setVisibility( View.GONE );
         setAllItemUnSelected();
 
     }
@@ -214,6 +204,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
         else {
             ( (ListItemData)object ).tagCheckState = true;
         }
+
+        checkSelectedItem();
     }
 
     @Override
@@ -248,5 +240,116 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Swi
         ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), ((ListItemData)object).tagName );
     }
 
+    @Override
+    public void checkSelectedItem() {
+        ThreadUtils.createThreadWithUI( 0, new Runnable() {
+            @Override
+            public void run() {
+
+                for(ListItemData listItemData: RecyclerViewRandomData.getInstance().getList()) {
+
+                    // if has any one unselected item, so it's not all selected state. change state and break
+                    if (!listItemData.tagCheckState) {
+                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "false" );
+                        searchImageButton.setVisibility( View.VISIBLE );
+                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
+                        checkState = SELECT;
+                        recyclerViewAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    else {// if has no one unselected item until last item, now it's all selected state, do not break
+                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "true" );
+                        searchImageButton.setVisibility( View.VISIBLE );
+                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
+                        checkState = ALL;
+                    }
+                }
+
+            }
+        } );
+    }
+
+
+    @Override
+    public View.OnClickListener onClickListener() {
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick( View view ) {
+
+                switch ( view.getId() ) {
+
+                    case R.id.checkImageButton:
+
+                        setCheckButtonAfterClicked();
+
+                        break;
+
+                    case R.id.searchImageButton:
+                        final List<ListItemData> listItemDataList = new ArrayList<ListItemData>();
+
+                        ThreadUtils.createThreadWithoutUI(new Runnable() {
+                            @Override
+                            public void run() {
+                                for(ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
+                                    if(listItemData.tagCheckState) {
+                                        listItemDataList.add(listItemData);
+                                    }
+                                }
+
+                                for(ListItemData listItemData : listItemDataList) {
+                                    ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), listItemData.tagName + " " + listItemData.tagCheckState );
+                                }
+                            }
+                        } );
+
+                        break;
+
+                    case R.id.clearImageButton:
+
+                        tagEditText.setText( "" );
+
+                        break;
+
+                    case R.id.searchTagImageButton:
+
+                        break;
+
+                }
+            }
+        };
+
+        return onClickListener;
+    }
+
+    @Override
+    public TextWatcher textWatcher() {
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
+
+            }
+
+            @Override
+            public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
+
+            }
+
+            @Override
+            public void afterTextChanged( Editable editable ) {
+                if(tagEditText.getText().toString().trim().length() != 0) {
+                    clearImageButton.setVisibility( View.VISIBLE );
+                    searchTagImageButton.setVisibility( View.VISIBLE );
+                }
+                else {
+                    clearImageButton.setVisibility( View.GONE );
+                    searchTagImageButton.setVisibility( View.INVISIBLE );
+                }
+            }
+        };
+
+        return textWatcher;
+    }
 
 }

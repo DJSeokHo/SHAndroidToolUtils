@@ -39,11 +39,11 @@ public class RecyclerViewRandomItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImageViewChecked() {
-        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.image_button_checked);
+        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.recyclerview_random_item_checked );
     }
 
     public void setImageViewUnChecked() {
-        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.image_button_unchecked);
+        recyclerViewRandomItemCheckImageView.setImageResource(R.drawable.recyclerview_random_item_unchecked );
     }
 
     public void tagCloudItemLayoutSetBackGround() {

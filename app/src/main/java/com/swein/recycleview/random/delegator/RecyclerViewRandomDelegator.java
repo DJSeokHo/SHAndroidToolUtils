@@ -14,4 +14,6 @@ public interface RecyclerViewRandomDelegator {
 
     void singleTagSearch(Object object);
 
+    void checkSelectedItem();
+
 }

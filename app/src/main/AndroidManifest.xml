@@ -46,7 +46,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.swein.recycleview.random.activity.RecyclerViewRandomActivity"></activity>
+        <activity
+            android:name="com.swein.recycleview.random.activity.RecyclerViewRandomActivity"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
