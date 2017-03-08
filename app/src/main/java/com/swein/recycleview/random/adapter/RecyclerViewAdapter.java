@@ -33,9 +33,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
     @Override
     public RecyclerViewRandomItemViewHolder onCreateViewHolder( ViewGroup parent, int viewType ) {
 
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+
+        parent.setLayoutParams( layoutParams );
+
         RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder = new RecyclerViewRandomItemViewHolder(
                 LayoutInflater.from( context ).inflate( R.layout.activity_recycler_view_random_item, parent, false )
         );
+
 
         return recyclerViewRandomItemViewHolder;
 

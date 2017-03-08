@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9">
-
+        
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayoutRandom"
             android:layout_width="match_parent"
@@ -85,14 +85,23 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewRandom"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical"
+                android:scrollbars="none"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
                 android:focusableInTouchMode="true"
                 />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <!--
+        <com.swein.recycleview.random.customview.CustomViewClass
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:layout_centerInParent="true"/>
+        -->
         <ImageButton
             android:visibility="gone"
             android:padding="10dp"
@@ -103,6 +112,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:focusableInTouchMode="true"/>
+            />
     </RelativeLayout>
 </LinearLayout>

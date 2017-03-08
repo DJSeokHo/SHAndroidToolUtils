@@ -14,9 +14,9 @@ import com.swein.shandroidtoolutils.R;
 
 public class RecyclerViewRandomItemViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView        recyclerViewRandomItemTextView;
-    private ImageView       recyclerViewRandomItemCheckImageView;
-    private RelativeLayout  tagCloudItem;
+    private TextView       recyclerViewRandomItemTextView;
+    private ImageView      recyclerViewRandomItemCheckImageView;
+    private RelativeLayout tagCloudItem;
 
     public RecyclerViewRandomItemViewHolder( View itemView ) {
         super( itemView );

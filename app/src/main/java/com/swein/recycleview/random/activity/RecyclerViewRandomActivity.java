@@ -34,6 +34,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     private SwipeRefreshLayout  swipeRefreshLayoutRandom;
 
     private GridLayoutManager gridLayoutManager;
+
     private int               lastVisibleItem;
 
     private ImageButton checkImageButton;
@@ -43,14 +44,13 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
     private EditText tagEditText;
 
-    private final static int MAX_SPAN_SIZE = 14;
+    private final static int MAX_SPAN_SIZE = 3;
 
     public static String checkState;   //0: normal. 1: select. 2: all select
 
     public final static String NORMAL = "NORMAL";
     public final static String SELECT = "SELECT";
     public final static String ALL = "ALL";
-
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -86,24 +86,30 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
         gridLayoutManager.setSpanSizeLookup( new GridLayoutManager.SpanSizeLookup() {
 
+
+
             @Override
             public int getSpanSize( int position ) {
+
+                int length = RecyclerViewRandomData.getInstance().getList().get( position ).tagName.length();
+
+                if(length > 8) {
+                    return 3;
+                }
+                else {
+                    return 1;
+                }
+
 
                 //                ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(),
                 //                                position + " " + RecyclerViewRandomData.getInstance().getList().get( position ) + " " +
                 //                                RecyclerViewRandomData.getInstance().getList().get( position ).tagName.length());
 
-                int length = RecyclerViewRandomData.getInstance().getList().get( position ).tagName.length();
-                if(length <= 2) {
-                    return 3;
-                }
-                else if(length > MAX_SPAN_SIZE) {
-                    return MAX_SPAN_SIZE;
-                }
-                return length;
+
 
             }
         } );
+
 
         swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
 
@@ -135,14 +141,16 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         switch ( checkState ) {
             case NORMAL:
                 searchImageButton.setVisibility( View.VISIBLE );
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
+//                checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
                 checkState = SELECT;
                 recyclerViewAdapter.notifyDataSetChanged();
                 break;
 
             case SELECT:
                 searchImageButton.setVisibility( View.VISIBLE );
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
+//                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
+                checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
                 checkState = ALL;
                 setAllItemSelected();
                 break;
@@ -214,7 +222,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                     if (!listItemData.tagCheckState) {
                         ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "false" );
                         searchImageButton.setVisibility( View.VISIBLE );
-                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
+//                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
+                        checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
                         checkState = SELECT;
                         recyclerViewAdapter.notifyDataSetChanged();
                         break;
@@ -222,7 +231,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                     else {// if has no one unselected item until last item, now it's all selected state, do not break
                         ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "true" );
                         searchImageButton.setVisibility( View.VISIBLE );
-                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
+//                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
+                        checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
                         checkState = ALL;
                     }
                 }
@@ -351,7 +361,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 super.onScrolled( recyclerView, dx, dy );
 
                 lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
-
+//                lastVisibleItem = gridAutofitLayoutManager.findLastVisibleItemPosition();
             }
         };
 
