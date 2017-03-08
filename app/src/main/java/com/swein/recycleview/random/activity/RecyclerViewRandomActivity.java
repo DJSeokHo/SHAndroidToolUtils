@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.input.keyboard.KeyBoardUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
+import com.swein.framework.tools.util.views.edittext.EditTextViewUtils;
 import com.swein.recycleview.random.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.random.data.ListItemData;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
@@ -120,7 +122,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
         searchTagImageButton.setOnClickListener( onClickListener() );
 
-        tagEditText.addTextChangedListener( textWatcher() );
+        EditTextViewUtils.editTextViewAddTextWatcher(tagEditText, textWatcher());
+        EditTextViewUtils.editTextViewSetFocusChangeListener( tagEditText, onFocusChangeListener() );
     }
 
     private void initData() {
@@ -319,6 +322,12 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
                 super.onScrollStateChanged( recyclerView, newState );
 
+                //check edit text view focus
+                if(EditTextViewUtils.isEditTextViewHasFocus( tagEditText )) {
+                    KeyBoardUtils.clearFocusOnView( tagEditText );
+                    KeyBoardUtils.dismissKeyboard( RecyclerViewRandomActivity.this );
+                }
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
                         == RecyclerViewRandomData.getInstance().getList().size()) {
 
@@ -328,7 +337,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                         public void run() {
                             RecyclerViewRandomData.getInstance().loadList();
                             recyclerViewAdapter.notifyDataSetChanged();
-                            checkSelectedItem();
+                            if(!checkState.equals( NORMAL )) {
+                                checkSelectedItem();
+                            }
                         }
                     } );
 
@@ -365,6 +376,20 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         };
 
         return onRefreshListener;
+    }
+
+    @Override
+    public View.OnFocusChangeListener onFocusChangeListener() {
+        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange( View view, boolean b ) {
+
+                ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), b + " ??" );
+
+            }
+        };
+
+        return onFocusChangeListener;
     }
 
 }

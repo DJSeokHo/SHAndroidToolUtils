@@ -14,12 +14,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="right"
+        android:focusable="true"
         >
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="6"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <EditText
                 android:textAllCaps="false"
@@ -78,6 +80,7 @@
             android:id="@+id/swipeRefreshLayoutRandom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
             >
 
             <android.support.v7.widget.RecyclerView
@@ -85,11 +88,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
+                android:focusableInTouchMode="true"
                 />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <ImageButton
+            android:visibility="gone"
             android:padding="10dp"
             android:scaleType="centerInside"
             android:background="#fff"
@@ -97,6 +102,7 @@
             android:id="@+id/searchImageButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:focusableInTouchMode="true"/>
     </RelativeLayout>
 </LinearLayout>

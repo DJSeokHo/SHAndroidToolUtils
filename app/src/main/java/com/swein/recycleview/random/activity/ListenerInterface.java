@@ -15,5 +15,6 @@ public interface ListenerInterface {
     TextWatcher textWatcher();
     RecyclerView.OnScrollListener onScrollListener();
     SwipeRefreshLayout.OnRefreshListener onRefreshListener();
+    View.OnFocusChangeListener onFocusChangeListener();
 
 }
