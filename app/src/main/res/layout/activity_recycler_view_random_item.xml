@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="60dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
     android:gravity="center"
     android:layout_gravity="center"
     >
@@ -16,18 +14,22 @@
         android:id="@+id/tagCloudItem"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         >
         <TextView
             android:id="@+id/recyclerViewRandomItemTextView"
             android:textAllCaps="false"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="16dp"
             android:gravity="center"
-            android:textSize="22sp"
-            android:minWidth="40dp"
+            android:textSize="20sp"
+            android:minWidth="75dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:maxEms="10"
+            android:ellipsize="end"
             />
 
         <ImageView

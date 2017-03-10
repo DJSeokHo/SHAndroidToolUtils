@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +17,7 @@ import com.swein.framework.tools.util.input.keyboard.KeyBoardUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.edittext.EditTextViewUtils;
 import com.swein.recycleview.random.adapter.RecyclerViewAdapter;
+import com.swein.recycleview.random.customview.AutofitRecyclerView;
 import com.swein.recycleview.random.data.ListItemData;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 import com.swein.recycleview.random.delegator.RecyclerViewRandomDelegator;
@@ -26,14 +26,19 @@ import com.swein.shandroidtoolutils.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.swein.recycleview.random.customview.AutofitRecyclerView.returnLastVisibleItemPosition;
+
 public class RecyclerViewRandomActivity extends AppCompatActivity implements RecyclerViewRandomDelegator, ListenerInterface {
 
-    private RecyclerView recyclerViewRandom;
+
+//    private TwoWayView twoWayView;
+//    private RecyclerView        recyclerViewRandom;
+    private AutofitRecyclerView recyclerViewRandom;
 
     private RecyclerViewAdapter recyclerViewAdapter;
     private SwipeRefreshLayout  swipeRefreshLayoutRandom;
 
-    private GridLayoutManager gridLayoutManager;
+//    private GridLayoutManager gridLayoutManager;
 
     private int               lastVisibleItem;
 
@@ -69,47 +74,27 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         clearImageButton = (ImageButton)findViewById( R.id.clearImageButton );
         searchTagImageButton = (ImageButton)findViewById( R.id.searchTagImageButton );
         swipeRefreshLayoutRandom = (SwipeRefreshLayout)findViewById( R.id.swipeRefreshLayoutRandom );
-        recyclerViewRandom = (RecyclerView)findViewById( R.id.recyclerViewRandom );
+//        twoWayView = (TwoWayView)findViewById( R.id.twoWayView );
+//        recyclerViewRandom = (RecyclerView)findViewById( R.id.recyclerViewRandom );
+        recyclerViewRandom = (AutofitRecyclerView)findViewById( R.id.recyclerViewRandom );
         tagEditText = (EditText)findViewById( R.id.tagEditText );
     }
 
     private void initPara() {
         checkState = NORMAL;
         recyclerViewAdapter = new RecyclerViewAdapter( this, this );
-        gridLayoutManager = new GridLayoutManager( this, MAX_SPAN_SIZE );
-        recyclerViewRandom.setLayoutManager( gridLayoutManager );
+//        gridLayoutManager = new GridLayoutManager( this, MAX_SPAN_SIZE );
+//        recyclerViewRandom.setLayoutManager( gridAutofitLayoutManager );
+//        twoWayView.setAdapter(  );
         recyclerViewRandom.setAdapter( recyclerViewAdapter );
         recyclerViewRandom.setItemAnimator( new DefaultItemAnimator() );
     }
 
     private void initControl() {
 
-        gridLayoutManager.setSpanSizeLookup( new GridLayoutManager.SpanSizeLookup() {
 
 
-
-            @Override
-            public int getSpanSize( int position ) {
-
-                int length = RecyclerViewRandomData.getInstance().getList().get( position ).tagName.length();
-
-                if(length > 8) {
-                    return 3;
-                }
-                else {
-                    return 1;
-                }
-
-
-                //                ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(),
-                //                                position + " " + RecyclerViewRandomData.getInstance().getList().get( position ) + " " +
-                //                                RecyclerViewRandomData.getInstance().getList().get( position ).tagName.length());
-
-
-
-            }
-        } );
-
+        recyclerViewRandom.setColumnWidth(200);
 
         swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
 
@@ -118,7 +103,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 .applyDimension( TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics() ) );
 
-        recyclerViewRandom.addOnScrollListener( onScrollListener() );
+//        recyclerViewRandom.addOnScrollListener( onScrollListener() );
 
         checkImageButton.setOnClickListener( onClickListener() );
 
@@ -360,7 +345,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             public void onScrolled( RecyclerView recyclerView, int dx, int dy ) {
                 super.onScrolled( recyclerView, dx, dy );
 
-                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
+                lastVisibleItem = returnLastVisibleItemPosition();
+//                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
 //                lastVisibleItem = gridAutofitLayoutManager.findLastVisibleItemPosition();
             }
         };
@@ -393,8 +379,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange( View view, boolean b ) {
-
-                ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), b + " ??" );
 
             }
         };
