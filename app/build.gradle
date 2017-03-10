@@ -32,5 +32,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:9.2.0'
 
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
+    compile project(path: ':volley')
 }
 apply plugin: 'com.google.gms.google-services'
