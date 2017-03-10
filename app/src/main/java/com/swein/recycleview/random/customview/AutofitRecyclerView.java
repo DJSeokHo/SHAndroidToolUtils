@@ -7,7 +7,8 @@ import android.util.AttributeSet;
 
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 
-import static com.swein.recycleview.random.data.manager.ItemPositionManager.MAX_LENGTH;
+import static com.swein.recycleview.random.manager.ItemPositionManager.MAX_LENGTH;
+
 
 /**
  * Created by seokho on 08/03/2017.

@@ -3,8 +3,8 @@ package com.swein.recycleview.random.data;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.random.RandomNumberUtils;
 import com.swein.framework.tools.util.random.RandomStringUtils;
-import com.swein.recycleview.random.data.manager.ItemPosition;
-import com.swein.recycleview.random.data.manager.ItemPositionManager;
+import com.swein.recycleview.random.manager.ItemPosition;
+import com.swein.recycleview.random.manager.ItemPositionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class RecyclerViewRandomData {
         list.clear();
         colList.clear();
 
-        for ( int i = 0; i < count; i++ ) {
+        for ( int i = 0; i < 10; i++ ) {
             int length = RandomNumberUtils.getRandomIntegerNumber(25, 1);
             String tagName = RandomStringUtils.createRandomString(length);
             ListItemData listItemData = new ListItemData( tagName, false, null, ItemPosition.LEFT);
@@ -76,7 +76,7 @@ public class RecyclerViewRandomData {
         itemPositionManager.setItemPosition( colList, list );
 
         for( int i = 0; i < getColList().size(); i++) {
-            ILog.iLogDebug( RecyclerViewRandomData.class.getSimpleName(), getList().get( i ).tagName + " [" + getList().get( i ).tagName.length() + "] " + getColList().get( i ) );
+            ILog.iLogDebug( RecyclerViewRandomData.class.getSimpleName(), getList().get( i ).tagName + " [" + getList().get( i ).tagName.length() + "] " + getColList().get( i ) + " " + getList().get( i ).itemPosition);
         }
     }
 
