@@ -87,6 +87,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
         recyclerViewRandomItemViewHolder.tagCloudItemLayoutSetBackGround();
         recyclerViewRandomItemViewHolder.textViewSetText( RecyclerViewRandomData.getInstance().getList().get( position ).tagName );
 
+        recyclerViewRandomItemViewHolder.backgroundImageViewSetImage(position);
+
         recyclerViewRandomItemViewHolder.tagCloudItemLayoutSetOnClickListener( new View.OnClickListener() {
 
             @Override

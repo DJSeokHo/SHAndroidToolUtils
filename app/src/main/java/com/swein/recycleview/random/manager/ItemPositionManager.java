@@ -1,6 +1,8 @@
 package com.swein.recycleview.random.manager;
 
 import com.swein.recycleview.random.data.ListItemData;
+import com.swein.recycleview.random.manager.content.ItemLength;
+import com.swein.recycleview.random.manager.content.ItemPosition;
 
 import java.util.List;
 
@@ -12,12 +14,29 @@ public class ItemPositionManager {
 
     public final static int MAX_LENGTH = 6;
 
+    public final static int STRING_LENGTH_ZERO = 0;
+    public final static int STRING_LENGTH_SHORT = 5;
+    public final static int STRING_LENGTH_NORMAL = 10;
+
+    public final static int ITEM_SPAN_SHORT = 2;
+    public final static int ITEM_SPAN_HALF = 3;
+    public final static int ITEM_SPAN_NORMAL = 4;
+    public final static int ITEM_SPAN_LONG = 6;
+
+    public final static float LEVEL_ONE_SPACE_RATIO = 0.117f;
+    public final static float LEVEL_TWO_SPACE_RATIO = 0.104f;
+    public final static float LEVEL_THREE_SPACE_RATIO = 0.078f;
+    public final static float LEVEL_FOUR_SPACE_RATIO = 0.065f;
+    public final static float LEVEL_FIVE_SPACE_RATIO = 0.026f;
+    public final static float LEVEL_SIX_SPACE_RATIO = 0.013f;
+
+
     private ItemLength getTagCol(String string) {
 
-        if(0 < string.length() && 5 >= string.length()) {
+        if(STRING_LENGTH_ZERO < string.length() && STRING_LENGTH_SHORT >= string.length()) {
             return ItemLength.SHORT;
         }
-        else if(5 < string.length() && 10 >= string.length()) {
+        else if(STRING_LENGTH_SHORT < string.length() && STRING_LENGTH_NORMAL >= string.length()) {
             return ItemLength.NORMAL;
         }
         else {
@@ -25,22 +44,20 @@ public class ItemPositionManager {
         }
     }
 
-
-
     private void setItemColShort(int index, List list) {
-        list.set( index, 2 );
+        list.set( index, ITEM_SPAN_SHORT );
     }
 
     private void setItemColHalf(int index, List list) {
-        list.set( index, 3 );
+        list.set( index, ITEM_SPAN_HALF );
     }
 
     private void setItemColNormal(int index, List list) {
-        list.set( index, 4 );
+        list.set( index, ITEM_SPAN_NORMAL );
     }
 
     private void setItemColLong(int index, List list) {
-        list.set( index, 6 );
+        list.set( index, ITEM_SPAN_LONG );
     }
 
     private void setItemLeft(List<ListItemData> listItemDatas, int index) {
@@ -57,61 +74,65 @@ public class ItemPositionManager {
 
     public void setItemPosition( List colList, List<ListItemData> listItemDatas ) {
 
-        int totalSpace = 6;
+        int totalSpace = ITEM_SPAN_LONG;
 
         for(int i = 0; i < listItemDatas.size(); i++) {
             //init  col
 
-            if(6 == totalSpace) {
+            if(ITEM_SPAN_LONG == totalSpace) {
 
                 if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.LONG) {  //tag length is 6
                     setItemColLong( i, colList );
-                    totalSpace -= 6;
+                    totalSpace -= ITEM_SPAN_LONG;
+
                     setItemMid( listItemDatas, i );
+
                 }
                 else if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.NORMAL) { //tag length is 4
                     if(i == listItemDatas.size() - 1) { //last item
                         setItemColLong( i, colList );
-                        totalSpace -= 6;
+                        totalSpace -= ITEM_SPAN_LONG;
+
                         setItemMid( listItemDatas, i );
                     }
                     else {
                         setItemColNormal( i, colList );
-                        totalSpace -= 4;
+                        totalSpace -= ITEM_SPAN_NORMAL;
+
                         setItemLeft( listItemDatas, i );
                     }
                 }
                 else {  //tag length is 2
                     if(i == listItemDatas.size() - 1) { //last item
                         setItemColLong( i, colList );
-                        totalSpace -= 6;
+                        totalSpace -= ITEM_SPAN_LONG;
                         setItemMid( listItemDatas, i );
                     }
                     else {
                         setItemColShort( i, colList );
-                        totalSpace -= 2;
+                        totalSpace -= ITEM_SPAN_SHORT;
                         setItemLeft( listItemDatas, i );
                     }
                 }
 
                 if(0 == totalSpace) {
-                    totalSpace = 6;
+                    totalSpace = ITEM_SPAN_LONG;
                 }
                 continue;
             }
 
-            if(4 == totalSpace) {
+            if(ITEM_SPAN_NORMAL == totalSpace) {
 
                 if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.LONG) {  //tag length is 6
                     setItemColLong( i - 1, colList );
                     setItemColLong( i, colList );
-                    totalSpace -= 4;
+                    totalSpace -= ITEM_SPAN_NORMAL;
                     setItemMid( listItemDatas, i - 1 );
                     setItemMid( listItemDatas, i );
                 }
                 else if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.NORMAL) { //tag length is 4
                     setItemColNormal( i, colList );
-                    totalSpace -= 4;
+                    totalSpace -= ITEM_SPAN_NORMAL;
                     setItemRight( listItemDatas, i );
                 }
                 else {  //tag length is 2
@@ -121,23 +142,23 @@ public class ItemPositionManager {
 
                         setItemLeft( listItemDatas, i - 1 );
                         setItemRight( listItemDatas, i );
-                        totalSpace -= 4;
+                        totalSpace -= ITEM_SPAN_NORMAL;
                     }
                     else {
                         setItemColShort( i, colList );
                         setItemMid( listItemDatas, i );
-                        totalSpace -= 2;
+                        totalSpace -= ITEM_SPAN_SHORT;
                     }
                 }
 
                 if(0 == totalSpace) {
-                    totalSpace = 6;
+                    totalSpace = ITEM_SPAN_LONG;
                 }
                 continue;
 
             }
 
-            if(2 == totalSpace) {
+            if(ITEM_SPAN_SHORT == totalSpace) {
 
                 if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.LONG) {
 
@@ -146,24 +167,32 @@ public class ItemPositionManager {
                         setItemColHalf( i - 2, colList );
                         setItemColHalf( i - 1, colList );
                         setItemColLong( i, colList );
+
                         setItemLeft( listItemDatas, i - 2 );
                         setItemRight( listItemDatas, i - 1 );
                         setItemMid( listItemDatas, i );
+
                     }
                     else if(ItemLength.NORMAL == getTagCol( listItemDatas.get( i - 1 ).tagName )) {
+
                         setItemColLong( i - 1, colList );
                         setItemColLong( i, colList );
+
                         setItemMid( listItemDatas, i - 1 );
                         setItemMid( listItemDatas, i );
+
                     }
                     else if(ItemLength.SHORT == getTagCol( listItemDatas.get( i - 1 ).tagName )) {
+
                         setItemColShort( i - 1, colList );
                         setItemColLong( i, colList );
+
                         setItemLeft( listItemDatas, i - 2 );
                         setItemRight( listItemDatas, i - 1 );
                         setItemMid( listItemDatas, i );
+
                     }
-                    totalSpace -= 2;
+                    totalSpace -= ITEM_SPAN_SHORT;
                 }
                 else if(getTagCol( listItemDatas.get( i ).tagName ) == ItemLength.NORMAL) {
 
@@ -176,24 +205,29 @@ public class ItemPositionManager {
                         setItemLeft( listItemDatas, i - 2 );
                         setItemRight( listItemDatas, i - 1 );
                         setItemMid( listItemDatas, i );
+
                     }
                     else if(ItemLength.NORMAL == getTagCol( listItemDatas.get( i - 1 ).tagName )) {
+
                         setItemColLong( i - 1, colList );
                         setItemColLong( i, colList );
 
                         setItemMid( listItemDatas, i - 1 );
                         setItemMid( listItemDatas, i);
+
                     }
-                    totalSpace -= 2;
+                    totalSpace -= ITEM_SPAN_SHORT;
                 }
                 else {
                     setItemColShort( i, colList );
+
                     setItemRight( listItemDatas, i );
-                    totalSpace -= 2;
+
+                    totalSpace -= ITEM_SPAN_SHORT;
                 }
 
                 if(0 == totalSpace) {
-                    totalSpace = 6;
+                    totalSpace = ITEM_SPAN_LONG;
                 }
                 continue;
             }

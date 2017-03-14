@@ -33,5 +33,7 @@ dependencies {
 
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
     compile project(path: ':volley')
+
+    compile 'com.makeramen:roundedimageview:2.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

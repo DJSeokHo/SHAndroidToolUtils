@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:gravity="center"
-    android:layout_gravity="center"
-    >
+    android:layout_gravity="center">
 
     <RelativeLayout
         android:id="@+id/tagCloudItem"
@@ -17,23 +17,74 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         >
-        <TextView
-            android:id="@+id/recyclerViewRandomItemTextView"
-            android:textAllCaps="false"
+        
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/recyclerViewRandomItemBackgroundImageView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            app:riv_tile_mode="repeat"
+            app:riv_corner_radius="30dip"
+            app:riv_oval="false"
+            android:minWidth="100dp"
+            android:minHeight="60dp"
+            android:layout_alignLeft="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignRight="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignTop="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignBottom="@+id/recyclerViewRandomItemTextViewLL"
+            />
+    
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/recyclerViewRandomItemColorImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_tile_mode="repeat"
+            app:riv_corner_radius="30dip"
+            app:riv_oval="false"
+            android:minWidth="100dp"
+            android:minHeight="60dp"
+            android:layout_alignLeft="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignRight="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignTop="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_alignBottom="@+id/recyclerViewRandomItemTextViewLL"
+            />
+        
+        <LinearLayout
+            android:id="@+id/recyclerViewRandomItemTextViewLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
             android:minWidth="75dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:maxEms="10"
-            android:ellipsize="end"
-            />
+            android:orientation="horizontal">
+    
+            <TextView
+                android:id="@+id/recyclerViewRandomItemTextView"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxEms="10"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:layout_gravity="center|center_horizontal"
+                />
+            
+            <TextView
+                android:id="@+id/recyclerViewRandomItemNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_gravity="bottom|center_horizontal"
+                />
+        </LinearLayout>
+        
 
         <ImageView
-            android:layout_alignRight="@+id/recyclerViewRandomItemTextView"
+            android:layout_alignRight="@+id/recyclerViewRandomItemBackgroundImageView"
             android:layout_alignParentTop="true"
             android:id="@+id/recyclerViewRandomItemCheckImageView"
             android:background="#00000000"
@@ -41,6 +92,8 @@
             android:scaleType="centerInside"
             android:layout_height="20dp"
             />
+        
+        
     </RelativeLayout>
 
 </LinearLayout>

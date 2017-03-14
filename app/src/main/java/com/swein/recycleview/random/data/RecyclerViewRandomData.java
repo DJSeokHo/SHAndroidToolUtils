@@ -1,9 +1,11 @@
 package com.swein.recycleview.random.data;
 
+import android.graphics.Rect;
+
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.random.RandomNumberUtils;
 import com.swein.framework.tools.util.random.RandomStringUtils;
-import com.swein.recycleview.random.manager.ItemPosition;
+import com.swein.recycleview.random.manager.content.ItemPosition;
 import com.swein.recycleview.random.manager.ItemPositionManager;
 
 import java.util.ArrayList;
@@ -16,21 +18,20 @@ import java.util.List;
 public class RecyclerViewRandomData {
 
     private List< ListItemData > list;
-    private List<Integer> colList;
+    private List<Integer>        colList;
+
+    private List<Rect>           itemOffsetList;
 
     private ItemPositionManager itemPositionManager;
 
     private RecyclerViewRandomData() {
         list = new ArrayList< ListItemData >();
         colList = new ArrayList<Integer>();
+        itemOffsetList = new ArrayList<Rect>();
         itemPositionManager = new ItemPositionManager();
     }
 
     private static RecyclerViewRandomData instance = null;
-
-//    private DisplayMetrics metric = new DisplayMetrics();
-
-
 
     public static RecyclerViewRandomData getInstance() {
 
@@ -54,6 +55,11 @@ public class RecyclerViewRandomData {
         return this.colList;
     }
 
+
+    public List<Rect> getItemOffsetList() {
+        return this.itemOffsetList;
+    }
+
     /**
      * init list
      */
@@ -64,13 +70,20 @@ public class RecyclerViewRandomData {
 
         list.clear();
         colList.clear();
+        itemOffsetList.clear();
 
-        for ( int i = 0; i < 10; i++ ) {
+        Rect rect = new Rect();
+        rect.left = 0;
+        rect.right = 0;
+
+
+        for ( int i = 0; i < count; i++ ) {
             int length = RandomNumberUtils.getRandomIntegerNumber(25, 1);
             String tagName = RandomStringUtils.createRandomString(length);
             ListItemData listItemData = new ListItemData( tagName, false, null, ItemPosition.LEFT);
             list.add( listItemData );
             colList.add( i );
+            itemOffsetList.add( rect );
         }
 
         itemPositionManager.setItemPosition( colList, list );
@@ -86,6 +99,10 @@ public class RecyclerViewRandomData {
     public void loadList() {
         int count = RandomNumberUtils.getRandomIntegerNumber(11, 30);
 
+        Rect rect = new Rect();
+        rect.left = 0;
+        rect.right = 0;
+
         for ( int i = 0; i < count; i++ ) {
             int length = RandomNumberUtils.getRandomIntegerNumber(25, 1);
 
@@ -93,6 +110,7 @@ public class RecyclerViewRandomData {
             ListItemData listItemData = new ListItemData(tagName, false, null, ItemPosition.LEFT);
             list.add( listItemData );
             colList.add( i );
+            itemOffsetList.add( rect );
         }
 
         itemPositionManager.setItemPosition( colList, list );

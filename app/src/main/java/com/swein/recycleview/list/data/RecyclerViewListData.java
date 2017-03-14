@@ -61,4 +61,5 @@ public class RecyclerViewListData {
         list.remove( position );
     }
 
+
 }

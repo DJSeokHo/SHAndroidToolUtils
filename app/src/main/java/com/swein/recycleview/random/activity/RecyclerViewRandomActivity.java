@@ -18,6 +18,7 @@ import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.edittext.EditTextViewUtils;
 import com.swein.recycleview.random.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.random.customview.AutofitRecyclerView;
+import com.swein.recycleview.random.customview.RecyclerViewItemSetting;
 import com.swein.recycleview.random.data.ListItemData;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 import com.swein.recycleview.random.delegator.RecyclerViewRandomDelegator;
@@ -30,15 +31,12 @@ import static com.swein.recycleview.random.customview.AutofitRecyclerView.return
 
 public class RecyclerViewRandomActivity extends AppCompatActivity implements RecyclerViewRandomDelegator, ListenerInterface {
 
-
-//    private TwoWayView twoWayView;
-//    private RecyclerView        recyclerViewRandom;
     private AutofitRecyclerView recyclerViewRandom;
 
     private RecyclerViewAdapter recyclerViewAdapter;
     private SwipeRefreshLayout  swipeRefreshLayoutRandom;
 
-//    private GridLayoutManager gridLayoutManager;
+    private RecyclerViewItemSetting recyclerViewItemSetting;
 
     private int               lastVisibleItem;
 
@@ -49,7 +47,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
     private EditText tagEditText;
 
-    private final static int MAX_SPAN_SIZE = 3;
 
     public static String checkState;   //0: normal. 1: select. 2: all select
 
@@ -74,8 +71,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         clearImageButton = (ImageButton)findViewById( R.id.clearImageButton );
         searchTagImageButton = (ImageButton)findViewById( R.id.searchTagImageButton );
         swipeRefreshLayoutRandom = (SwipeRefreshLayout)findViewById( R.id.swipeRefreshLayoutRandom );
-//        twoWayView = (TwoWayView)findViewById( R.id.twoWayView );
-//        recyclerViewRandom = (RecyclerView)findViewById( R.id.recyclerViewRandom );
         recyclerViewRandom = (AutofitRecyclerView)findViewById( R.id.recyclerViewRandom );
         tagEditText = (EditText)findViewById( R.id.tagEditText );
     }
@@ -83,11 +78,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     private void initPara() {
         checkState = NORMAL;
         recyclerViewAdapter = new RecyclerViewAdapter( this, this );
-//        gridLayoutManager = new GridLayoutManager( this, MAX_SPAN_SIZE );
-//        recyclerViewRandom.setLayoutManager( gridAutofitLayoutManager );
-//        twoWayView.setAdapter(  );
         recyclerViewRandom.setAdapter( recyclerViewAdapter );
         recyclerViewRandom.setItemAnimator( new DefaultItemAnimator() );
+        recyclerViewItemSetting = new RecyclerViewItemSetting(this);
     }
 
     private void initControl() {
@@ -103,7 +96,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 .applyDimension( TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics() ) );
 
-//        recyclerViewRandom.addOnScrollListener( onScrollListener() );
+        recyclerViewRandom.addOnScrollListener( onScrollListener() );
+
+        recyclerViewRandom.addItemDecoration(recyclerViewItemSetting);
 
         checkImageButton.setOnClickListener( onClickListener() );
 
@@ -126,7 +121,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         switch ( checkState ) {
             case NORMAL:
                 searchImageButton.setVisibility( View.VISIBLE );
-//                checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
                 checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
                 checkState = SELECT;
                 recyclerViewAdapter.notifyDataSetChanged();
@@ -134,7 +128,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
             case SELECT:
                 searchImageButton.setVisibility( View.VISIBLE );
-//                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
                 checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
                 checkState = ALL;
                 setAllItemSelected();
@@ -192,7 +185,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     @Override
     public void singleTagSearch( Object object ) {
 
-        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), ((ListItemData)object).tagName );
+        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), ((ListItemData)object).tagName + ((ListItemData)object).itemPosition);
     }
 
     @Override
@@ -207,7 +200,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                     if (!listItemData.tagCheckState) {
                         ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "false" );
                         searchImageButton.setVisibility( View.VISIBLE );
-//                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select );
                         checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
                         checkState = SELECT;
                         recyclerViewAdapter.notifyDataSetChanged();
@@ -216,7 +208,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                     else {// if has no one unselected item until last item, now it's all selected state, do not break
                         ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "true" );
                         searchImageButton.setVisibility( View.VISIBLE );
-//                        checkImageButton.setImageResource( R.drawable.recyclerview_random_select_all );
                         checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
                         checkState = ALL;
                     }
@@ -346,8 +337,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 super.onScrolled( recyclerView, dx, dy );
 
                 lastVisibleItem = returnLastVisibleItemPosition();
-//                lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
-//                lastVisibleItem = gridAutofitLayoutManager.findLastVisibleItemPosition();
             }
         };
 
