@@ -1,7 +1,7 @@
 package com.swein.framework.tools.util.popup;
 
+import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
@@ -28,9 +28,9 @@ public class PopupWindowUtils {
      * @param popupWindowShowAtY
      * @param parnet
      */
-    public static void createPopupWindowWithView(final Context context, LayoutInflater layoutInflater, int viewResource, int popupWindowWidth, int popupWindowHeight, int gravity, int popupWindowShowAtX, int popupWindowShowAtY, View parnet) {
+    public static void createPopupWindowWithView(final Context context, int viewResource, int popupWindowWidth, int popupWindowHeight, int gravity, int popupWindowShowAtX, int popupWindowShowAtY, View parnet) {
 
-        View root = layoutInflater.inflate(viewResource, null);
+        View root = ((Activity)context).getLayoutInflater().inflate( viewResource, null);
 
         final PopupWindow popupWindow = new PopupWindow(root, popupWindowWidth, popupWindowHeight);
 

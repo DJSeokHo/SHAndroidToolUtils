@@ -85,8 +85,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
     private void initControl() {
 
-
-
         recyclerViewRandom.setColumnWidth(200);
 
         swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
@@ -212,11 +210,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                         checkState = ALL;
                     }
                 }
-
             }
         } );
     }
-
 
     @Override
     public View.OnClickListener onClickListener() {
