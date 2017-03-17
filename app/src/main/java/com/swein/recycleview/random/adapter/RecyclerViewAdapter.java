@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
-import com.swein.recycleview.random.delegator.RecyclerViewRandomDelegator;
+import com.swein.recycleview.random.delegate.RecyclerViewRandomDelegate;
 import com.swein.recycleview.random.viewholder.RecyclerViewRandomItemViewHolder;
 import com.swein.shandroidtoolutils.R;
 
@@ -22,12 +22,12 @@ import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.c
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandomItemViewHolder > {
 
-    private Context context;    //Context
-    private RecyclerViewRandomDelegator recyclerViewRandomDelegator;    //Delegator for Controller
+    private Context                    context;    //Context
+    private RecyclerViewRandomDelegate recyclerViewRandomDelegate;    //Delegator for Controller
 
-    public RecyclerViewAdapter(Context context, RecyclerViewRandomDelegator recyclerViewRandomDelegator) {
+    public RecyclerViewAdapter(Context context, RecyclerViewRandomDelegate recyclerViewRandomDelegate ) {
         this.context = context;
-        this.recyclerViewRandomDelegator = recyclerViewRandomDelegator;
+        this.recyclerViewRandomDelegate = recyclerViewRandomDelegate;
     }
 
     @Override
@@ -95,11 +95,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
             public void onClick( View view ) {
 
                 if(!checkState.equals( NORMAL )) {  //select mode
-                    recyclerViewRandomDelegator.setItemCheckState( RecyclerViewRandomData.getInstance().getList().get( position ) );
+                    recyclerViewRandomDelegate.setItemCheckState( RecyclerViewRandomData.getInstance().getList().get( position ) );
                     recyclerViewRandomItemViewHolder.tagCloudItemSetCheckState( RecyclerViewRandomData.getInstance().getList().get( position ).tagCheckState );
                 }
                 else {  //single click mode
-                    recyclerViewRandomDelegator.singleTagSearch(RecyclerViewRandomData.getInstance().getList().get( position ));
+                    recyclerViewRandomDelegate.singleTagSearch( RecyclerViewRandomData.getInstance().getList().get( position ));
                     recyclerViewRandomItemViewHolder.hideImageView();
                 }
 

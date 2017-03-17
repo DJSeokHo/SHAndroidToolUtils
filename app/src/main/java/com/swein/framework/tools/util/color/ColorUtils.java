@@ -25,6 +25,27 @@ public class ColorUtils {
         ILog.iLogDebug( ColorUtils.class.getSimpleName(), r + g + b );
 
         return "#" + r + g + b;
+    }
+
+    /**
+     * 0% ~ 100% input
+     * @return
+     */
+    public static String colorAlphaToHexString(double alpha) {
+
+        if( 0 > alpha || 1 < alpha ) {
+            return "";
+        }
+
+        alpha = Math.round(alpha * 100) /  100.0d;
+        int a = (int) Math.round(alpha * 255);
+        String hex = Integer.toHexString(a).toUpperCase();
+
+        if (hex.length() == 1) {
+            hex = "0" + hex;
+        }
+
+        return hex;
 
     }
 

@@ -21,7 +21,7 @@ import com.swein.recycleview.random.customview.AutofitRecyclerView;
 import com.swein.recycleview.random.customview.RecyclerViewItemSetting;
 import com.swein.recycleview.random.data.ListItemData;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
-import com.swein.recycleview.random.delegator.RecyclerViewRandomDelegator;
+import com.swein.recycleview.random.delegate.RecyclerViewRandomDelegate;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 import static com.swein.recycleview.random.customview.AutofitRecyclerView.returnLastVisibleItemPosition;
 
-public class RecyclerViewRandomActivity extends AppCompatActivity implements RecyclerViewRandomDelegator, ListenerInterface {
+public class RecyclerViewRandomActivity extends AppCompatActivity implements RecyclerViewRandomDelegate, ListenerInterface {
 
     private AutofitRecyclerView recyclerViewRandom;
 

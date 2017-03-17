@@ -1,10 +1,10 @@
-package com.swein.recycleview.random.delegator;
+package com.swein.recycleview.random.delegate;
 
 /**
  * Created by seokho on 02/03/2017.
  */
 
-public interface RecyclerViewRandomDelegator {
+public interface RecyclerViewRandomDelegate {
 
     void setItemCheckState(Object object);
 

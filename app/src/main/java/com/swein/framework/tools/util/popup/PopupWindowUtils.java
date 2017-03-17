@@ -19,7 +19,6 @@ public class PopupWindowUtils {
     /**
      * this method can not use at create() of any class because this method will called after activity shown
      * @param context
-     * @param layoutInflater
      * @param viewResource
      * @param popupWindowWidth
      * @param popupWindowHeight
