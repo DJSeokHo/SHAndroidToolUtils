@@ -1,25 +1,28 @@
 {
   "project_info": {
-    "project_number": "724912523757",
-    "project_id": "digitalauthsystem"
+    "project_number": "860380761876",
+    "project_id": "shandroidtoolutils"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:724912523757:android:cf48d8001330142d",
+        "mobilesdk_app_id": "1:860380761876:android:d5b78e864556736f",
         "android_client_info": {
-          "package_name": "com.remarkablesoft.das"
+          "package_name": "com.swein.shandroidtoolutils"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAgz2f-EyL4hXDH5IXDMnr591o2NlnTDXA"
+          "current_key": "AIzaSyDHQdTXss5X0yA7xjQtRReuCp__tB2xjKw"
         }
       ],
       "services": {
         "analytics_service": {
-          "status": 1
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-87415315-2"
+          }
         },
         "appinvite_service": {
           "status": 1,

@@ -22,8 +22,6 @@ public class ColorUtils {
         g = g.length() == 1 ? "0" + g : g ;
         b = b.length() == 1 ? "0" + b : b ;
 
-        ILog.iLogDebug( ColorUtils.class.getSimpleName(), r + g + b );
-
         return "#" + r + g + b;
     }
 

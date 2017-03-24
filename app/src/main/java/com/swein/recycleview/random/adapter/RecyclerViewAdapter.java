@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.swein.framework.module.analytics.manager.TrackerManager;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 import com.swein.recycleview.random.delegate.RecyclerViewRandomDelegate;
 import com.swein.recycleview.random.viewholder.RecyclerViewRandomItemViewHolder;
@@ -93,6 +94,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
 
             @Override
             public void onClick( View view ) {
+
+                TrackerManager.sendEventReport( context, "Operate", "click", RecyclerViewRandomData.getInstance().getList().get( position ).tagName, position, true );
 
                 if(!checkState.equals( NORMAL )) {  //select mode
                     recyclerViewRandomDelegate.setItemCheckState( RecyclerViewRandomData.getInstance().getList().get( position ) );

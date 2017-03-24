@@ -11,6 +11,7 @@ import android.util.TypedValue;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
+import com.swein.framework.module.analytics.manager.TrackerManager;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.recycleview.list.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.list.data.RecyclerViewListData;
@@ -32,6 +33,8 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_recycler_view_list );
+
+        TrackerManager.sendScreenViewReport( this );
 
         linearLayoutManager = new LinearLayoutManager( this );
 
@@ -61,6 +64,8 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
             public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
                 super.onScrollStateChanged( recyclerView, newState );
 
+                TrackerManager.sendEventReport( RecyclerViewListActivity.this, "Operate", "onScrollStateChanged", false );
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
                         == RecyclerViewListData.getInstance().getList().size()) {
 
@@ -88,7 +93,11 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
 
     @Override
     public void deleteListItem( int position ) {
+
+        TrackerManager.sendEventReport( this, "Operate", "deleteListItem " + RecyclerViewListData.getInstance().getList().get( position ), false );
+
         RecyclerViewListData.getInstance().removeListItem( position );
+
         recyclerViewAdapter.notifyItemRemoved( position );
         //rebind view position after remove item
         recyclerViewAdapter.notifyItemRangeChanged( position, RecyclerViewListData.getInstance().getList().size() );
@@ -96,6 +105,10 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
 
     @Override
     public void onRefresh() {
+
+        TrackerManager.sendEventReport( this, "Operate", "onRefresh", false );
+
+
         RecyclerViewListData.getInstance().initList();
         recyclerViewAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing( false );

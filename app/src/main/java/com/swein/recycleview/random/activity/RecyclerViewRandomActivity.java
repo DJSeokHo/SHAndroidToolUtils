@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.swein.framework.module.analytics.handler.CrashExceptionHandler;
+import com.swein.framework.module.analytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.input.keyboard.KeyBoardUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -59,6 +61,11 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_recycler_view_random );
 
+        //auto send crash report when this activity crashed
+        CrashExceptionHandler.getInstance().init( this );
+
+        TrackerManager.sendScreenViewReport( this );
+
         initData();
         initView();
         initPara();
@@ -66,6 +73,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initView() {
+        TrackerManager.sendEventReport( this, "Auto", "initView", false );
         checkImageButton = (ImageButton)findViewById( R.id.checkImageButton );
         searchImageButton = (ImageButton)findViewById( R.id.searchImageButton );
         clearImageButton = (ImageButton)findViewById( R.id.clearImageButton );
@@ -76,6 +84,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initPara() {
+        TrackerManager.sendEventReport( this, "Auto", "initPara", false );
         checkState = NORMAL;
         recyclerViewAdapter = new RecyclerViewAdapter( this, this );
         recyclerViewRandom.setAdapter( recyclerViewAdapter );
@@ -84,7 +93,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initControl() {
-
+        TrackerManager.sendEventReport( this, "Auto", "initControl", false );
         recyclerViewRandom.setColumnWidth(200);
 
         swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
@@ -111,6 +120,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initData() {
+        TrackerManager.sendEventReport( this, "Auto", "initData", false );
         RecyclerViewRandomData.getInstance().initList();
     }
 
@@ -225,11 +235,16 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.checkImageButton:
 
+                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "checkImageButton", R.id.checkImageButton, false );
+
                         setCheckButtonAfterClicked();
 
                         break;
 
                     case R.id.searchImageButton:
+
+                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "searchImageButton", R.id.searchImageButton, false );
+
                         final List<ListItemData> listItemDataList = new ArrayList<ListItemData>();
 
                         ThreadUtils.createThreadWithoutUI(new Runnable() {
@@ -251,12 +266,20 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.clearImageButton:
 
+                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "clearImageButton", R.id.clearImageButton, false );
+
                         tagEditText.setText( "" );
 
                         break;
 
                     case R.id.searchTagImageButton:
 
+                        int i = 1/0;
+
+                        ILog.iLogDebug( RecyclerViewRandomActivity.this, String.valueOf( i ) );
+
+//                        String[] test = new String[] {"1", "2"};
+//                        ILog.iLogDebug( RecyclerViewRandomActivity.this, test[3] );
                         break;
 
                 }
@@ -270,6 +293,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     public TextWatcher textWatcher() {
 
         TextWatcher textWatcher = new TextWatcher() {
+
             @Override
             public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
 
@@ -303,6 +327,10 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             @Override
             public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
                 super.onScrollStateChanged( recyclerView, newState );
+
+                TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "onScrollStateChanged", false );
+
+                tagEditText.setText( "" );
 
                 //check edit text view focus
                 if(EditTextViewUtils.isEditTextViewHasFocus( tagEditText )) {
@@ -345,6 +373,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
+                TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "onRefresh", false );
+
                 RecyclerViewRandomData.getInstance().initList();
                 recyclerViewAdapter.notifyDataSetChanged();
                 swipeRefreshLayoutRandom.setRefreshing( false );

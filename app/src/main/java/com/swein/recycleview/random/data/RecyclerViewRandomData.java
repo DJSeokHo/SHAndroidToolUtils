@@ -1,12 +1,13 @@
 package com.swein.recycleview.random.data;
 
+import android.content.Context;
 import android.graphics.Rect;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.random.RandomNumberUtils;
 import com.swein.framework.tools.util.random.RandomStringUtils;
-import com.swein.recycleview.random.manager.content.ItemPosition;
 import com.swein.recycleview.random.manager.ItemPositionManager;
+import com.swein.recycleview.random.manager.content.ItemPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,16 @@ public class RecyclerViewRandomData {
 
     private List< ListItemData > list;
     private List<Integer>        colList;
-
     private List<Rect>           itemOffsetList;
-
     private ItemPositionManager itemPositionManager;
+    private Context context;
 
     private RecyclerViewRandomData() {
         list = new ArrayList< ListItemData >();
         colList = new ArrayList<Integer>();
         itemOffsetList = new ArrayList<Rect>();
         itemPositionManager = new ItemPositionManager();
+
     }
 
     private static RecyclerViewRandomData instance = null;

@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.swein.framework.module.analytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.recycleview.list.data.RecyclerViewListData;
 import com.swein.shandroidtoolutils.R;
@@ -40,5 +41,6 @@ public class RecyclerViewListItemViewHolder extends ViewHolder implements View.O
     public void onClick( View view ) {
         ILog.iLogDebug( RecyclerViewListItemViewHolder.class.getSimpleName(),
                         RecyclerViewListData.getInstance().getList().get( getAdapterPosition() ) );
+        TrackerManager.sendEventReport( view.getContext(), "Operate", "onClick", false );
     }
 }
