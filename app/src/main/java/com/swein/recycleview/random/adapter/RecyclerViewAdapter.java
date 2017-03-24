@@ -42,7 +42,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
                 LayoutInflater.from( context ).inflate( R.layout.activity_recycler_view_random_item, parent, false )
         );
 
-
         return recyclerViewRandomItemViewHolder;
 
     }
