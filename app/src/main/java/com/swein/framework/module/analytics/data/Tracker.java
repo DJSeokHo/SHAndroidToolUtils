@@ -30,6 +30,8 @@ public class Tracker {
             // session timeout 120 seconds (2 minutes)
             tracker.setSessionTimeout( 120 );
 
+            tracker.enableExceptionReporting( true );
+
             //set 100% sample rate, and make sure that report on site should be the same sample rate
             tracker.setSampleRate( 100.0d );
 
