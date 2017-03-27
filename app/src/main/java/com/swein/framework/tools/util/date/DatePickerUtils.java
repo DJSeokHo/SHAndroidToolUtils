@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.time;
+package com.swein.framework.tools.util.date;
 
 import android.content.res.Resources;
 import android.graphics.Color;

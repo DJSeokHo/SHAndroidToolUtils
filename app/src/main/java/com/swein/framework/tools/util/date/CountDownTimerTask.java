@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.time;
+package com.swein.framework.tools.util.date;
 
 import android.os.Handler;
 
@@ -11,8 +11,6 @@ import java.util.TimerTask;
  */
 
 public class CountDownTimerTask {
-
-    private final static String TAG = "CountDownTimerTask";
 
     public static void countdownTimerTaskWithUI(int unit, final int time, final Runnable runnable) {
 

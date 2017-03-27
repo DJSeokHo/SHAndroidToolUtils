@@ -1,12 +1,13 @@
-package com.swein.framework.tools.util.time;
+package com.swein.framework.tools.util.date;
 
-import android.util.Log;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by Administrator on 2016-11-15.
@@ -14,8 +15,12 @@ import java.util.Locale;
 
 public class DateUtil
 {
-    private static String TAG = DateUtil.class.getName();
 
+    public static String getCurrentDateFromFastDateFormat(String DATE_FORMAT) {
+        FastDateFormat fastDateFormat = FastDateFormat.getInstance( DATE_FORMAT, TimeZone.getDefault(), Locale.getDefault());
+        String         date           = fastDateFormat.format( new Date( ) );
+        return date;
+    }
 //    public static String toApiFormat(DateTimePickerViewHolder holder) {
 //        if (Build.VERSION.SDK_INT < 23) {
 //            return String.format("%04d%02d%02d%02d%02d"
@@ -93,8 +98,6 @@ public class DateUtil
 
     public static String toDisplayDifference(Calendar calendarFrom, Calendar calendarTo)
     {
-        Log.d(TAG, "toDisplayDifference("+calendarFrom+", "+calendarTo+"):");
-
         Calendar calendar1 = (Calendar) calendarFrom.clone();
         Calendar calendar2 = (Calendar) calendarTo.clone();
 

@@ -7,14 +7,13 @@ import android.os.Build;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -172,11 +171,12 @@ public class TrackerManager {
         String result = "\n[ Stack Trace ]\n" + writer.toString();
         stringBuffer.append(result);
 
-        String time = "[- " + new SimpleDateFormat( DATE_FORMAT ).format(new Date()) + " -]\n";
-        String device = "[- " + stringBuffer.toString() + " -]\n";
-        String crashException = "[- " + exception + " -]\n";
+
+        String            time              = "[- " + DateUtil.getCurrentDateFromFastDateFormat( DATE_FORMAT ) + " -]\n";
+        String            device            = "[- " + stringBuffer.toString() + " -]\n";
+        String            crashException    = "[- " + exception + " -]\n";
         StackTraceElement stackTraceElement = exception.getStackTrace()[0];
-        String location = "[- " + stackTraceElement.getFileName() + ": Line " + stackTraceElement.getLineNumber() + " -]\n";
+        String            location          = "[- " + stackTraceElement.getFileName() + ": Line " + stackTraceElement.getLineNumber() + " -]\n";
 
         String description = location + CRASH_REPORT + time + device + crashException;
 

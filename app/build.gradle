@@ -37,6 +37,8 @@ dependencies {
 
     compile 'com.makeramen:roundedimageview:2.3.0'
 
+    compile 'org.apache.commons:commons-lang3:3.5'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
