@@ -26,4 +26,13 @@ public class DeviceInfoUtils {
         return true;
     }
 
+    public static String getDeviceSerialNum() {
+
+        return android.os.Build.SERIAL;
+    }
+
+    public static String getDeviceModel() {
+        return android.os.Build.MODEL;
+    }
+
 }

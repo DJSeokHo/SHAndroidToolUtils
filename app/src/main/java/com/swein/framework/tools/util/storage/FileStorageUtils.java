@@ -4,6 +4,9 @@ import android.os.Environment;
 
 import com.swein.data.global.symbol.Symbol;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -94,6 +97,32 @@ public class FileStorageUtils {
         }
     }
 
+    public static void writeExternalStorageDirectoryFileWithJSONObject(String filePath, String fileName, JSONObject jsonObject) {
+
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+            File file = new File(filePath, fileName);
+
+            if(!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(jsonObject.toString().getBytes("UTF-8"));
+                fileOutputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static String readExternalStorageDirectoryFile(String filePath, String fileName) {
 
 
@@ -115,6 +144,42 @@ public class FileStorageUtils {
 
         return stringBuilder.toString();
 
+    }
+
+    public static JSONObject readExternalStorageDirectoryFileJSONObject(String filePath, String fileName) {
+
+        JSONObject jsonObject = null;
+
+        try {
+
+            File file = new File( filePath, fileName );
+            FileInputStream fileInputStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while( (line = bufferedReader.readLine()) != null ){
+                stringBuilder.append(line);
+            }
+
+            fileInputStream.close();
+            inputStreamReader.close();
+            bufferedReader.close();
+
+            jsonObject = new JSONObject(stringBuilder.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch ( JSONException e ) {
+            e.printStackTrace();
+        }
+        catch ( IOException e ) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
 }
