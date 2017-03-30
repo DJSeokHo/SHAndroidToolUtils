@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.swein.framework.module.userinfo.install.IO.FileIO;
 import com.swein.framework.tools.util.appinfo.AppInfoUtils;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 
 import org.json.JSONException;
@@ -22,7 +23,7 @@ public class UsageInstallChecker {
     private Context context;
 
     public UsageInstallChecker(Context context) {
-        fileIO = new FileIO();
+        fileIO = new FileIO(context);
         this.context = context;
     }
 
@@ -49,11 +50,18 @@ public class UsageInstallChecker {
                     updateApp();
 
                 }
-                else {
+                else if(preVersionCode > AppInfoUtils.getVersionCode(context)) {
 
-                    installApp();
+                    updateApp();
 
                 }
+                else {
+
+                    ILog.iLogDebug( UsageInstallChecker.class.getSimpleName(), "normal" );
+
+                }
+//                //test
+//                installApp();
             }
 
         }
@@ -64,12 +72,13 @@ public class UsageInstallChecker {
     }
 
     private void installApp() {
-        String deviceSerialNum = DeviceInfoUtils.getDeviceSerialNum();
+        ILog.iLogDebug( UsageInstallChecker.class.getSimpleName(), "installApp" );
+        String deviceSerialNum = DeviceInfoUtils.getDeviceID(context);
         String status = "I";
         String osType = "A";
         String versionCode = String.valueOf( AppInfoUtils.getVersionCode( context ) );
         String packageName = AppInfoUtils.getPackageName( context );
-        String deviceName = DeviceInfoUtils.getDeviceModel();
+        String deviceName = DeviceInfoUtils.getDeviceName();
 
         fileIO.createUsageInstallInfoJSONObject( deviceSerialNum, status, osType, versionCode, packageName, deviceName );
         //save file
@@ -80,13 +89,14 @@ public class UsageInstallChecker {
     }
 
     private void updateApp() {
+        ILog.iLogDebug( UsageInstallChecker.class.getSimpleName(), "updateApp" );
         //update app
-        String deviceSerialNum = DeviceInfoUtils.getDeviceSerialNum();
+        String deviceSerialNum = DeviceInfoUtils.getDeviceID(context);
         String status = "U";
         String osType = "A";
         String versionCode = String.valueOf( AppInfoUtils.getVersionCode( context ) );
         String packageName = AppInfoUtils.getPackageName( context );
-        String deviceName = DeviceInfoUtils.getDeviceModel();
+        String deviceName = DeviceInfoUtils.getDeviceName();
 
         //update file
         fileIO.createUsageInstallInfoJSONObject( deviceSerialNum, status, osType, versionCode, packageName, deviceName );
