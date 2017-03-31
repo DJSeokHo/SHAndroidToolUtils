@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -11,41 +10,39 @@
     
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
-        android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-    
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+        
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
-            
+            android:exported="false" />
+        
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+    
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.swein.listview.pattern.delegate.activity.DelegateExampleActivity"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name="com.swein.media.player.videoview.activity.VideoViewActivity" />
-
         <activity
             android:name="com.swein.recycleview.list.activity.RecyclerViewListActivity"
-            android:windowSoftInputMode="adjustPan"/>
-    
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.swein.framework.module.spacemanage.ManageSpaceActivity"
             android:screenOrientation="portrait" />
@@ -56,10 +53,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+        
         <activity
             android:name="com.swein.recycleview.random.activity.RecyclerViewRandomActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.swein.tabhost.activity.TabHostActivity"></activity>
     </application>
 
 </manifest>

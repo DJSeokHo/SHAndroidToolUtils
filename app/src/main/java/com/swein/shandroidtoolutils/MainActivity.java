@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.swein.framework.module.aspect.trace.DebugTrace;
 import com.swein.framework.module.userinfo.install.checker.UsageInstallChecker;
-import com.swein.recycleview.random.activity.RecyclerViewRandomActivity;
+import com.swein.tabhost.activity.TabHostActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +23,21 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(new Intent(this, DelegateExampleActivity.class));
 //        startActivity(new Intent(this, VideoViewActivity.class));
 //        startActivity(new Intent(this, RecyclerViewListActivity.class));
-        startActivity(new Intent(this, RecyclerViewRandomActivity.class));
+//        startActivity(new Intent(this, RecyclerViewRandomActivity.class));
+        startActivity(new Intent(this, TabHostActivity.class));
 
+
+        testAnnotatedMethod();
+
+    }
+
+    @DebugTrace
+    private void testAnnotatedMethod() {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
