@@ -32,29 +32,30 @@ public class TabHostActivityViewHolder {
     public View getTabView(String title, int resourceID, int position) {
         // home fragment
         View view = getTabItemView(title, resourceID);
-        itemChooseStatus(view, false, position);
+        ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
+        setSelectImageResource(view, R.id.imageview, position);
+        view.findViewById(R.id.imageview).setEnabled(true);
 
         return view;
     }
 
     public void setDefaultView(View view, int position) {
-        itemChooseStatus(view, true, position);
+        ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
+        setSelectImageResource(view, R.id.imageview, position);
+        view.findViewById(R.id.imageview).setEnabled(false);
     }
 
     public void setCurrentView(View view, boolean isChoose, String tabID) {
-        itemChooseStatus(view, isChoose, getViewPosition(tabID));
-    }
-
-    private void itemChooseStatus(View view, boolean isChoose, int position) {
         if (isChoose) {
             ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
-            setSelectImageResource(view, R.id.imageview, position);
+            setSelectImageResource(view, R.id.imageview, getViewPosition(tabID));
         } else {
             ((TextView) view.findViewById(R.id.textview)).setTextColor( Color.GRAY );
-            setUnSelectImageResource(view, R.id.imageview, position);
+            setUnSelectImageResource(view, R.id.imageview, getViewPosition(tabID));
         }
         view.findViewById(R.id.imageview).setEnabled(!isChoose);
     }
+
 
     /**
      * set button icon and text
