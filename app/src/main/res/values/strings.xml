@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">SHAndroidToolUtils</string>
     <string name="exception_count">오류 발생했습니다.\n오류 정보를 이미 개발자에게 보냈습니다.\n앱 다시 시동하시기 바람니다.</string>
+    
+    <string name="title_fragment_home">Home</string>
+    <string name="title_fragment_friends">Friends</string>
+    <string name="title_fragment_event">Event</string>
+    <string name="title_fragment_profile">Profile</string>
 
 </resources>

@@ -4,53 +4,79 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.swein.framework.module.aspect.trace.DebugTrace;
-import com.swein.framework.module.userinfo.install.checker.UsageInstallChecker;
-import com.swein.tabhost.activity.TabHostActivity;
+import com.swein.framework.module.aspect.tracker.analytics.report.annotation.GAExceptionTrace;
+import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.tabhostandtablayout.activity.TabHostActivity;
+
+import java.util.List;
+
+import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    @GAExceptionTrace
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        UsageInstallChecker usageInstallChecker= new UsageInstallChecker( this );
+        checkAppInstallInfoJSONObject(this);
 
-        usageInstallChecker.checkUsageInfoJSONObject();
+//        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
+//        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
+//        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
+//        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
+        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 
-//        startActivity(new Intent(this, DelegateExampleActivity.class));
-//        startActivity(new Intent(this, VideoViewActivity.class));
-//        startActivity(new Intent(this, RecyclerViewListActivity.class));
-//        startActivity(new Intent(this, RecyclerViewRandomActivity.class));
-        startActivity(new Intent(this, TabHostActivity.class));
+        testViewReport();
+        testEventReport();
 
 
-        testAnnotatedMethod();
+//        testExceptionReport();
 
-    }
 
-    @DebugTrace
-    private void testAnnotatedMethod() {
+
         try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
+            List list = null;
+            list.get( 5 );
+        }
+        catch ( Exception e ) {
             e.printStackTrace();
         }
+
+
     }
+
+    private void testViewReport() {
+
+    }
+
+    private void testEventReport() {
+
+    }
+
+
+//    private void testExceptionReport(){
+//
+//        try {
+//            List list = null;
+//            list.get( 5 );
+//        }
+//        catch ( Exception e ) {
+//
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
 
     }
 }

@@ -2,8 +2,6 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.analytics.handler.CrashExceptionHandler;
-
 import static com.swein.framework.module.analytics.data.Tracker.getAnalytics;
 
 /**
@@ -17,9 +15,18 @@ public class SHAndroidToolUtilsApplication extends Application {
         super.onCreate();
 
         getAnalytics(getApplicationContext(), true);
-
         //will auto send crash report when application crashed
-        CrashExceptionHandler.getInstance().init( getApplicationContext() );
+        //        CrashExceptionHandler.getInstance().init( getApplicationContext() );
+
+//        try {
+//            List list = null;
+//            list.get( 5 );
+//        }
+//        catch ( Exception e ) {
+//            e.printStackTrace();
+//        }
+
+
 
     }
 

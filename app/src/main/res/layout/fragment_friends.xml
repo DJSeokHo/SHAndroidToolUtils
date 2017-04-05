@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.tabhostandtablayout.fragment.classes.HomeFragment">
+    tools:context="com.swein.tabhostandtablayout.fragment.classes.FriendsFragment">
     
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/homeTextView"
+        android:id="@+id/friendsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
