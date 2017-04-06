@@ -1,12 +1,12 @@
-package com.swein.framework.module.aspect.tracker.analytics.report.exception;
+package com.swein.framework.module.aspect.aop.report.view;
 
 /**
  * Created by seokho on 03/04/2017.
  */
 
-public class ExceptionReport {
+public class ViewReport {
 
-    public static String createExceptionReport(String methodName, String message) {
+    public static String createViewReport( String methodName, String message ) {
         StringBuilder result = new StringBuilder();
         result.append("Aspect --> ");
         result.append(methodName);
@@ -17,5 +17,4 @@ public class ExceptionReport {
 
         return result.toString();
     }
-
 }

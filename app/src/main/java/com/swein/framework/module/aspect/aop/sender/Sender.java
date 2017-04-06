@@ -1,4 +1,4 @@
-package com.swein.framework.module.aspect.tracker.analytics.sender;
+package com.swein.framework.module.aspect.aop.sender;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 
@@ -27,16 +27,6 @@ public class Sender {
      * @param message The message you would like logged.
      */
     public static void sendEventReport(String tag, String message) {
-        ILog.iLogDebug( tag, message );
-    }
-
-    /**
-     * Send a exception
-     *
-     * @param tag Source of a log message.
-     * @param message The message you would like logged.
-     */
-    public static void sendExceptionReport(String tag, String message) {
         ILog.iLogDebug( tag, message );
     }
 

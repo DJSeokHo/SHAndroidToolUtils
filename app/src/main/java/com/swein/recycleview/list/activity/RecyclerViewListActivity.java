@@ -11,7 +11,7 @@ import android.util.TypedValue;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
-import com.swein.framework.module.analytics.manager.TrackerManager;
+import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.recycleview.list.adapter.RecyclerViewAdapter;
 import com.swein.recycleview.list.data.RecyclerViewListData;

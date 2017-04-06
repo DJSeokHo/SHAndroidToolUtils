@@ -1,10 +1,10 @@
-package com.swein.framework.module.analytics.handler;
+package com.swein.framework.module.aspect.analytics.handler;
 
 import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.swein.framework.module.analytics.manager.TrackerManager;
+import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.toast.ToastUtils;
 import com.swein.shandroidtoolutils.R;

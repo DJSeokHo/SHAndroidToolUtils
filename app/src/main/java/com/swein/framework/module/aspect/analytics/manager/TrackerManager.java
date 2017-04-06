@@ -1,4 +1,4 @@
-package com.swein.framework.module.analytics.manager;
+package com.swein.framework.module.aspect.analytics.manager;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.swein.framework.module.analytics.data.Tracker.getTracker;
+import static com.swein.framework.module.aspect.analytics.data.Tracker.getTracker;
 
 /**
  * Created by seokho on 23/03/2017.
@@ -32,6 +32,15 @@ public class TrackerManager {
     public final static String CRASH_REPORT = "[ " + APP_NAME + " Crash Report ]\n";
 
     private static Tracker tracker;
+
+
+    /**
+     * must init at application that aop can send exception report
+     * @param context
+     */
+    public static void initGoogleAnalyticsTracker(Context context) {
+        tracker = getTracker( context );
+    }
 
     public static void sendScreenViewReport(Context context) {
 
@@ -188,6 +197,59 @@ public class TrackerManager {
                      .setFatal( isFatal )
                      .setDescription( description )
                      .build());
+
+        //should init after send
+        tracker.setScreenName( null );
+        userInfo.clear();
+    }
+
+
+    public static void sendTryCatchExceptionReport(String exceptionDescription, String ScreenName, boolean isFatal, boolean isWithScreen) {
+
+        if(null == tracker) {
+            return;
+        }
+
+        if(isWithScreen) {
+            tracker.setScreenName( ScreenName );
+        }
+
+        //add device info
+        Map<String, String> userInfo = new HashMap<String, String>();
+
+        Field[] fields = Build.class.getDeclaredFields();
+        for ( Field field : fields ) {
+            try {
+
+                field.setAccessible(true);
+                userInfo.put(field.getName(), field.get(null).toString());
+            }
+            catch ( Exception e ) {
+                ILog.iLogException( "setTrackingReport", "an error occured when collect crash info " + e );
+            }
+        }
+
+        StringBuffer stringBuffer = new StringBuffer();
+        for ( Map.Entry<String, String> entry : userInfo.entrySet() ) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            stringBuffer.append("[- " + key + " = " + value + " -]\n");
+        }
+
+        String            time              = "[- " + DateUtil.getCurrentDateFromFastDateFormat( DATE_FORMAT ) + " -]\n";
+        String            device            = "[- " + stringBuffer.toString() + " -]\n";
+        String            crashException    = "[- " + exceptionDescription + " -]\n";
+
+        String description = CRASH_REPORT + time + device + crashException;
+
+        //send report
+        ILog.iLogDebug( "sendTryCatchExceptionReport : ", isFatal
+                + "\n\n" + description);
+
+        tracker.send(new HitBuilders.ExceptionBuilder()
+                             .setFatal( isFatal )
+                             .setDescription( description )
+                             .build());
 
         //should init after send
         tracker.setScreenName( null );

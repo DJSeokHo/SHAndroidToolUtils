@@ -1,4 +1,4 @@
-package com.swein.framework.module.aspect.tracker.analytics.report.annotation;
+package com.swein.framework.module.aspect.aop.report.annotation;
 
 /**
  * Created by seokho on 03/04/2017.
@@ -25,4 +25,4 @@ import java.lang.annotation.Target;
 
 @Retention( RetentionPolicy.CLASS)
 @Target({ ElementType.CONSTRUCTOR, ElementType.METHOD })
-public @interface GAViewTrace {}
+public @interface EventTrace {}
