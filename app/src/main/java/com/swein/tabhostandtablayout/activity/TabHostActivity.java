@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TabHost;
 
@@ -28,7 +27,6 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
     private FragmentTabHost tabHost;
     private String          currentTabId;
     private View            currentView;
-    private LayoutInflater  inflate;
 
     private HomeFragment    homeFragment;
     private FriendsFragment friendsFragment;
@@ -37,6 +35,7 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
 
     private ViewPager        viewPager;
     private List< Fragment > fragmentList;
+    private List< View > viewList;
 
     private TabHostActivityViewHolder tabHostActivityViewHolder;
 
@@ -63,6 +62,7 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
         tabHostActivityViewHolder = new TabHostActivityViewHolder( this );
 
         fragmentList = new ArrayList<>();
+        viewList = new ArrayList<>();
 
         tabHost = (FragmentTabHost)findViewById( android.R.id.tabhost );
         tabHost.setup( this, getSupportFragmentManager(), android.R.id.tabcontent );
@@ -72,24 +72,30 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
         tabHost.addTab( tabHost.newTabSpec( getString( R.string.title_fragment_home ) ).setIndicator( homeView ), HomeFragment.class, null );
         tabHost.getTabWidget().getChildAt( 0 ).setBackgroundColor( Color.WHITE );
         fragmentList.add( homeFragment );
+        viewList.add(homeView);
 
         // friends fragment
         View friendsView = tabHostActivityViewHolder.getTabView( getString( R.string.title_fragment_friends ), R.drawable.friends_fragment_icon_select, 1 );
         tabHost.addTab( tabHost.newTabSpec( getString( R.string.title_fragment_friends ) ).setIndicator( friendsView ), FriendsFragment.class, null );
         tabHost.getTabWidget().getChildAt( 1 ).setBackgroundColor( Color.WHITE );
         fragmentList.add( friendsFragment );
+        viewList.add(friendsView);
 
         // event fragment
         View eventView = tabHostActivityViewHolder.getTabView( getString( R.string.title_fragment_event ), R.drawable.event_fragment_icon_select, 2 );
         tabHost.addTab( tabHost.newTabSpec( getString( R.string.title_fragment_event ) ).setIndicator( eventView ), EventFragment.class, null );
         tabHost.getTabWidget().getChildAt( 2 ).setBackgroundColor( Color.WHITE );
         fragmentList.add( eventFragment );
+        viewList.add(eventView);
 
         // profile fragment
         View profileView = tabHostActivityViewHolder.getTabView( getString( R.string.title_fragment_profile ), R.drawable.profile_fragment_icon_select, 3 );
         tabHost.addTab( tabHost.newTabSpec( getString( R.string.title_fragment_profile ) ).setIndicator( profileView ), ProfileFragment.class, null );
         tabHost.getTabWidget().getChildAt( 3 ).setBackgroundColor( Color.WHITE );
         fragmentList.add( profileFragment );
+        viewList.add(profileView);
+
+        resetTab();
 
         // set home choose
         tabHostActivityViewHolder.setDefaultView( homeView, 0 );
@@ -104,7 +110,7 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
 
     private void initViewPager() {
         viewPager = (ViewPager)findViewById( R.id.itemViewPager );
-        viewPager.setOnPageChangeListener( onPageChangeListener() );
+        viewPager.addOnPageChangeListener( onPageChangeListener() );
 
         viewPager.setAdapter( new TabPagerAdapter(
                 getSupportFragmentManager(), fragmentList ) );
@@ -113,6 +119,11 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
         viewPager.setOffscreenPageLimit( 3 );
     }
 
+    private void resetTab() {
+        for(int i = 0; i < viewList.size(); i++) {
+            tabHostActivityViewHolder.setViewUnSelected( viewList.get( i ), i );
+        }
+    }
 
     @Override
     public ViewPager.OnPageChangeListener onPageChangeListener() {
@@ -139,15 +150,14 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
 
             @Override
             public void onTabChanged( String tabId ) {
-                if ( !currentTabId.equals( tabId ) ) {
 
-                    //set last page un-select icon
-                    tabHostActivityViewHolder.setCurrentView( currentView, false, tabId );
+                resetTab();
+
+                if ( !currentTabId.equals( tabId ) ) {
 
                     currentView = tabHost.getCurrentTabView();
 
-                    //set current page select icon
-                    tabHostActivityViewHolder.setCurrentView( currentView, true, tabId );
+                    tabHostActivityViewHolder.setCurrentView( currentView, tabId );
 
                     currentTabId = tabId;
 

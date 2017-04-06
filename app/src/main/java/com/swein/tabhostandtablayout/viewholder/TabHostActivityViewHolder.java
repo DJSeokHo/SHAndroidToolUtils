@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import static com.swein.tabhostandtablayout.content.ContentResource.setSelectImageResource;
@@ -39,21 +40,31 @@ public class TabHostActivityViewHolder {
         return view;
     }
 
+    public void setViewUnSelected(View view, int position) {
+
+        ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.GRAY);
+        setUnSelectImageResource(view, R.id.imageview, position);
+        view.findViewById(R.id.imageview).setEnabled(false);
+
+    }
+
     public void setDefaultView(View view, int position) {
+
+
         ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
         setSelectImageResource(view, R.id.imageview, position);
         view.findViewById(R.id.imageview).setEnabled(false);
+
+
     }
 
-    public void setCurrentView(View view, boolean isChoose, String tabID) {
-        if (isChoose) {
-            ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
-            setSelectImageResource(view, R.id.imageview, getViewPosition(tabID));
-        } else {
-            ((TextView) view.findViewById(R.id.textview)).setTextColor( Color.GRAY );
-            setUnSelectImageResource(view, R.id.imageview, getViewPosition(tabID));
-        }
-        view.findViewById(R.id.imageview).setEnabled(!isChoose);
+    public void setCurrentView(View view, String tabID) {
+
+        ILog.iLogDebug( TabHostActivityViewHolder.class.getSimpleName(), tabID + " "  + getViewPosition(tabID) + " setCurrentView ");
+
+        ((TextView) view.findViewById( R.id.textview)).setTextColor( Color.BLACK );
+        setSelectImageResource(view, R.id.imageview, getViewPosition(tabID));
+        view.findViewById(R.id.imageview).setEnabled(false);
     }
 
 
@@ -73,6 +84,7 @@ public class TabHostActivityViewHolder {
     }
 
     private int getViewPosition(String tabId) {
+
 
         if(tabId.equals( this.context.getString( R.string.title_fragment_home ) )) {
             return 0;
