@@ -2,13 +2,13 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.aspect.analytics.handler.CrashExceptionHandler;
+import com.swein.framework.module.googleanalytics.handler.CrashExceptionHandler;
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.List;
 
-import static com.swein.framework.module.aspect.analytics.data.Tracker.getAnalytics;
-import static com.swein.framework.module.aspect.analytics.manager.TrackerManager.initGoogleAnalyticsTracker;
+import static com.swein.framework.module.googleanalytics.data.Tracker.getAnalytics;
+import static com.swein.framework.module.googleanalytics.manager.TrackerManager.initGoogleAnalyticsTracker;
 
 /**
  * Created by seokho on 15/11/2016.

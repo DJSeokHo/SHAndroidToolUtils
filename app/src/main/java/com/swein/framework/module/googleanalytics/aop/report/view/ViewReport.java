@@ -1,12 +1,12 @@
-package com.swein.framework.module.aspect.aop.report.event;
+package com.swein.framework.module.googleanalytics.aop.report.view;
 
 /**
  * Created by seokho on 03/04/2017.
  */
 
-public class EventReport {
+public class ViewReport {
 
-    public static String createEventReport(String methodName, String message) {
+    public static String createViewReport( String methodName, String message ) {
         StringBuilder result = new StringBuilder();
         result.append("Aspect --> ");
         result.append(methodName);
@@ -17,5 +17,4 @@ public class EventReport {
 
         return result.toString();
     }
-
 }

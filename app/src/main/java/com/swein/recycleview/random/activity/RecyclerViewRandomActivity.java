@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.swein.framework.module.aspect.analytics.handler.CrashExceptionHandler;
-import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
+import com.swein.framework.module.googleanalytics.handler.CrashExceptionHandler;
+import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.input.keyboard.KeyBoardUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;

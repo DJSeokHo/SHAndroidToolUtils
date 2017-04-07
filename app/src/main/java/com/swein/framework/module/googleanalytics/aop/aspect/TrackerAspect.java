@@ -1,8 +1,8 @@
-package com.swein.framework.module.aspect.aop.aspect;
+package com.swein.framework.module.googleanalytics.aop.aspect;
 
-import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
-import com.swein.framework.module.aspect.aop.report.view.ViewReport;
-import com.swein.framework.module.aspect.aop.sender.Sender;
+import com.swein.framework.module.googleanalytics.manager.TrackerManager;
+import com.swein.framework.module.googleanalytics.aop.report.view.ViewReport;
+import com.swein.framework.module.googleanalytics.aop.sender.Sender;
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import org.aspectj.lang.JoinPoint;
@@ -14,7 +14,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.aspectj.lang.reflect.SourceLocation;
 
-import static com.swein.framework.module.aspect.aop.report.event.EventReport.createEventReport;
+import static com.swein.framework.module.googleanalytics.aop.report.event.EventReport.createEventReport;
 
 /**
  *
@@ -104,7 +104,7 @@ public class TrackerAspect {
 
         String exception = "[ ---------- try catch exception ---------- >>>> ";
 
-        ILog.iLogDebug( "this ", joinPoint.getSignature().getDeclaringType().getSimpleName() + " " + joinPoint.getSignature().getName()
+        ILog.iLogDebug( "try catch exception ", joinPoint.getSignature().getDeclaringType().getSimpleName() + " " + joinPoint.getSignature().getName()
         + " " + joinPoint.getSourceLocation().toString() + " " + joinPoint.getKind());
 
         Object[] args = joinPoint.getArgs();
@@ -138,9 +138,9 @@ public class TrackerAspect {
 //    @AfterThrowing(pointcut = POINTCUT_ALL_EXCEPTION_TRACE, throwing = "throwable")
 //    public void anyFuncThrows(JoinPoint joinPoint, Throwable throwable) {
 //
-//        ILog.iLogDebug( "this ", "joinPoint " + joinPoint.getSignature().getDeclaringType().getSimpleName() + " " + joinPoint.getSignature().getName());
+//        ILog.iLogDebug( "all exception ", "joinPoint " + joinPoint.getSignature().getDeclaringType().getSimpleName() + " " + joinPoint.getSignature().getName());
 //
-//        ILog.iLogDebug( "this ", "hurtThrows: " + throwable.getMessage() + " " + throwable.getLocalizedMessage() + " " + throwable.getCause() + " " );
+//        ILog.iLogDebug( "all exception ", "hurtThrows: " + throwable.getMessage() + " " + throwable.getLocalizedMessage() + " " + throwable.getCause() + " " );
 //
 //        StackTraceElement[] stackTraceElement = throwable.getStackTrace();
 //

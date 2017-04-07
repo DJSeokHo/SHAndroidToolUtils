@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         checkAppInstallInfoJSONObject(this);
 
 //        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         try {
             int one = 1;
             int zero = 0;
@@ -55,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         catch ( Exception e ) {
             e.printStackTrace();
         }
-
-
     }
 
 

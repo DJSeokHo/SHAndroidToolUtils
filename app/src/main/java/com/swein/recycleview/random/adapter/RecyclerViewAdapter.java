@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
+import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 import com.swein.recycleview.random.delegate.RecyclerViewRandomDelegate;
 import com.swein.recycleview.random.viewholder.RecyclerViewRandomItemViewHolder;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.swein.framework.module.aspect.analytics.manager.TrackerManager;
+import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

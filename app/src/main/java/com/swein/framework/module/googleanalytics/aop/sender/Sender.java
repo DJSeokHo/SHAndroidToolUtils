@@ -1,4 +1,4 @@
-package com.swein.framework.module.aspect.aop.sender;
+package com.swein.framework.module.googleanalytics.aop.sender;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 

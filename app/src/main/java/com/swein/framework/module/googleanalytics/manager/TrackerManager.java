@@ -1,4 +1,4 @@
-package com.swein.framework.module.aspect.analytics.manager;
+package com.swein.framework.module.googleanalytics.manager;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -17,26 +17,27 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.swein.framework.module.aspect.analytics.data.Tracker.getTracker;
+import static com.swein.framework.module.googleanalytics.data.Tracker.getTracker;
 
 /**
+ * google analytics view tracker, event tracker, exception tracker manager
  * Created by seokho on 23/03/2017.
  */
 
 public class TrackerManager {
 
-    public final static String DATE_FORMAT = "yyyy.MM.dd - HH:mm:ss";
+    private final static String DATE_FORMAT = "yyyy.MM.dd - HH:mm:ss";
 
-    public final static String APP_NAME = "SHAndroidToolUtils";
+    private final static String APP_NAME = "SHAndroidToolUtils";
 
-    public final static String CRASH_REPORT = "[ " + APP_NAME + " Crash Report ]\n";
+    private final static String CRASH_REPORT = "[ " + APP_NAME + " Crash Report ]\n";
 
     private static Tracker tracker;
 
 
     /**
      * must init at application that aop can send exception report
-     * @param context
+     * @param context: context
      */
     public static void initGoogleAnalyticsTracker(Context context) {
         tracker = getTracker( context );
@@ -44,11 +45,11 @@ public class TrackerManager {
 
     public static void sendScreenViewReport(Context context) {
 
-        if(null == tracker) {
+        if(tracker == null) {
             tracker = getTracker( context );
         }
 
-        if(null == context) {
+        if(context == null) {
             context.getApplicationContext();
         }
 
@@ -67,7 +68,7 @@ public class TrackerManager {
 
     public static void sendEventReport(Context context, String category, String action, boolean isWithScreen) {
 
-        if(null == tracker) {
+        if(tracker == null) {
             tracker = getTracker( context );
         }
 
@@ -93,7 +94,7 @@ public class TrackerManager {
 
     public static void sendEventReport(Context context, String category, String action, String label, long value, boolean isWithScreen) {
 
-        if(null == tracker) {
+        if(tracker == null) {
             tracker = getTracker( context );
         }
 
@@ -120,7 +121,7 @@ public class TrackerManager {
 
     public static void sendExceptionReport(Context context, Throwable exception, boolean isFatal, boolean isWithScreen) {
 
-        if(null == tracker) {
+        if(tracker == null) {
             tracker = getTracker( context );
         }
 
@@ -129,7 +130,7 @@ public class TrackerManager {
         }
 
         //add device info
-        Map<String, String> userInfo = new HashMap<String, String>();
+        Map<String, String> userInfo = new HashMap<>();
         try {
             PackageManager packageManager = context.getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
@@ -206,7 +207,7 @@ public class TrackerManager {
 
     public static void sendTryCatchExceptionReport(String exceptionDescription, String ScreenName, boolean isFatal, boolean isWithScreen) {
 
-        if(null == tracker) {
+        if(tracker == null) {
             return;
         }
 
@@ -215,7 +216,7 @@ public class TrackerManager {
         }
 
         //add device info
-        Map<String, String> userInfo = new HashMap<String, String>();
+        Map<String, String> userInfo = new HashMap<>();
 
         Field[] fields = Build.class.getDeclaredFields();
         for ( Field field : fields ) {

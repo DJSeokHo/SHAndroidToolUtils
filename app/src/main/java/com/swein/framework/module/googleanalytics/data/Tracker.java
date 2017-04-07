@@ -1,4 +1,4 @@
-package com.swein.framework.module.aspect.analytics.data;
+package com.swein.framework.module.googleanalytics.data;
 
 import android.app.Application;
 import android.content.Context;
