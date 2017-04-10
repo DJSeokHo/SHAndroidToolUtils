@@ -126,8 +126,6 @@ public class TrackerAspect {
 
     }
 
-
-
     /**
      *  catch all exception but slow
      *  not suggest use this method because it join into every pointcut and maybe will make app slow
