@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.tabhostandtablayout.activity.TabHostActivity;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
@@ -19,7 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkAppInstallInfoJSONObject(this);
+        ThreadUtils.startThread( new Runnable() {
+            @Override
+            public void run() {
+                checkAppInstallInfoJSONObject(getApplicationContext());
+            }
+        } );
 
 //        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
