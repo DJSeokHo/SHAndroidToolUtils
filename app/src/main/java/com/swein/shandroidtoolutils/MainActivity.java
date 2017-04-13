@@ -3,17 +3,24 @@ package com.swein.shandroidtoolutils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewOutlineProvider;
+import android.widget.ImageView;
 
-import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtils;
-import com.swein.tabhostandtablayout.activity.TabHostActivity;
+import com.swein.framework.tools.util.views.ViewUtils;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView imageViewMain1;
+    private ImageView imageViewMain2;
+
+    private ViewOutlineProvider viewOutlineProvider1;
+    private ViewOutlineProvider viewOutlineProvider2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +38,22 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
-        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
+//        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 
+        imageViewMain1 = (ImageView) findViewById( R.id.imageViewMain1 );
+        imageViewMain2 = (ImageView) findViewById( R.id.imageViewMain2 );
 
         ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS") );
         ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS") );
 
-//        try {
+
+        ViewUtils.setViewDepth( imageViewMain1, 300 );
+        ViewUtils.setViewDepth( imageViewMain2, 100 );
+
+        ViewUtils.setViewRoundRect( imageViewMain1, true );
+        ViewUtils.setViewCircle( imageViewMain2, true, 200, 200 );
+
+        //        try {
 //            String[] strings = new String[] {"1", "2"};
 //            ILog.iLogDebug( this, strings[5] );
 //        }
