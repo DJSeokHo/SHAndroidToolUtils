@@ -57,7 +57,9 @@
         <activity
             android:name="com.swein.recycleview.random.activity.RecyclerViewRandomActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.swein.tabhostandtablayout.activity.TabHostActivity"/>
+        <activity android:name="com.swein.tabhostandtablayout.activity.TabHostActivity" />
+        <activity android:name="com.swein.activity.animation.StartActivity" />
+        <activity android:name="com.swein.activity.animation.EndActivity"></activity>
     </application>
 
 </manifest>

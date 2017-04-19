@@ -1,9 +1,16 @@
 package com.swein.framework.tools.util.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Window;
 
 import com.swein.data.global.activity.RequestData;
 import com.swein.data.local.BundleData;
@@ -80,4 +87,98 @@ public class ActivityUtils {
 
         return "";
     }
+
+    public static void startActivityWithTransitionAnimationWithoutFinish(Activity activity, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ) {
+            if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+                activity.startActivity( intent, ActivityOptions.makeSceneTransitionAnimation( activity ).toBundle());
+            }
+        }
+    }
+
+    public static void startActivityWithTransitionAnimationWithFinish(Activity activity, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ) {
+            if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {
+                activity.startActivity( intent, ActivityOptions.makeSceneTransitionAnimation( activity ).toBundle());
+                activity.finish();
+            }
+        }
+    }
+
+    private static boolean tagetActivityFiringTransitionAnimation(Activity activity) {
+        try {
+            activity.getWindow().requestFeature( Window.FEATURE_CONTENT_TRANSITIONS );
+            return true;
+        }
+        catch ( Exception e ) {
+            return false;
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetEnterTransitionAnimationExplode(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setEnterTransition( new Explode(  ) );
+
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetEnterTransitionAnimationSlide(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setEnterTransition( new Slide(  ) );
+
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetEnterTransitionAnimationFade(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setEnterTransition( new Fade(  ) );
+
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetExitTransitionAnimationExplode(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setExitTransition( new Explode(  ) );
+
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetExitTransitionAnimationSlide(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setExitTransition( new Slide(  ) );
+
+        }
+    }
+
+    @TargetApi( Build.VERSION_CODES.LOLLIPOP )
+    public static void tagetActivitySetExitTransitionAnimationFade(Activity activity) {
+
+        if(tagetActivityFiringTransitionAnimation(activity)) {
+
+            activity.getWindow().setExitTransition( new Fade(  ) );
+
+        }
+    }
+
+
+
+
+
 }

@@ -3,9 +3,13 @@ package com.swein.shandroidtoolutils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.swein.activity.animation.StartActivity;
+import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
+    private Button    buttonMain;
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         imageViewMain1 = (ImageView) findViewById( R.id.imageViewMain1 );
         imageViewMain2 = (ImageView) findViewById( R.id.imageViewMain2 );
+        buttonMain = (Button) findViewById( R.id.buttonMain );
 
         ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS") );
         ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS") );
@@ -52,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
         ViewUtils.setViewRoundRect( imageViewMain1, true );
         ViewUtils.setViewCircle( imageViewMain2, true, 200, 200 );
+
+        buttonMain.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( View v ) {
+
+                ActivityUtils.startNewActivityWithoutFinish( MainActivity.this, StartActivity.class );
+
+            }
+        } );
 
         //        try {
 //            String[] strings = new String[] {"1", "2"};

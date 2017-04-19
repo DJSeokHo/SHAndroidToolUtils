@@ -31,4 +31,14 @@ public class ListUtils {
 
     }
 
+    public static List mergeList(List listOne, List listTwo) {
+        List list = new ArrayList();
+
+        list.addAll( listOne );
+        list.removeAll( listTwo );
+        list.addAll( listTwo );
+
+        return list;
+    }
+
 }
