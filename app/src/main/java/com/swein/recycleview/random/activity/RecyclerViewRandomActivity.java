@@ -276,7 +276,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                         int i = 1/0;
 
-                        ILog.iLogDebug( RecyclerViewRandomActivity.this, String.valueOf( i ) );
+                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), String.valueOf( i ) );
 
 //                        String[] test = new String[] {"1", "2"};
 //                        ILog.iLogDebug( RecyclerViewRandomActivity.this, test[3] );

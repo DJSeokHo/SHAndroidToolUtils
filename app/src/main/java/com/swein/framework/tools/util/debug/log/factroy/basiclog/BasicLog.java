@@ -5,5 +5,5 @@ package com.swein.framework.tools.util.debug.log.factroy.basiclog;
  */
 
 public interface BasicLog {
-    void iLog( String tag, String content );
+    void iLog( String tag, Object content );
 }

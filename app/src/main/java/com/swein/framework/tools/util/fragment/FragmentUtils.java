@@ -31,7 +31,7 @@ public class FragmentUtils {
     public void replaceFragmentv4CommitWithBundle(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
 
         if(null == bundle) {
-            ILog.iLogException(FragmentUtils.class.getName(), "Input bundle first");
+            ILog.iLogError(FragmentUtils.class.getName(), "Input bundle first");
             return;
         }
 
@@ -45,7 +45,7 @@ public class FragmentUtils {
         Bundle bundle = new Bundle();
         bundle = fragment.getArguments();
         if(null == bundle) {
-            ILog.iLogException(FragmentUtils.class.getName(), "Bundle is null");
+            ILog.iLogError(FragmentUtils.class.getName(), "Bundle is null");
             return "Error: Bundle is null";
         }
         return bundle.getString(key);

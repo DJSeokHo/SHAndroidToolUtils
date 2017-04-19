@@ -29,7 +29,7 @@ public class SecurityUtils {
         }
         catch ( Exception e ) {
             e.printStackTrace();
-            ILog.iLogException( SecurityUtils.class.getSimpleName(), "MD5 error" );
+            ILog.iLogError( SecurityUtils.class.getSimpleName(), "MD5 error" );
             return null;
         }
     }

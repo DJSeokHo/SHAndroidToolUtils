@@ -24,6 +24,8 @@ import java.io.IOException;
 
 public class SAF {
 
+    private static final String TAG = "SAF";
+
     public static final int SAF_READ_REQUEST_CODE = 42;
     public static final int SAF_WRITE_REQUEST_CODE = 43;
     public static final int SAF_EDIT_REQUEST_CODE = 44;
@@ -118,7 +120,7 @@ public class SAF {
                 // provider-specific, and might not necessarily be the file name.
                 String displayName = cursor.getString(
                         cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                ILog.iLogDebug(context, "Display Name: " + displayName);
+                ILog.iLogDebug(TAG, "Display Name: " + displayName);
                 int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
                 // If the size is unknown, the value stored is null.  But since an
                 // int can't be null in Java, the behavior is implementation-specific,
@@ -134,7 +136,7 @@ public class SAF {
                 } else {
                     size = "Unknown";
                 }
-                ILog.iLogDebug(context, "Size: " + size);
+                ILog.iLogDebug(TAG, "Size: " + size);
             }
         } finally {
             cursor.close();
@@ -153,10 +155,10 @@ public class SAF {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            ILog.iLogException(context, e.toString());
+            ILog.iLogError(TAG, e.toString());
         } catch (IOException e) {
             e.printStackTrace();
-            ILog.iLogException(context, e.toString());
+            ILog.iLogError(TAG, e.toString());
         }
 
         return image;

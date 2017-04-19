@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         imageViewMain2 = (ImageView) findViewById( R.id.imageViewMain2 );
         buttonMain = (Button) findViewById( R.id.buttonMain );
 
-        ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS") );
-        ILog.iLogDebug( this, DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS") );
+        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS") );
+        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS") );
 
 
         ViewUtils.setViewDepth( imageViewMain1, 300 );

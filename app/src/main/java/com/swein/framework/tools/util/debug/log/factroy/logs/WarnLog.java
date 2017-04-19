@@ -11,7 +11,7 @@ import com.swein.framework.tools.util.debug.log.factroy.basiclog.BasicLog;
 
 public class WarnLog implements BasicLog {
     @Override
-    public void iLog(String tag, String content) {
-        Log.w(tag, content);
+    public void iLog(String tag, Object content) {
+        Log.w( tag, String.valueOf( content ) );
     }
 }

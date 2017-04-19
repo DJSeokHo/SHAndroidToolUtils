@@ -144,7 +144,7 @@ public class TrackerManager {
 
         }
         catch ( PackageManager.NameNotFoundException e ) {
-            ILog.iLogException( "setTrackingReport", "an error occured when collect package info " + e );
+            ILog.iLogError( "setTrackingReport", "an error occured when collect package info " + e );
         }
 
         Field[] fields = Build.class.getDeclaredFields();
@@ -155,7 +155,7 @@ public class TrackerManager {
                 userInfo.put(field.getName(), field.get(null).toString());
             }
             catch ( Exception e ) {
-                ILog.iLogException( "setTrackingReport", "an error occured when collect crash info " + e );
+                ILog.iLogError( "setTrackingReport", "an error occured when collect crash info " + e );
             }
         }
 
@@ -226,7 +226,7 @@ public class TrackerManager {
                 userInfo.put(field.getName(), field.get(null).toString());
             }
             catch ( Exception e ) {
-                ILog.iLogException( "setTrackingReport", "an error occured when collect crash info " + e );
+                ILog.iLogError( "setTrackingReport", "an error occured when collect crash info " + e );
             }
         }
 
@@ -274,7 +274,7 @@ public class TrackerManager {
                 userInfo.put(field.getName(), field.get(null).toString());
             }
             catch ( Exception e ) {
-                ILog.iLogException( "setTrackingReport", "an error occured when collect crash info " + e );
+                ILog.iLogError( "setTrackingReport", "an error occured when collect crash info " + e );
             }
         }
 

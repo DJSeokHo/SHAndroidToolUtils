@@ -11,7 +11,7 @@ import com.swein.framework.tools.util.debug.log.factroy.basiclog.BasicLog;
 
 public class InfoLog implements BasicLog {
     @Override
-    public void iLog(String tag, String content) {
-        Log.i( tag, content);
+    public void iLog(String tag, Object content) {
+        Log.i( tag, String.valueOf( content ) );
     }
 }
