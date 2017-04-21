@@ -245,9 +245,7 @@ public class TrackerManager {
 
     private static void collectInfo(StringBuffer stringBuffer) {
         for ( Map.Entry< String, String > entry : userInfo.entrySet() ) {
-            String key   = entry.getKey();
-            String value = entry.getValue();
-            stringBuffer.append( "[- " + key + " = " + value + " -]\n" );
+            stringBuffer.append( "[- " + entry.getKey() + " = " + entry.getValue() + " -]\n" );
         }
     }
 

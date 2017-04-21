@@ -126,6 +126,39 @@ public class TrackerAspect {
 
     }
 
+
+    /**
+     * catch try - catch block only and speed
+     */
+    private static final String POINTCUT_ALL_TRY_CATCH_OUT_OF_MEMORY_TRACE = "handler(java.lang.OutOfMemoryError)";
+
+    @Before(POINTCUT_ALL_TRY_CATCH_OUT_OF_MEMORY_TRACE)
+    public void allTryCatchOutOfMemoryError(JoinPoint joinPoint){
+
+        SourceLocation location = joinPoint.getSourceLocation();
+
+        String exception = "[ ---------- try catch exception ---------- >>>> ";
+
+        ILog.iLogDebug( "try catch exception ", "1 " + joinPoint.getSignature().getDeclaringType().getSimpleName() + " 2 " + joinPoint.getSignature().getName()
+                + " 3 " + joinPoint.getSourceLocation().toString() + " 4 " + joinPoint.getKind());
+
+        Object[] args = joinPoint.getArgs();
+        for(Object object : args) {
+            ILog.iLogDebug( "args ", object.toString() );
+            exception += object.toString();
+        }
+
+        exception += "]\n###location ------ >>>> ";
+
+        ILog.iLogDebug( "location", location.getFileName() + " 1 " + location.getLine() + " 2 " + location.getWithinType() );
+
+        exception += location;
+
+        exception += "\n";
+
+        TrackerManager.sendTryCatchExceptionReport( exception, joinPoint.getSignature().getDeclaringType().getSimpleName(), true, false );
+    }
+
     /**
      *  catch all exception but slow
      *  not suggest use this method because it join into every pointcut and maybe will make app slow
