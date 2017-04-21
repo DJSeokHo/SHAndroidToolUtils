@@ -50,7 +50,7 @@ public class TrackerManager {
 
     public static void sendScreenViewReport( Context context ) {
 
-        checkTrackerUseable(context);
+        checkTrackerUsable(context);
 
         if ( context == null ) {
             context.getApplicationContext();
@@ -71,7 +71,7 @@ public class TrackerManager {
 
     public static void sendEventReport( Context context, String category, String action, boolean isWithScreen ) {
 
-        checkTrackerUseable(context);
+        checkTrackerUsable(context);
 
         if ( isWithScreen ) {
             setScreenInfo(context);
@@ -96,7 +96,7 @@ public class TrackerManager {
 
     public static void sendEventReport( Context context, String category, String action, String label, long value, boolean isWithScreen ) {
 
-        checkTrackerUseable(context);
+        checkTrackerUsable(context);
 
         if ( isWithScreen ) {
             setScreenInfo(context);
@@ -120,30 +120,9 @@ public class TrackerManager {
         tracker.setScreenName( null );
     }
 
-    private static void setPackageInfo(Context context) {
-        //add device info
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            PackageInfo    packageInfo    = packageManager.getPackageInfo( context.getPackageName(), PackageManager.GET_ACTIVITIES );
-
-            if ( packageInfo != null ) {
-                String versionName = packageInfo.versionName == null ?
-                        "null" :
-                        packageInfo.versionName;
-                String versionCode = packageInfo.versionCode + "";
-                userInfo.put( "versionName", versionName );
-                userInfo.put( "versionCode", versionCode );
-            }
-
-        }
-        catch ( PackageManager.NameNotFoundException e ) {
-            ILog.iLogError( "setTrackingReport", "an error occured when collect package info " + e );
-        }
-    }
-
     public static void sendExceptionReport( Context context, Throwable exception, boolean isFatal, boolean isWithScreen ) {
 
-        checkTrackerUseable(context);
+        checkTrackerUsable(context);
 
         if ( isWithScreen ) {
             setScreenInfo(context);
@@ -214,7 +193,29 @@ public class TrackerManager {
         userInfo.clear();
     }
 
-    private static void checkTrackerUseable(Context context) {
+
+    private static void setPackageInfo(Context context) {
+        //add device info
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo    packageInfo    = packageManager.getPackageInfo( context.getPackageName(), PackageManager.GET_ACTIVITIES );
+
+            if ( packageInfo != null ) {
+                String versionName = packageInfo.versionName == null ?
+                        "null" :
+                        packageInfo.versionName;
+                String versionCode = packageInfo.versionCode + "";
+                userInfo.put( "versionName", versionName );
+                userInfo.put( "versionCode", versionCode );
+            }
+
+        }
+        catch ( PackageManager.NameNotFoundException e ) {
+            ILog.iLogError( "setTrackingReport", "an error occured when collect package info " + e );
+        }
+    }
+
+    private static void checkTrackerUsable(Context context) {
         if ( tracker == null ) {
             tracker = getTracker( context );
         }
@@ -266,5 +267,4 @@ public class TrackerManager {
         String result = "\n[ Stack Trace ]\n" + writer.toString();
         stringBuffer.append( result );
     }
-
 }
