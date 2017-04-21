@@ -68,39 +68,69 @@ public class ThreadUtils {
         return handle;
     }
 
-    public static Future< ? > startThread( Runnable runnable ) {
-        return executor.submit( runnable );
-    }
-
-    public static Future< ? > startSeqThread( Runnable runnable ) {
-        return executorSequential.submit( runnable );
-    }
-
-    public static Future< ? > startThreadWithExceptionReport( Runnable runnable, Context context ) {
-
-        Future< ? > future = executor.submit( runnable );
-
-        try {
-            future.get();
-        }
-        catch ( InterruptedException | ExecutionException exception ) {
-            TrackerManager.sendExceptionReport( context, exception, true, true );
-        }
+    public static Future< ? > startThread( final Runnable runnable ) {
+        Future< ? > future = executor.submit( new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runnable.run();
+                }
+                catch ( Exception exception ) {
+                    exception.printStackTrace();
+                }
+            }
+        });
 
         return future;
     }
 
-    public static Future< ? > startSeqThreadWithExceptionReport( Runnable r, Context context ) {
+    //***************** [Do not delete this part] **********************
+    //    public static Future< ? > startThreadWithExceptionReport( Runnable r, Context context ) {
+    //
+    //        Future< ? > future = executor.submit( r );
+    //
+    //        try {
+    //            future.get();
+    //        }
+    //        catch ( InterruptedException | ExecutionException exception ) {
+    //           TrackerManager.sendExceptionReport( context, exception, true, true );
+    //        }
+    //
+    //        return future;
+    //    }
 
-        Future< ? > future = executorSequential.submit( r );
+    //    public static Future< ? > startSeqThread( Runnable r ) {
+    //        return executorSequential.submit( r );
+    //    }
 
-        try {
-            future.get();
-        }
-        catch ( InterruptedException | ExecutionException exception ) {
-            TrackerManager.sendExceptionReport( context, exception, true, true );
-        }
+    public static Future< ? > startSeqThread( final Runnable runnable ) {
+        Future< ? > future = executor.submit( new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runnable.run();
+                }
+                catch ( Exception exception ) {
+                    exception.printStackTrace();
+                }
+            }
+        });
 
         return future;
     }
+
+    //***************** [Do not delete this part] **********************
+    //    public static Future< ? > startSeqThreadWithExceptionReport( Runnable r, Context context ) {
+    //
+    //        Future< ? > future = executorSequential.submit( r );
+    //
+    //        try {
+    //            future.get();
+    //        }
+    //        catch ( InterruptedException | ExecutionException exception ) {
+    //            TrackerManager.sendExceptionReport( context, exception, true, true );
+    //        }
+    //
+    //        return future;
+    //    }
 }
