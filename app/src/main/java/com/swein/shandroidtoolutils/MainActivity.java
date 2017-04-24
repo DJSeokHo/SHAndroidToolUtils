@@ -13,6 +13,8 @@ import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.Timer
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.gps.GpsUtils;
+import com.swein.framework.tools.util.network.NetWorkUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
 
@@ -30,29 +32,29 @@ public class MainActivity extends AppCompatActivity {
 
     @TimerTrace
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void onCreate( Bundle savedInstanceState ) {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_main );
 
         ThreadUtils.startThread( new Runnable() {
             @Override
             public void run() {
-                checkAppInstallInfoJSONObject(getApplicationContext());
+                checkAppInstallInfoJSONObject( getApplicationContext() );
             }
         } );
 
-//        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
-//        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
-//        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-//        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
-//        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
+        //        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
+        //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
+        //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
+        //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
+        //        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 
-        imageViewMain1 = (ImageView) findViewById( R.id.imageViewMain1 );
-        imageViewMain2 = (ImageView) findViewById( R.id.imageViewMain2 );
-        buttonMain = (Button) findViewById( R.id.buttonMain );
+        imageViewMain1 = (ImageView)findViewById( R.id.imageViewMain1 );
+        imageViewMain2 = (ImageView)findViewById( R.id.imageViewMain2 );
+        buttonMain = (Button)findViewById( R.id.buttonMain );
 
-        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS") );
-        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS") );
+        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS" ) );
+        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS" ) );
 
 
         ViewUtils.setViewDepth( imageViewMain1, 300 );
@@ -70,36 +72,46 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
+
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
+        GpsUtils.turnOnGPS( this );
+
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
+        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
+
         //        try {
-//            String[] strings = new String[] {"1", "2"};
-//            ILog.iLogDebug( this, strings[5] );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            List list = null;
-//            list.get( 5 );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            int one = 1;
-//            int zero = 0;
-//            int result = one / zero;
-//            ILog.iLogDebug( this, result );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
+        //            String[] strings = new String[] {"1", "2"};
+        //            ILog.iLogDebug( this, strings[5] );
+        //        }
+        //        catch ( Exception e ) {
+        //            e.printStackTrace();
+        //        }
+        //
+        //        try {
+        //            List list = null;
+        //            list.get( 5 );
+        //        }
+        //        catch ( Exception e ) {
+        //            e.printStackTrace();
+        //        }
+        //
+        //        try {
+        //            int one = 1;
+        //            int zero = 0;
+        //            int result = one / zero;
+        //            ILog.iLogDebug( this, result );
+        //        }
+        //        catch ( Exception e ) {
+        //            e.printStackTrace();
+        //        }
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
 
     }
 
