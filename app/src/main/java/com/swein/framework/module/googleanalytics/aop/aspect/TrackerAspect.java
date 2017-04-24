@@ -1,8 +1,10 @@
 package com.swein.framework.module.googleanalytics.aop.aspect;
 
-import com.swein.framework.module.googleanalytics.manager.TrackerManager;
+import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.ProcessTimer;
+import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.ProcessTimerLog;
 import com.swein.framework.module.googleanalytics.aop.report.view.ViewReport;
 import com.swein.framework.module.googleanalytics.aop.sender.Sender;
+import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import org.aspectj.lang.JoinPoint;
@@ -24,6 +26,60 @@ import static com.swein.framework.module.googleanalytics.aop.report.event.EventR
 
 @Aspect
 public class TrackerAspect {
+
+
+    /**
+     *  Method process time measuring
+     */
+    private static final String POINTCUT_METHOD =
+            "execution(@com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace * *(..))";
+
+    private static final String POINTCUT_CONSTRUCTOR =
+            "execution(@com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace *.new(..))";
+
+    @Pointcut(POINTCUT_METHOD)
+    public void methodAnnotatedWithProcessTimerTrace() {}
+
+    @Pointcut(POINTCUT_CONSTRUCTOR)
+    public void constructorAnnotatedProcessTimerTrace() {}
+
+    @Around("methodAnnotatedWithProcessTimerTrace() || constructorAnnotatedProcessTimerTrace()")
+    public Object weaveJoinPoint(ProceedingJoinPoint joinPoint) throws Throwable {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        String className = methodSignature.getDeclaringType().getSimpleName();
+        String methodName = methodSignature.getName();
+
+        final ProcessTimer processTimer = new ProcessTimer();
+        processTimer.start();
+        Object result = joinPoint.proceed();
+        processTimer.stop();
+
+        ProcessTimerLog.log( className, processTimerMessage( className, methodName, processTimer.getTotalTimeMillis()));
+
+        return result;
+    }
+
+    /**
+     * Create a log message.
+     *
+     * @param methodName A string with the method name.
+     * @param methodDuration Duration of the method in milliseconds.
+     * @return A string representing message.
+     */
+    private static String processTimerMessage(String className, String methodName, long methodDuration) {
+        StringBuilder message = new StringBuilder();
+        message.append("process time --> ");
+        message.append(className);
+        message.append(":");
+        message.append(methodName);
+        message.append("  ");
+        message.append("[");
+        message.append(methodDuration);
+        message.append("ms");
+        message.append("]");
+
+        return message.toString();
+    }
 
     /**
      *
