@@ -13,10 +13,9 @@ import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.Timer
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.gps.GpsUtils;
-import com.swein.framework.tools.util.network.NetWorkUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
+import com.swein.toolbar.activity.ToolbarActivity;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
+        ActivityUtils.startNewActivityWithoutFinish( this, ToolbarActivity.class );
 
         imageViewMain1 = (ImageView)findViewById( R.id.imageViewMain1 );
         imageViewMain2 = (ImageView)findViewById( R.id.imageViewMain2 );
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS" ) );
         ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS" ) );
-
 
         ViewUtils.setViewDepth( imageViewMain1, 300 );
         ViewUtils.setViewDepth( imageViewMain2, 100 );
@@ -72,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
-        GpsUtils.turnOnGPS( this );
-
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
-        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
+//
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
+//        GpsUtils.turnOnGPS( this );
+//
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
+//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
 
         //        try {
         //            String[] strings = new String[] {"1", "2"};
