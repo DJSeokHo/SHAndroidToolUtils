@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.swein.shandroidtoolutils"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.swein.shandroidtoolutils">
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
         android:allowBackup="true"
@@ -25,17 +25,22 @@
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-        
+
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false" />
-        
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-    
+
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.IMAGE_CAPTURE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -55,15 +60,17 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        
+
         <activity
             android:name="com.swein.recycleview.random.activity.RecyclerViewRandomActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.swein.tabhostandtablayout.activity.TabHostActivity" />
         <activity android:name="com.swein.activity.animation.StartActivity" />
         <activity android:name="com.swein.activity.animation.EndActivity" />
-        <activity android:name="com.swein.toolbar.activity.ToolbarActivity"
-            android:theme="@style/AppThemeToolbar"/>
+        <activity
+            android:name="com.swein.toolbar.activity.ToolbarActivity"
+            android:theme="@style/AppThemeToolbar" />
+        <activity android:name="com.swein.camera.system.activity.SystemCameraActivity"></activity>
     </application>
 
 </manifest>

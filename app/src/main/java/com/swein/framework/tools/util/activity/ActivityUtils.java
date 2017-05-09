@@ -23,6 +23,14 @@ import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VAL
 
 public class ActivityUtils {
 
+    public static void startSystemIntent(Context packageContext, Intent intent) {
+        packageContext.startActivity(intent);
+    }
+
+    public static void startSystemIntentWithResultByRequestCode(Activity activity, Intent intent, int requestCode) {
+        activity.startActivityForResult(intent, requestCode);
+    }
+
     public static void startNewActivityWithoutFinish(Context packageContext, Class<?> cls) {
         Intent intent = new Intent(packageContext, cls);
         packageContext.startActivity(intent);

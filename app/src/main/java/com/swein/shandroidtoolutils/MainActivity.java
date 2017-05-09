@@ -9,13 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
+import com.swein.camera.system.activity.SystemCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
-import com.swein.toolbar.activity.ToolbarActivity;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -24,53 +24,77 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
-    private Button    buttonMain;
+    private Button buttonMain;
+    private Button buttonCamera;
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
 
     @TimerTrace
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        ThreadUtils.startThread( new Runnable() {
+        ThreadUtils.startThread(new Runnable() {
             @Override
             public void run() {
-                checkAppInstallInfoJSONObject( getApplicationContext() );
+                checkAppInstallInfoJSONObject(getApplicationContext());
             }
-        } );
+        });
 
         //        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
-        ActivityUtils.startNewActivityWithoutFinish( this, ToolbarActivity.class );
+//        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 
-        imageViewMain1 = (ImageView)findViewById( R.id.imageViewMain1 );
-        imageViewMain2 = (ImageView)findViewById( R.id.imageViewMain2 );
-        buttonMain = (Button)findViewById( R.id.buttonMain );
+        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
+        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
+        buttonMain = (Button) findViewById(R.id.buttonMain);
+        buttonCamera = (Button) findViewById(R.id.buttonCamera);
 
-        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyy-MM-dd HH:mm:ss:SSS" ) );
-        ILog.iLogDebug( this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat( "yyyyMMddHHmmssSSS" ) );
+        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
+        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyyMMddHHmmssSSS"));
 
-        ViewUtils.setViewDepth( imageViewMain1, 300 );
-        ViewUtils.setViewDepth( imageViewMain2, 100 );
+        ViewUtils.setViewDepth(imageViewMain1, 300);
+        ViewUtils.setViewDepth(imageViewMain2, 100);
 
-        ViewUtils.setViewRoundRect( imageViewMain1, true );
-        ViewUtils.setViewCircle( imageViewMain2, true, 200, 200 );
+        ViewUtils.setViewRoundRect(imageViewMain1, true);
+        ViewUtils.setViewCircle(imageViewMain2, true, 200, 200);
 
-        buttonMain.setOnClickListener( new View.OnClickListener() {
+        buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( View v ) {
+            public void onClick(View v) {
 
-                ActivityUtils.startNewActivityWithoutFinish( MainActivity.this, StartActivity.class );
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, StartActivity.class);
 
             }
-        } );
+        });
 
+        buttonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
+
+            }
+        });
+
+//        Calculator calculator = new Calculator();
+//
+//        calculator.setOperate("+");
+//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//
+//        calculator.setOperate("-");
+//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//
+//        calculator.setOperate("*");
+//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//
+//        calculator.setOperate("/");
+//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
 //        ILog.iLogDebug( MainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
 //        GpsUtils.turnOnGPS( this );
@@ -110,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 
