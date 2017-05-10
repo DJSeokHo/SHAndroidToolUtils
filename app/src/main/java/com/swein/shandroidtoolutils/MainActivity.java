@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
-import com.swein.camera.system.activity.SystemCameraActivity;
+import com.swein.camera.custom.activity.CustomCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
 
             }
         });

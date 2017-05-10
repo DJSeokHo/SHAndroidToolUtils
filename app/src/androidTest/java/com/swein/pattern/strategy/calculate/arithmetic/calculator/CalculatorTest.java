@@ -9,6 +9,7 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 /**
+ *
  * Created by seokho on 09/05/2017.
  */
 public class CalculatorTest {

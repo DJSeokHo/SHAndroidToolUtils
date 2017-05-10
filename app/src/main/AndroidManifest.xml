@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
@@ -70,7 +71,9 @@
         <activity
             android:name="com.swein.toolbar.activity.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
-        <activity android:name="com.swein.camera.system.activity.SystemCameraActivity"></activity>
+        <activity android:name="com.swein.camera.system.activity.SystemCameraActivity" />
+        <activity android:name="com.swein.camera.custom.activity.CustomCameraActivity"/>
+        <activity android:name="com.swein.camera.custom.camera.CustomCamera" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
