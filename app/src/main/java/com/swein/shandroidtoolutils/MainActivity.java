@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
-import com.swein.camera.custom.activity.CustomCameraActivity;
+import com.swein.camera.advance.activity.AdvanceCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
 
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DeviceInfoUtils.initDeviceScreenDisplayMetricsPixels(this);
 
         ThreadUtils.startThread(new Runnable() {
             @Override
@@ -78,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 //                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
-                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
+                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, AdvanceCameraActivity.class);
 
             }
         });

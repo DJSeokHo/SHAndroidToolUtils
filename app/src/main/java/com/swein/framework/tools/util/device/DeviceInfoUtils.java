@@ -29,6 +29,30 @@ public class DeviceInfoUtils {
         return true;
     }
 
+    public static int getDeviceScreenWidth(Context context) {
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return 0;
+        }
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        ((Activity)context).getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
+    public static int getDeviceScreenHeight(Context context) {
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return 0;
+        }
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        ((Activity)context).getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
+    }
+
     public static String getDeviceSerialNum() {
 
         return android.os.Build.SERIAL;

@@ -14,23 +14,9 @@ public class DeviceInfo {
         deviceScreenHeight = 0;
     }
 
-    private static DeviceInfo instance = null;
-
-    private static Object obj= new Object();
+    private static DeviceInfo instance = new DeviceInfo();
 
     public static DeviceInfo getInstance() {
-
-        if(null == instance){
-
-            synchronized(DeviceInfo.class){
-
-                if(null == instance){
-
-                    instance = new DeviceInfo();
-
-                }
-            }
-        }
 
         return instance;
     }

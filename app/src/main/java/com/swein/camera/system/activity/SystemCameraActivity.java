@@ -2,7 +2,6 @@ package com.swein.camera.system.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,15 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.swein.data.singleton.device.DeviceInfo;
 import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.framework.tools.util.bitmaps.BitmapUtils;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class SystemCameraActivity extends AppCompatActivity {
+
+    final private static String TAG = "SystemCameraActivity";
 
     final private static int SYSTEM_CAMERA_THUMB = 1;
     final private static int SYSTEM_CAMERA = 2;
@@ -55,6 +56,7 @@ public class SystemCameraActivity extends AppCompatActivity {
                 Uri photoUri = Uri.fromFile(new File(filePath));
                 //EXTRA_OUTPUT:set system camera photo path
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                ILog.iLogDebug(TAG, photoUri.getPath());
                 ActivityUtils.startSystemIntentWithResultByRequestCode(SystemCameraActivity.this, intent, SYSTEM_CAMERA);
             }
         });
@@ -80,22 +82,10 @@ public class SystemCameraActivity extends AppCompatActivity {
             imageView.setImageBitmap(bitmap);
         }
         else if(resultCode == RESULT_OK && SYSTEM_CAMERA == requestCode) {
-            FileInputStream fileInputStream = null;
-            try {
-                fileInputStream = new FileInputStream(filePath);
-                Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream);
-                imageView.setImageBitmap(bitmap);
-            }
-            catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            ILog.iLogDebug(TAG, filePath);
+            imageView.setImageBitmap(BitmapUtils.decodeSampledBitmapFromFilePath(filePath,
+                            DeviceInfo.getInstance().deviceScreenHeight,
+                            DeviceInfo.getInstance().deviceScreenWidth));
         }
     }
 }
