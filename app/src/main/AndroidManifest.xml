@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
         android:allowBackup="true"
@@ -77,7 +76,10 @@
         <activity
             android:name="com.swein.camera.custom.camera.CustomCamera"
             android:screenOrientation="portrait" />
-        <activity android:name="com.swein.camera.advance.activity.AdvanceCameraActivity"></activity>
+        <activity
+            android:name="com.swein.camera.advance.activity.AdvanceCameraActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.swein.camera.custom.result.ResultActivity"></activity>
     </application>
 
 </manifest>
