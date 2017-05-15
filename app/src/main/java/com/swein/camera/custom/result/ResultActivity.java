@@ -12,6 +12,10 @@ import com.swein.shandroidtoolutils.R;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Created by seokho on 15/05/2017.
+ */
+
 public class ResultActivity extends Activity {
 
     private ImageView imageViewResult;
@@ -37,4 +41,5 @@ public class ResultActivity extends Activity {
         }
 
     }
+
 }

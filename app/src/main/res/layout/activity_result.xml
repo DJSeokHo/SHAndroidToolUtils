@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.swein.camera.custom.result.ResultActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
 
 
     <ImageView
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         android:id="@+id/imageViewResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

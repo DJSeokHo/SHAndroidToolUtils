@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.swein.camera.advance.fragment.CameraFragment">
 
-    <TextureView
-        android:id="@+id/textureView"
+    <com.swein.camera.advance.preview.AutoFitTextureView
+        android:id="@+id/autoFitTextureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

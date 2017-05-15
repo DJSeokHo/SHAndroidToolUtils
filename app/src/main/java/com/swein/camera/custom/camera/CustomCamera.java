@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.swein.camera.custom.result.ResultActivity;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.File;
@@ -20,14 +21,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by seokho on 11/05/2017.
+ * Created by seokho on 15/05/2017.
  */
 
-public class CustomCamera extends Activity implements SurfaceHolder.Callback{
+public class CustomCamera extends Activity implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
+
+    private final int ROTATEION = 90;
+    private final int DEFAULT_WIDTH = 1920;
+    private final int DEFAULT_HEIGHT = 1080;
+
+    private final String TAG = "CustomCamera";
+
+
 
     private Button buttonCapture;
     private SurfaceView preview;
     private Camera camera;
+    private SurfaceHolder surfaceHolder;
+
     private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -49,8 +60,6 @@ public class CustomCamera extends Activity implements SurfaceHolder.Callback{
             }
         }
     };
-
-    private SurfaceHolder surfaceHolder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +89,8 @@ public class CustomCamera extends Activity implements SurfaceHolder.Callback{
     public void capture(View view) {
         Camera.Parameters parameters = camera.getParameters();
         parameters.setPictureFormat(ImageFormat.JPEG);
-        parameters.setPreviewSize(1920, 1080);
+        parameters.setPreviewSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        parameters.setRotation(ROTATEION);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
         camera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
@@ -114,7 +124,7 @@ public class CustomCamera extends Activity implements SurfaceHolder.Callback{
         try {
             camera.setPreviewDisplay(surfaceHolder);
             //turn system camera preview degree
-            camera.setDisplayOrientation(90);
+            camera.setDisplayOrientation(ROTATEION);
             camera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,5 +175,14 @@ public class CustomCamera extends Activity implements SurfaceHolder.Callback{
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         releaseCamera();
+    }
+
+    @Override
+    public void onAutoFocus(boolean success, Camera camera) {
+
+        if(success) {
+            ILog.iLogDebug(TAG, "auto focus success");
+        }
+
     }
 }

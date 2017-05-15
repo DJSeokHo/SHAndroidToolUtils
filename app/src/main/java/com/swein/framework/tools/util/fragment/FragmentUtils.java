@@ -1,6 +1,8 @@
 package com.swein.framework.tools.util.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +28,10 @@ public class FragmentUtils {
     public static void replaceFragmentv4Commit(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(containerViewId, fragment).commit();
+    }
+
+    public static void replacePreferenceFragmentCommit(Activity activity, PreferenceFragment fragment, int containerViewId) {
+        activity.getFragmentManager().beginTransaction().replace(containerViewId, fragment).addToBackStack(null).commit();
     }
 
     public void replaceFragmentv4CommitWithBundle(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
