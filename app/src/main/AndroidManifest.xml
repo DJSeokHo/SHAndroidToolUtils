@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <user-feature android:name="android.hardware.camera2.full" />
 
     <application
@@ -73,13 +74,15 @@
             android:name="com.swein.toolbar.activity.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
         <activity android:name="com.swein.camera.system.activity.SystemCameraActivity" />
-        <activity android:name="com.swein.camera.custom.camera.CustomCamera" />
-        <activity android:name="com.swein.camera.custom.result.ResultActivity" />
-        <activity android:name="com.swein.camera.custom.activity.CustomCameraActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name="com.swein.camera.custom.activity.CustomCameraActivity" />
+        <activity android:name="com.swein.camera.custom.result.ResultActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.swein.camera.advance.activity.AdvanceCameraActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.swein.camera.touch.TouchActivity" />
+
+        <activity android:name="com.swein.handler.HandlerExampleActivity"></activity>
     </application>
 
 </manifest>

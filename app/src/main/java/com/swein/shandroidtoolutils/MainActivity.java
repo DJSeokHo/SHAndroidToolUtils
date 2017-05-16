@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
                 ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, TouchActivity.class);
 //                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, AdvanceCameraActivity.class);
 
             }

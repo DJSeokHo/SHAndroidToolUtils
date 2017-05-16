@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.camera.custom.activity.CustomCameraActivity"
-    >
+    android:background="@color/black">
+
+    <com.swein.camera.custom.preview.CameraSurfaceView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.swein.camera.custom.draw.FocusAreaView
+        android:id="@+id/focusAreaView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <Button
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:id="@+id/buttonCustomCamera"
+        android:id="@+id/buttonCapture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="camera"/>
+        android:text="Capture"/>
 
 </RelativeLayout>

@@ -16,6 +16,12 @@ import java.util.UUID;
 
 public class DeviceInfoUtils {
 
+    /**
+     * must use this method in application first
+     *
+     * @param context
+     * @return
+     */
     public static boolean initDeviceScreenDisplayMetricsPixels(Context context) {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();

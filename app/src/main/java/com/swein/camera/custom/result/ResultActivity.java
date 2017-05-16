@@ -33,8 +33,7 @@ public class ResultActivity extends Activity {
             Bitmap bitmap = BitmapFactory.decodeStream(fileInputStream);
             Matrix matrix = new Matrix();
             matrix.setRotate(90);
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                    bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             imageViewResult.setImageBitmap(bitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
