@@ -104,7 +104,7 @@ public class CameraSurfaceView extends SurfaceView {
      * set FocusAreaView instance for touch focus indication.
      * @param focusAreaView - FocusAreaView
      */
-    public void setDrawingView(FocusAreaView focusAreaView) {
+    public void FocusAreaView(FocusAreaView focusAreaView) {
         this.focusAreaView = focusAreaView;
         this.focusAreaViewSet = true;
     }

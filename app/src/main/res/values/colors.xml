@@ -13,4 +13,6 @@
     <color name="yellow">#ff0</color>
     <color name="blue">#33b5e5</color>
     <color name="black">#000000</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

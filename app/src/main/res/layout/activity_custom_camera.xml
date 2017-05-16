@@ -15,11 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:layout_alignParentBottom="true"
-        android:id="@+id/buttonCapture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Capture"/>
+    <ImageButton
+        android:scaleType="centerInside"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:id="@+id/imageButtonCapture"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/aperture"
+        android:background="@color/transparent"
+        />
 
 </RelativeLayout>

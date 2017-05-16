@@ -51,7 +51,6 @@ public class CameraOperate implements SurfaceHolder.Callback {
 
         cameraParameters = camera.getParameters();
         cameraParameters.setPreviewSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
         try {
             camera.setParameters(cameraParameters);
         } catch (RuntimeException e) {
@@ -59,7 +58,6 @@ public class CameraOperate implements SurfaceHolder.Callback {
         }
 
         try {
-//            camera.setDisplayOrientation(getCorrectOrientation(context, cameraId));
             camera.setPreviewDisplay(surfaceHolder);
         } catch (IOException e) {
             camera.release();

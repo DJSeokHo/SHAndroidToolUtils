@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.swein.camera.custom.camera.CameraOperate;
 import com.swein.camera.custom.draw.FocusAreaView;
@@ -41,7 +41,7 @@ public class CustomCameraActivity extends Activity {
     private int frontCameraId;
     private int backCameraId;
 
-    private Button buttonCapture;
+    private ImageButton imageButtonCapture;
     private Camera camera;
 
     private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
@@ -71,6 +71,7 @@ public class CustomCameraActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_camera);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setFormat(PixelFormat.UNKNOWN);
         availableCamera();
         preview = (CameraSurfaceView) findViewById(R.id.preview);
@@ -81,12 +82,12 @@ public class CustomCameraActivity extends Activity {
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         preview.setListener(cameraOperate);
-        //cameraPreview.changeExposureComp(-currentAlphaAngle);
-        focusAreaView = (FocusAreaView) findViewById(R.id.focusAreaView);
-        preview.setDrawingView(focusAreaView);
 
-        buttonCapture = (Button)findViewById(R.id.buttonCapture);
-        buttonCapture.setOnClickListener(new View.OnClickListener() {
+        focusAreaView = (FocusAreaView) findViewById(R.id.focusAreaView);
+        preview.FocusAreaView(focusAreaView);
+
+        imageButtonCapture = (ImageButton) findViewById(R.id.imageButtonCapture);
+        imageButtonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 capture(v);

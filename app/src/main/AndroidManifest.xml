@@ -34,7 +34,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,13 +74,13 @@
             android:name="com.swein.toolbar.activity.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
         <activity android:name="com.swein.camera.system.activity.SystemCameraActivity" />
-        <activity android:name="com.swein.camera.custom.activity.CustomCameraActivity" />
+        <activity android:name="com.swein.camera.custom.activity.CustomCameraActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity android:name="com.swein.camera.custom.result.ResultActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.swein.camera.advance.activity.AdvanceCameraActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.swein.camera.touch.TouchActivity" />
 
         <activity android:name="com.swein.handler.HandlerExampleActivity"></activity>
     </application>
