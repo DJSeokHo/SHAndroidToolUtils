@@ -84,7 +84,7 @@ public class DelegateExampleActivity extends AppCompatActivity implements ListVi
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String,String>>();
 
         //create a data
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < 3; i++)
         {
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("itemTitle", i + "'th line");

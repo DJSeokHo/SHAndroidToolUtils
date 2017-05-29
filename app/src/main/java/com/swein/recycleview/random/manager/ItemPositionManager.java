@@ -23,12 +23,12 @@ public class ItemPositionManager {
     public final static int ITEM_SPAN_NORMAL = 4;
     public final static int ITEM_SPAN_LONG = 6;
 
-    public final static float LEVEL_ONE_SPACE_RATIO = 0.117f;
-    public final static float LEVEL_TWO_SPACE_RATIO = 0.104f;
-    public final static float LEVEL_THREE_SPACE_RATIO = 0.078f;
-    public final static float LEVEL_FOUR_SPACE_RATIO = 0.065f;
+    public final static float LEVEL_ONE_SPACE_RATIO = 0.07f;
+    public final static float LEVEL_TWO_SPACE_RATIO = 0.068f;
+    public final static float LEVEL_THREE_SPACE_RATIO = 0.06f;
+    public final static float LEVEL_FOUR_SPACE_RATIO = 0.055f;
     public final static float LEVEL_FIVE_SPACE_RATIO = 0.026f;
-    public final static float LEVEL_SIX_SPACE_RATIO = 0.013f;
+    public final static float LEVEL_SIX_SPACE_RATIO = 0.003f;
 
 
     private ItemLength getTagCol(String string) {

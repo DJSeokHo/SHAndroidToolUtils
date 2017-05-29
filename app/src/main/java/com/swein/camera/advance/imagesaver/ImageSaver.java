@@ -4,9 +4,9 @@ package com.swein.camera.advance.imagesaver;
  * Created by seokho on 15/05/2017.
  */
 
+import android.annotation.TargetApi;
 import android.media.Image;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,7 +32,7 @@ public class ImageSaver implements Runnable {
         this.file = file;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void run() {
         ByteBuffer buffer = image.getPlanes()[0].getBuffer();

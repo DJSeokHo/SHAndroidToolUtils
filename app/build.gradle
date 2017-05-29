@@ -34,7 +34,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+    }
 }
 
 dependencies {
@@ -42,10 +44,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        transitive false
+    };
+
     //    compile project(':volley')
     //    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
     compile project(path: ':volley')
     compile files('libs/commons-io-2.5.jar')
+    compile 'com.android.support:support-annotations:22.2.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.google.android.gms:play-services-analytics:10.0.1'
@@ -61,6 +69,8 @@ dependencies {
     compile 'com.hynnet:jxl:2.6.12.1'
     compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
 }
 final def log = project.logger
 final def variants = project.android.applicationVariants

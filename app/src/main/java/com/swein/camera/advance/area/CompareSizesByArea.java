@@ -1,7 +1,7 @@
 package com.swein.camera.advance.area;
 
+import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Size;
 
 import java.util.Comparator;
@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 public class CompareSizesByArea implements Comparator<Size> {
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public int compare(Size lhs, Size rhs) {
         // We cast here to ensure the multiplications won't overflow

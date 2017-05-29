@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.toast.ToastUtils;
 import com.swein.recycleview.list.data.RecyclerViewListData;
 import com.swein.shandroidtoolutils.R;
 
@@ -41,6 +42,7 @@ public class RecyclerViewListItemViewHolder extends ViewHolder implements View.O
     public void onClick( View view ) {
         ILog.iLogDebug( RecyclerViewListItemViewHolder.class.getSimpleName(),
                         RecyclerViewListData.getInstance().getList().get( getAdapterPosition() ) );
+        ToastUtils.showShortToastNormal(view.getContext(), RecyclerViewListData.getInstance().getList().get( getAdapterPosition() ) + " clicked");
         TrackerManager.sendEventReport( view.getContext(), "Operate", "onClick", false );
     }
 }

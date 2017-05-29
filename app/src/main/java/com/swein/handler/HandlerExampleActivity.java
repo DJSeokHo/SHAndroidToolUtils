@@ -72,6 +72,14 @@ public class HandlerExampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler_example);
 
+
+        //ActivityThread will create main(UI) thread.
+        //main(UI) thread will create Looper and message queue
+
+        //threadlocal set(), get()  will input, output param of thread
+
+
+
         textView = (TextView)findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.button);

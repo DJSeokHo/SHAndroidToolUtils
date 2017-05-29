@@ -38,8 +38,8 @@ public class RecyclerViewListData {
 
         list.clear();
 
-        for ( int i = 'A'; i <= 'z'; i++ ) {
-            list.add( "" + (char)i );
+        for ( int i = 0; i <= 30; i++ ) {
+            list.add( String.valueOf(i) );
         }
     }
 

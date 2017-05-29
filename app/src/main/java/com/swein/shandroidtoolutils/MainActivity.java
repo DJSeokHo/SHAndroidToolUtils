@@ -46,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //        ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
-        //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-        //        ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
-        //        ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);

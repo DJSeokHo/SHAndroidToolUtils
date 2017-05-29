@@ -36,11 +36,11 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     private AutofitRecyclerView recyclerViewRandom;
 
     private RecyclerViewAdapter recyclerViewAdapter;
-    private SwipeRefreshLayout  swipeRefreshLayoutRandom;
+    private SwipeRefreshLayout swipeRefreshLayoutRandom;
 
     private RecyclerViewItemSetting recyclerViewItemSetting;
 
-    private int               lastVisibleItem;
+    private int lastVisibleItem;
 
     private ImageButton checkImageButton;
     private ImageButton searchImageButton;
@@ -57,14 +57,14 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     public final static String ALL = "ALL";
 
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_recycler_view_random );
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recycler_view_random);
 
         //auto send crash report when this activity crashed
-        CrashExceptionHandler.getInstance().init( this );
+        CrashExceptionHandler.getInstance().init(this);
 
-        TrackerManager.sendScreenViewReport( this );
+        TrackerManager.sendScreenViewReport(this);
 
         initData();
         initView();
@@ -73,77 +73,77 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initView() {
-        TrackerManager.sendEventReport( this, "Auto", "initView", false );
-        checkImageButton = (ImageButton)findViewById( R.id.checkImageButton );
-        searchImageButton = (ImageButton)findViewById( R.id.searchImageButton );
-        clearImageButton = (ImageButton)findViewById( R.id.clearImageButton );
-        searchTagImageButton = (ImageButton)findViewById( R.id.searchTagImageButton );
-        swipeRefreshLayoutRandom = (SwipeRefreshLayout)findViewById( R.id.swipeRefreshLayoutRandom );
-        recyclerViewRandom = (AutofitRecyclerView)findViewById( R.id.recyclerViewRandom );
-        tagEditText = (EditText)findViewById( R.id.tagEditText );
+        TrackerManager.sendEventReport(this, "Auto", "initView", false);
+        checkImageButton = (ImageButton) findViewById(R.id.checkImageButton);
+        searchImageButton = (ImageButton) findViewById(R.id.searchImageButton);
+        clearImageButton = (ImageButton) findViewById(R.id.clearImageButton);
+        searchTagImageButton = (ImageButton) findViewById(R.id.searchTagImageButton);
+        swipeRefreshLayoutRandom = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutRandom);
+        recyclerViewRandom = (AutofitRecyclerView) findViewById(R.id.recyclerViewRandom);
+        tagEditText = (EditText) findViewById(R.id.tagEditText);
     }
 
     private void initPara() {
-        TrackerManager.sendEventReport( this, "Auto", "initPara", false );
+        TrackerManager.sendEventReport(this, "Auto", "initPara", false);
         checkState = NORMAL;
-        recyclerViewAdapter = new RecyclerViewAdapter( this, this );
-        recyclerViewRandom.setAdapter( recyclerViewAdapter );
-        recyclerViewRandom.setItemAnimator( new DefaultItemAnimator() );
+        recyclerViewAdapter = new RecyclerViewAdapter(this, this);
+        recyclerViewRandom.setAdapter(recyclerViewAdapter);
+        recyclerViewRandom.setItemAnimator(new DefaultItemAnimator());
         recyclerViewItemSetting = new RecyclerViewItemSetting(this);
     }
 
     private void initControl() {
-        TrackerManager.sendEventReport( this, "Auto", "initControl", false );
+        TrackerManager.sendEventReport(this, "Auto", "initControl", false);
         recyclerViewRandom.setColumnWidth(200);
 
-        swipeRefreshLayoutRandom.setOnRefreshListener( onRefreshListener() );
+        swipeRefreshLayoutRandom.setOnRefreshListener(onRefreshListener());
 
         //first enter page to show progress bar
-        swipeRefreshLayoutRandom.setProgressViewOffset( false, 0, (int)TypedValue
-                .applyDimension( TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-                        .getDisplayMetrics() ) );
+        swipeRefreshLayoutRandom.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics()));
 
-        recyclerViewRandom.addOnScrollListener( onScrollListener() );
+        recyclerViewRandom.addOnScrollListener(onScrollListener());
 
         recyclerViewRandom.addItemDecoration(recyclerViewItemSetting);
 
-        checkImageButton.setOnClickListener( onClickListener() );
+        checkImageButton.setOnClickListener(onClickListener());
 
-        searchImageButton.setOnClickListener( onClickListener() );
+        searchImageButton.setOnClickListener(onClickListener());
 
-        clearImageButton.setOnClickListener( onClickListener() );
+        clearImageButton.setOnClickListener(onClickListener());
 
-        searchTagImageButton.setOnClickListener( onClickListener() );
+        searchTagImageButton.setOnClickListener(onClickListener());
 
         EditTextViewUtils.editTextViewAddTextWatcher(tagEditText, textWatcher());
-        EditTextViewUtils.editTextViewSetFocusChangeListener( tagEditText, onFocusChangeListener() );
+        EditTextViewUtils.editTextViewSetFocusChangeListener(tagEditText, onFocusChangeListener());
     }
 
     private void initData() {
-        TrackerManager.sendEventReport( this, "Auto", "initData", false );
+        TrackerManager.sendEventReport(this, "Auto", "initData", false);
         RecyclerViewRandomData.getInstance().initList();
     }
 
     public void setCheckButtonAfterClicked() {
 
-        switch ( checkState ) {
+        switch (checkState) {
             case NORMAL:
-                searchImageButton.setVisibility( View.VISIBLE );
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
+                searchImageButton.setVisibility(View.VISIBLE);
+                checkImageButton.setImageResource(R.drawable.recyclerview_random_item_unchecked);
                 checkState = SELECT;
                 recyclerViewAdapter.notifyDataSetChanged();
                 break;
 
             case SELECT:
-                searchImageButton.setVisibility( View.VISIBLE );
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
+                searchImageButton.setVisibility(View.VISIBLE);
+                checkImageButton.setImageResource(R.drawable.recyclerview_random_item_checked);
                 checkState = ALL;
                 setAllItemSelected();
                 break;
 
             case ALL:
-                searchImageButton.setVisibility( View.GONE );
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
+                searchImageButton.setVisibility(View.GONE);
+                checkImageButton.setImageResource(R.drawable.recyclerview_random_select_normal);
                 checkState = NORMAL;
                 setAllItemUnSelected();
                 break;
@@ -152,13 +152,12 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     @Override
-    public void setItemCheckState( Object object ) {
+    public void setItemCheckState(Object object) {
 
-        if(((ListItemData)object).tagCheckState) {
-            ( (ListItemData)object ).tagCheckState = false;
-        }
-        else {
-            ( (ListItemData)object ).tagCheckState = true;
+        if (((ListItemData) object).tagCheckState) {
+            ((ListItemData) object).tagCheckState = false;
+        } else {
+            ((ListItemData) object).tagCheckState = true;
         }
 
         checkSelectedItem();
@@ -169,59 +168,58 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         ThreadUtils.createThreadWithUI(0, new Runnable() {
             @Override
             public void run() {
-                for(ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
+                for (ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
                     listItemData.tagCheckState = true;
                 }
                 recyclerViewAdapter.notifyDataSetChanged();
             }
-        } );
+        });
     }
 
     @Override
     public void setAllItemUnSelected() {
-        ThreadUtils.createThreadWithUI( 0, new Runnable() {
+        ThreadUtils.createThreadWithUI(0, new Runnable() {
             @Override
             public void run() {
-                for(ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
+                for (ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
                     listItemData.tagCheckState = false;
                 }
                 recyclerViewAdapter.notifyDataSetChanged();
             }
-        } );
+        });
     }
 
     @Override
-    public void singleTagSearch( Object object ) {
+    public void singleTagSearch(Object object) {
 
-        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), ((ListItemData)object).tagName + ((ListItemData)object).itemPosition);
+        ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), ((ListItemData) object).tagName + ((ListItemData) object).itemPosition);
     }
 
     @Override
     public void checkSelectedItem() {
-        ThreadUtils.createThreadWithUI( 0, new Runnable() {
+        ThreadUtils.createThreadWithUI(0, new Runnable() {
             @Override
             public void run() {
 
-                for(ListItemData listItemData: RecyclerViewRandomData.getInstance().getList()) {
+                for (ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
 
                     // if has any one unselected item, so it's not all selected state. change state and break
                     if (!listItemData.tagCheckState) {
-                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "false" );
-                        searchImageButton.setVisibility( View.VISIBLE );
-                        checkImageButton.setImageResource( R.drawable.recyclerview_random_item_unchecked );
+                        ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), "false");
+                        searchImageButton.setVisibility(View.VISIBLE);
+                        checkImageButton.setImageResource(R.drawable.recyclerview_random_item_unchecked);
                         checkState = SELECT;
                         recyclerViewAdapter.notifyDataSetChanged();
                         break;
-                    }
-                    else {// if has no one unselected item until last item, now it's all selected state, do not break
-                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), "true" );
-                        searchImageButton.setVisibility( View.VISIBLE );
-                        checkImageButton.setImageResource( R.drawable.recyclerview_random_item_checked );
+                    } else {// if has no one unselected item until last item, now it's all selected state, do not break
+                        ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), "true");
+                        searchImageButton.setVisibility(View.VISIBLE);
+                        checkImageButton.setImageResource(R.drawable.recyclerview_random_item_checked);
                         checkState = ALL;
                     }
                 }
             }
-        } );
+        });
     }
 
     @Override
@@ -229,13 +227,13 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
-            public void onClick( View view ) {
+            public void onClick(View view) {
 
-                switch ( view.getId() ) {
+                switch (view.getId()) {
 
                     case R.id.checkImageButton:
 
-                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "checkImageButton", R.id.checkImageButton, false );
+                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "checkImageButton", R.id.checkImageButton, false);
 
                         setCheckButtonAfterClicked();
 
@@ -243,40 +241,40 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.searchImageButton:
 
-                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "searchImageButton", R.id.searchImageButton, false );
+                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "searchImageButton", R.id.searchImageButton, false);
 
                         final List<ListItemData> listItemDataList = new ArrayList<ListItemData>();
 
                         ThreadUtils.createThreadWithoutUI(new Runnable() {
                             @Override
                             public void run() {
-                                for(ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
-                                    if(listItemData.tagCheckState) {
+                                for (ListItemData listItemData : RecyclerViewRandomData.getInstance().getList()) {
+                                    if (listItemData.tagCheckState) {
                                         listItemDataList.add(listItemData);
                                     }
                                 }
 
-                                for(ListItemData listItemData : listItemDataList) {
-                                    ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), listItemData.tagName + " " + listItemData.tagCheckState );
+                                for (ListItemData listItemData : listItemDataList) {
+                                    ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), listItemData.tagName + " " + listItemData.tagCheckState);
                                 }
                             }
-                        } );
+                        });
 
                         break;
 
                     case R.id.clearImageButton:
 
-                        TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "click", "clearImageButton", R.id.clearImageButton, false );
+                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "clearImageButton", R.id.clearImageButton, false);
 
-                        tagEditText.setText( "" );
+                        tagEditText.setText("");
 
                         break;
 
                     case R.id.searchTagImageButton:
 
-                        int i = 1/0;
+                        int i = 1 / 0;
 
-                        ILog.iLogDebug( RecyclerViewRandomActivity.class.getSimpleName(), String.valueOf( i ) );
+                        ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), String.valueOf(i));
 
 //                        String[] test = new String[] {"1", "2"};
 //                        ILog.iLogDebug( RecyclerViewRandomActivity.this, test[3] );
@@ -295,24 +293,23 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         TextWatcher textWatcher = new TextWatcher() {
 
             @Override
-            public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void afterTextChanged( Editable editable ) {
-                if(tagEditText.getText().toString().trim().length() != 0) {
-                    clearImageButton.setVisibility( View.VISIBLE );
-                    searchTagImageButton.setVisibility( View.VISIBLE );
-                }
-                else {
-                    clearImageButton.setVisibility( View.GONE );
-                    searchTagImageButton.setVisibility( View.INVISIBLE );
+            public void afterTextChanged(Editable editable) {
+                if (tagEditText.getText().toString().trim().length() != 0) {
+                    clearImageButton.setVisibility(View.VISIBLE);
+                    searchTagImageButton.setVisibility(View.VISIBLE);
+                } else {
+                    clearImageButton.setVisibility(View.GONE);
+                    searchTagImageButton.setVisibility(View.INVISIBLE);
                 }
             }
         };
@@ -325,40 +322,40 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
         RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged( RecyclerView recyclerView, int newState ) {
-                super.onScrollStateChanged( recyclerView, newState );
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
-                TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "onScrollStateChanged", false );
+                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onScrollStateChanged", false);
 
-                tagEditText.setText( "" );
+                tagEditText.setText("");
 
                 //check edit text view focus
-                if(EditTextViewUtils.isEditTextViewHasFocus( tagEditText )) {
-                    KeyBoardUtils.clearFocusOnView( tagEditText );
-                    KeyBoardUtils.dismissKeyboard( RecyclerViewRandomActivity.this );
+                if (EditTextViewUtils.isEditTextViewHasFocus(tagEditText)) {
+                    KeyBoardUtils.clearFocusOnView(tagEditText);
+                    KeyBoardUtils.dismissKeyboard(RecyclerViewRandomActivity.this);
                 }
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
                         == RecyclerViewRandomData.getInstance().getList().size()) {
 
                     //load more data
-                    ThreadUtils.createThreadWithUI( 0, new Runnable() {
+                    ThreadUtils.createThreadWithUI(0, new Runnable() {
                         @Override
                         public void run() {
                             RecyclerViewRandomData.getInstance().loadList();
                             recyclerViewAdapter.notifyDataSetChanged();
-                            if(!checkState.equals( NORMAL )) {
+                            if (!checkState.equals(NORMAL)) {
                                 checkSelectedItem();
                             }
                         }
-                    } );
+                    });
 
                 }
             }
 
             @Override
-            public void onScrolled( RecyclerView recyclerView, int dx, int dy ) {
-                super.onScrolled( recyclerView, dx, dy );
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
                 lastVisibleItem = returnLastVisibleItemPosition();
             }
@@ -374,15 +371,15 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             @Override
             public void onRefresh() {
 
-                TrackerManager.sendEventReport( RecyclerViewRandomActivity.this, "Operate", "onRefresh", false );
+                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onRefresh", false);
 
                 RecyclerViewRandomData.getInstance().initList();
                 recyclerViewAdapter.notifyDataSetChanged();
-                swipeRefreshLayoutRandom.setRefreshing( false );
+                swipeRefreshLayoutRandom.setRefreshing(false);
 
-                checkImageButton.setImageResource( R.drawable.recyclerview_random_select_normal );
+                checkImageButton.setImageResource(R.drawable.recyclerview_random_select_normal);
                 checkState = NORMAL;
-                searchImageButton.setVisibility( View.GONE );
+                searchImageButton.setVisibility(View.GONE);
                 setAllItemUnSelected();
             }
         };
@@ -394,7 +391,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     public View.OnFocusChangeListener onFocusChangeListener() {
         View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange( View view, boolean b ) {
+            public void onFocusChange(View view, boolean b) {
 
             }
         };

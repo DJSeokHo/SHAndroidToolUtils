@@ -11,6 +11,7 @@ import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.swein.data.global.activity.RequestData;
 import com.swein.data.local.BundleData;
@@ -183,6 +184,14 @@ public class ActivityUtils {
             activity.getWindow().setExitTransition( new Fade(  ) );
 
         }
+    }
+
+    public static void hideTitleBarWithFullScreen(Activity activity) {
+        // hide title bar
+        activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // hide state bar
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
 

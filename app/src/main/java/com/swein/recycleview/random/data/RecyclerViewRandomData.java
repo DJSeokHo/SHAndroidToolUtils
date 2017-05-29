@@ -67,8 +67,7 @@ public class RecyclerViewRandomData {
     public void initList() {
 
         //create random string
-        int count = RandomNumberUtils.getRandomIntegerNumber(11, 50);
-
+        int count = RandomNumberUtils.getRandomIntegerNumber(1, 12);
         list.clear();
         colList.clear();
         itemOffsetList.clear();
@@ -76,7 +75,6 @@ public class RecyclerViewRandomData {
         Rect rect = new Rect();
         rect.left = 0;
         rect.right = 0;
-
 
         for ( int i = 0; i < count; i++ ) {
             int length = RandomNumberUtils.getRandomIntegerNumber(25, 1);
@@ -98,7 +96,7 @@ public class RecyclerViewRandomData {
      * load more data
      */
     public void loadList() {
-        int count = RandomNumberUtils.getRandomIntegerNumber(11, 30);
+        int count = RandomNumberUtils.getRandomIntegerNumber(1, 12);
 
         Rect rect = new Rect();
         rect.left = 0;

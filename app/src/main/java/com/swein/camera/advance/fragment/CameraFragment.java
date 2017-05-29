@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -69,7 +68,7 @@ import static com.swein.camera.advance.permission.AdvanceCameraPermission.REQUES
 import static com.swein.camera.advance.permission.AdvanceCameraPermission.requestCameraPermission;
 import static com.swein.camera.advance.permission.AdvanceCameraPermission.requestPermissionsResult;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class CameraFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener{
     /**
      * Conversion from screen rotation to JPEG orientation.
