@@ -53,7 +53,7 @@ public class RecyclerViewRandomActivityTest {
      *
      */
     public void testRefreshDataList() throws Exception {
-        RecyclerViewRandomData.getInstance().initList();
+        RecyclerViewRandomData.getInstance().initListFromDB();
     }
 
 }

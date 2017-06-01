@@ -1,6 +1,7 @@
 package com.swein.framework.tools.util.appinfo;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -64,6 +65,32 @@ public class AppInfoUtils {
         }
 
         return packageName;
+    }
+
+    public static boolean isThisApkInDebugMode(Context context) {
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean isOtherApkInDebugMode(Context context,String packageName) {
+        try {
+            PackageInfo pkginfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+
+            if (pkginfo != null ) {
+                ApplicationInfo info= pkginfo.applicationInfo;
+                return (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

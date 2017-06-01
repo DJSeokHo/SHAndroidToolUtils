@@ -3,6 +3,7 @@ package com.swein.recycleview.random.data;
 import com.swein.recycleview.random.manager.content.ItemPosition;
 
 /**
+ *
  * Created by seokho on 07/03/2017.
  */
 

@@ -11,6 +11,7 @@ import static com.swein.recycleview.random.manager.ItemPositionManager.MAX_LENGT
 
 
 /**
+ *
  * Created by seokho on 08/03/2017.
  */
 

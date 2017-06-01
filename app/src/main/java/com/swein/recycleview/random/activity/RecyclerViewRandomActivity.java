@@ -73,7 +73,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initView() {
-        TrackerManager.sendEventReport(this, "Auto", "initView", false);
+//        TrackerManager.sendEventReport(this, "Auto", "initView", false);
         checkImageButton = (ImageButton) findViewById(R.id.checkImageButton);
         searchImageButton = (ImageButton) findViewById(R.id.searchImageButton);
         clearImageButton = (ImageButton) findViewById(R.id.clearImageButton);
@@ -84,7 +84,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initPara() {
-        TrackerManager.sendEventReport(this, "Auto", "initPara", false);
+//        TrackerManager.sendEventReport(this, "Auto", "initPara", false);
         checkState = NORMAL;
         recyclerViewAdapter = new RecyclerViewAdapter(this, this);
         recyclerViewRandom.setAdapter(recyclerViewAdapter);
@@ -93,7 +93,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initControl() {
-        TrackerManager.sendEventReport(this, "Auto", "initControl", false);
+//        TrackerManager.sendEventReport(this, "Auto", "initControl", false);
         recyclerViewRandom.setColumnWidth(200);
 
         swipeRefreshLayoutRandom.setOnRefreshListener(onRefreshListener());
@@ -120,8 +120,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     }
 
     private void initData() {
-        TrackerManager.sendEventReport(this, "Auto", "initData", false);
-        RecyclerViewRandomData.getInstance().initList();
+//        TrackerManager.sendEventReport(this, "Auto", "initListFromDB", false);
+        RecyclerViewRandomData.getInstance().initListFromDB();
     }
 
     public void setCheckButtonAfterClicked() {
@@ -225,7 +225,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     @Override
     public View.OnClickListener onClickListener() {
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -233,7 +233,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.checkImageButton:
 
-                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "checkImageButton", R.id.checkImageButton, false);
+//                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "checkImageButton", R.id.checkImageButton, false);
 
                         setCheckButtonAfterClicked();
 
@@ -241,7 +241,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.searchImageButton:
 
-                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "searchImageButton", R.id.searchImageButton, false);
+//                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "searchImageButton", R.id.searchImageButton, false);
 
                         final List<ListItemData> listItemDataList = new ArrayList<ListItemData>();
 
@@ -264,17 +264,13 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 
                     case R.id.clearImageButton:
 
-                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "clearImageButton", R.id.clearImageButton, false);
+//                        TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "click", "clearImageButton", R.id.clearImageButton, false);
 
                         tagEditText.setText("");
 
                         break;
 
                     case R.id.searchTagImageButton:
-
-                        int i = 1 / 0;
-
-                        ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), String.valueOf(i));
 
 //                        String[] test = new String[] {"1", "2"};
 //                        ILog.iLogDebug( RecyclerViewRandomActivity.this, test[3] );
@@ -284,7 +280,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             }
         };
 
-        return onClickListener;
     }
 
     @Override
@@ -325,7 +320,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onScrollStateChanged", false);
+//                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onScrollStateChanged", false);
 
                 tagEditText.setText("");
 
@@ -342,7 +337,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                     ThreadUtils.createThreadWithUI(0, new Runnable() {
                         @Override
                         public void run() {
-                            RecyclerViewRandomData.getInstance().loadList();
+                            RecyclerViewRandomData.getInstance().loadMoreListFromDB();
                             recyclerViewAdapter.notifyDataSetChanged();
                             if (!checkState.equals(NORMAL)) {
                                 checkSelectedItem();
@@ -371,9 +366,9 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             @Override
             public void onRefresh() {
 
-                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onRefresh", false);
+//                TrackerManager.sendEventReport(RecyclerViewRandomActivity.this, "Operate", "onRefresh", false);
 
-                RecyclerViewRandomData.getInstance().initList();
+                RecyclerViewRandomData.getInstance().initListFromDB();
                 recyclerViewAdapter.notifyDataSetChanged();
                 swipeRefreshLayoutRandom.setRefreshing(false);
 

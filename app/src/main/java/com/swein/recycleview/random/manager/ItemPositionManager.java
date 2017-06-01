@@ -7,6 +7,7 @@ import com.swein.recycleview.random.manager.content.ItemPosition;
 import java.util.List;
 
 /**
+ *
  * Created by seokho on 10/03/2017.
  */
 
@@ -18,10 +19,10 @@ public class ItemPositionManager {
     public final static int STRING_LENGTH_SHORT = 5;
     public final static int STRING_LENGTH_NORMAL = 10;
 
-    public final static int ITEM_SPAN_SHORT = 2;
-    public final static int ITEM_SPAN_HALF = 3;
-    public final static int ITEM_SPAN_NORMAL = 4;
-    public final static int ITEM_SPAN_LONG = 6;
+    private final static int ITEM_SPAN_SHORT = 2;
+    private final static int ITEM_SPAN_HALF = 3;
+    private final static int ITEM_SPAN_NORMAL = 4;
+    private final static int ITEM_SPAN_LONG = 6;
 
     public final static float LEVEL_ONE_SPACE_RATIO = 0.07f;
     public final static float LEVEL_TWO_SPACE_RATIO = 0.068f;
@@ -229,7 +230,6 @@ public class ItemPositionManager {
                 if(0 == totalSpace) {
                     totalSpace = ITEM_SPAN_LONG;
                 }
-                continue;
             }
         }
     }

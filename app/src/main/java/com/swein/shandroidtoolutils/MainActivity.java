@@ -17,6 +17,7 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
+import com.swein.recycleview.random.activity.RecyclerViewRandomActivity;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
+                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);

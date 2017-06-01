@@ -15,6 +15,7 @@ import com.swein.shandroidtoolutils.R;
 import static com.swein.framework.tools.util.color.ColorUtils.createRandomColorString;
 
 /**
+ *
  * Created by seokho on 02/03/2017.
  */
 
@@ -45,16 +46,6 @@ public class RecyclerViewRandomItemViewHolder extends RecyclerView.ViewHolder {
 
 
     public void textViewSetText( String string ) {
-
-//        String number = String.valueOf( RandomNumberUtils.getRandomIntegerNumber( 25, 1) );
-//        String brackets = string + "(" + number + ")";
-//
-//
-//
-//        Spannable spannable = new SpannableString( brackets );
-//        spannable.setSpan(new AbsoluteSizeSpan(20), brackets.lastIndexOf( "(" ), brackets.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        //        recyclerViewRandomItemTextView.setText( spannable );
 
         recyclerViewRandomItemNumberTextView.setText( "(" + String.valueOf( RandomNumberUtils.getRandomIntegerNumber( 25, 1) ) + ")" );
 

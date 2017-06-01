@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.recycleview.random.data.RecyclerViewRandomData;
 import com.swein.recycleview.random.delegate.RecyclerViewRandomDelegate;
 import com.swein.recycleview.random.viewholder.RecyclerViewRandomItemViewHolder;
@@ -18,6 +17,7 @@ import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.S
 import static com.swein.recycleview.random.activity.RecyclerViewRandomActivity.checkState;
 
 /**
+ *
  * Created by seokho on 02/03/2017.
  */
 
@@ -38,19 +38,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
 
         parent.setLayoutParams(layoutParams);
 
-        RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder = new RecyclerViewRandomItemViewHolder(
+        return new RecyclerViewRandomItemViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.activity_recycler_view_random_item, parent, false)
         );
-
-        return recyclerViewRandomItemViewHolder;
 
     }
 
     /**
      * refresh list and check item state (be selected or not) in selection mode
      *
-     * @param recyclerViewRandomItemViewHolder
-     * @param position
+     * @param recyclerViewRandomItemViewHolder view holder
+     * @param position view position
      */
     private void tagCloudCheckStateListener(RecyclerViewRandomItemViewHolder recyclerViewRandomItemViewHolder, int position) {
         switch (checkState) {
@@ -93,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
             @Override
             public void onClick(View view) {
 
-                TrackerManager.sendEventReport(context, "Operate", "click", RecyclerViewRandomData.getInstance().getList().get(position).tagName, position, true);
+//                TrackerManager.sendEventReport(context, "Operate", "click", RecyclerViewRandomData.getInstance().getList().get(position).tagName, position, true);
 
                 if (!checkState.equals(NORMAL)) {  //select mode
                     recyclerViewRandomDelegate.setItemCheckState(RecyclerViewRandomData.getInstance().getList().get(position));

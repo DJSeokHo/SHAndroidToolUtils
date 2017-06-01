@@ -23,14 +23,13 @@ import static com.swein.recycleview.random.manager.ItemPositionManager.STRING_LE
 import static com.swein.recycleview.random.manager.ItemPositionManager.STRING_LENGTH_ZERO;
 
 /**
+ *
  * Created by seokho on 13/03/2017.
  */
 
 public class RecyclerViewItemSetting extends RecyclerView.ItemDecoration {
 
     private int screenWidth;
-
-    private Context context;
 
     public RecyclerViewItemSetting(Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
