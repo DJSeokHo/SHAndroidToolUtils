@@ -109,6 +109,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewRandom
     public int getItemCount() {
         return RecyclerViewRandomData.getInstance().getList().size();
     }
+
 }
 
 

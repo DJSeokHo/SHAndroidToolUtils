@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.swein.framework.module.googleanalytics.handler.CrashExceptionHandler;
 import com.swein.framework.module.googleanalytics.manager.TrackerManager;
@@ -46,9 +47,13 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     private ImageButton searchImageButton;
     private ImageButton clearImageButton;
     private ImageButton searchTagImageButton;
+    private ImageButton btnBackToTop;
 
     private EditText tagEditText;
 
+    private LinearLayout headerLinearLayout;
+
+    private boolean isheaderLinearLayoutShow;
 
     public static String checkState;   //0: normal. 1: select. 2: all select
 
@@ -78,13 +83,16 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         searchImageButton = (ImageButton) findViewById(R.id.searchImageButton);
         clearImageButton = (ImageButton) findViewById(R.id.clearImageButton);
         searchTagImageButton = (ImageButton) findViewById(R.id.searchTagImageButton);
+        btnBackToTop = (ImageButton) findViewById(R.id.btnBackToTop);
         swipeRefreshLayoutRandom = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutRandom);
         recyclerViewRandom = (AutofitRecyclerView) findViewById(R.id.recyclerViewRandom);
         tagEditText = (EditText) findViewById(R.id.tagEditText);
+        headerLinearLayout = (LinearLayout) findViewById(R.id.headerLinearLayout);
     }
 
     private void initPara() {
 //        TrackerManager.sendEventReport(this, "Auto", "initPara", false);
+        isheaderLinearLayoutShow = false;
         checkState = NORMAL;
         recyclerViewAdapter = new RecyclerViewAdapter(this, this);
         recyclerViewRandom.setAdapter(recyclerViewAdapter);
@@ -114,6 +122,8 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
         clearImageButton.setOnClickListener(onClickListener());
 
         searchTagImageButton.setOnClickListener(onClickListener());
+
+        btnBackToTop.setOnClickListener(onClickListener());
 
         EditTextViewUtils.editTextViewAddTextWatcher(tagEditText, textWatcher());
         EditTextViewUtils.editTextViewSetFocusChangeListener(tagEditText, onFocusChangeListener());
@@ -276,6 +286,11 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
 //                        ILog.iLogDebug( RecyclerViewRandomActivity.this, test[3] );
                         break;
 
+                    case R.id.btnBackToTop:
+
+                        recyclerViewRandom.scrollToPosition(0);
+                        hideHeader();
+                        break;
                 }
             }
         };
@@ -285,7 +300,7 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
     @Override
     public TextWatcher textWatcher() {
 
-        TextWatcher textWatcher = new TextWatcher() {
+        return new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -308,14 +323,12 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 }
             }
         };
-
-        return textWatcher;
     }
 
     @Override
     public RecyclerView.OnScrollListener onScrollListener() {
 
-        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -344,7 +357,6 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                             }
                         }
                     });
-
                 }
             }
 
@@ -352,17 +364,38 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
+                ILog.iLogDebug(RecyclerViewRandomActivity.class.getSimpleName(), dy);
+
+                if(dy < -100) {
+                    if(!isheaderLinearLayoutShow) {
+                        showHeader();
+                    }
+                }
+                else if(dy > 100) {
+                    if(isheaderLinearLayoutShow) {
+                        hideHeader();
+                    }
+                }
+
                 lastVisibleItem = returnLastVisibleItemPosition();
             }
         };
+    }
 
-        return onScrollListener;
+    private void showHeader() {
+        headerLinearLayout.setVisibility(View.VISIBLE);
+        isheaderLinearLayoutShow = true;
+    }
+
+    private void hideHeader() {
+        headerLinearLayout.setVisibility(View.GONE);
+        isheaderLinearLayoutShow = false;
     }
 
     @Override
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener() {
 
-        SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        return new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
@@ -376,22 +409,19 @@ public class RecyclerViewRandomActivity extends AppCompatActivity implements Rec
                 checkState = NORMAL;
                 searchImageButton.setVisibility(View.GONE);
                 setAllItemUnSelected();
+
+                headerLinearLayout.setVisibility(View.GONE);
             }
         };
-
-        return onRefreshListener;
     }
 
     @Override
     public View.OnFocusChangeListener onFocusChangeListener() {
-        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        return new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
 
             }
         };
-
-        return onFocusChangeListener;
     }
-
 }
