@@ -90,6 +90,7 @@
         <activity android:name="com.swein.framework.module.photostudio.result.PrimaryColorActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
+        <activity android:name="com.swein.blockgame.activity.BlockGameTZFEActivity"></activity>
     </application>
 
 </manifest>

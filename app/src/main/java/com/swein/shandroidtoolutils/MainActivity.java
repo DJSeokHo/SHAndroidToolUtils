@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
+import com.swein.blockgame.activity.BlockGameTZFEActivity;
 import com.swein.camera.custom.activity.CustomCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
@@ -17,7 +18,6 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
-import com.swein.recycleview.random.activity.RecyclerViewRandomActivity;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -50,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
 //                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
+//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
