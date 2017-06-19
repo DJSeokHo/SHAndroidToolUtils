@@ -44,12 +44,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
         transitive false
-    };
-
+    }
     //    compile project(':volley')
+
     //    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
     compile project(path: ':volley')
     compile files('libs/commons-io-2.5.jar')
@@ -71,6 +70,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
+    compile files('libs/jxl-2.6.12.jar')
 }
 final def log = project.logger
 final def variants = project.android.applicationVariants
