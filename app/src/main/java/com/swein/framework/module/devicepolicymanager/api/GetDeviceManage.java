@@ -9,22 +9,23 @@ import android.content.Intent;
 import com.swein.framework.module.devicepolicymanager.receiver.DeviceReceiver;
 
 /**
+ *
  * Created by seokho on 19/06/2017.
  */
 
 public class GetDeviceManage {
 
-    private Activity mActivity;
+    private Activity activity;
     private ComponentName componentName;
     private DevicePolicyManager devicePolicyManager;
 
     public GetDeviceManage(Activity activity){
-        mActivity = activity;
-        componentName = new ComponentName(mActivity, DeviceReceiver.class);
+        this.activity = activity;
+        componentName = new ComponentName(this.activity, DeviceReceiver.class);
         devicePolicyManager = (DevicePolicyManager) activity.getSystemService(Context.DEVICE_POLICY_SERVICE);
     }
 
-    public boolean isactive(){
+    public boolean isActive(){
         return devicePolicyManager.isAdminActive(componentName);
     }
 
@@ -32,26 +33,30 @@ public class GetDeviceManage {
         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "click 'activate' to turn on device manager. if not activated, feature is not supported");
-        mActivity.startActivityForResult(intent, Activity.RESULT_OK);
+        this.activity.startActivityForResult(intent, Activity.RESULT_OK);
+    }
+
+    public void removeActivate() {
+        devicePolicyManager.removeActiveAdmin(componentName);
     }
 
     public void lock(){
         devicePolicyManager.lockNow();
     }
 
-    public void setmaxtimelock(long time){
+    public void setMaxTimeLock(long time){
         devicePolicyManager.setMaximumTimeToLock(componentName, time);
     }
 
-    public void setpassword(String password){
+    public void setPassword(String password){
         devicePolicyManager.resetPassword(password, 0);
     }
 
-    public void setcamera(boolean enabled){
+    public void setCamera(boolean enabled){
         devicePolicyManager.setCameraDisabled(componentName, !enabled);
     }
 
-    public boolean getcamera(){
+    public boolean getCamera(){
         return !devicePolicyManager.getCameraDisabled(componentName);
     }
 

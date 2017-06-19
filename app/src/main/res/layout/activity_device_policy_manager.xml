@@ -15,6 +15,12 @@
         android:text="Activate"/>
 
     <Button
+        android:id="@+id/buttonRemoveActivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RemoveActivate"/>
+
+    <Button
         android:id="@+id/buttonScreenLock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,13 +30,13 @@
         android:id="@+id/buttonScreenLockTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ScreenLockTime"/>
+        android:text="ScreenLockTime(5s)"/>
 
     <Button
         android:id="@+id/buttonResetPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ResetPassword"/>
+        android:text="ResetPasswordTo'6666'"/>
 
     <Button
         android:id="@+id/buttonCameraAble"
