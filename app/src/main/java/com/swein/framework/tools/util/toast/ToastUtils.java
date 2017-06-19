@@ -23,6 +23,13 @@ public class ToastUtils {
 
     }
 
+    public static void showShortToastNormal(Context context, CharSequence string) {
+
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+
+    }
+
+
     public static void showLongToastNormal(Context context, String string) {
 
         Toast.makeText(context, string, Toast.LENGTH_LONG).show();

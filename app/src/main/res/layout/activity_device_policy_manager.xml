@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/buttonActivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activate"/>
+
+    <Button
+        android:id="@+id/buttonScreenLock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ScreenLock"/>
+
+    <Button
+        android:id="@+id/buttonScreenLockTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ScreenLockTime"/>
+
+    <Button
+        android:id="@+id/buttonResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ResetPassword"/>
+
+    <Button
+        android:id="@+id/buttonCameraAble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraAble"/>
+
+    <Button
+        android:id="@+id/buttonCameraDisAble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraDisAble"/>
+
+    <Button
+        android:id="@+id/buttonClearStorage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ClearStorage"/>
+
+    <Button
+        android:id="@+id/buttonClearStorageAndSDCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ClearStorageAndSDCard"/>
+
+
+</LinearLayout>

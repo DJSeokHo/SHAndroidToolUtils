@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
-import com.swein.blockgame.activity.BlockGameTZFEActivity;
 import com.swein.camera.custom.activity.CustomCameraActivity;
+import com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
