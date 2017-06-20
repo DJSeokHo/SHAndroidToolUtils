@@ -91,19 +91,22 @@
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
         <activity android:name="com.swein.blockgame.activity.BlockGameTZFEActivity" />
-        <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity"></activity>
+        <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
 
-
-
-        <receiver android:name="com.swein.framework.module.devicepolicymanager.receiver.DeviceReceiver"
+        <receiver
+            android:name="com.swein.framework.module.devicepolicymanager.receiver.DeviceReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_list" />
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_list" />
+
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
 
-
+        <activity android:name="com.swein.framework.module.googlecloudtranslation.activity.GooglCloudTranslationActivity" />
+        <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity"></activity>
     </application>
 
 </manifest>

@@ -29,8 +29,8 @@ public class DevicePolicyManagerActivity extends AppCompatActivity {
             if (id == R.id.buttonActivate){
                 getDeviceManage.activate();
             }
-            else if (id == R.id.buttonRemoveActivate) {
-                if(getDeviceManage.isActive()) {
+            else if ( R.id.buttonRemoveActivate == id ) {
+                if( getDeviceManage.isActive() ) {
                     getDeviceManage.removeActivate();
                     buttonActivate.setEnabled(true);
 
@@ -44,27 +44,27 @@ public class DevicePolicyManagerActivity extends AppCompatActivity {
                     buttonClearStorageAndSDCard.setEnabled(false);
                 }
             }
-            else if (id == R.id.buttonScreenLock){
+            else if ( R.id.buttonScreenLock == id ){
                 getDeviceManage.lock();
             }
-            else if (id == R.id.buttonScreenLockTime){
+            else if ( R.id.buttonScreenLockTime == id ){
                 getDeviceManage.setMaxTimeLock(5000);
             }
-            else if (id == R.id.buttonResetPassword){
+            else if ( R.id.buttonResetPassword == id ){
                 getDeviceManage.setPassword("6666");
             }
-            else if (id == R.id.buttonCameraAble){
-                if (getDeviceManage.getCamera() != true)
+            else if ( R.id.buttonCameraAble == id ){
+                if ( !getDeviceManage.getCamera() )
                     getDeviceManage.setCamera(true);
             }
-            else if (id == R.id.buttonCameraDisAble){
-                if (getDeviceManage.getCamera() != false)
+            else if ( R.id.buttonCameraDisAble == id ){
+                if ( getDeviceManage.getCamera())
                     getDeviceManage.setCamera(false);
             }
-            else if (id == R.id.buttonClearStorage){
+            else if ( R.id.buttonClearStorage == id ){
                 getDeviceManage.wipe(0);
             }
-            else if (id == R.id.buttonClearStorageAndSDCard){
+            else if ( R.id.buttonClearStorageAndSDCard == id ){
                 getDeviceManage.wipe(1);
             }
         }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,55 +11,64 @@
         android:id="@+id/buttonActivate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Activate"/>
+        android:text="Activate"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonRemoveActivate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RemoveActivate"/>
+        android:text="RemoveActivate"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonScreenLock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ScreenLock"/>
+        android:text="ScreenLock"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonScreenLockTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ScreenLockTime(5s)"/>
+        android:text="ScreenLockTime(5s)"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonResetPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ResetPasswordTo'6666'"/>
+        android:text="ResetPasswordTo'6666'"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonCameraAble"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CameraAble"/>
+        android:text="CameraAble"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonCameraDisAble"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CameraDisAble"/>
+        android:text="CameraDisAble"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonClearStorage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ClearStorage"/>
+        android:text="ClearStorage"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/buttonClearStorageAndSDCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ClearStorageAndSDCard"/>
+        android:text="ClearStorageAndSDCard"
+        android:textAllCaps="false"/>
 
 
 </LinearLayout>
