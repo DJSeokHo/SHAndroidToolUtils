@@ -9,6 +9,8 @@ import com.swein.shandroidtoolutils.R;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Observable : subscribe()
@@ -69,7 +71,7 @@ public class RxJavaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java);
 
-        observable.subscribe(observer);
+//        observable.subscribe(observer);
 
 //        observable.subscribe(subscriber);
 
@@ -81,6 +83,11 @@ public class RxJavaActivity extends AppCompatActivity {
 //        observable.subscribe(observer);
 
 
+        Observable observable = Observable.just("1", "2", "3", "4")
+                .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                .observeOn(AndroidSchedulers.mainThread()); // 指定 Subscriber 的回调发生在主线程
+
+        observable.subscribe(observer);
 
 
     }

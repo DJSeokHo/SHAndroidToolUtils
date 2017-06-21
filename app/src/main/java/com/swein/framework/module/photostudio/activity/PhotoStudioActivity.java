@@ -9,6 +9,7 @@ import com.swein.framework.module.photostudio.result.PrimaryColorActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.shandroidtoolutils.R;
 
+
 public class PhotoStudioActivity extends AppCompatActivity {
 
     private Button buttonPrimaryColor;
