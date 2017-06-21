@@ -1,6 +1,10 @@
 package com.swein.framework.module.photostudio.matrix;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 
 /**
  * Created by seokho on 21/06/2017.
@@ -19,23 +23,24 @@ public class ColorMatrixClass {
         return instance;
     }
 
-    /**
-     * 0:red 1:green 2:blue
-     */
+
     private ColorMatrix hueMatrix = new ColorMatrix();
     private ColorMatrix saturationMatrix = new ColorMatrix();
     private ColorMatrix lunMatrix = new ColorMatrix();
 
-    public void setRedHue(float degree) {
-        hueMatrix.setRotate(0, degree);
-    }
+    /**
+     * 0:red 1:green 2:blue
+     * @param redDegree 0
+     * @param greenDegree 1
+     * @param blueDegree 2
+     */
+    public ColorMatrix setHue(float redDegree, float greenDegree, float blueDegree) {
+        hueMatrix.reset();
+        hueMatrix.setRotate(0, redDegree);
+        hueMatrix.setRotate(1, greenDegree);
+        hueMatrix.setRotate(2, blueDegree);
 
-    public void setGreenHue(float degree) {
-        hueMatrix.setRotate(1, degree);
-    }
-
-    public void setBlueHue(float degree) {
-        hueMatrix.setRotate(2, degree);
+        return hueMatrix;
     }
 
     /**
@@ -43,8 +48,10 @@ public class ColorMatrixClass {
      *
      * @param saturation from 0 to 1 and 0: gray
      */
-    public void setSaturation(float saturation) {
+    public ColorMatrix setSaturation(float saturation) {
+        saturationMatrix.reset();
         saturationMatrix.setSaturation(saturation);
+        return saturationMatrix;
     }
 
     /**
@@ -54,16 +61,27 @@ public class ColorMatrixClass {
      * @param b
      * @param a default value : 1
      */
-    public void setLunMatrix(float r, float g, float b, float a) {
+    public ColorMatrix setLunMatrix(float r, float g, float b, float a) {
+        lunMatrix.reset();
         lunMatrix.setScale(r, g, b, a);
+        return lunMatrix;
     }
 
-    public ColorMatrix getConcatMatrix(ColorMatrix... colorMatrices) {
+    public Bitmap getConcatMatrix(Bitmap bitmap, ColorMatrix... colorMatrices) {
+
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
         ColorMatrix colorMatrix = new ColorMatrix();
         for(ColorMatrix c : colorMatrices) {
             colorMatrix.postConcat(c);
         }
 
-        return colorMatrix;
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return bitmap;
+
     }
+
 }
