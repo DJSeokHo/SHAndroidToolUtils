@@ -1,5 +1,6 @@
 package com.swein.framework.module.photostudio.result;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.swein.shandroidtoolutils.R;
 public class PrimaryColorActivity extends AppCompatActivity {
 
     final private static String TAG = "PrimaryColorActivity";
-
+    private Context context;
     private ImageView imageView;
     private SeekBar seekBarHue;
     private SeekBar seekBarSaturation;
@@ -97,6 +98,7 @@ public class PrimaryColorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_primary_color);
+
 
         imageView = (ImageView)findViewById(R.id.imageView);
 
