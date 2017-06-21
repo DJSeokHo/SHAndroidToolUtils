@@ -106,7 +106,8 @@
         </receiver>
 
         <activity android:name="com.swein.framework.module.googlecloudtranslation.activity.GooglCloudTranslationActivity" />
-        <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity"></activity>
+        <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
+        <activity android:name="com.swein.framework.rxjava.activity.RxJavaActivity"></activity>
     </application>
 
 </manifest>
