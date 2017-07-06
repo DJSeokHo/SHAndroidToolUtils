@@ -65,7 +65,7 @@ public class ViewUtils {
                         layoutParams.height = height;
                         view.setLayoutParams(layoutParams);
 
-                        //if is imageview, than warp_content is not working, must set width, height dp, best is 80dp ~ 100dp
+                        //if is image view, than warp_content is not working, must set width, height dp, best is 80dp ~ 100dp
                         //and use for clip background better than clip src
                         outline.setOval(0, 0, view.getWidth(), view.getHeight());
                     }

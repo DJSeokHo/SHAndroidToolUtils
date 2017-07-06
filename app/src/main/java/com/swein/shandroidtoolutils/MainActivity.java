@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.swein.activity.animation.StartActivity;
 import com.swein.camera.custom.activity.CustomCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.photostudio.activity.PhotoStudioActivity;
+import com.swein.framework.rxjava.activity.RxJavaActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
 //                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, RxJavaActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, RxJavaActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         //        catch ( Exception e ) {
         //            e.printStackTrace();
         //        }
+
     }
 
 

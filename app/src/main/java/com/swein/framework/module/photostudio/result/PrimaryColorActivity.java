@@ -76,6 +76,15 @@ public class PrimaryColorActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             imageView.setImageBitmap(bitmap);
+
+                            ThreadUtils.startThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(!bitmap.isRecycled()) {
+                                        bitmap.recycle();
+                                    }
+                                }
+                            });
                         }
                     });
                 }
