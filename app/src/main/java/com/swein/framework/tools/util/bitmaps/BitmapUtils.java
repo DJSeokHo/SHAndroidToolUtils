@@ -1,8 +1,12 @@
 package com.swein.framework.tools.util.bitmaps;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,6 +16,29 @@ import java.io.File;
  */
 
 public class BitmapUtils {
+
+    public static Bitmap getBitmapFromDrawable(Drawable drawable) {
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ?Bitmap.Config.ARGB_8888:Bitmap.Config.RGB_565;// 取drawable的颜色格式
+        Bitmap bitmap = Bitmap.createBitmap(width, height, config);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    public static Bitmap getBitmapFromDrawableResource(Context context, int resourceId) {
+        Drawable drawable = context.getResources().getDrawable(resourceId);
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ?Bitmap.Config.ARGB_8888:Bitmap.Config.RGB_565;// 取drawable的颜色格式
+        Bitmap bitmap = Bitmap.createBitmap(width, height, config);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
     public static Bitmap getBitmapFromFile(File file) {
 

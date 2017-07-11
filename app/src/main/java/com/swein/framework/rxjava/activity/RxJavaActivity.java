@@ -1,19 +1,10 @@
 package com.swein.framework.rxjava.activity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
-
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Observable : subscribe()
@@ -25,61 +16,7 @@ public class RxJavaActivity extends AppCompatActivity {
 
     final private static String TAG = "RxJavaActivity";
 
-    // observer - wait event
-    Observer<String> observer = new Observer<String>() {
-        @Override
-        public void onCompleted() {
-            ILog.iLogDebug(TAG, "onCompleted");
-        }
 
-        @Override
-        public void onError(Throwable e) {
-            ILog.iLogDebug(TAG, "onError " + e.toString());
-        }
-
-        @Override
-        public void onNext(String s) {
-            ILog.iLogDebug(TAG, "onNext " + s);
-        }
-    };
-
-    // subscriber - base on observer, wait event
-    Subscriber<String> subscriber = new Subscriber<String>() {
-        @Override
-        public void onCompleted() {
-            ILog.iLogDebug(TAG, "onCompleted");
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            ILog.iLogDebug(TAG, "onError " + e);
-        }
-
-        @Override
-        public void onNext(String s) {
-            ILog.iLogDebug(TAG, "onNext " + s);
-        }
-
-        // before event send. can clear or reset here
-        @Override
-        public void onStart() {
-            super.onStart();
-            ILog.iLogDebug(TAG, "onStart ");
-        }
-    };
-
-    //observable - send event
-    Observable<String> observable = Observable.create(new Observable.OnSubscribe<String>() {
-
-        @Override
-        public void call(Subscriber<? super String> subscriber) {
-            subscriber.onNext("Hello");
-            subscriber.onNext("Hi");
-            subscriber.onNext("Seok Ho");
-            subscriber.onCompleted();
-        }
-
-    });
 
     //quick send event
 //    Observable observable = Observable.just("Hello", "Hi", "Seok Ho");
@@ -106,82 +43,195 @@ public class RxJavaActivity extends AppCompatActivity {
 
         imageView = (ImageView)findViewById(R.id.imageView);
 
-        //observalbe subscribed by observer
-        observable.subscribe(observer);
+//        //observalbe subscribed by observer
+//        RxMethod.observableSubscribeWithObserver(ObservalbeManager.getInstance().createObservable(new SendEventInterface() {
+//            @Override
+//            public void call(Subscriber subscriber) {
+//                subscriber.onNext("Hello");
+//            }
+//        }), ObserverManager.getInstance().createObserver(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                ILog.iLogDebug(TAG, o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), null, null);
+//
+//        //observalbe subscribed by subscriber
+//        RxMethod.observableSubscribeWithSubscriber(ObservalbeManager.getInstance().createObservable(new SendEventInterface() {
+//            @Override
+//            public void call(Subscriber subscriber) {
+//                subscriber.onNext("Hi");
+//            }
+//        }), ObserverManager.getInstance().createSubscriber(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                ILog.iLogDebug(TAG, o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), null, null);
+//
+//        RxMethod.observableSubscribeWithSubscriber(ObservalbeManager.getInstance().createObservable(new SendEventInterface() {
+//            @Override
+//            public void call(Subscriber subscriber) {
+//                Drawable drawable;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                    drawable = getTheme().getDrawable(R.drawable.t1);
+//                    subscriber.onNext(drawable);
+//                    subscriber.onCompleted();
+//                }
+//            }
+//        }), ObserverManager.getInstance().createSubscriber(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                imageView.setImageDrawable((Drawable) o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), null, null);
+//
+//
+//        RxMethod.observableFromWithObserver(ObserverManager.getInstance().createObserver(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                ILog.iLogDebug(TAG, o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), new String[]{"hi", "hello", "seok ho"}, null, null);
+//
+//
+//        RxMethod.observableSubscribeWithAction(ObservalbeManager.getInstance().createObservable(new SendEventInterface() {
+//            @Override
+//            public void call(Subscriber subscriber) {
+//                subscriber.onNext("action test");
+//            }
+//        }), ActionManager.getInstance().createAction1(new ActionInterface() {
+//            @Override
+//            public void call() {
+//
+//            }
+//
+//            @Override
+//            public void call(Object o) {
+//                ILog.iLogDebug(TAG, o);
+//            }
+//        }), null, null);
 
-        //observalbe subscribed by subscriber
-        observable.subscribe(subscriber);
 
-        Observable.create(new Observable.OnSubscribe<Object>() {
+//        RxMethod.observableSubscribeWithObserver(ObservalbeManager.getInstance().createObservable(new SendEventInterface() {
+//            @Override
+//            public void call(Subscriber subscriber) {
+//                Drawable drawable;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                    drawable = getTheme().getDrawable(R.drawable.t2);
+//                    subscriber.onNext(drawable);
+//                    subscriber.onCompleted();
+//                }
+//            }
+//        }), ObserverManager.getInstance().createObserver(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                imageView.setImageDrawable((Drawable) o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), Schedulers.io(), AndroidSchedulers.mainThread());
 
-            @Override
-            public void call(Subscriber<? super Object> subscriber) {
-                Drawable drawable = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    drawable = getTheme().getDrawable(R.drawable.t1);
-                    subscriber.onNext(drawable);
-                    subscriber.onCompleted();
-                }
-            }
-        }).subscribe(new Observer<Object>() {
-            @Override
-            public void onCompleted() {
+//        RxMethod.observableJustSubscribeWithEventTranslateMap(ObserverManager.getInstance().createObserver(new GetEventInterface() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(Object o) {
+//                imageView.setImageBitmap((Bitmap) o);
+//            }
+//
+//            @Override
+//            public void onStart() {
+//
+//            }
+//        }), R.drawable.t2, FuncManager.getInstance().createFun1(new FuncEventInterface() {
+//            @Override
+//            public Object call(Object o) {
+//                return BitmapUtils.getBitmapFromDrawableResource(RxJavaActivity.this, (Integer) o);
+//            }
+//        }), Schedulers.io(), AndroidSchedulers.mainThread());
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-                imageView.setImageDrawable((Drawable) o);
-            }
-        });
-
-
-
-        Observable.just(1, 2, 3, 4)
-                .subscribeOn(Schedulers.io())   //subscribe on IO thread
-                .observeOn(AndroidSchedulers.mainThread())  // call back on main thread
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer number) {
-                        ILog.iLogDebug(TAG, "number:" + number);
-                    }
-                });
-
-        Observable.create(new Observable.OnSubscribe<Object>() {
-
-            @Override
-            public void call(Subscriber<? super Object> subscriber) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    Drawable drawable = getTheme().getDrawable(R.drawable.t2);
-                    subscriber.onNext(drawable);
-                    subscriber.onCompleted();
-                }
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
-
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        imageView.setImageDrawable((Drawable) o);
-                    }
-                });
 
 
     }
