@@ -4,7 +4,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.swein.framework.rxjava.activity.event.FuncEventInterface;
+import com.swein.framework.rxjava.activity.event.GetEventInterface;
+import com.swein.framework.rxjava.activity.func.FuncManager;
+import com.swein.framework.rxjava.activity.observer.ObserverManager;
+import com.swein.framework.rxjava.activity.subscribe.RxMethod;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Observable : subscribe()
@@ -16,6 +29,17 @@ public class RxJavaActivity extends AppCompatActivity {
 
     final private static String TAG = "RxJavaActivity";
 
+    class Student{
+
+        public String name;
+        public List<String> courseList;
+
+        public Student(String name, List<String> courseList) {
+            this.name = name;
+            this.courseList = courseList;
+        }
+
+    }
 
 
     //quick send event
@@ -232,7 +256,54 @@ public class RxJavaActivity extends AppCompatActivity {
 //            }
 //        }), Schedulers.io(), AndroidSchedulers.mainThread());
 
+        List<String> list1 = new ArrayList<>();
+        list1.add("C");
+        list1.add("C++");
+        list1.add("JAVA");
 
+        List<String> list2 = new ArrayList<>();
+        list1.add("Android");
+        list1.add("iOS");
+
+        List<String> list3 = new ArrayList<>();
+        list1.add("XML");
+        list1.add("HTML");
+        list1.add("Spring");
+
+        Student student1 = new Student("A", list1);
+        Student student2 = new Student("B", list2);
+        Student student3 = new Student("C", list3);
+
+        Student[] students = {student1, student2, student3};
+
+        RxMethod.observableFromSubscribeWithEventTranslateFlatMap(ObserverManager.getInstance().createObserver(new GetEventInterface() {
+            @Override
+            public void onCompleted() {
+                ILog.iLogDebug(TAG, "\n");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+
+                ILog.iLogDebug(TAG, o);
+            }
+
+            @Override
+            public void onStart() {
+
+            }
+        }), students, FuncManager.getInstance().createFun1(new FuncEventInterface() {
+            @Override
+            public Object call(Object o) {
+                Student student = (Student) o;
+                return Observable.from(student.courseList);
+            }
+        }), Schedulers.io(), AndroidSchedulers.mainThread());
 
     }
 }

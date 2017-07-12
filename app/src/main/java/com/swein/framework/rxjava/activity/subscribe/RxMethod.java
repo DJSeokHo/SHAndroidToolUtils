@@ -114,4 +114,22 @@ public class RxMethod<T> {
         }
     }
 
+    public static void observableFromSubscribeWithEventTranslateFlatMap(Observer observer, Object[] fromData, Func1 func1, Scheduler from, Scheduler to) {
+        if(from != null && to != null) {
+            Observable.from(fromData).flatMap(func1).subscribeOn(from).observeOn(to).subscribe(observer);
+        }
+        else {
+            Observable.from(fromData).flatMap(func1).subscribe(observer);
+        }
+    }
+
+    public static void observableFromSubscribeWithEventTranslateFlatMap(Subscriber subscriber, Object[] fromData, Func1 func1, Scheduler from, Scheduler to) {
+        if(from != null && to != null) {
+            Observable.from(fromData).flatMap(func1).subscribeOn(from).observeOn(to).subscribe(subscriber);
+        }
+        else {
+            Observable.from(fromData).flatMap(func1).subscribe(subscriber);
+        }
+    }
+
 }
