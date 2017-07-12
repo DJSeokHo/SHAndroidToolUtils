@@ -276,6 +276,7 @@ public class RxJavaActivity extends AppCompatActivity {
 
         Student[] students = {student1, student2, student3};
 
+        // output course list one by one that from 3 students
         RxMethod.observableFromSubscribeWithEventTranslateFlatMap(ObserverManager.getInstance().createObserver(new GetEventInterface() {
             @Override
             public void onCompleted() {
