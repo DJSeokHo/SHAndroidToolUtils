@@ -11,12 +11,14 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -432,6 +434,54 @@ public class FileIOUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void getTextFileFromDir(String dirPath) throws IOException {
+
+        File dir = new File(dirPath);
+        File[] files = dir.listFiles();
+
+        if (files == null)
+            return;
+
+        for (int i = 0; i < files.length; i++) {
+
+            if (files[i].isDirectory()) {
+
+                getTextFileFromDir(files[i].getAbsolutePath());
+
+            }
+            else {
+
+                String strFileName = files[i].getAbsolutePath().toLowerCase();
+
+                System.out.println(strFileName);
+
+                StringBuilder result = new StringBuilder();
+                try{
+
+                    BufferedReader br = new BufferedReader(new FileReader(strFileName));
+                    String s;
+
+                    while((s = br.readLine()) != null) {
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+                            result.append(System.lineSeparator() + s);
+
+                        }
+
+                    }
+
+                    br.close();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(result.toString());
+            }
+        }
     }
 
 }
