@@ -1,12 +1,15 @@
 package com.swein.framework.rxjava.activity.subscribe;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.subjects.AsyncSubject;
+import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
+import rx.subjects.ReplaySubject;
 
 /**
  *
@@ -14,15 +17,6 @@ import rx.functions.Func1;
  */
 
 public class RxMethod<T> {
-
-    public static void observableSubscribe(Observable observable, Observer observer, Scheduler from, Scheduler to) {
-        if(from != null && to != null) {
-            observable.subscribeOn(from).observeOn(to).subscribe(observer);
-        }
-        else {
-            observable.subscribe(observer);
-        }
-    }
 
     public static void observableSubscribe(Observable observable, Subscriber subscriber, Scheduler from, Scheduler to) {
         if(from != null && to != null) {
@@ -33,30 +27,12 @@ public class RxMethod<T> {
         }
     }
 
-    public static void observableJust(Observer observer, Object object, Scheduler from, Scheduler to) {
-        if(from != null && to != null) {
-            Observable.just(object).subscribeOn(from).observeOn(to).subscribe(observer);
-        }
-        else {
-            Observable.just(object).subscribe(observer);
-        }
-    }
-
-    public static void observableJustWith(Subscriber subscriber, Object object, Scheduler from, Scheduler to) {
+    public static void observableJust(Subscriber subscriber, Object object, Scheduler from, Scheduler to) {
         if(from != null && to != null) {
             Observable.just(object).subscribeOn(from).observeOn(to).subscribe(subscriber);
         }
         else {
             Observable.just(object).subscribe(subscriber);
-        }
-    }
-
-    public static void observableFrom(Observer observer, Object[] objects, Scheduler from, Scheduler to) {
-        if(from != null && to != null) {
-            Observable.from(objects).subscribeOn(from).observeOn(to).subscribe(observer);
-        }
-        else {
-            Observable.from(objects).subscribe(observer);
         }
     }
 
@@ -96,30 +72,12 @@ public class RxMethod<T> {
         }
     }
 
-    public static void observableJustSubscribeWithEventTranslateMap(Observer observer, Object fromData, Func1 func1, Scheduler from, Scheduler to) {
-        if(from != null && to != null) {
-            Observable.just(fromData).map(func1).subscribeOn(from).observeOn(to).subscribe(observer);
-        }
-        else {
-            Observable.just(fromData).map(func1).subscribe(observer);
-        }
-    }
-
     public static void observableJustSubscribeWithEventTranslateMap(Subscriber subscriber, Object fromData, Func1 func1, Scheduler from, Scheduler to) {
         if(from != null && to != null) {
             Observable.just(fromData).map(func1).subscribeOn(from).observeOn(to).subscribe(subscriber);
         }
         else {
             Observable.just(fromData).map(func1).subscribe(subscriber);
-        }
-    }
-
-    public static void observableFromSubscribeWithEventTranslateFlatMap(Observer observer, Object[] fromData, Func1 func1, Scheduler from, Scheduler to) {
-        if(from != null && to != null) {
-            Observable.from(fromData).flatMap(func1).subscribeOn(from).observeOn(to).subscribe(observer);
-        }
-        else {
-            Observable.from(fromData).flatMap(func1).subscribe(observer);
         }
     }
 
@@ -130,6 +88,30 @@ public class RxMethod<T> {
         else {
             Observable.from(fromData).flatMap(func1).subscribe(subscriber);
         }
+    }
+
+    public static void asyncSubjectFromSubscribe(AsyncSubject asyncSubject, Subscriber subscriber) {
+
+        asyncSubject.subscribe(subscriber);
+
+    }
+
+    public static void behaviorSubjectFromSubscribe(BehaviorSubject behaviorSubject, Subscriber subscriber) {
+
+        behaviorSubject.subscribe(subscriber);
+
+    }
+
+    public static void publishSubjectFromSubscribe(PublishSubject publishSubject, Subscriber subscriber) {
+
+        publishSubject.subscribe(subscriber);
+
+    }
+
+    public static void replaySubjectFromSubscribe(ReplaySubject replaySubject, Subscriber subscriber) {
+
+        replaySubject.subscribe(subscriber);
+
     }
 
 }

@@ -1,12 +1,8 @@
 package com.swein.framework.tools.util.thread;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.swein.framework.module.googleanalytics.manager.TrackerManager;
-
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
