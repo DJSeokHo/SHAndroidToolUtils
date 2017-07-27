@@ -90,7 +90,6 @@
         <activity android:name="com.swein.framework.module.photostudio.result.PrimaryColorActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
-        <activity android:name="com.swein.blockgame.activity.BlockGameTZFEActivity" />
         <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
 
         <receiver
@@ -107,6 +106,7 @@
 
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
         <activity android:name="com.swein.framework.rxjava.activity.RxJavaActivity" />
+        <activity android:name="com.swein.mvp.example.view.UserLoginActivity" />
     </application>
 
 </manifest>

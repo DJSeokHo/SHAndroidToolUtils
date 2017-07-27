@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
         ActivityUtils.startNewActivityWithoutFinish(this, RxJavaActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, UserLoginActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
