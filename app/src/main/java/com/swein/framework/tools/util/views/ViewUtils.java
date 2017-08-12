@@ -3,6 +3,7 @@ package com.swein.framework.tools.util.views;
 import android.content.Context;
 import android.graphics.Outline;
 import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -16,6 +17,11 @@ import com.swein.shandroidtoolutils.R;
  */
 
 public class ViewUtils {
+
+    public static View viewLayoutInflater(int resourceId, ViewGroup parent, boolean attachToRoot) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        return layoutInflater.inflate(resourceId, parent, attachToRoot);
+    }
 
     public static void viewSetClickListener( View view, View.OnClickListener onClickListener ) {
         view.setOnClickListener( onClickListener );

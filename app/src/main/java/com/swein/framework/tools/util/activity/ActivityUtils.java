@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -194,7 +197,50 @@ public class ActivityUtils {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    public static void addFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.add(containerViewId, fragment).commit();
+    }
 
+
+    public static void removeFragment(FragmentActivity activity, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.remove(fragment).commit();
+    }
+
+
+    public static void replaceFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(containerViewId, fragment).commit();
+    }
+
+
+    public static void hideFragment(FragmentActivity activity, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.hide(fragment).commit();
+    }
+
+    public static void showFragment(FragmentActivity activity, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.show(fragment).commit();
+    }
+
+    public static void detachFragment(FragmentActivity activity, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.detach(fragment).commit();
+    }
+
+    public static void attachFragment(FragmentActivity activity, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.attach(fragment).commit();
+    }
+
+    public static void addToBackStackFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(containerViewId, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 
 
