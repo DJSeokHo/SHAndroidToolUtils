@@ -197,23 +197,36 @@ public class ActivityUtils {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
-    public static void addFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+    public static void addFragment(FragmentActivity activity, int containerViewId, Fragment fragment, boolean withAnimation) {
+        if(fragment.isAdded()) {
+            return;
+        }
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        if(withAnimation) {
+//            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
+        }
         transaction.add(containerViewId, fragment).commit();
     }
 
-
-    public static void removeFragment(FragmentActivity activity, Fragment fragment) {
+    public static void removeFragment(FragmentActivity activity, Fragment fragment, boolean withAnimation) {
+        if(fragment == null || !fragment.isAdded()) {
+            return;
+        }
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        if(withAnimation) {
+//            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
+        }
         transaction.remove(fragment).commit();
     }
 
 
-    public static void replaceFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+    public static void replaceFragment(FragmentActivity activity, int containerViewId, Fragment fragment, boolean withAnimation) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+//        if(withAnimation) {
+//            transaction.setCustomAnimations(R.anim.quick_menu_in_left_to_right, R.anim.quick_menu_out_right_to_left);
+//        }
         transaction.replace(containerViewId, fragment).commit();
     }
-
 
     public static void hideFragment(FragmentActivity activity, Fragment fragment) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
@@ -241,7 +254,4 @@ public class ActivityUtils {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-
-
 }
