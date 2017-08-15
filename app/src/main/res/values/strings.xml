@@ -7,5 +7,6 @@
     <string name="title_fragment_event">Event</string>
     <string name="title_fragment_profile">Profile</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_circle_count_watch">CircleCountWatch</string>
 
 </resources>
