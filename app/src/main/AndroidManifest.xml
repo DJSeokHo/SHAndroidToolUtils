@@ -105,12 +105,14 @@
         </receiver>
 
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
-        <activity android:name="com.swein.framework.rxjava.activity.RxJavaActivity" />
         <activity android:name="com.swein.mvp.example.view.UserLoginActivity" />
-        <activity
-            android:name="com.swein.framework.module.CircleCountWatch"
-            android:label="@string/title_activity_circle_count_watch"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name="com.swein.framework.module.dragmenu.view.activity.DragMenuMainActivity" />
+        <activity android:name="com.swein.framework.rxjava2.RxJava2Activity"/>
+
+
+        <uses-library android:name="android.test.runner" />
+
     </application>
 
 </manifest>

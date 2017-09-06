@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context="com.swein.framework.module.dragmenu.view.fragment.DragMenuFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Holder"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/imageButtonHideMenu"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_drag_up" />
+    </FrameLayout>
+</FrameLayout>

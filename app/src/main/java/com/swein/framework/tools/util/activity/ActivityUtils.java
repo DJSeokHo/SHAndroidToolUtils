@@ -13,11 +13,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.swein.data.global.activity.RequestData;
 import com.swein.data.local.BundleData;
+import com.swein.shandroidtoolutils.R;
 
 import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VALUE;
 
@@ -189,6 +191,19 @@ public class ActivityUtils {
         }
     }
 
+    public static void fullScreen(Activity activity) {
+        // full screen
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+        {
+            activity.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY );
+        }
+    }
+
     public static void hideTitleBarWithFullScreen(Activity activity) {
         // hide title bar
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -201,9 +216,10 @@ public class ActivityUtils {
         if(fragment.isAdded()) {
             return;
         }
+
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         if(withAnimation) {
-//            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
+            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
         }
         transaction.add(containerViewId, fragment).commit();
     }
@@ -214,17 +230,23 @@ public class ActivityUtils {
         }
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         if(withAnimation) {
-//            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
+            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
         }
         transaction.remove(fragment).commit();
     }
 
 
     public static void replaceFragment(FragmentActivity activity, int containerViewId, Fragment fragment, boolean withAnimation) {
+
+        if(fragment == null || !fragment.isAdded()) {
+            return;
+        }
+
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-//        if(withAnimation) {
-//            transaction.setCustomAnimations(R.anim.quick_menu_in_left_to_right, R.anim.quick_menu_out_right_to_left);
-//        }
+        if(withAnimation) {
+            transaction.setCustomAnimations(R.anim.quick_menu_in_left_to_right, R.anim.quick_menu_out_right_to_left);
+            transaction.setCustomAnimations(R.anim.quick_menu_in_up_to_down, R.anim.quick_menu_out_down_to_up);
+        }
         transaction.replace(containerViewId, fragment).commit();
     }
 

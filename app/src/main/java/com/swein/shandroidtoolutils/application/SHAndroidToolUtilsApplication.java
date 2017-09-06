@@ -8,6 +8,7 @@ import static com.swein.framework.module.googleanalytics.data.Tracker.getAnalyti
 import static com.swein.framework.module.googleanalytics.manager.TrackerManager.initGoogleAnalyticsTracker;
 
 /**
+ *
  * Created by seokho on 15/11/2016.
  */
 

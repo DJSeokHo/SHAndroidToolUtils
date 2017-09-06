@@ -7,11 +7,11 @@ import android.text.style.RelativeSizeSpan;
 import android.widget.TextView;
 
 /**
+ *
  * Created by seokho on 18/08/2017.
  */
 
 public class TextViewUtils {
-
 
 
     public static void getSpannableString(Context context, String string, TextView textView) {

@@ -1,6 +1,5 @@
 package com.swein.pattern.strategy.calculate.arithmetic.calculator;
 
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.MainActivity;
 
 import org.junit.Before;
@@ -32,25 +31,25 @@ public class CalculatorTest {
     public void addTest() {
         calculator.setOperate("+");
         assertEquals("3", calculator.calculateResultWithTowNumber("1", "2"));
-        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+        System.out.println(MainActivity.class.getSimpleName() + " " + calculator.calculateResultWithTowNumber("1", "2"));
     }
 
     public void subTest() {
         calculator.setOperate("-");
         assertEquals("-1", calculator.calculateResultWithTowNumber("1", "2"));
-        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+        System.out.println(MainActivity.class.getSimpleName() + " " + calculator.calculateResultWithTowNumber("1", "2"));
     }
 
     public void multiTest() {
         calculator.setOperate("*");
         assertEquals("2", calculator.calculateResultWithTowNumber("1", "2"));
-        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+        System.out.println(MainActivity.class.getSimpleName() + " " + calculator.calculateResultWithTowNumber("1", "2"));
     }
 
     public void divTest() {
         calculator.setOperate("/");
         assertEquals("0.5", calculator.calculateResultWithTowNumber("1", "2"));
-        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+        System.out.println(MainActivity.class.getSimpleName() + " " + calculator.calculateResultWithTowNumber("1", "2"));
     }
 
 }

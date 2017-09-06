@@ -33,7 +33,6 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_recycler_view_list );
-
         TrackerManager.sendScreenViewReport( this );
 
         linearLayoutManager = new LinearLayoutManager( this );
