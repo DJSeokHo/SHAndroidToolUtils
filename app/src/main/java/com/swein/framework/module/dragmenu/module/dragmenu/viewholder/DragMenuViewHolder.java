@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.swein.framework.module.dragmenu.module.dragmenu.methods.DragMenuViewHolderMethods;
@@ -21,12 +22,18 @@ public class DragMenuViewHolder {
 
     private View dragMenuView;
     private ImageButton imageButtonHideMenu;
+    private Activity activity;
 
     private DragMenuViewHolderMethods dragMenuViewHolderMethods;
+    private FrameLayout rootParentFrameLayout;
 
-    public DragMenuViewHolder(Activity activity, DragMenuViewHolderMethods dragMenuViewHolderMethods) {
+    private float touchDown;
+
+    public DragMenuViewHolder(Activity activity, DragMenuViewHolderMethods dragMenuViewHolderMethods, FrameLayout rootParentFrameLayout) {
         dragMenuView = activity.getLayoutInflater().inflate(R.layout.viewholder_drag_menu, null);
+        this.activity = activity;
         this.dragMenuViewHolderMethods = dragMenuViewHolderMethods;
+        this.rootParentFrameLayout = rootParentFrameLayout;
         findView();
     }
 
@@ -36,7 +43,7 @@ public class DragMenuViewHolder {
         imageButtonHideMenu.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return dragMenuViewHolderMethods.onHideDragMenuTouched(event);
+                return onHideDragMenuTouched(event);
             }
         });
     }
@@ -67,6 +74,36 @@ public class DragMenuViewHolder {
         alphaAnimation.start();
         imageButtonHideMenu.setAnimation(alphaAnimation);
         imageButtonHideMenu.setVisibility(View.GONE);
+    }
+
+    private boolean onHideDragMenuTouched(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+            touchDown = event.getY();
+        }
+
+        if(event.getAction() == MotionEvent.ACTION_MOVE) {
+
+        }
+
+        if(event.getAction() == MotionEvent.ACTION_UP) {
+            float touchUp = event.getY();
+
+            if(0 == Math.abs(touchUp - touchDown)) {
+                autoHideDragMenu();
+            }
+        }
+
+        return false;
+    }
+
+    public void autoHideDragMenu() {
+        if(0 == rootParentFrameLayout.getChildCount()) {
+            return;
+        }
+        setDragMenuViewHideAnimation(activity);
+        rootParentFrameLayout.removeView(dragMenuView);
+        dragMenuViewHolderMethods.onDragMenuHideListener();
+        hideImageButtonHideMenu();
     }
 
 }

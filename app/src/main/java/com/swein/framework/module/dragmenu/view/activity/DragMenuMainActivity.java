@@ -7,11 +7,11 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.widget.FrameLayout;
 
-import com.swein.framework.module.dragmenu.view.fragment.DragMenuFragment;
-import com.swein.framework.module.dragmenu.module.actionbar.viewholder.ActionBarViewHolder;
 import com.swein.framework.module.dragmenu.module.actionbar.methods.ActionBarViewHolderMethods;
-import com.swein.framework.module.dragmenu.module.dragmenu.viewholder.DragMenuViewHolder;
+import com.swein.framework.module.dragmenu.module.actionbar.viewholder.ActionBarViewHolder;
 import com.swein.framework.module.dragmenu.module.dragmenu.methods.DragMenuViewHolderMethods;
+import com.swein.framework.module.dragmenu.module.dragmenu.viewholder.DragMenuViewHolder;
+import com.swein.framework.module.dragmenu.view.fragment.DragMenuFragment;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.shandroidtoolutils.R;
@@ -43,15 +43,15 @@ public class DragMenuMainActivity extends FragmentActivity {
 
         ActivityUtils.addFragment(this, R.id.containerDragMenuFragment, DragMenuFragment.newInstance(), false);
 
-        frameLayoutDragMenu = (FrameLayout) findViewById(R.id.frameLayoutDragMenu);
         FrameLayout frameLayoutActionBar = (FrameLayout) findViewById(R.id.frameLayoutActionBar);
+        frameLayoutDragMenu = (FrameLayout) findViewById(R.id.frameLayoutDragMenu);
 
         dragMenuViewHolder = new DragMenuViewHolder(this, new DragMenuViewHolderMethods() {
             @Override
-            public boolean onHideDragMenuTouched(MotionEvent event) {
-                return hideDragMenuByTouch(event);
+            public void onDragMenuHideListener() {
+                actionBarViewHolder.showImageButtonDragDown();
             }
-        });
+        }, frameLayoutDragMenu);
 
         actionBarViewHolder = new ActionBarViewHolder(this, new ActionBarViewHolderMethods() {
 
@@ -74,16 +74,6 @@ public class DragMenuMainActivity extends FragmentActivity {
         frameLayoutDragMenu.addView(dragMenuViewHolder.getDragMenuView());
     }
 
-    private void autoHideDragMenu() {
-        if(0 == frameLayoutDragMenu.getChildCount()) {
-            return;
-        }
-        dragMenuViewHolder.setDragMenuViewHideAnimation(this);
-        frameLayoutDragMenu.removeView(dragMenuViewHolder.getDragMenuView());
-        actionBarViewHolder.showImageButtonDragDown();
-        dragMenuViewHolder.hideImageButtonHideMenu();
-    }
-
     private void actionBarHideImageButtonDrag() {
         actionBarViewHolder.hideImageButtonDragDown();
     }
@@ -91,27 +81,6 @@ public class DragMenuMainActivity extends FragmentActivity {
     private void dragMenuAutoDownToBottom() {
         dragMenuViewHolder.getDragMenuView().animate().setDuration(350).translationY(0);
         dragMenuViewHolder.showImageButtonHideMenu();
-    }
-
-    private boolean hideDragMenuByTouch(MotionEvent event) {
-
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            touchDown = event.getY();
-        }
-
-        if(event.getAction() == MotionEvent.ACTION_MOVE) {
-
-        }
-
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            float touchUp = event.getY();
-
-            if(0 == Math.abs(touchUp - touchDown)) {
-                autoHideDragMenu();
-            }
-        }
-
-        return false;
     }
 
     private boolean triggerDragMenuByTouch(MotionEvent event) {
@@ -197,7 +166,7 @@ public class DragMenuMainActivity extends FragmentActivity {
                     return true;
                 }
 
-                autoHideDragMenu();
+                dragMenuViewHolder.autoHideDragMenu();
             }
             /*
              * movement big than centerY * 0.8f
@@ -218,7 +187,7 @@ public class DragMenuMainActivity extends FragmentActivity {
                  * show fragment
                  */
                 if (isMoveUp) {
-                    autoHideDragMenu();
+                    dragMenuViewHolder.autoHideDragMenu();
                 }
                 else {
                     dragMenuAutoDownToBottom();
