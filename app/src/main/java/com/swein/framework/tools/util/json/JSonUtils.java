@@ -101,4 +101,21 @@ public class JSonUtils {
 
         return hashMap;
     }
+
+    public static Map<String, String> jsonArrayToMapForJSONFileFromXML(JSONArray jsonArray, String key, String value) {
+
+        Map<String, String> hashMap = null;
+
+        try {
+            hashMap = new HashMap<String, String>();
+            for(int i = 0; i < jsonArray.length(); i++){
+                hashMap.put(jsonArray.getJSONObject(i).getString(key), jsonArray.getJSONObject(i).getString(value));
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return hashMap;
+    }
 }
