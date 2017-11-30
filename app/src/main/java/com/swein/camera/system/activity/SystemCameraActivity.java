@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.swein.data.singleton.device.DeviceInfo;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.bitmaps.BitmapUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.File;
@@ -84,8 +84,8 @@ public class SystemCameraActivity extends AppCompatActivity {
         else if(resultCode == RESULT_OK && SYSTEM_CAMERA == requestCode) {
             ILog.iLogDebug(TAG, filePath);
             imageView.setImageBitmap(BitmapUtils.decodeSampledBitmapFromFilePath(filePath,
-                            DeviceInfo.getInstance().deviceScreenHeight,
-                            DeviceInfo.getInstance().deviceScreenWidth));
+                            DeviceInfoUtils.getDeviceScreenHeight(this),
+                            DeviceInfoUtils.getDeviceScreenWidth(this)));
         }
     }
 }

@@ -19,6 +19,10 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
+import com.swein.pattern.strategy.otaku.DirtyBoy;
+import com.swein.pattern.strategy.otaku.DrunkBoy;
+import com.swein.pattern.strategy.otaku.live.drink.impl.OtakuDrink;
+import com.swein.pattern.strategy.otaku.otaku.OTAKU;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -109,6 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        OTAKU dirtyBoy = new DirtyBoy("油腻宅男");
+
+        dirtyBoy.work();
+        dirtyBoy.goShopping();
+        dirtyBoy.play();
+
+        DrunkBoy drunkBoy = new DrunkBoy("惜酒宅男");
+
+        drunkBoy.work();
+        drunkBoy.goShopping();
+        drunkBoy.wantDrunk(new OtakuDrink());
+        drunkBoy.play();
 
 //        Calculator calculator = new Calculator();
 //

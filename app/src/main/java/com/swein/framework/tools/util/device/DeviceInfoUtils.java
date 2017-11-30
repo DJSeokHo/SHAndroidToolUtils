@@ -6,8 +6,6 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
-import com.swein.data.singleton.device.DeviceInfo;
-
 import java.util.UUID;
 
 /**
@@ -28,8 +26,8 @@ public class DeviceInfoUtils {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             ((Activity)context).getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
-            DeviceInfo.getInstance().deviceScreenWidth = displayMetrics.widthPixels;
-            DeviceInfo.getInstance().deviceScreenHeight = displayMetrics.heightPixels;
+//            displayMetrics.widthPixels;
+//            displayMetrics.heightPixels;
         }
 
         return true;

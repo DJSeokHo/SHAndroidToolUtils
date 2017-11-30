@@ -3,8 +3,6 @@ package com.swein.framework.tools.util.sound;
 import android.content.Context;
 import android.media.MediaPlayer;
 
-import com.swein.data.singleton.example.ExampleSingtonClass;
-
 /**
  * Created by seokho on 14/01/2017.
  */
