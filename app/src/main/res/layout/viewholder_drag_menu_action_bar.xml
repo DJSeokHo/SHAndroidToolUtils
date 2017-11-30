@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context="com.swein.framework.module.dragmenu.view.fragment.DragMenuFragment">
+    tools:context="com.swein.framework.module.dragmenu.view.fragment.DMFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:clickable="true">
 
         <ImageButton
-            android:id="@+id/imageButtonDragMenu"
+            android:id="@+id/imageButtonDragArrowDown"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:padding="5dp"

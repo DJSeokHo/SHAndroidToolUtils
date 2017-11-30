@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
 import com.swein.camera.custom.activity.CustomCameraActivity;
-import com.swein.framework.module.dragmenu.view.activity.DragMenuMainActivity;
+import com.swein.framework.module.dragmenu.view.activity.DMMainActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, UserLoginActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, DragMenuMainActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, DMMainActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
 
@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, SystemCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, SystemCameraActivity.class);
                 ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, TouchActivity.class);
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, AdvanceCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, TouchActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, AdvanceCameraActivity.class);
 
             }
         });
@@ -114,25 +114,25 @@ public class MainActivity extends AppCompatActivity {
 //        Calculator calculator = new Calculator();
 //
 //        calculator.setOperate("+");
-//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//        ILog.iLogDebug(DMMainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
 //        calculator.setOperate("-");
-//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//        ILog.iLogDebug(DMMainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
 //        calculator.setOperate("*");
-//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//        ILog.iLogDebug(DMMainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
 //        calculator.setOperate("/");
-//        ILog.iLogDebug(MainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
+//        ILog.iLogDebug(DMMainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
 //        GpsUtils.turnOnGPS( this );
 //
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
-//        ILog.iLogDebug( MainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
 
         //        try {
         //            String[] strings = new String[] {"1", "2"};

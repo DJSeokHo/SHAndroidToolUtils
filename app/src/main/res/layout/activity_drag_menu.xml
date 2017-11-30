@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.framework.module.dragmenu.view.activity.DragMenuMainActivity"
+    tools:context="com.swein.framework.module.dragmenu.view.activity.DMMainActivity"
     android:background="@color/transparent"
     android:orientation="vertical"
     >
@@ -27,7 +27,7 @@
         android:layout_weight="7">
 
         <FrameLayout
-            android:id="@+id/containerDragMenuFragment"
+            android:id="@+id/containerDMFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

@@ -107,7 +107,7 @@
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
         <activity android:name="com.swein.mvp.example.view.UserLoginActivity" />
 
-        <activity android:name="com.swein.framework.module.dragmenu.view.activity.DragMenuMainActivity" />
+        <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
         <activity android:name="com.swein.framework.rxjava2.RxJava2Activity"/>
 
 
