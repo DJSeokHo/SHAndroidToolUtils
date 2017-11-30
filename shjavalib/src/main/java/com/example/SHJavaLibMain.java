@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.UUID;
-
 public class SHJavaLibMain {
 
     public static void main(String[] args) {

@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 //                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, PhotoStudioActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
