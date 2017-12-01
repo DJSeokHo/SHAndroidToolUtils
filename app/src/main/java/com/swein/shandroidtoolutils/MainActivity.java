@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import com.swein.activity.animation.StartActivity;
 import com.swein.camera.custom.activity.CustomCameraActivity;
-import com.swein.framework.module.dragmenu.view.activity.DMMainActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.date.DateUtil;
@@ -19,6 +18,7 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
 import com.swein.framework.tools.util.views.ViewUtils;
+import com.swein.pattern.observer.activity.JustActivity;
 import com.swein.pattern.strategy.otaku.DirtyBoy;
 import com.swein.pattern.strategy.otaku.DrunkBoy;
 import com.swein.pattern.strategy.otaku.live.drink.impl.OtakuDrink;
@@ -75,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, UserLoginActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, DMMainActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, DMMainActivity.class); DragMenu
 //        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
+        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         drunkBoy.goShopping();
         drunkBoy.wantDrunk(new OtakuDrink());
         drunkBoy.play();
+
 
 //        Calculator calculator = new Calculator();
 //
