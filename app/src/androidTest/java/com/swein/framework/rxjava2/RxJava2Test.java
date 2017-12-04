@@ -1,8 +1,8 @@
 package com.swein.framework.rxjava2;
 
-import com.swein.framework.rxjava2.observalbe.ObservableManager;
-import com.swein.framework.rxjava2.observer.ObserverManager;
-import com.swein.framework.rxjava2.observerinterface.ObserverInterface;
+import com.swein.framework.rxjava2.observalbe.ObservableCreator;
+import com.swein.framework.rxjava2.observer.ObserverCreator;
+import com.swein.framework.rxjava2.observer.observerinterface.IObserver;
 
 import org.junit.Test;
 
@@ -19,9 +19,9 @@ public class RxJava2Test {
     @Test
     public void testString() {
 
-        ObservableManager.getInstance().createObservableWithT("1", "2", "3")
+        ObservableCreator.getInstance().createObservableWithT("1", "2", "3")
                 .subscribe(
-                        ObserverManager.getInstance().createObserverWithObserverInterface(new ObserverInterface() {
+                        ObserverCreator.getInstance().createObserverWithObserverInterface(new IObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
 

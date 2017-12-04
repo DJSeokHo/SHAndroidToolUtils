@@ -2,6 +2,7 @@ package com.swein.framework.tools.util.device;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -31,6 +32,15 @@ public class DeviceInfoUtils {
         }
 
         return true;
+    }
+
+    public static Point getScreenSize(Context context ) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        Point          size    = new Point();
+        size.x = metrics.widthPixels;
+        size.y = metrics.heightPixels;
+
+        return size;
     }
 
     public static int getDeviceScreenWidth(Context context) {

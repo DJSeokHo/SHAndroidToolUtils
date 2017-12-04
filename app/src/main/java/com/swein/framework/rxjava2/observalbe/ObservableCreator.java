@@ -5,27 +5,19 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 /**
+ *
  * Created by seokho on 31/08/2017.
  */
 
-public class ObservableManager {
-
-    private ObservableManager() {}
-
-    public static ObservableManager instance = new ObservableManager();
-
-    public static ObservableManager getInstance() {
-        return instance;
-    }
-
+public class ObservableCreator {
     /**
      * String data Emitter
      * @param objects any parameters
      * @return
      */
-    public Observable<Object> createObservableWithT(final Object... objects) {
+    public static Observable<Object> createObservable(final Object... objects) {
 
-        return Observable.create(new ObservableOnSubscribe<Object>() {
+        Observable<Object> observable = Observable.create(new ObservableOnSubscribe<Object>() {
 
             @Override
             public void subscribe(ObservableEmitter<Object> e) throws Exception {
@@ -35,6 +27,9 @@ public class ObservableManager {
                 e.onComplete();
             }
         });
+
+        return observable;
     }
+
 
 }

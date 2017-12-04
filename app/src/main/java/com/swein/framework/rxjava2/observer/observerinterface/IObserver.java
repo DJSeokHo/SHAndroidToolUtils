@@ -1,12 +1,13 @@
-package com.swein.framework.rxjava2.observerinterface;
+package com.swein.framework.rxjava2.observer.observerinterface;
 
 import io.reactivex.disposables.Disposable;
 
 /**
+ *
  * Created by seokho on 31/08/2017.
  */
 
-public interface ObserverInterface {
+public interface IObserver {
 
     void onSubscribe(Disposable d);
     void onNext(Object value);
