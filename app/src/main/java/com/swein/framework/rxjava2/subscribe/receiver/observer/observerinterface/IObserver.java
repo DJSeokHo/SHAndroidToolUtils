@@ -1,4 +1,4 @@
-package com.swein.framework.rxjava2.observer.observerinterface;
+package com.swein.framework.rxjava2.subscribe.receiver.observer.observerinterface;
 
 import io.reactivex.disposables.Disposable;
 

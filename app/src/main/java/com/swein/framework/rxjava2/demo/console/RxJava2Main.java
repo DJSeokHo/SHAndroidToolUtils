@@ -1,8 +1,8 @@
 package com.swein.framework.rxjava2.demo.console;
 
-import com.swein.framework.rxjava2.observalbe.ObservableCreator;
-import com.swein.framework.rxjava2.observer.ObserverCreator;
-import com.swein.framework.rxjava2.observer.observerinterface.IObserver;
+import com.swein.framework.rxjava2.subscribe.sender.observable.ObservableCreator;
+import com.swein.framework.rxjava2.subscribe.receiver.observer.ObserverCreator;
+import com.swein.framework.rxjava2.subscribe.receiver.observer.observerinterface.IObserver;
 import com.swein.framework.rxjava2.subscribe.SubscribeManager;
 
 import io.reactivex.disposables.Disposable;

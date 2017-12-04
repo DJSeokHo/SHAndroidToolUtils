@@ -1,4 +1,4 @@
-package com.swein.framework.rxjava2.observalbe;
+package com.swein.framework.rxjava2.subscribe.sender.observable;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -9,7 +9,7 @@ import io.reactivex.ObservableOnSubscribe;
  * Created by seokho on 31/08/2017.
  */
 
-public class ObservableCreator {
+public class ObservableCreator<T> {
     /**
      * String data Emitter
      * @param objects any parameters
@@ -17,7 +17,7 @@ public class ObservableCreator {
      */
     public static Observable<Object> createObservable(final Object... objects) {
 
-        Observable<Object> observable = Observable.create(new ObservableOnSubscribe<Object>() {
+        return Observable.create(new ObservableOnSubscribe<Object>() {
 
             @Override
             public void subscribe(ObservableEmitter<Object> e) throws Exception {
@@ -27,8 +27,6 @@ public class ObservableCreator {
                 e.onComplete();
             }
         });
-
-        return observable;
     }
 
 

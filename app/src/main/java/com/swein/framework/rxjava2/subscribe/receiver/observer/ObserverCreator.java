@@ -1,6 +1,6 @@
-package com.swein.framework.rxjava2.observer;
+package com.swein.framework.rxjava2.subscribe.receiver.observer;
 
-import com.swein.framework.rxjava2.observer.observerinterface.IObserver;
+import com.swein.framework.rxjava2.subscribe.receiver.observer.observerinterface.IObserver;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -37,5 +37,6 @@ public class ObserverCreator {
             }
         };
     }
+
 
 }

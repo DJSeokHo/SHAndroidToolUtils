@@ -1,6 +1,6 @@
 package com.swein.framework.rxjava2.demo.console;
 
-import com.swein.framework.rxjava2.observalbe.ObservableCreator;
+import com.swein.framework.rxjava2.subscribe.sender.observable.ObservableCreator;
 
 import io.reactivex.Observable;
 
