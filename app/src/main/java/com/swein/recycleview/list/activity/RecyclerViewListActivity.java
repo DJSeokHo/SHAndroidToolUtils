@@ -65,10 +65,18 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
 
                 TrackerManager.sendEventReport( RecyclerViewListActivity.this, "Operate", "onScrollStateChanged", false );
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
-                        == RecyclerViewListData.getInstance().getList().size()) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
-                    //load more data
+                int totalItemCount = recyclerView.getAdapter().getItemCount();
+                int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                int visibleItemCount = recyclerView.getChildCount();
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition == totalItemCount - 1
+                        && visibleItemCount > 0) {
+
+                    // load more here
+                    RecyclerViewListData.getInstance().loadList();
                     ThreadUtils.createThreadWithUI( 0, new Runnable() {
                         @Override
                         public void run() {
@@ -76,8 +84,21 @@ public class RecyclerViewListActivity extends AppCompatActivity implements Recyc
                             recyclerViewAdapter.notifyDataSetChanged();
                         }
                     } );
-
                 }
+
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1
+//                        == RecyclerViewListData.getInstance().getList().size()) {
+//
+//                    //load more data
+//                    ThreadUtils.createThreadWithUI( 0, new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            RecyclerViewListData.getInstance().loadList();
+//                            recyclerViewAdapter.notifyDataSetChanged();
+//                        }
+//                    } );
+//
+//                }
             }
 
             @Override
