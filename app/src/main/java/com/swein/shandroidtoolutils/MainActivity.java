@@ -9,20 +9,11 @@ import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.swein.activity.animation.StartActivity;
-import com.swein.camera.custom.activity.CustomCameraActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
-import com.swein.framework.tools.util.date.DateUtil;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
-import com.swein.framework.tools.util.views.ViewUtils;
-import com.swein.pattern.observer.activity.JustActivity;
-import com.swein.pattern.strategy.otaku.DirtyBoy;
-import com.swein.pattern.strategy.otaku.DrunkBoy;
-import com.swein.pattern.strategy.otaku.live.drink.impl.OtakuDrink;
-import com.swein.pattern.strategy.otaku.otaku.OTAKU;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -78,56 +69,57 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, DMMainActivity.class); DragMenu
 //        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
-        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 
-        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
-        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
-        buttonMain = (Button) findViewById(R.id.buttonMain);
-        buttonCamera = (Button) findViewById(R.id.buttonCamera);
-
-        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
-        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyyMMddHHmmssSSS"));
-
-        ViewUtils.setViewDepth(imageViewMain1, 300);
-        ViewUtils.setViewDepth(imageViewMain2, 100);
-
-        ViewUtils.setViewRoundRect(imageViewMain1, true);
-        ViewUtils.setViewCircle(imageViewMain2, true, 200, 200);
-
-        buttonMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, StartActivity.class);
-
-            }
-        });
-
-        buttonCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, SystemCameraActivity.class);
-                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
-//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, TouchActivity.class);
-//                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, AdvanceCameraActivity.class);
-
-            }
-        });
-
-
-        OTAKU dirtyBoy = new DirtyBoy("油腻宅男");
-
-        dirtyBoy.work();
-        dirtyBoy.goShopping();
-        dirtyBoy.play();
-
-        DrunkBoy drunkBoy = new DrunkBoy("惜酒宅男");
-
-        drunkBoy.work();
-        drunkBoy.goShopping();
-        drunkBoy.wantDrunk(new OtakuDrink());
-        drunkBoy.play();
+//        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
+//        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
+//        buttonMain = (Button) findViewById(R.id.buttonMain);
+//        buttonCamera = (Button) findViewById(R.id.buttonCamera);
+//
+//        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
+//        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyyMMddHHmmssSSS"));
+//
+//        ViewUtils.setViewDepth(imageViewMain1, 300);
+//        ViewUtils.setViewDepth(imageViewMain2, 100);
+//
+//        ViewUtils.setViewRoundRect(imageViewMain1, true);
+//        ViewUtils.setViewCircle(imageViewMain2, true, 200, 200);
+//
+//        buttonMain.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, StartActivity.class);
+//
+//            }
+//        });
+//
+//        buttonCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, SystemCameraActivity.class);
+//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
+////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, TouchActivity.class);
+////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, AdvanceCameraActivity.class);
+//
+//            }
+//        });
+//
+//
+//        OTAKU dirtyBoy = new DirtyBoy("油腻宅男");
+//
+//        dirtyBoy.work();
+//        dirtyBoy.goShopping();
+//        dirtyBoy.play();
+//
+//        DrunkBoy drunkBoy = new DrunkBoy("惜酒宅男");
+//
+//        drunkBoy.work();
+//        drunkBoy.goShopping();
+//        drunkBoy.wantDrunk(new OtakuDrink());
+//        drunkBoy.play();
 
 
 //        Calculator calculator = new Calculator();

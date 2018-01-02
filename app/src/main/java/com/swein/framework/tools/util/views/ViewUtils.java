@@ -19,8 +19,7 @@ import com.swein.shandroidtoolutils.R;
 public class ViewUtils {
 
     public static View viewLayoutInflater(int resourceId, ViewGroup parent, boolean attachToRoot) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        return layoutInflater.inflate(resourceId, parent, attachToRoot);
+        return LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, attachToRoot);
     }
 
     public static void viewSetClickListener( View view, View.OnClickListener onClickListener ) {

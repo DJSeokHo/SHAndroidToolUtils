@@ -49,13 +49,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.swein.listview.pattern.delegate.activity.DelegateExampleActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.swein.media.player.videoview.activity.VideoViewActivity" />
-        <activity
-            android:name="com.swein.recycleview.list.activity.RecyclerViewListActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name="com.swein.framework.module.spacemanage.ManageSpaceActivity"
             android:screenOrientation="portrait" />
         <!--
@@ -85,9 +78,6 @@
         <activity
             android:name="com.swein.camera.advance.activity.AdvanceCameraActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.swein.handler.HandlerExampleActivity" />
-        <activity android:name="com.swein.framework.module.photostudio.activity.PhotoStudioActivity" />
-        <activity android:name="com.swein.framework.module.photostudio.result.PrimaryColorActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
         <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
@@ -105,13 +95,14 @@
         </receiver>
 
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
-        <activity android:name="com.swein.mvp.example.view.UserLoginActivity" />
         <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
         <activity android:name="com.swein.framework.rxjava2.demo.ui.RxJava2Activity" />
 
         <uses-library android:name="android.test.runner" />
 
-        <activity android:name="com.swein.pattern.observer.activity.JustActivity"></activity>
+        <activity android:name="com.swein.pattern.observer.activity.JustActivity" />
+        <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity"/>
+
     </application>
 
 </manifest>

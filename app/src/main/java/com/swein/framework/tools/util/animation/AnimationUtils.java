@@ -1,5 +1,6 @@
 package com.swein.framework.tools.util.animation;
 
+import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -8,6 +9,7 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import java.util.List;
 
@@ -16,6 +18,14 @@ import java.util.List;
  */
 
 public class AnimationUtils {
+
+    public static void scrollViewSmoothScrollToY(ScrollView scrollView, int scrollToY, int duration){
+        ObjectAnimator.ofInt(scrollView, "scrollY",  scrollToY).setDuration(duration).start();
+    }
+
+    public static void scrollViewSmoothScrollToX(ScrollView scrollView, int scrollToX, int duration){
+        ObjectAnimator.ofInt(scrollView, "scrollX",  scrollToX).setDuration(duration).start();
+    }
 
     public static void setViewAlphaAnimation(View view, AlphaAnimation alphaAnimation) {
         view.startAnimation( alphaAnimation );
