@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity;
+import com.swein.framework.template.cardview.activity.SHCardViewActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
 
 
 

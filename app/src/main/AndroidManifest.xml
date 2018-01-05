@@ -99,7 +99,8 @@
 
         <activity android:name="com.swein.pattern.observer.activity.JustActivity" />
         <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity" />
-        <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity"></activity>
+        <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
+        <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity"></activity>
     </application>
 
 </manifest>
