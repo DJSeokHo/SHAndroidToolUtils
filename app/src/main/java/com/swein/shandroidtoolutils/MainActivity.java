@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity;
+import com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 //                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewRandomActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
 //        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
@@ -70,7 +69,10 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
 //        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+        ActivityUtils.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
+
+
 
 //        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
 //        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);

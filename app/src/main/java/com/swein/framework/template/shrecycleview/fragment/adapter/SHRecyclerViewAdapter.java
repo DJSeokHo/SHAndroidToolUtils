@@ -25,11 +25,14 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
     private Context context;
 
+    private static final int TYPE_ITEM_LIST = 0;
+    private static final int TYPE_ITEM_GRID = 1;
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         context = parent.getContext();
-        View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.sh_recycler_view_holder_item, parent, false );
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sh_recycler_view_holder_item, parent, false);
 
         SHRecyclerViewHolder shRecyclerViewHolder = new SHRecyclerViewHolder(view, this);
 
@@ -42,7 +45,7 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
         notifyDataSetChanged();
     }
 
-    public void reloadList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList){
+    public void reloadList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
         this.shRecyclerViewItemDataModelList.clear();
         this.shRecyclerViewItemDataModelList.addAll(shRecyclerViewItemDataModelList);
 
@@ -51,14 +54,21 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof SHRecyclerViewHolder) {
+        if (holder instanceof SHRecyclerViewHolder) {
 
-            SHRecyclerViewHolder shRecyclerViewHolder = (SHRecyclerViewHolder)holder;
+            SHRecyclerViewHolder shRecyclerViewHolder = (SHRecyclerViewHolder) holder;
 
             shRecyclerViewHolder.updateView(shRecyclerViewItemDataModelList.get(position));
 
         }
 
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // change item view holder ui here
+        return TYPE_ITEM_LIST;
+//        return TYPE_ITEM_GRID;
     }
 
     @Override

@@ -47,32 +47,6 @@ public class TabHostActivity extends FragmentActivity implements TabHostInterfac
         initFragment();
         initTabHost();
         initViewPager();
-
-//        try {
-//            String[] strings = new String[] {"1", "2"};
-//            ILog.iLogDebug( this, strings[5] );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            List list = null;
-//            list.get( 5 );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            int one = 1;
-//            int zero = 0;
-//            int result = one / zero;
-//            ILog.iLogDebug( this, result );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
     }
 
     private void initFragment() {
