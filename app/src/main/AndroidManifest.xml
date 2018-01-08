@@ -59,7 +59,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.swein.tabhostandtablayout.activity.TabHostActivity" />
         <activity android:name="com.swein.activity.animation.StartActivity" />
         <activity android:name="com.swein.activity.animation.EndActivity" />
         <activity
@@ -100,7 +99,8 @@
         <activity android:name="com.swein.pattern.observer.activity.JustActivity" />
         <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity" />
         <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
-        <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity"></activity>
+        <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
+        <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity"></activity>
     </application>
 
 </manifest>
