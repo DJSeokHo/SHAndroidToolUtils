@@ -16,6 +16,8 @@ import com.swein.shandroidtoolutils.R;
 
 public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
 
+    private static final String TAG = "SHRecyclerViewHolder";
+
     private View itemView;
     private TextView textView;
 
@@ -48,5 +50,12 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
     public void updateView(SHRecyclerViewItemDataModel dataModel){
         this.dataModel = dataModel;
         textView.setText(dataModel.string);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        ILog.iLogDebug(TAG, "finalize");
+        super.finalize();
     }
 }

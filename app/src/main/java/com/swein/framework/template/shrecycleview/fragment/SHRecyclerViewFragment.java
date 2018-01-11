@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.swein.constant.SHConstant;
 import com.swein.framework.template.shrecycleview.fragment.adapter.SHRecyclerViewAdapter;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.views.ViewUtils;
 import com.swein.shandroidtoolutils.R;
 
@@ -22,6 +23,8 @@ import java.util.List;
 
 
 public class SHRecyclerViewFragment extends Fragment {
+
+    private final static String TAG = "SHRecyclerViewFragment";
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -127,4 +130,27 @@ public class SHRecyclerViewFragment extends Fragment {
         return list;
     }
 
+    @Override
+    public void onDestroyView() {
+
+        ILog.iLogDebug(TAG, "onDestroyView");
+        adapter = null;
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+
+        ILog.iLogDebug(TAG, "onDestroy");
+
+        super.onDestroy();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        ILog.iLogDebug(TAG, "finalize");
+
+        super.finalize();
+    }
 }

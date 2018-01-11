@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.SHRecyclerViewHolder;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.toast.ToastUtils;
 import com.swein.shandroidtoolutils.R;
 
@@ -20,6 +21,8 @@ import java.util.List;
  */
 
 public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRecyclerViewHolderDelegate {
+
+    private final static String TAG = "SHRecyclerViewAdapter";
 
     private List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList = new ArrayList<>();
 
@@ -81,5 +84,13 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
         ToastUtils.showShortToastNormal(context, shRecyclerViewItemDataModel.string);
 
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        ILog.iLogDebug(TAG, "finalize");
+
+        super.finalize();
     }
 }
