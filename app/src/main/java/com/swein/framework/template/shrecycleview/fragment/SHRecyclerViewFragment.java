@@ -138,6 +138,7 @@ public class SHRecyclerViewFragment extends Fragment {
         super.onDestroyView();
     }
 
+
     @Override
     public void onDestroy() {
 
