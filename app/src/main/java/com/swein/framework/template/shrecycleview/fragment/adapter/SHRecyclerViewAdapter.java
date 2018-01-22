@@ -36,10 +36,7 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sh_recycler_view_holder_item, parent, false);
-
-        SHRecyclerViewHolder shRecyclerViewHolder = new SHRecyclerViewHolder(view, this);
-
-        return shRecyclerViewHolder;
+        return new SHRecyclerViewHolder(view, this);
     }
 
     public void loadMoreList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
