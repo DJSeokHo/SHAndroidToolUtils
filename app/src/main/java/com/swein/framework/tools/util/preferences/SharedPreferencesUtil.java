@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by seokho on 22/11/2016.
  */
 
-public class SharedPreferencesUtils {
+public class SharedPreferencesUtil {
 
 
     /**
