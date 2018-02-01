@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
 import com.swein.camera.advance.fragment.CameraFragment;
-import com.swein.framework.tools.util.fragment.FragmentUtils;
+import com.swein.framework.tools.util.fragment.FragmentUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -27,7 +27,7 @@ public class AdvanceCameraActivity extends FragmentActivity {
 
         CameraFragment cameraFragment = new CameraFragment();
 
-        FragmentUtils.replaceFragmentv4Commit(this, cameraFragment, R.id.container);
+        FragmentUtil.replaceFragmentv4Commit(this, cameraFragment, R.id.container);
 
     }
 

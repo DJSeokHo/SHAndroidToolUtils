@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -39,13 +39,13 @@ public class ToolbarActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_search:
-                        ToastUtils.showShortToastNormal(ToolbarActivity.this, "Search");
+                        ToastUtil.showShortToastNormal(ToolbarActivity.this, "Search");
                         break;
                     case R.id.action_notifications:
-                        ToastUtils.showShortToastNormal(ToolbarActivity.this, "Notificationa");
+                        ToastUtil.showShortToastNormal(ToolbarActivity.this, "Notificationa");
                         break;
                     case R.id.action_settings:
-                        ToastUtils.showShortToastNormal(ToolbarActivity.this, "Settings");
+                        ToastUtil.showShortToastNormal(ToolbarActivity.this, "Settings");
                         break;
                 }
                 return true;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -38,7 +38,7 @@ public class DMFragment extends android.support.v4.app.Fragment {
         textViewDragMenuFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShortToastNormal(getContext(), textViewDragMenuFragment.getText());
+                ToastUtil.showShortToastNormal(getContext(), textViewDragMenuFragment.getText());
             }
         });
 

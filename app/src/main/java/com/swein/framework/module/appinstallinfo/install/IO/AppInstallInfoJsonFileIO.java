@@ -5,7 +5,7 @@ import android.os.Environment;
 
 import com.swein.framework.module.appinstallinfo.install.data.AppInstallInfo;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.storage.FileStorageUtils;
+import com.swein.framework.tools.util.storage.FileStorageUtil;
 
 import org.json.JSONObject;
 
@@ -35,13 +35,13 @@ public class AppInstallInfoJsonFileIO {
 
         ILog.iLogDebug( AppInstallInfoJsonFileIO.class.getSimpleName(), String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ) + " " + FILE_NAME);
 
-        FileStorageUtils.writeExternalStorageDirectoryFileWithJSONObject(String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ), FILE_NAME, jsonObject);
+        FileStorageUtil.writeExternalStorageDirectoryFileWithJSONObject(String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ), FILE_NAME, jsonObject);
 
     }
 
     public static JSONObject getAppInstallInfoJSONObject(Context context) {
         ILog.iLogDebug( AppInstallInfoJsonFileIO.class.getSimpleName(), String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ) );
-        return FileStorageUtils.readExternalStorageDirectoryFileJSONObject(String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ), FILE_NAME);
+        return FileStorageUtil.readExternalStorageDirectoryFileJSONObject(String.valueOf( context.getExternalFilesDir( Environment.DIRECTORY_DOCUMENTS ) ), FILE_NAME);
 
     }
 

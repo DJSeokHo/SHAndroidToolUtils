@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
-import com.swein.framework.tools.util.dialog.DialogUtils;
+import com.swein.framework.tools.util.dialog.DialogUtil;
 
 import static com.swein.camera.advance.data.AdvanceCameraContent.FRAGMENT_DIALOG;
 
@@ -21,7 +21,7 @@ public class AdvanceCameraPermission {
 
     public static void requestCameraPermission(final Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)) {
-            DialogUtils.createNormalDialogWithTwoButton(activity, FRAGMENT_DIALOG, "request permission",
+            DialogUtil.createNormalDialogWithTwoButton(activity, FRAGMENT_DIALOG, "request permission",
                     false, activity.getString(android.R.string.ok), activity.getString(android.R.string.cancel),
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -51,7 +51,7 @@ public class AdvanceCameraPermission {
 
         if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
-            DialogUtils.createNormalDialogWithOneButton(activity, FRAGMENT_DIALOG, "request permission", false,
+            DialogUtil.createNormalDialogWithOneButton(activity, FRAGMENT_DIALOG, "request permission", false,
                     activity.getString(android.R.string.ok),
                     new DialogInterface.OnClickListener() {
                         @Override

@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.swein.framework.module.qrcodescanner.scanresult.model.ScanResultItem;
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -60,7 +60,7 @@ public class ScanResultItemViewHolder extends View {
         titleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showCustomShortToastNormal(context, scanResultItem.title);
+                ToastUtil.showCustomShortToastNormal(context, scanResultItem.title);
             }
         });
     }

@@ -15,7 +15,7 @@ import com.swein.constant.SHConstant;
 import com.swein.framework.template.shrecycleview.fragment.adapter.SHRecyclerViewAdapter;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.views.ViewUtils;
+import com.swein.framework.tools.util.views.ViewUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class SHRecyclerViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = ViewUtils.viewLayoutInflater(R.layout.fragment_shrecycler_view, container, false);
+        rootView = ViewUtil.viewLayoutInflater(R.layout.fragment_shrecycler_view, container, false);
 
         findView();
 

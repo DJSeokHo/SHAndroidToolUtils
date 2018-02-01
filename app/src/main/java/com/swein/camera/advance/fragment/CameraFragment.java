@@ -44,8 +44,8 @@ import com.swein.camera.advance.area.CompareSizesByArea;
 import com.swein.camera.advance.imagesaver.ImageSaver;
 import com.swein.camera.advance.preview.AutoFitTextureView;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.dialog.DialogUtils;
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.dialog.DialogUtil;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.File;
@@ -531,7 +531,7 @@ public class CameraFragment extends Fragment implements ActivityCompat.OnRequest
         } catch (NullPointerException e) {
             // Currently an NPE is thrown when the Camera2API is used but not supported on the
             // device this code runs.
-            DialogUtils.createNormalDialogWithOneButton(getActivity(), FRAGMENT_DIALOG, "camera error", false, getString(android.R.string.ok),
+            DialogUtil.createNormalDialogWithOneButton(getActivity(), FRAGMENT_DIALOG, "camera error", false, getString(android.R.string.ok),
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -665,7 +665,7 @@ public class CameraFragment extends Fragment implements ActivityCompat.OnRequest
                         @Override
                         public void onConfigureFailed(
                                 @NonNull CameraCaptureSession cameraCaptureSession) {
-                            ToastUtils.showShortToastNormal(getActivity(), "Failed");
+                            ToastUtil.showShortToastNormal(getActivity(), "Failed");
                         }
                     }, null
             );
@@ -777,7 +777,7 @@ public class CameraFragment extends Fragment implements ActivityCompat.OnRequest
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    ToastUtils.showShortToastNormal(getActivity(), "Saved: " + file);
+                    ToastUtil.showShortToastNormal(getActivity(), "Saved: " + file);
                     ILog.iLogDebug(TAG, file.toString());
                     unlockFocus();
                 }

@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.swein.framework.module.googleanalytics.manager.TrackerManager;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -80,7 +80,7 @@ public class CrashExceptionHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                ToastUtils.showShortToastNormal( context, context.getString( R.string.exception_count) );
+                ToastUtil.showShortToastNormal( context, context.getString( R.string.exception_count) );
                 Looper.loop();
             }
         }.start();

@@ -10,7 +10,7 @@ import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.SH
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
     @Override
     public void onSHRecyclerViewHolderClicked(SHRecyclerViewItemDataModel shRecyclerViewItemDataModel) {
 
-        ToastUtils.showShortToastNormal(context, shRecyclerViewItemDataModel.string);
+        ToastUtil.showShortToastNormal(context, shRecyclerViewItemDataModel.string);
 
     }
 

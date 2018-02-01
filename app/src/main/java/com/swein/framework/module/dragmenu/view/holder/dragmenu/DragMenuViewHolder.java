@@ -9,7 +9,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.method.DragMenuViewHolderMethod;
-import com.swein.framework.tools.util.device.DeviceInfoUtils;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -47,7 +47,7 @@ public class DragMenuViewHolder implements DragMenuViewHolderMethod {
     }
 
     private void setDragMenuViewHideAnimation(Context context) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, DeviceInfoUtils.getDeviceScreenHeight(context) * -1);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, DeviceInfoUtil.getDeviceScreenHeight(context) * -1);
         translateAnimation.setDuration(350);
         translateAnimation.setFillAfter(true);
         translateAnimation.start();

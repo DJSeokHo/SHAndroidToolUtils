@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.swein.framework.template.cardview.fragment.SHCardViewFragment;
-import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class SHCardViewActivity extends FragmentActivity {
@@ -16,7 +16,7 @@ public class SHCardViewActivity extends FragmentActivity {
 
         if(savedInstanceState == null) {
 
-            ActivityUtils.addFragment(this, R.id.shCardViewContainer, new SHCardViewFragment(), false);
+            ActivityUtil.addFragment(this, R.id.shCardViewContainer, new SHCardViewFragment(), false);
 
         }
     }

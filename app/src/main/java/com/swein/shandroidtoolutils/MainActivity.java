@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
-import com.swein.framework.tools.util.activity.ActivityUtils;
-import com.swein.framework.tools.util.device.DeviceInfoUtils;
-import com.swein.framework.tools.util.thread.ThreadUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY );
         }
 
-        DeviceInfoUtils.initDeviceScreenDisplayMetricsPixels(this);
+        DeviceInfoUtil.initDeviceScreenDisplayMetricsPixels(this);
 
-        ThreadUtils.startThread(new Runnable() {
+        ThreadUtil.startThread(new Runnable() {
             @Override
             public void run() {
                 checkAppInstallInfoJSONObject(getApplicationContext());
@@ -59,33 +59,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-//                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
-        //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
-//                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-//                ActivityUtils.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
-//                ActivityUtils.startNewActivityWithoutFinish( this, TabHostActivity.class );
-//        ActivityUtils.startNewActivityWithoutFinish(this, ToolbarActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, UserLoginActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, DMMainActivity.class); DragMenu
-//        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
+//                ActivityUtil.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
+        //        ActivityUtil.startNewActivityWithoutFinish( this, VideoViewActivity.class );
+//                ActivityUtil.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
+//                ActivityUtil.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
+//                ActivityUtil.startNewActivityWithoutFinish( this, TabHostActivity.class );
+//        ActivityUtil.startNewActivityWithoutFinish(this, ToolbarActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, UserLoginActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, DMMainActivity.class); DragMenu
+//        ActivityUtil.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
-//        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
         }
         else {
-            ActivityUtils.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
         }
 
-//        ActivityUtils.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
-//        ActivityUtils.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
 
 
 
@@ -97,17 +97,17 @@ public class MainActivity extends AppCompatActivity {
 //        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
 //        ILog.iLogDebug(this.getClass().getSimpleName(), DateUtil.getCurrentDateFromFastDateFormat("yyyyMMddHHmmssSSS"));
 //
-//        ViewUtils.setViewDepth(imageViewMain1, 300);
-//        ViewUtils.setViewDepth(imageViewMain2, 100);
+//        ViewUtil.setViewDepth(imageViewMain1, 300);
+//        ViewUtil.setViewDepth(imageViewMain2, 100);
 //
-//        ViewUtils.setViewRoundRect(imageViewMain1, true);
-//        ViewUtils.setViewCircle(imageViewMain2, true, 200, 200);
+//        ViewUtil.setViewRoundRect(imageViewMain1, true);
+//        ViewUtil.setViewCircle(imageViewMain2, true, 200, 200);
 //
 //        buttonMain.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, StartActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, StartActivity.class);
 //
 //            }
 //        });
@@ -116,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
 //            @Override
 //            public void onClick(View v) {
 //
-////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, SystemCameraActivity.class);
-//                ActivityUtils.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
-////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, TouchActivity.class);
-////                ActivityUtils.startNewActivityWithoutFinish(DMMainActivity.this, AdvanceCameraActivity.class);
+////                ActivityUtil.startNewActivityWithoutFinish(DMMainActivity.this, SystemCameraActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCameraActivity.class);
+////                ActivityUtil.startNewActivityWithoutFinish(DMMainActivity.this, TouchActivity.class);
+////                ActivityUtil.startNewActivityWithoutFinish(DMMainActivity.this, AdvanceCameraActivity.class);
 //
 //            }
 //        });
@@ -153,14 +153,14 @@ public class MainActivity extends AppCompatActivity {
 //        calculator.setOperate("/");
 //        ILog.iLogDebug(DMMainActivity.class.getSimpleName(), calculator.calculateResultWithTowNumber("1", "2"));
 //
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), GpsUtils.isGPSTurnOn( this ) );
-//        GpsUtils.turnOnGPS( this );
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), GpsUtil.isGPSTurnOn( this ) );
+//        GpsUtil.turnOnGPS( this );
 //
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isNetworkConnected( this ));
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isWifiConnected( this ));
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.isMobileConnected( this ));
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.getConnectedType( this ));
-//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtils.getNetWorkType( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtil.isNetworkConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtil.isWifiConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtil.isMobileConnected( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtil.getConnectedType( this ));
+//        ILog.iLogDebug( DMMainActivity.class.getSimpleName(), NetWorkUtil.getNetWorkType( this ));
 
         //        try {
         //            String[] strings = new String[] {"1", "2"};

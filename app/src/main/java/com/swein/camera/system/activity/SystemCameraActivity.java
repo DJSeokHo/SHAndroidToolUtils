@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.swein.framework.tools.util.activity.ActivityUtils;
-import com.swein.framework.tools.util.bitmaps.BitmapUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.bitmaps.BitmapUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.device.DeviceInfoUtils;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.File;
@@ -45,7 +45,7 @@ public class SystemCameraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                ActivityUtils.startSystemIntentWithResultByRequestCode(SystemCameraActivity.this, intent, SYSTEM_CAMERA_THUMB);
+                ActivityUtil.startSystemIntentWithResultByRequestCode(SystemCameraActivity.this, intent, SYSTEM_CAMERA_THUMB);
             }
         });
 
@@ -57,7 +57,7 @@ public class SystemCameraActivity extends AppCompatActivity {
                 //EXTRA_OUTPUT:set system camera photo path
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 ILog.iLogDebug(TAG, photoUri.getPath());
-                ActivityUtils.startSystemIntentWithResultByRequestCode(SystemCameraActivity.this, intent, SYSTEM_CAMERA);
+                ActivityUtil.startSystemIntentWithResultByRequestCode(SystemCameraActivity.this, intent, SYSTEM_CAMERA);
             }
         });
 
@@ -83,9 +83,9 @@ public class SystemCameraActivity extends AppCompatActivity {
         }
         else if(resultCode == RESULT_OK && SYSTEM_CAMERA == requestCode) {
             ILog.iLogDebug(TAG, filePath);
-            imageView.setImageBitmap(BitmapUtils.decodeSampledBitmapFromFilePath(filePath,
-                            DeviceInfoUtils.getDeviceScreenHeight(this),
-                            DeviceInfoUtils.getDeviceScreenWidth(this)));
+            imageView.setImageBitmap(BitmapUtil.decodeSampledBitmapFromFilePath(filePath,
+                            DeviceInfoUtil.getDeviceScreenHeight(this),
+                            DeviceInfoUtil.getDeviceScreenWidth(this)));
         }
     }
 }

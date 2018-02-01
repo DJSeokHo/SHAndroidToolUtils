@@ -2,9 +2,9 @@ package com.swein.framework.module.appinstallinfo.install.checker;
 
 import android.content.Context;
 
-import com.swein.framework.tools.util.appinfo.AppInfoUtils;
+import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.device.DeviceInfoUtils;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +37,7 @@ public class AppInstallChecker {
 
             int    preVersionCode = Integer.parseInt( jsonObject.getString( VERSION_CODE ) );
 
-            if ( preVersionCode < AppInfoUtils.getVersionCode( context ) ) {
+            if ( preVersionCode < AppInfoUtil.getVersionCode( context ) ) {
 
                 updateApp( context );
 
@@ -52,12 +52,12 @@ public class AppInstallChecker {
 
     private static void installApp( Context context ) {
         ILog.iLogDebug( AppInstallChecker.class.getSimpleName(), "installApp" );
-        String deviceSerialNum = DeviceInfoUtils.getDeviceID( context );
+        String deviceSerialNum = DeviceInfoUtil.getDeviceID( context );
         String status          = "I";
         String osType          = "A";
-        String versionCode     = String.valueOf( AppInfoUtils.getVersionCode( context ) );
-        String packageName     = AppInfoUtils.getPackageName( context );
-        String deviceName      = DeviceInfoUtils.getDeviceName();
+        String versionCode     = String.valueOf( AppInfoUtil.getVersionCode( context ) );
+        String packageName     = AppInfoUtil.getPackageName( context );
+        String deviceName      = DeviceInfoUtil.getDeviceName();
 
         //save file
         createAppInstallInfoJSONObject( context, deviceSerialNum, status, osType, versionCode, packageName, deviceName );
@@ -70,12 +70,12 @@ public class AppInstallChecker {
     private static void updateApp( Context context ) {
         ILog.iLogDebug( AppInstallChecker.class.getSimpleName(), "updateApp" );
         //update app
-        String deviceSerialNum = DeviceInfoUtils.getDeviceID( context );
+        String deviceSerialNum = DeviceInfoUtil.getDeviceID( context );
         String status          = "U";
         String osType          = "A";
-        String versionCode     = String.valueOf( AppInfoUtils.getVersionCode( context ) );
-        String packageName     = AppInfoUtils.getPackageName( context );
-        String deviceName      = DeviceInfoUtils.getDeviceName();
+        String versionCode     = String.valueOf( AppInfoUtil.getVersionCode( context ) );
+        String packageName     = AppInfoUtil.getPackageName( context );
+        String deviceName      = DeviceInfoUtil.getDeviceName();
 
         //save file
         //update file

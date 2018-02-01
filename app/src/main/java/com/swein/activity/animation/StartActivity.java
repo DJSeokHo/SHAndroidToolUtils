@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class StartActivity extends AppCompatActivity {
@@ -23,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
         buttonStartActivity.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick( View v ) {
-                ActivityUtils.startActivityWithTransitionAnimationWithFinish(StartActivity.this, EndActivity.class);
+                ActivityUtil.startActivityWithTransitionAnimationWithFinish(StartActivity.this, EndActivity.class);
             }
         } );
 

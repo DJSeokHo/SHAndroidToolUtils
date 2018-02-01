@@ -9,7 +9,7 @@ import com.swein.framework.module.dragmenu.presenter.method.DMPresenterMethod;
 import com.swein.framework.module.dragmenu.view.activity.method.DMMainActivityMethod;
 import com.swein.framework.module.dragmenu.view.holder.actionbar.method.ActionBarViewHolderMethod;
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.method.DragMenuViewHolderMethod;
-import com.swein.framework.tools.util.device.DeviceInfoUtils;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
 
 /**
  * Created by seokho on 07/09/2017.
@@ -40,7 +40,7 @@ public class DMPresenter implements DMPresenterMethod {
         this.dragMenuViewHolderMethod = dragMenuViewHolderMethod;
         this.dmMainActivityMethod = dmMainActivityMethod;
 
-        screenCentY = DeviceInfoUtils.getDeviceScreenHeight(context) * 0.5f;
+        screenCentY = DeviceInfoUtil.getDeviceScreenHeight(context) * 0.5f;
     }
 
     @Override

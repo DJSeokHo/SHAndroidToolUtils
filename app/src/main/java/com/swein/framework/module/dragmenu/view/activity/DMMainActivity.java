@@ -13,7 +13,7 @@ import com.swein.framework.module.dragmenu.view.holder.actionbar.ActionBarViewHo
 import com.swein.framework.module.dragmenu.view.holder.actionbar.method.ActionBarViewHolderMethod;
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.DragMenuViewHolder;
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.method.DragMenuViewHolderMethod;
-import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class DMMainActivity extends FragmentActivity implements DMMainActivityMethod {
@@ -41,10 +41,10 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 
         setContentView(R.layout.activity_drag_menu);
 
-        ActivityUtils.fullScreen(this);
+        ActivityUtil.fullScreen(this);
 
         // fragment
-        ActivityUtils.addFragment(this, R.id.containerDMFragment, DMFragment.newInstance(), false);
+        ActivityUtil.addFragment(this, R.id.containerDMFragment, DMFragment.newInstance(), false);
 
         // actionbar view holder
         FrameLayout frameLayoutActionBar = (FrameLayout) findViewById(R.id.frameLayoutActionBar);
@@ -92,7 +92,7 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 //
 
 //        // cent point y of screen
-//        screenCentY = DeviceInfoUtils.getDeviceScreenHeight(DMMainActivity.this) * 0.5f;
+//        screenCentY = DeviceInfoUtil.getDeviceScreenHeight(DMMainActivity.this) * 0.5f;
     }
 
     @Override

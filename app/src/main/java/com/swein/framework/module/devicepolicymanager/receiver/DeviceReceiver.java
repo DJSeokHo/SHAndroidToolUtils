@@ -4,7 +4,7 @@ import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.swein.framework.tools.util.toast.ToastUtils;
+import com.swein.framework.tools.util.toast.ToastUtil;
 
 /**
  *
@@ -15,12 +15,12 @@ public class DeviceReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onEnabled(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager:usable");
+        ToastUtil.showShortToastNormal(context, "device manager:usable");
     }
 
     @Override
     public void onDisabled(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager:un-usable");
+        ToastUtil.showShortToastNormal(context, "device manager:un-usable");
     }
 
     @Override
@@ -30,22 +30,22 @@ public class DeviceReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onPasswordChanged(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager:password changed");
+        ToastUtil.showShortToastNormal(context, "device manager:password changed");
     }
 
     @Override
     public void onPasswordFailed(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager：change password failed");
+        ToastUtil.showShortToastNormal(context, "device manager：change password failed");
     }
 
     @Override
     public void onPasswordSucceeded(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager：change password success");
+        ToastUtil.showShortToastNormal(context, "device manager：change password success");
     }
 
     @Override
     public void onPasswordExpiring(Context context, Intent intent) {
-        ToastUtils.showShortToastNormal(context, "device manager：password has expired");
+        ToastUtil.showShortToastNormal(context, "device manager：password has expired");
     }
 
 }

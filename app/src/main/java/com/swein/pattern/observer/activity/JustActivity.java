@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.swein.framework.tools.util.activity.ActivityUtils;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.pattern.observer.fragment.JustFragment;
 import com.swein.shandroidtoolutils.R;
 
@@ -42,13 +42,13 @@ public class JustActivity extends FragmentActivity {
         buttonOpenFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.addFragment(JustActivity.this, R.id.containerJust, justFragment, false);
+                ActivityUtil.addFragment(JustActivity.this, R.id.containerJust, justFragment, false);
             }
         });
     }
 
     private void removeFragment(){
-        ActivityUtils.removeFragment(this, justFragment, false);
+        ActivityUtil.removeFragment(this, justFragment, false);
     }
 
 }
