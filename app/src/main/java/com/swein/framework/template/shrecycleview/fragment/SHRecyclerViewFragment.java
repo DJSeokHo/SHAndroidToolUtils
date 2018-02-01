@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.swein.constant.SHConstant;
 import com.swein.framework.template.shrecycleview.fragment.adapter.SHRecyclerViewAdapter;
 import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.shrecycleviewconstants.Constants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.views.ViewUtil;
 import com.swein.shandroidtoolutils.R;
@@ -35,7 +35,7 @@ public class SHRecyclerViewFragment extends Fragment {
     private View rootView;
 
     public int spanCount = 3;
-    public SHConstant.RecyclerViewLayoutMode recyclerViewLayoutMode = SHConstant.RecyclerViewLayoutMode.LIST;
+    public Constants.RecyclerViewLayoutMode recyclerViewLayoutMode = Constants.RecyclerViewLayoutMode.LIST;
 
     public SHRecyclerViewFragment() {
 
