@@ -136,12 +136,12 @@ public class SHQRCodeScannerActivity extends Activity {
 
     private void enableQRScan() {
         enableQRScan = true;
-        buttonQR.setImageResource(R.drawable.qr_code_disable);
+        buttonQR.setImageResource(R.drawable.qr_code_enable);
     }
 
     private void disableQRScan() {
         enableQRScan = false;
-        buttonQR.setImageResource(R.drawable.qr_code);
+        buttonQR.setImageResource(R.drawable.qr_code_disable);
     }
 
     private boolean getQRScanState() {

@@ -43,7 +43,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="110dp"
         android:layout_gravity="right|bottom"
-        android:src="@drawable/qr_code"
+        android:src="@drawable/qr_code_disable"
         android:background="@drawable/shape_corner_alpha"
         android:padding="5dp"
         android:layout_width="32dp"
