@@ -12,10 +12,13 @@ import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.android.volley.VolleyError;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
+import com.swein.framework.module.volley.SHVolley;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
@@ -82,6 +85,19 @@ public class MainActivity extends AppCompatActivity {
         else {
             ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
         }
+
+        SHVolley shVolley = new SHVolley(this);
+        shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
