@@ -100,7 +100,11 @@
         <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity" />
         <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
         <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
-        <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity"></activity>
+        <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity" />
+
+        <activity
+            android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
     </application>
 
 </manifest>

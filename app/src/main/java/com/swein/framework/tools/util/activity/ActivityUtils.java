@@ -121,7 +121,7 @@ public class ActivityUtils {
         }
     }
 
-    private static boolean tagetActivityFiringTransitionAnimation(Activity activity) {
+    private static boolean targetActivityFiringTransitionAnimation(Activity activity) {
         try {
             activity.getWindow().requestFeature( Window.FEATURE_CONTENT_TRANSITIONS );
             return true;
@@ -134,7 +134,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetEnterTransitionAnimationExplode(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setEnterTransition( new Explode(  ) );
 
@@ -144,7 +144,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetEnterTransitionAnimationSlide(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setEnterTransition( new Slide(  ) );
 
@@ -154,7 +154,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetEnterTransitionAnimationFade(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setEnterTransition( new Fade(  ) );
 
@@ -164,7 +164,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetExitTransitionAnimationExplode(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setExitTransition( new Explode(  ) );
 
@@ -174,7 +174,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetExitTransitionAnimationSlide(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setExitTransition( new Slide(  ) );
 
@@ -184,7 +184,7 @@ public class ActivityUtils {
     @TargetApi( Build.VERSION_CODES.LOLLIPOP )
     public static void tagetActivitySetExitTransitionAnimationFade(Activity activity) {
 
-        if(tagetActivityFiringTransitionAnimation(activity)) {
+        if(targetActivityFiringTransitionAnimation(activity)) {
 
             activity.getWindow().setExitTransition( new Fade(  ) );
 

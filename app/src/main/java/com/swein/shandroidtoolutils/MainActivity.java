@@ -1,8 +1,11 @@
 package com.swein.shandroidtoolutils;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -10,7 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity;
+import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
+import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.tools.util.activity.ActivityUtils;
 import com.swein.framework.tools.util.device.DeviceInfoUtils;
 import com.swein.framework.tools.util.thread.ThreadUtils;
@@ -54,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
 //                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
@@ -69,7 +75,15 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtils.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
 //        ActivityUtils.startNewActivityWithoutFinish(this, JustActivity.class);
-        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+//        ActivityUtils.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+        }
+        else {
+            ActivityUtils.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+        }
+
 //        ActivityUtils.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
 //        ActivityUtils.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
