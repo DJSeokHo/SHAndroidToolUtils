@@ -9,18 +9,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewOutlineProvider;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
-import com.swein.framework.module.volley.SHVolley;
+import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
+import com.swein.framework.tools.volley.SHVolley;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
-    private Button buttonMain;
-    private Button buttonCamera;
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
@@ -98,6 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
+        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
+
+        SHPicasso.getInstance().loadImage(this, "http://img3.imgtn.bdimg.com/it/u=1332377433,2524957434&fm=27&gp=0.jpg", imageViewMain2, false, 0);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
