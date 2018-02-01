@@ -59,12 +59,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.swein.activity.animation.StartActivity" />
-        <activity android:name="com.swein.activity.animation.EndActivity" />
         <activity
             android:name="com.swein.toolbar.activity.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
-
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
         <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
