@@ -55,6 +55,7 @@ public class SHQRCodeScannerActivity extends Activity {
     };
 
     private ZXingScannerView.ResultHandler resultHandler = new ZXingScannerView.ResultHandler() {
+
         @Override
         public void handleResult(Result result) {
 

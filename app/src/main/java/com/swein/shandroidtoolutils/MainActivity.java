@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
 //                ActivityUtils.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtils.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtils.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
