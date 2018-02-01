@@ -18,11 +18,13 @@ import com.swein.framework.module.qrcodescanner.scanresult.resultitemviewholder.
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.shandroidtoolutils.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.dm7.barcodescanner.core.IViewFinder;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class SHQRCodeScannerActivity extends Activity {
-
 
     private ZXingScannerView zXingScannerView;
 
@@ -39,11 +41,16 @@ public class SHQRCodeScannerActivity extends Activity {
     private boolean isFlashOn = false;
     private boolean enableQRScan = false;
 
+    private List<ScanResultItemViewHolder> scanResultItemViewHolderList = new ArrayList<>();
+
+
     private ScanResultItemViewHolder.ScanResultItemViewHolderDelegate scanResultItemViewHolderDelegate = new ScanResultItemViewHolder.ScanResultItemViewHolderDelegate() {
         @Override
-        public void onDeleteClicked(View view) {
+        public void onDeleteClicked(View view, ScanResultItemViewHolder scanResultItemViewHolder) {
             flexboxLayout.removeView(view);
+            scanResultItemViewHolderList.remove(scanResultItemViewHolder);
             toggleResultView();
+            setResultViewIndex();
         }
     };
 
@@ -57,13 +64,17 @@ public class SHQRCodeScannerActivity extends Activity {
             }
 
             progressBar.setVisibility(View.VISIBLE);
+
             ScanResultItemViewHolder scanResultItemViewHolder = new ScanResultItemViewHolder(
                     SHQRCodeScannerActivity.this,
                     new ScanResultItem(result.getText(), DateUtil.getCurrentDateTimeString()), scanResultItemViewHolderDelegate);
 
-            flexboxLayout.addView(scanResultItemViewHolder.getItemView());
+            flexboxLayout.addView(scanResultItemViewHolder.getItemView(), 0);
+
+            scanResultItemViewHolderList.add(scanResultItemViewHolder);
 
             toggleResultView();
+            setResultViewIndex();
 
             zXingScannerView.resumeCameraPreview(resultHandler);
             progressBar.setVisibility(View.GONE);
@@ -94,7 +105,7 @@ public class SHQRCodeScannerActivity extends Activity {
             public void onClick(View view) {
 
                 flexboxLayout.removeAllViews();
-
+                scanResultItemViewHolderList.clear();
                 toggleResultView();
             }
         });
@@ -131,7 +142,6 @@ public class SHQRCodeScannerActivity extends Activity {
         zXingScannerView.setResultHandler(resultHandler);
 
         contentFrame.addView(zXingScannerView);
-
     }
 
     private void enableQRScan() {
@@ -174,7 +184,18 @@ public class SHQRCodeScannerActivity extends Activity {
             countTextView.setText("0");
             buttonReset.setVisibility(View.GONE);
         }
+    }
 
+    private void setResultViewIndex() {
+
+        if(0 == flexboxLayout.getChildCount()) {
+            return;
+        }
+
+        int count = flexboxLayout.getChildCount();
+        for(int i = count - 1; i >= 0; i--) {
+            scanResultItemViewHolderList.get(i).setIndex(String.valueOf(i + 1));
+        }
     }
 
     @Override
@@ -197,6 +218,5 @@ public class SHQRCodeScannerActivity extends Activity {
         zXingScannerView = null;
         super.onDestroy();
     }
-
 
 }

@@ -15,13 +15,13 @@ import com.swein.shandroidtoolutils.R;
  */
 
 public class ScanResultItemViewHolder extends View {
-
     public interface ScanResultItemViewHolderDelegate {
-        void onDeleteClicked(View view);
+        void onDeleteClicked(View view, ScanResultItemViewHolder scanResultItemViewHolder);
     }
 
     private TextView titleTextView;
     private TextView dateTextView;
+    private TextView indexTextView;
     private View itemView;
     private ImageButton deleteImageButton;
     private ScanResultItemViewHolderDelegate scanResultItemViewHolderDelegate;
@@ -43,15 +43,17 @@ public class ScanResultItemViewHolder extends View {
     private void findView() {
         titleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
         dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
+        indexTextView = (TextView) itemView.findViewById(R.id.indexTextView);
         deleteImageButton = (ImageButton) itemView.findViewById(R.id.deleteImageButton);
 
         titleTextView.setText(scanResultItem.title);
         dateTextView.setText(scanResultItem.date);
 
+
         deleteImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scanResultItemViewHolderDelegate.onDeleteClicked(itemView);
+                scanResultItemViewHolderDelegate.onDeleteClicked(itemView, ScanResultItemViewHolder.this);
             }
         });
 
@@ -63,7 +65,12 @@ public class ScanResultItemViewHolder extends View {
         });
     }
 
+    public void setIndex(String index) {
+        indexTextView.setText(index);
+    }
+
     public View getItemView() {
         return itemView;
     }
+
 }
