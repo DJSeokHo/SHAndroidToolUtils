@@ -2,7 +2,9 @@ package com.swein.framework.tools.util.device;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -14,6 +16,29 @@ import java.util.UUID;
  */
 
 public class DeviceInfoUtil {
+
+    public static void callWithDialog(Context context, String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void call(Context context, String phone) {
+        Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:" + phone));
+        context.startActivity(intent);
+    }
+
+    public static void mailTo(Context context, String email) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:" + email));
+
+        try {
+            context.startActivity(emailIntent);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * must use this method in application first
