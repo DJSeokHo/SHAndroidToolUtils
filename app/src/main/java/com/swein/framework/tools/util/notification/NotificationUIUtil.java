@@ -1,11 +1,13 @@
 package com.swein.framework.tools.util.notification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 
-import static android.app.Notification.DEFAULT_SOUND;
+import com.swein.shandroidtoolutils.R;
 
 /**
  * Created by seokho on 22/11/2016.
@@ -13,45 +15,37 @@ import static android.app.Notification.DEFAULT_SOUND;
 
 public class NotificationUIUtil {
 
+   public static void sendNotification(Context context, int id, String title, String subText, String message, boolean autoCancel, boolean defaultSound, PendingIntent pendingIntent) {
 
-    public static void createNotification(Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel) {
-//Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel
+       NotificationCompat.Builder builder;
+
+       if(defaultSound) {
+           Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+           builder = new NotificationCompat.Builder(context)
+                   .setSmallIcon(R.drawable.aperture)
+                   .setSubText(subText)
+                   .setContentTitle(title)
+                   .setContentText(message)
+                   .setAutoCancel(autoCancel)
+                   .setContentIntent(pendingIntent)
+                   .setSound(sound);
+
+       }
+       else {
+           builder = new NotificationCompat.Builder(context)
+                   .setSmallIcon(R.drawable.aperture)
+                   .setSubText(subText)
+                   .setContentTitle(title)
+                   .setContentText(message)
+                   .setAutoCancel(autoCancel)
+                   .setContentIntent(pendingIntent);
+       }
 
 
-    }
+       NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+       notificationManager.notify(id, builder.build());
 
-    public static void sendNormalNotification(Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel) {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
-        Notification notification = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            notification = new Notification.Builder(context)
-                    .setAutoCancel(autoCancel)
-                    .setTicker(ticker)
-                    .setSmallIcon(iconId)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setDefaults(DEFAULT_SOUND)
-                    .setWhen(System.currentTimeMillis())
-                    .build();
-        }
-        notificationManager.notify(notificationId, notification);
-    }
+   }
 
-    public static void sendContentIntentNotification(Context context, int notificationId, String ticker, String title, String message, int iconId, boolean autoCancel, PendingIntent intent) {
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
-        Notification notification = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            notification = new Notification.Builder(context)
-                    .setAutoCancel(autoCancel)
-                    .setTicker(ticker)
-                    .setSmallIcon(iconId)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setDefaults(DEFAULT_SOUND)
-                    .setWhen(System.currentTimeMillis())
-                    .setContentIntent(intent)
-                    .build();
-        }
-        notificationManager.notify(notificationId, notification);
-    }
 }

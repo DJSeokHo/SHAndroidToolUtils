@@ -7,12 +7,19 @@ import com.swein.framework.module.googleanalytics.handler.CrashExceptionHandler;
 import static com.swein.framework.module.googleanalytics.data.Tracker.getAnalytics;
 import static com.swein.framework.module.googleanalytics.manager.TrackerManager.initGoogleAnalyticsTracker;
 
+
 /**
  *
  * Created by seokho on 15/11/2016.
  */
 
 public class SHAndroidToolUtilsApplication extends Application {
+
+    public final static String PROJECT_NUMBER = "860380761876";
+    public final static String API_KEY = "AIzaSyDHQdTXss5X0yA7xjQtRReuCp__tB2xjKw";
+
+
+
 
     @Override
     public void onCreate() {
@@ -24,6 +31,9 @@ public class SHAndroidToolUtilsApplication extends Application {
         //will auto send crash report when application crashed
         CrashExceptionHandler.getInstance().init( getApplicationContext() );
 
+        // obtains a registration token
+//        String googleInstanceId = InstanceID.getInstance(getApplicationContext()).getId();
+//        ILog.iLogDebug("App", googleInstanceId);
 
 //        try {
 //            String[] strings = new String[] {"1", "2"};

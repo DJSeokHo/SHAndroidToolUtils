@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,8 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
+import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
-import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
+
+    private final static int REQUEST_READ_PHONE_STATE = 998;
 
     @TimerTrace
     @Override
@@ -76,12 +78,28 @@ public class MainActivity extends AppCompatActivity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
+
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
         }
         else {
-            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+            //TODO
         }
+//
+//
+//
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+//        }
+//        else {
+//            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+//        }
+
+        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
+
 
         SHVolley shVolley = new SHVolley(this);
         shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
@@ -208,6 +226,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_READ_PHONE_STATE:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    //TODO
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

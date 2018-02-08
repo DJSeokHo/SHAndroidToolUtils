@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swein.shandroidtoolutils">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -11,6 +12,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE" />
+
 
     <user-feature android:name="android.hardware.camera2.full" />
 
@@ -90,10 +97,38 @@
         <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
         <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
         <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity" />
-
         <activity
             android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"/>
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.swein.shandroidtoolutils" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.swein.framework.module.gcmpush.receiver.GCMPushReceiverService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.swein.framework.module.gcmpush.register.GCMRegistrationIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        GCMTokenRefreshListenerService
+
     </application>
 
 </manifest>
