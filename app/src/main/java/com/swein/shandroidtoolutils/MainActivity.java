@@ -1,5 +1,6 @@
 package com.swein.shandroidtoolutils;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -118,6 +119,26 @@ public class MainActivity extends AppCompatActivity {
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
 
         SHPicasso.getInstance().loadImage(this, "http://img3.imgtn.bdimg.com/it/u=1332377433,2524957434&fm=27&gp=0.jpg", imageViewMain2, false, 0);
+
+        imageViewMain2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ObjectAnimator.ofFloat(
+                        imageViewMain2,
+                        "translationX",
+                        300
+                ).setDuration(300).start();
+                /**
+                 * translationX, translationY
+                 * rotation, rotationX, rotationY
+                 * scaleX, scaleY
+                 * pivotX, pivotY
+                 * x, y
+                 * alpha
+                 */
+            }
+        });
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);

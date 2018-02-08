@@ -32,7 +32,6 @@ public class GCMPushReceiverService extends GcmListenerService {
         Intent intent = new Intent(this, GoogleCloudMessageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-
         NotificationUIUtil.sendNotification(this, GCMConstants.notificationId,
                 "Google Cloud Message", "Sub Text", message,
                 true, true,
