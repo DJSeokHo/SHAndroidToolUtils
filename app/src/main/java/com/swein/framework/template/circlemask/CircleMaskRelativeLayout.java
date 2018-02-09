@@ -1,4 +1,4 @@
-package com.swein.framework.module.circlemask;
+package com.swein.framework.template.circlemask;
 
 import android.annotation.TargetApi;
 import android.content.Context;

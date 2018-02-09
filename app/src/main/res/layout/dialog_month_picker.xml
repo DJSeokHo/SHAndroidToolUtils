@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="30dp"
+    android:minWidth="300dp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+        >
+
+        <Spinner
+            android:background="#0000"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/spinnerYear"
+            android:layout_marginRight="10dp"
+            android:dropDownWidth="200dp"
+            />
+
+        <ImageView
+            android:background="#0000"
+            android:scaleType="centerInside"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/spinner_down_arrow"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <GridLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3">
+            <Button android:id="@+id/buttonJan"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="#0000"
+                android:textSize="8pt"
+                android:text="@string/month_picker_january_text" />
+            <Button android:id="@+id/buttonFeb"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_february_text" />
+            <Button android:id="@+id/buttonMar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_march_text" />
+
+            <Button android:id="@+id/buttonApr"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_april_text" />
+            <Button android:id="@+id/buttonMay"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_may_text" />
+            <Button android:id="@+id/buttonJun"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_june_text" />
+
+            <Button android:id="@+id/buttonJul"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_july_text" />
+            <Button android:id="@+id/buttonAug"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="#0000"
+                android:textSize="8pt"
+                android:text="@string/month_picker_august_text" />
+            <Button android:id="@+id/buttonSep"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_september_text" />
+
+            <Button android:id="@+id/buttonOct"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_october_text" />
+            <Button android:id="@+id/buttonNov"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_november_text" />
+            <Button android:id="@+id/buttonDec"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:textSize="8pt"
+                android:background="#0000"
+                android:text="@string/month_picker_december_text" />
+        </GridLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            >
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:minWidth="80dp"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:layout_marginRight="50dp"
+                android:background="#0000"
+                android:text="Cancel"
+                />
+
+            <Button
+                android:id="@+id/buttonPick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:padding="10dp"
+                android:minWidth="80dp"
+                android:textAllCaps="false"
+                android:background="#0000"
+                android:textColor="@color/colorAccent"
+                android:text="OK"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

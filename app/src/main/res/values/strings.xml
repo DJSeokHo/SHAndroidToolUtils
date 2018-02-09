@@ -9,4 +9,17 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_circle_count_watch">CircleCountWatch</string>
 
+    <string name="month_picker_december_text">12월</string>
+    <string name="month_picker_november_text">11월</string>
+    <string name="month_picker_october_text">10월</string>
+    <string name="month_picker_september_text">9월</string>
+    <string name="month_picker_august_text">8월</string>
+    <string name="month_picker_july_text">7월</string>
+    <string name="month_picker_june_text">6월</string>
+    <string name="month_picker_may_text">5월</string>
+    <string name="month_picker_april_text">4월</string>
+    <string name="month_picker_march_text">3월</string>
+    <string name="month_picker_february_text">2월</string>
+    <string name="month_picker_january_text">1월</string>
+
 </resources>

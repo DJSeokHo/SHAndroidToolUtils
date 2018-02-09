@@ -26,4 +26,12 @@ public class DateUtil
                 + ":" + calendar.get(Calendar.SECOND);
     }
 
+    public static String dateFormat(int date) {
+        if(10 > date) {
+            return "0" + date;
+        }
+
+        return date + "";
+    }
+
 }

@@ -12,12 +12,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE" />
 
+    <uses-permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE" />
 
     <user-feature android:name="android.hardware.camera2.full" />
 
@@ -105,21 +106,22 @@
         <activity
             android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <activity android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"/>
+        <activity android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.swein.shandroidtoolutils" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.swein.framework.module.gcmpush.receiver.GCMPushReceiverService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -132,8 +134,7 @@
             </intent-filter>
         </service>
 
-        GCMTokenRefreshListenerService
-
+        <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity"></activity>
     </application>
 
 </manifest>
