@@ -1,16 +1,11 @@
 package com.swein.framework.tools.util.views;
 
-import android.content.Context;
 import android.graphics.Outline;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
-import com.swein.shandroidtoolutils.R;
 
 /**
  * Created by seokho on 25/12/2016.
@@ -24,11 +19,6 @@ public class ViewUtil {
 
     public static void viewSetClickListener( View view, View.OnClickListener onClickListener ) {
         view.setOnClickListener( onClickListener );
-    }
-
-    public static void shakeView( Context context, View view ) {
-        Animation shake = AnimationUtils.loadAnimation( context, R.anim.shake );
-        view.startAnimation( shake );
     }
 
     public static void setViewDepth( View view, float depthDP ) {

@@ -1,6 +1,6 @@
 package com.swein.shandroidtoolutils;
 
-import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
@@ -16,27 +15,30 @@ import android.widget.ImageView;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
+import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.volley.SHVolley;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
+
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
 
@@ -112,21 +114,17 @@ public class MainActivity extends AppCompatActivity {
 
             ILog.iLogDebug("haha", t.name);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
-//
-//
-//
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
-//        }
-//        else {
-//            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-//        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+        }
+        else {
+            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+        }
 
         ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
 
@@ -145,7 +143,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
+
+
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
+
 
         SHPicasso.getInstance().loadImage(this, "http://img3.imgtn.bdimg.com/it/u=1332377433,2524957434&fm=27&gp=0.jpg", imageViewMain2, false, 0);
 
@@ -153,11 +154,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ObjectAnimator.ofFloat(
-                        imageViewMain2,
-                        "translationX",
-                        300
-                ).setDuration(300).start();
+//                ObjectAnimator.ofFloat(
+//                        imageViewMain2,
+//                        "translationX",
+//                        300
+//                ).setDuration(300).start();
+
+                AnimationUtil.setViewToPositionY(imageViewMain2, 0, 600, null);
+
                 /**
                  * translationX, translationY
                  * rotation, rotationX, rotationY
@@ -306,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
 
 class TestObject implements Serializable {
 
-    private final static long serialID = 1000000001L;
+    public final static long serialID = 1000000001L;
 
     public String name;
 
