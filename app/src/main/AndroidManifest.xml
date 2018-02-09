@@ -42,8 +42,13 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!--
+            add android:configChanges="orientation|screenSize"
+            can make activity not re-create when screen size and orientation changed
+        -->
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

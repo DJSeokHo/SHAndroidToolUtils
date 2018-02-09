@@ -18,9 +18,14 @@ import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.volley.SHVolley;
+
+import java.io.IOException;
+import java.io.Serializable;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -62,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
+
 //                ActivityUtil.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
         //        ActivityUtil.startNewActivityWithoutFinish( this, VideoViewActivity.class );
 //                ActivityUtil.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
@@ -89,6 +97,27 @@ public class MainActivity extends AppCompatActivity {
         else {
             //TODO
         }
+
+
+
+        TestObject testObject = new TestObject();
+        testObject.name = "haha";
+
+        try {
+            byte[] bytes = SerializableUtil.serializeObjectToBytes(testObject);
+
+            Object object = SerializableUtil.antiSerializeBytesToObject(bytes);
+
+            TestObject t = (TestObject) object;
+
+            ILog.iLogDebug("haha", t.name);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
 //
 //
 //
@@ -272,4 +301,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
     }
+
+}
+
+class TestObject implements Serializable {
+
+    private final static long serialID = 1000000001L;
+
+    public String name;
+
 }
