@@ -134,7 +134,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity"></activity>
+        <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
+        <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity"></activity>
     </application>
 
 </manifest>

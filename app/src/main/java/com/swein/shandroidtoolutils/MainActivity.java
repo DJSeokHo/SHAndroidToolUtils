@@ -13,8 +13,8 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.datepicker.activity.DatePickerActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
 //
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
 
-        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 
         SHVolley shVolley = new SHVolley(this);
         shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
@@ -175,6 +175,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
 
 
 
