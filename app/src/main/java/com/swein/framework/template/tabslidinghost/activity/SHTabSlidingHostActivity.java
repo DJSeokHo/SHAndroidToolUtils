@@ -55,10 +55,10 @@ public class SHTabSlidingHostActivity extends FragmentActivity implements ViewPa
         imageResources.add(R.drawable.tab_profile_icon_state);
 
         stringResources = new ArrayList<>();
-        stringResources.add("Home");
-        stringResources.add("Event");
-        stringResources.add("Friend");
-        stringResources.add("Profile");
+        stringResources.add(getString(R.string.title_fragment_home));
+        stringResources.add(getString(R.string.title_fragment_event));
+        stringResources.add(getString(R.string.title_fragment_friends));
+        stringResources.add(getString(R.string.title_fragment_profile));
 
         fragmentList = new ArrayList<>();
         SHHomeFragment shHomeFragment = new SHHomeFragment();
