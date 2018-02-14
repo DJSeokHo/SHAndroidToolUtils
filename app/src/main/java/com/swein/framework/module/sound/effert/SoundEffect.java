@@ -15,8 +15,9 @@ import static android.content.Context.AUDIO_SERVICE;
 
 public class SoundEffect {
 
-    private int currentPlayResourceId;
+    private final static int NULL_SOUND_RESOURCE_ID = -1;
 
+    private int currentPlayResourceId;
     private final static int MAX_STREAMS = 10;
 
     private SoundPool soundPool;
@@ -63,5 +64,14 @@ public class SoundEffect {
                 currentPlayResourceId = soundPool.play(sampleId, volume, volume, 0, 0, 1);
             }
         });
+    }
+
+    public int getCurrentPlayResourceId() {
+        if(NULL_SOUND_RESOURCE_ID != currentPlayResourceId) {
+            return currentPlayResourceId;
+        }
+        else {
+            return NULL_SOUND_RESOURCE_ID;
+        }
     }
 }
