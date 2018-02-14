@@ -106,8 +106,8 @@ public class SHTabSlidingHostActivity extends FragmentActivity implements ViewPa
 
         View view = layoutInflater.inflate(R.layout.tab_content, null);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.tab_imageview);
-        TextView textView = (TextView) view.findViewById(R.id.tab_textview);
+        ImageView imageView = (ImageView) view.findViewById(R.id.tabImageview);
+        TextView textView = (TextView) view.findViewById(R.id.tabTextview);
 
         imageView.setBackgroundResource(imageResources.get(i));
         textView.setText(stringResources.get(i));

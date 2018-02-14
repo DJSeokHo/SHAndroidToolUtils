@@ -28,6 +28,15 @@ public class SHPicasso {
         Picasso.with(context).load(url).into(imageView);
     }
 
+    public void loadImage(Context context, int imageResource, ImageView imageView, boolean placeHolder, int resource) {
+        if(placeHolder) {
+            Picasso.with(context).load(imageResource).placeholder(resource).error(resource).into(imageView);
+            return;
+        }
+
+        Picasso.with(context).load(imageResource).into(imageView);
+    }
+
     public void loadImageCustomSize(Context context, String url, ImageView imageView, int width, int height, boolean placeHolder, int resource) {
         if(placeHolder) {
             Picasso.with(context).load(url).placeholder(resource).error(resource).resize(width, height).centerCrop().into(imageView);
