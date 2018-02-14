@@ -23,10 +23,6 @@ public class NativeMethods {
     private final static String QUERY_PARAM_ONE = "one";
     private final static String QUERY_PARAM_TWO = "two";
 
-    /*
-        push function param key
-     */
-    //TODO
 
     public void nativeMethod(final Context context, String url, final NativeMethodsDelegate nativeMethodsDelegate) {
 
