@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.sound.effert.SoundEffect;
-import com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity;
+import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
+import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
-
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
 
@@ -118,12 +117,12 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
-//        }
-//        else {
-//            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-//        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+        }
+        else {
+            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+        }
 //
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
 
@@ -177,17 +176,17 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
 
-        SoundEffect.getInstance().initSoundEffect(this);
-        SoundEffect.getInstance().addResources(1, R.raw.sound_click);
-
-        imageViewMain1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SoundEffect.getInstance().play(MainActivity.this, 1);
-            }
-        });
+//        SoundEffect.getInstance().initSoundEffect(this);
+//        SoundEffect.getInstance().addResources(1, R.raw.sound_click);
+//
+//        imageViewMain1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SoundEffect.getInstance().play(MainActivity.this, 1);
+//            }
+//        });
 
 
 //        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);

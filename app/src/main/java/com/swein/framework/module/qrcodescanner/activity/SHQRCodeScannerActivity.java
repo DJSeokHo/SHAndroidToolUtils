@@ -15,6 +15,7 @@ import com.google.zxing.Result;
 import com.swein.framework.module.qrcodescanner.customscanner.CustomScanner;
 import com.swein.framework.module.qrcodescanner.scanresult.model.ScanResultItem;
 import com.swein.framework.module.qrcodescanner.scanresult.resultitemviewholder.ScanResultItemViewHolder;
+import com.swein.framework.module.sound.effert.SoundEffect;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.shandroidtoolutils.R;
 
@@ -80,6 +81,9 @@ public class SHQRCodeScannerActivity extends Activity {
             zXingScannerView.resumeCameraPreview(resultHandler);
             progressBar.setVisibility(View.GONE);
 
+
+            SoundEffect.getInstance().play(SHQRCodeScannerActivity.this, 1);
+
             disableQRScan();
         }
     };
@@ -97,6 +101,11 @@ public class SHQRCodeScannerActivity extends Activity {
         resultView = (HorizontalScrollView) findViewById(R.id.resultView);
         flexboxLayout = (FlexboxLayout) findViewById(R.id.flexboxLayout);
         countTextView = (TextView) findViewById(R.id.countTextView);
+
+        SoundEffect.getInstance().initSoundEffect(SHQRCodeScannerActivity.this);
+        SoundEffect.getInstance().addResources(1, R.raw.sound_click);
+        SoundEffect.getInstance().addResources(2, R.raw.sound_open);
+
 
         customScanner = new CustomScanner(this);
 
@@ -127,6 +136,7 @@ public class SHQRCodeScannerActivity extends Activity {
                 }
                 else {
                     enableQRScan();
+                    SoundEffect.getInstance().play(SHQRCodeScannerActivity.this, 2);
                 }
             }
         });
