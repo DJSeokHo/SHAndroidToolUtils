@@ -1,14 +1,18 @@
 package com.swein.framework.module.gcmpush.register;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
+
+import java.lang.ref.WeakReference;
 
 /**
  *
@@ -36,16 +40,26 @@ public class GCMRegistrationIntentService extends IntentService {
      */
     private void registerGoogleCloudMessage() {
 
-        String token;
-        String instanceId;
+        final String token;
+        final String instanceId;
+
+        final WeakReference<Context> contextWeakReference = new WeakReference<Context>(getApplication());
 
         try {
-            InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
+            InstanceID instanceID = InstanceID.getInstance(contextWeakReference.get());
             token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             instanceId = instanceID.getId();
 
             ILog.iLogDebug(TAG, "token:" + token);
             ILog.iLogDebug(TAG, "instanceId:" + instanceId);
+
+            ThreadUtil.startUIThread(0, new Runnable() {
+                @Override
+                public void run() {
+                    // here for UI update
+                    ToastUtil.showCustomShortToastNormal(contextWeakReference.get(), instanceId + " " + token);
+                }
+            });
 
         }
         catch (Exception e) {
