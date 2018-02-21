@@ -121,7 +121,7 @@
 
         <service
             android:name="com.swein.framework.module.gcmpush.receiver.GCMPushReceiverService"
-            android:exported="false">
+            android:exported="false" android:priority="10000">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
