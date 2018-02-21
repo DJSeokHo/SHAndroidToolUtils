@@ -4,9 +4,11 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.swein.framework.module.gcmpush.constants.GCMConstants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
@@ -43,6 +45,9 @@ public class GCMRegistrationIntentService extends IntentService {
         final String token;
         final String instanceId;
 
+        Intent intent;
+
+
         final WeakReference<Context> contextWeakReference = new WeakReference<Context>(getApplication());
 
         try {
@@ -61,11 +66,18 @@ public class GCMRegistrationIntentService extends IntentService {
                 }
             });
 
+            intent = new Intent(GCMConstants.REGISTRATION_SUCCESS);
+            intent.putExtra("token", token);
+
         }
         catch (Exception e) {
             e.printStackTrace();
             ILog.iLogError(TAG, "GCM Registration Error");
+
+            intent = new Intent(GCMConstants.REGISTRATION_ERROR);
         }
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
     }
 }
