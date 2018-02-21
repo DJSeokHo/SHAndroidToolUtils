@@ -3,12 +3,13 @@ package com.swein.framework.module.gcmpush.register;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.gcmpush.constants.GCMConstants;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -37,26 +38,26 @@ public class GCMRegistrationIntentService extends IntentService {
      */
     private void registerGoogleCloudMessage() {
 
-        Intent intent;
         String token;
+        String instanceId;
 
         try {
             InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
             token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            instanceId = instanceID.getId();
+
             ILog.iLogDebug(TAG, "token:" + token);
 
-            // TODO Update UI register complete
-            intent = new Intent(GCMConstants.REGISTRATION_SUCCESS);
-            intent.putExtra("token", token);
+
+            ToastUtil.showShortToastNormal(getApplicationContext(), "instanceId:" + instanceId);
+            ToastUtil.showShortToastNormal(getApplicationContext(), "GCM token:" + token);
+
         }
         catch (Exception e) {
             e.printStackTrace();
             ILog.iLogError(TAG, "GCM Registration Error");
-
-            intent = new Intent(GCMConstants.REGISTRATION_ERROR);
+            ToastUtil.showShortToastNormal(getApplicationContext(), "GCM Registration Error");
         }
 
-        // TODO Send BoardCast
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
