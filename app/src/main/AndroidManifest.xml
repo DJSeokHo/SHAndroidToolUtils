@@ -137,6 +137,12 @@
             </intent-filter>
         </service>
 
+        <receiver android:name="com.swein.framework.module.gcmpush.boardcast.NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.android.broadcast.RECEIVER_ACTION"/>
+            </intent-filter>
+        </receiver>
+
         <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
         <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity" />
         <activity android:name="com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity"></activity>

@@ -8,8 +8,6 @@ import android.support.annotation.Nullable;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.thread.ThreadUtil;
-import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.lang.ref.WeakReference;
@@ -51,13 +49,7 @@ public class GCMRegistrationIntentService extends IntentService {
             ILog.iLogDebug(TAG, "token:" + token);
             ILog.iLogDebug(TAG, "instanceId:" + instanceId);
 
-            ThreadUtil.startUIThread(0, new Runnable() {
-                @Override
-                public void run() {
-                    // here for UI update
-                    ToastUtil.showCustomShortToastNormal(contextWeakReference.get(), instanceId + " " + token);
-                }
-            });
+            // TODO save token and instanceId to your server
 
         }
         catch (Exception e) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.swein.framework.module.gcmpush.constants.GCMConstants;
 import com.swein.framework.module.gcmpush.register.GCMRegistrationIntentService;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
@@ -18,6 +19,9 @@ public class GoogleCloudMessageActivity extends Activity {
 
 
     private final static String TAG = "GoogleCloudMessageActivity";
+
+
+    public static boolean visible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +46,33 @@ public class GoogleCloudMessageActivity extends Activity {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
         }
+
+        getDataFromPushMessage();
+
+    }
+
+    private void getDataFromPushMessage() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra(GCMConstants.NOTIFICATION_CLICKED_BUNDLE_KEY);
+        if(bundle == null) {
+            return;
+        }
+
+        String message = bundle.getString(GCMConstants.NOTIFICATION_CLICKED_KEY);
+
+        ToastUtil.showCustomShortToastNormal(this, message);
     }
 
 
     @Override
     protected void onResume() {
+        visible = true;
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        visible = false;
         super.onPause();
     }
 }
