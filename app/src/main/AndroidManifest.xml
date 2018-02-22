@@ -106,7 +106,10 @@
         <activity
             android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity" />
+        <activity
+            android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
+            android:launchMode="singleTask"
+            />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -118,7 +121,6 @@
                 <category android:name="com.swein.shandroidtoolutils" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.swein.framework.module.gcmpush.broad.NotificationBroadcastReceiver" />
 
         <service
             android:name="com.swein.framework.module.gcmpush.receiver.GCMPushReceiverService"

@@ -22,19 +22,14 @@ import java.lang.ref.WeakReference;
  */
 public class GCMRegistrationIntentService extends IntentService {
 
-    private static final String TAG = "GCMRegistrationIntentService";
-
+    private static final String TAG = "GCMRegistration";
 
     public GCMRegistrationIntentService() {
         super("");
     }
 
-
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-         /*
-            get push -> create notification -> click notification -> will get handle here
-         */
         registerGoogleCloudMessage();
     }
 
@@ -55,7 +50,6 @@ public class GCMRegistrationIntentService extends IntentService {
 
             ILog.iLogDebug(TAG, "token:" + token);
             ILog.iLogDebug(TAG, "instanceId:" + instanceId);
-
 
             ThreadUtil.startUIThread(0, new Runnable() {
                 @Override
