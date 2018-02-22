@@ -118,6 +118,7 @@
                 <category android:name="com.swein.shandroidtoolutils" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.swein.framework.module.gcmpush.broad.NotificationBroadcastReceiver" />
 
         <service
             android:name="com.swein.framework.module.gcmpush.receiver.GCMPushReceiverService"

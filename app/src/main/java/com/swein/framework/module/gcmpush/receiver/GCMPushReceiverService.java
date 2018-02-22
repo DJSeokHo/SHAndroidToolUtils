@@ -36,6 +36,5 @@ public class GCMPushReceiverService extends GcmListenerService {
                 "Google Cloud Message", "Sub Text", message,
                 true, true,
                 PendingIntent.getActivity(this, GCMConstants.notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-
     }
 }

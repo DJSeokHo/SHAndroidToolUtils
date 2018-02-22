@@ -6,8 +6,5 @@ package com.swein.framework.module.gcmpush.constants;
 
 public class GCMConstants {
 
-    public static final String REGISTRATION_SUCCESS = "RegistrationSuccess";
-    public static final String REGISTRATION_ERROR = "RegistrationError";
-
     public static int notificationId = 0;
 }
