@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.swein.framework.module.gcmpush.boardcast.NotificationBroadcastReceiver;
+import com.swein.framework.module.gcmpush.broadcast.NotificationBroadcastReceiver;
 import com.swein.framework.module.gcmpush.constants.GCMConstants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.notification.NotificationUIUtil;

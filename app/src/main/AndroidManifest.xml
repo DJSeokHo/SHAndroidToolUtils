@@ -137,7 +137,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name="com.swein.framework.module.gcmpush.boardcast.NotificationBroadcastReceiver">
+        <receiver android:name="com.swein.framework.module.gcmpush.broadcast.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.android.broadcast.RECEIVER_ACTION"/>
             </intent-filter>

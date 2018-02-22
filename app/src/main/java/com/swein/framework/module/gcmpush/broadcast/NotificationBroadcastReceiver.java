@@ -1,4 +1,4 @@
-package com.swein.framework.module.gcmpush.boardcast;
+package com.swein.framework.module.gcmpush.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
