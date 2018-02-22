@@ -7,9 +7,9 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
 /**
+ *
  * Created by seokho on 22/02/2018.
  */
-
 public class SlidingAbleSwipeRefreshLayout extends SwipeRefreshLayout {
 
     private float startY;
@@ -26,20 +26,23 @@ public class SlidingAbleSwipeRefreshLayout extends SwipeRefreshLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
+
         switch (action) {
+
             case MotionEvent.ACTION_DOWN:
 
                 startY = ev.getY();
                 startX = ev.getX();
 
                 isViewDragged = false;
+
                 break;
+
             case MotionEvent.ACTION_MOVE:
 
                 if(isViewDragged) {
                     return false;
                 }
-
 
                 float endY = ev.getY();
                 float endX = ev.getX();
@@ -51,10 +54,12 @@ public class SlidingAbleSwipeRefreshLayout extends SwipeRefreshLayout {
                     return false;
                 }
                 break;
+
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
 
                 isViewDragged = false;
+
                 break;
         }
 
