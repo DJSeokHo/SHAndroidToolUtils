@@ -1,13 +1,27 @@
 package com.swein.framework.tools.util.cookie;
 
 import android.webkit.CookieManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
+ *
  * Created by seokho on 22/02/2018.
  */
 
 public class CookieUtil {
 
+    /**
+     *
+     * put this in here:
+     * @see {@link WebViewClient#onPageFinished(WebView, String)}
+     *
+     *
+     * @param url from web view url
+     * @param key the key of the value what you want
+     *
+     * @return the value what you want
+     */
     public static String getValueFromCookie(String url, String key) {
         final CookieManager cookieManager = CookieManager.getInstance();
         String cookie = cookieManager.getCookie(url);
