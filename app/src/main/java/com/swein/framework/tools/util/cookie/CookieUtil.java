@@ -12,7 +12,6 @@ import android.webkit.WebViewClient;
 public class CookieUtil {
 
     /**
-     *
      * put this in here:
      * @see {@link WebViewClient#onPageFinished(WebView, String)}
      *

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.volley.SHVolley;
 
 import java.io.Serializable;
@@ -38,6 +41,9 @@ public class MainActivity extends Activity {
     private ViewOutlineProvider viewOutlineProvider2;
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
+
+    boolean closeFlag = false;
+
 
     @TimerTrace
     @Override
@@ -289,6 +295,23 @@ public class MainActivity extends Activity {
 
     }
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
+
+
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -318,6 +341,32 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (event.getKeyCode() != KeyEvent.KEYCODE_BACK) {
+            return super.onKeyDown( keyCode, event );
+        }
+
+        if( closeFlag == false ){
+            ToastUtil.showCustomShortToastNormal(this, "뒤로 버튼을 한번 더 누르면 종료됩니다.");
+            closeFlag = true;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    closeFlag = false;
+                }
+            }, 3000);
+        }
+        else{
+            finish();
+        }
+
+        return false;
 
     }
 

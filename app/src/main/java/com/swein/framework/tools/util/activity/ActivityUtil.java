@@ -2,7 +2,9 @@ package com.swein.framework.tools.util.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -20,6 +23,8 @@ import android.view.WindowManager;
 import com.swein.data.global.activity.RequestData;
 import com.swein.data.local.BundleData;
 import com.swein.shandroidtoolutils.R;
+
+import java.util.List;
 
 import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VALUE;
 
@@ -275,5 +280,31 @@ public class ActivityUtil {
         transaction.replace(containerViewId, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+    /**
+     *
+     * is activity visible
+     *
+     */
+    public static boolean isForeground(Activity activity) {
+        return isForeground(activity, activity.getClass().getName());
+    }
+
+
+    private static boolean isForeground(Context context, String className) {
+        if (context == null || TextUtils.isEmpty(className)) {
+            return false;
+        }
+
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
+        if (list != null && list.size() > 0) {
+            ComponentName cpn = list.get(0).topActivity;
+            if (className.equals(cpn.getClassName()))
+                return true;
+        }
+        return false;
     }
 }
