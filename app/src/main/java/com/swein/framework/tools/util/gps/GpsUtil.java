@@ -12,24 +12,21 @@ import android.provider.Settings;
 
 public class GpsUtil {
 
-    public static boolean isGPSTurnOn( Context context ) {
-        LocationManager locationManager = (LocationManager)context.
+    public static boolean isGPSTurnOn(Context context) {
+        LocationManager locationManager = (LocationManager) context.
                 getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public static void turnOnGPS( Context context ) {
+    public static void turnOnGPS(Context context) {
         Intent intent = new Intent();
-        intent.setAction( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try
-        {
+        try {
             context.startActivity(intent);
 
-
         }
-        catch(ActivityNotFoundException ex)
-        {
+        catch (ActivityNotFoundException ex) {
             intent.setAction(Settings.ACTION_SETTINGS);
             try {
                 context.startActivity(intent);
@@ -38,5 +35,6 @@ public class GpsUtil {
             }
         }
     }
+
 
 }

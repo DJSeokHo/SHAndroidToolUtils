@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -174,6 +175,14 @@ public class MainActivity extends Activity {
                  * x, y
                  * alpha
                  */
+            }
+        });
+
+
+        new SHLocation().getLocation(this, new SHLocation.SHLocationDelegate() {
+            @Override
+            public void onLocation(double longitude, double latitude, long time) {
+
             }
         });
 
