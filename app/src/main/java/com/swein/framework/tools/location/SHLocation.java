@@ -90,6 +90,4 @@ public class SHLocation {
         ILog.iLogDebug(TAG, location.getLatitude() + " " + location.getLongitude());
         shLocationDelegate.onLocation(location.getLongitude(), location.getLatitude(), System.currentTimeMillis());
     }
-
-
 }
