@@ -1,8 +1,12 @@
 package com.swein.framework.tools.util.cookie;
 
+import android.content.Context;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.swein.framework.tools.util.debug.log.ILog;
 
 /**
  *
@@ -44,6 +48,26 @@ public class CookieUtil {
         }
 
         return "";
+    }
+
+    /**
+     * sync cookie
+     * @param context context
+     * @param url link
+     * @param value value
+     */
+    public static void syncCookie(Context context, String url, String value) {
+
+        CookieSyncManager.createInstance(context);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.removeAllCookie();
+        cookieManager.setCookie(url, value);
+
+        String cookie  = cookieManager.getCookie(url);
+        ILog.iLogDebug("syncCookie", cookie);
+
+        CookieSyncManager.getInstance().sync();
     }
 
 }
