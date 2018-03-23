@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.template.mode.mvc.view.activity.SHDemoMVCActivity;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
@@ -185,6 +186,8 @@ public class MainActivity extends Activity {
 
             }
         });
+
+        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
