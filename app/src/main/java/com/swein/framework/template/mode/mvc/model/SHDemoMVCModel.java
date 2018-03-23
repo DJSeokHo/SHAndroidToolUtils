@@ -12,6 +12,7 @@ public class SHDemoMVCModel {
 
     private String id;
     private String ps;
+    private String result;
 
     private SHDemoMVCModelDelegate shDemoMVCModelDelegate;
 
@@ -32,8 +33,6 @@ public class SHDemoMVCModel {
     }
 
     public void login() {
-
-        String result;
         if(!StringUtils.isEmpty(id) && ps.equals("123")) {
             result = "OK";
         }

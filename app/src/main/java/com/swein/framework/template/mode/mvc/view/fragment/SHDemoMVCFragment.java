@@ -1,4 +1,4 @@
-package com.swein.framework.template.mode.mvc.view.activity.fragment;
+package com.swein.framework.template.mode.mvc.view.fragment;
 
 
 import android.os.Bundle;

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.framework.template.mode.mvc.view.activity.fragment.SHDemoMVCFragment"
+    tools:context="com.swein.framework.template.mode.mvc.view.fragment.SHDemoMVCFragment"
     android:orientation="vertical">
 
     <EditText

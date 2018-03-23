@@ -147,7 +147,7 @@
         <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
         <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity" />
         <activity android:name="com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity" />
-        <activity android:name="com.swein.framework.template.mode.mvc.view.activity.SHDemoMVCActivity"></activity>
+        <activity android:name="com.swein.framework.template.mode.mvc.view.activity.SHDemoMVCActivity" />
     </application>
 
 </manifest>
