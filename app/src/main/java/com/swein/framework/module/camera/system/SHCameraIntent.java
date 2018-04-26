@@ -33,6 +33,24 @@ public class SHCameraIntent {
         dispatchTakePictureIntent();
     }
 
+//    private void takePhoto(){
+//        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//打开相机的Intent
+//        if(takePhotoIntent.resolveActivity(getPackageManager())!=null){//这句作用是如果没有相机则该应用不会闪退，要是不加这句则当系统没有相机应用的时候该应用会闪退
+//            File imageFile = createImageFile();//创建用来保存照片的文件
+//            if(imageFile!=null){
+//                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+//                    /*7.0以上要通过FileProvider将File转化为Uri*/
+//                    mImageUri = FileProvider.getUriForFile(this,FILE_PROVIDER_AUTHORITY,imageFile);
+//                }else {
+//                    /*7.0以下则直接使用Uri的fromFile方法将File转化为Uri*/
+//                    mImageUri = Uri.fromFile(imageFile);
+//                }
+//                takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,mImageUri);//将用于输出的文件Uri传递给相机
+//                startActivityForResult(takePhotoIntent, REQUEST_TAKE_PHOTO_CODE);//打开相机
+//            }
+//        }
+//    }
+
     private void dispatchTakePictureIntent() {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
