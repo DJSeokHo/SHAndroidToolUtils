@@ -23,7 +23,7 @@ public class SHCameraIntent {
     private File photoFile;
 
     private final static int REQUEST_CODE_IMAGE_CHOOSER_BASE_64 = 101;
-    private final static int IMAGE_COMPRESS_RATE = 70;
+    private final static int IMAGE_COMPRESS_RATE = 100; // 100 means no compress
 
     public SHCameraIntent(Context context) {
         this.context = context;
@@ -71,6 +71,9 @@ public class SHCameraIntent {
     }
 
     /**
+     *
+     * put this method on activity....you know it...
+     *
      * photoFile.getPath() is photo storage path
      * @param requestCode
      * @param resultCode
