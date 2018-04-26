@@ -5,11 +5,16 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by seokho on 10/11/2016.
@@ -96,6 +101,80 @@ public class BitmapUtil {
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
+    }
+
+    public static void rotateImage(String file){
+
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file, bounds);
+
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(file, opts);
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+        // for OOM
+        float ratio = 1.0f;
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, (int) (bounds.outWidth * ratio), (int) (bounds.outHeight * ratio), matrix, true);
+        saveBitmapToJpeg(rotatedBitmap, file);
+    }
+
+    public static void saveBitmapToJpeg(Bitmap bitmap,String path){
+        FileOutputStream out = null;
+        try{
+
+            out = new FileOutputStream(path);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+        }
+        catch(FileNotFoundException exception){
+            exception.printStackTrace();
+        }
+        finally{
+            if(out != null)
+                try {
+                    out.close();
+                }
+                catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+        }
+    }
+
+    public static void ResizeImages(String path, int quality) {
+
+        Bitmap photo = BitmapFactory.decodeFile(path);
+//        photo = Bitmap.createScaledBitmap(photo, (int)(photo.getWidth() * rate), (int)(photo.getHeight() * rate), false);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.JPEG, quality, bytes);
+
+        File f = new File(path);
+        try {
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
