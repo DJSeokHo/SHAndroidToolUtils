@@ -8,6 +8,15 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
+/**
+ *
+ * reference documentation
+ *
+ * https://github.com/firebase/quickstart-android/blob/master/messaging/app/src/main/java/com/google/firebase/quickstart/fcm/MainActivity.java
+ * https://console.firebase.google.com/project/your_project_name/notification
+ * https://firebase.google.com/docs/cloud-messaging/android/client
+ *
+ */
 public class FirebaseCloudMessage extends Activity {
 
     private final static String TAG = "FirebaseCloudMessage";
