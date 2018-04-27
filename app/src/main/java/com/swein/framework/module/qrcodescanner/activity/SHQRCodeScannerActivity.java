@@ -25,6 +25,9 @@ import java.util.List;
 import me.dm7.barcodescanner.core.IViewFinder;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/**
+ * reference documentation - https://www.jianshu.com/p/168bef5526ae
+ */
 public class SHQRCodeScannerActivity extends Activity {
 
     private ZXingScannerView zXingScannerView;
@@ -80,7 +83,6 @@ public class SHQRCodeScannerActivity extends Activity {
 
             zXingScannerView.resumeCameraPreview(resultHandler);
             progressBar.setVisibility(View.GONE);
-
 
             SoundEffect.getInstance().play(SHQRCodeScannerActivity.this, 1);
 

@@ -84,6 +84,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
     androidTestCompile 'com.android.support.test:runner:0.5'
+
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
 }
 
 final def log = project.logger

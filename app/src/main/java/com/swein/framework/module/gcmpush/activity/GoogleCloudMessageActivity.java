@@ -14,6 +14,10 @@ import com.swein.shandroidtoolutils.R;
 
 /**
  * Android tutorial: Push notification using Google Cloud Messaging (GCM)
+ *
+ * reference documentation
+ * https://developers.google.com/cloud-messaging/downstream
+ * https://console.developers.google.com/apis/credentials?project=your_project_name
  */
 public class GoogleCloudMessageActivity extends Activity {
 

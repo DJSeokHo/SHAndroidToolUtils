@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.swein.shandroidtoolutils">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -7,7 +8,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -95,7 +97,6 @@
 
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
         <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
-        <activity android:name="com.swein.framework.rxjava2.demo.ui.RxJava2Activity" />
 
         <uses-library android:name="android.test.runner" />
 
@@ -111,6 +112,8 @@
             android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
             android:launchMode="singleTask" />
 
+
+        <!-- GCM -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -144,10 +147,47 @@
             </intent-filter>
         </receiver>
 
+
+        <!-- FCM -->
+        <service
+            android:name="com.swein.framework.module.fcmpush.service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.swein.framework.module.fcmpush.service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+            See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_ic_notification" />
+        -->
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        -->
+
+        <!-- 8.0
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
+        -->
         <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
         <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity" />
         <activity android:name="com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity" />
         <activity android:name="com.swein.framework.template.mode.mvc.view.activity.SHDemoMVCActivity" />
+        <activity android:name="com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage"></activity>
     </application>
 
 </manifest>

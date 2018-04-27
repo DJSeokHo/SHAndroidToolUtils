@@ -15,7 +15,7 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity;
+import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.template.mode.mvc.view.activity.SHDemoMVCActivity;
 import com.swein.framework.tools.location.SHLocation;
@@ -131,7 +131,8 @@ public class MainActivity extends Activity {
 //            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
 //        }
 
-        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 
