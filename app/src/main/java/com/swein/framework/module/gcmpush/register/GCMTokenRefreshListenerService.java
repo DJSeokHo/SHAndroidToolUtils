@@ -1,9 +1,5 @@
 package com.swein.framework.module.gcmpush.register;
 
-import android.content.Intent;
-
-import com.google.android.gms.iid.InstanceIDListenerService;
-
 /**
  *
  * handle token change and then send request registration to GCM server for new token
@@ -11,15 +7,15 @@ import com.google.android.gms.iid.InstanceIDListenerService;
  * Created by seokho on 07/02/2018.
  */
 
-public class GCMTokenRefreshListenerService extends InstanceIDListenerService{
-
-
-    /**
-     * when token refreshed, start service to get new token
-     */
-    @Override
-    public void onTokenRefresh() {
-        Intent intent = new Intent(this, GCMRegistrationIntentService.class);
-        startService(intent);
-    }
-}
+//public class GCMTokenRefreshListenerService extends InstanceIDListenerService{
+//
+//
+//    /**
+//     * when token refreshed, start service to get new token
+//     */
+//    @Override
+//    public void onTokenRefresh() {
+//        Intent intent = new Intent(this, GCMRegistrationIntentService.class);
+//        startService(intent);
+//    }
+//}

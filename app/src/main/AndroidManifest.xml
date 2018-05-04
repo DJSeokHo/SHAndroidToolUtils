@@ -114,6 +114,7 @@
 
 
         <!-- GCM -->
+        <!--
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -146,7 +147,7 @@
                 <action android:name="com.android.broadcast.RECEIVER_ACTION" />
             </intent-filter>
         </receiver>
-
+        -->
 
         <!-- FCM -->
         <service

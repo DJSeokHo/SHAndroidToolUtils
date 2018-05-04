@@ -12,18 +12,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        ILog.iLogDebug(TAG, remoteMessage.getFrom());
-
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            ILog.iLogDebug(TAG, remoteMessage.getData());
-        }
+        ILog.iLogDebug(TAG, "push from sender id : " + remoteMessage.getFrom());
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            ILog.iLogDebug(TAG, remoteMessage.getNotification().getBody());
+            ILog.iLogDebug(TAG, "getNotification : " + remoteMessage.getNotification().getTitle());
+            ILog.iLogDebug(TAG, "getNotification : " + remoteMessage.getNotification().getBody());
         }
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
+        }
+
     }
-
-
 }

@@ -161,7 +161,6 @@ public class BitmapUtil {
     public static void ResizeImages(String path, int quality) {
 
         Bitmap photo = BitmapFactory.decodeFile(path);
-//        photo = Bitmap.createScaledBitmap(photo, (int)(photo.getWidth() * rate), (int)(photo.getHeight() * rate), false);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.JPEG, quality, bytes);
 
@@ -175,6 +174,22 @@ public class BitmapUtil {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap getScaleBitmap(Bitmap bitmap, int newWidth, int newHeight) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bitmap, 0, 0, width, height, matrix, false);
+        bitmap.recycle();
+        return resizedBitmap;
     }
 
 }

@@ -31,6 +31,23 @@ public class FileStorageUtil {
      * <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
      */
 
+    public static void deleteDir(String pPath) {
+        File dir = new File(pPath);
+        deleteDirWithFile(dir);
+    }
+
+    public static void deleteDirWithFile(File dir) {
+        if (dir == null || !dir.exists() || !dir.isDirectory())
+            return;
+        for (File file : dir.listFiles()) {
+            if (file.isFile())
+                file.delete();
+            else if (file.isDirectory())
+                deleteDirWithFile(file);
+        }
+        dir.delete();
+    }
+
     public static String createExternalStorageDirectoryFolder(String folderName, String rootPath) {
 
         File fileDirectory = new File(rootPath + Symbol.VIRGULE + folderName);
