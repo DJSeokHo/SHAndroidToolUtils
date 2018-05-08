@@ -31,5 +31,7 @@ public class FirebaseCloudMessage extends Activity {
         // Get token
         String token = FirebaseInstanceId.getInstance().getToken();
         ILog.iLogDebug(TAG, token);
+
     }
+
 }
