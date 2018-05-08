@@ -14,6 +14,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMessagingService";
 
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -30,7 +31,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-
+            /*
+            notification just for app visible
+            if app run background
+            you should use data
+             */
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
             link = remoteMessage.getNotification().getClickAction();
@@ -42,7 +47,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-
+            /*
+            data for app run background
+             */
 
             ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
         }
