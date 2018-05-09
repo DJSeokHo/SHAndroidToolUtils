@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.mdmcustom.fragment.CustomMDMFragment"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/buttonCameraEnable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraAble"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/buttonCameraDisable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraDisAble"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

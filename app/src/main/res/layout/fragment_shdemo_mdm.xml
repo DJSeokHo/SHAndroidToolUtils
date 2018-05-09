@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.mdm.fragment.SHDemoMDMFragment"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/buttonActivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activate"/>
+
+    <Button
+        android:id="@+id/buttonRemoveActivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RemoveActivate"/>
+
+    <Button
+        android:id="@+id/buttonScreenLock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ScreenLock"/>
+
+    <Button
+        android:id="@+id/buttonScreenLockTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ScreenLockTime(5s)"/>
+
+    <Button
+        android:id="@+id/buttonResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ResetPasswordTo'6666'"/>
+
+    <Button
+        android:id="@+id/buttonCameraAble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraAble"/>
+
+    <Button
+        android:id="@+id/buttonCameraDisAble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CameraDisAble"/>
+
+    <Button
+        android:id="@+id/buttonClearStorage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ClearStorage"/>
+
+    <Button
+        android:id="@+id/buttonClearStorageAndSDCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ClearStorageAndSDCard"/>
+
+
+
+</LinearLayout>
