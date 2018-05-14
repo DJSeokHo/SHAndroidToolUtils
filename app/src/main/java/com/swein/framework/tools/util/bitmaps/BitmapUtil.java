@@ -103,6 +103,34 @@ public class BitmapUtil {
         return inSampleSize;
     }
 
+    public static void rotateImage(String file, int angle){
+
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file, bounds);
+
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(file, opts);
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+
+        // for OOM
+        float ratio = 1.0f;
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(angle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, (int) (bounds.outWidth * ratio), (int) (bounds.outHeight * ratio), matrix, true);
+        saveBitmapToJpeg(rotatedBitmap, file);
+    }
+
+
     public static void rotateImage(String file){
 
         BitmapFactory.Options bounds = new BitmapFactory.Options();
@@ -120,6 +148,7 @@ public class BitmapUtil {
         String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
         int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
 
+
         int rotationAngle = 0;
         if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
         if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
@@ -134,7 +163,7 @@ public class BitmapUtil {
         saveBitmapToJpeg(rotatedBitmap, file);
     }
 
-    public static void saveBitmapToJpeg(Bitmap bitmap,String path){
+    public static void saveBitmapToJpeg(Bitmap bitmap, String path){
         FileOutputStream out = null;
         try{
 
@@ -191,5 +220,10 @@ public class BitmapUtil {
         bitmap.recycle();
         return resizedBitmap;
     }
+
+    public static Bitmap getBitmapFromByte(byte[] data) {
+        return BitmapFactory.decodeByteArray(data, 0, data.length);
+    }
+
 
 }

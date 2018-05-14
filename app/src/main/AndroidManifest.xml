@@ -24,6 +24,9 @@
 
     <uses-permission android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE" />
 
+    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
     <user-feature android:name="android.hardware.camera2.full" />
 
     <application
@@ -216,6 +219,9 @@
             android:name="com.swein.framework.module.mdmcustom.activity.SHMDMActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

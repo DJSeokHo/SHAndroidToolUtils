@@ -1,12 +1,22 @@
 package com.swein.framework.tools.util.display;
 
 import android.content.Context;
+import android.content.res.Configuration;
 
 /**
  * Created by seokho on 21/06/2017.
  */
 
 public class DisplayUtils {
+
+    public static boolean isLandscape(Context context) {
+        if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     /**
      * px value to dip or dp
