@@ -1,12 +1,26 @@
 package com.swein.framework.module.camera.custom.camera1.preview;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
 
+/**
+ *
+ * if you add a surface view into fragment dynamically
+ * it will flash a black screen after second
+ *
+ * so you should
+ *
+ * add "setZOrderOnTop(true);" to here
+ * add "surfaceHolder.setFormat(PixelFormat.TRANSPARENT);" to here
+ *
+ * and add "getWindow().setFormat(PixelFormat.TRANSLUCENT);" to your activity
+ *
+ */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;
     private Camera camera;
@@ -14,15 +28,22 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public CameraPreview(Context context, Camera camera, int previewDegree) {
         super(context);
+
+        setZOrderOnTop(true);
+
         this.camera = camera;
         this.previewDegree = previewDegree;
 
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         surfaceHolder = getHolder();
+
+        surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
+
         surfaceHolder.addCallback(this);
         // deprecated setting, but required on Android versions prior to 3.0
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
     }
 
     @Override
@@ -32,6 +53,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             camera.setPreviewDisplay(holder);
             camera.setDisplayOrientation(previewDegree);
             camera.startPreview();
+            camera.cancelAutoFocus();
         }
         catch (IOException e) {
           e.printStackTrace();

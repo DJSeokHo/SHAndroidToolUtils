@@ -18,8 +18,6 @@ public class CameraController {
     private Camera camera;
     private Context context;
 
-    private boolean isLandscape = false;
-
     public CameraController(Context context){
         this.context = context;
     }
@@ -28,6 +26,10 @@ public class CameraController {
 
         try {
             camera = Camera.open(id);
+
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            camera.setParameters(parameters);
         }
         catch (Exception e) {
             camera = null;
@@ -38,7 +40,6 @@ public class CameraController {
     public Camera getCamera() {
         return camera;
     }
-
 
     public void releaseCamera() {
 
@@ -66,7 +67,7 @@ public class CameraController {
 
     }
 
-    public void takePicture(final boolean withFinish, final boolean isLandscape) {
+    private void takePicture(final boolean withFinish, final boolean isLandscape) {
 
         if(camera == null) {
             return;
@@ -98,7 +99,6 @@ public class CameraController {
     }
 
     private void capture(Camera camera, final boolean withFinish, final boolean isLandscape) {
-
 
         camera.takePicture(null, null, new Camera.PictureCallback() {
             @Override

@@ -1,6 +1,7 @@
 package com.swein.framework.module.camera.custom.camera1.fragment;
 
 
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,10 +39,6 @@ public class CameraOneFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cameraController = new CameraController(getActivity());
-
-
-
-
     }
 
     @Override
@@ -72,7 +69,7 @@ public class CameraOneFragment extends Fragment {
         buttonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cameraController.checkAngle(true);
+                cameraController.checkAngle(false);
             }
         });
     }
