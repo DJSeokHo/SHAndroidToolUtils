@@ -65,6 +65,14 @@ public class AnimationUtil {
         objectAnimator.setDuration(duration).start();
     }
 
+    public static void setViewRotation(View view, int duration, Animator.AnimatorListener animatorListener, float fromAngle, float toAngle) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "rotation", fromAngle, toAngle);
+        if (null != animatorListener) {
+            objectAnimator.addListener(animatorListener);
+        }
+        objectAnimator.setDuration(duration).start();
+    }
+
 
     /*
         animation set element

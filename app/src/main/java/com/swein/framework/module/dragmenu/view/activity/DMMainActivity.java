@@ -65,7 +65,7 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 
 
 
-//        actionBarViewHolder = new ActionBarViewHolder(this, new ActionBarViewHolderMethods() {
+//        actionBarViewHolder = new SHMDMActionBarViewHolder(this, new ActionBarViewHolderMethods() {
 //
 //            @Override
 //            public boolean onTriggerDragMenuTouched(MotionEvent event) {
@@ -82,7 +82,7 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 //            }
 //        }, frameLayoutDragMenu);
 //
-//        actionBarViewHolder = new ActionBarViewHolder(this, new ActionBarViewHolderMethods() {
+//        actionBarViewHolder = new SHMDMActionBarViewHolder(this, new ActionBarViewHolderMethods() {
 //
 //            @Override
 //            public boolean onTriggerDragMenuTouched(MotionEvent event) {

@@ -16,7 +16,7 @@ import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.mdmcustom.activity.CustomMDMActivity;
+import com.swein.framework.module.mdmcustom.activity.SHMDMActivity;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
 import com.swein.framework.tools.util.activity.ActivityUtil;
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, CustomMDMActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, UserLoginActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, DMMainActivity.class); DragMenu

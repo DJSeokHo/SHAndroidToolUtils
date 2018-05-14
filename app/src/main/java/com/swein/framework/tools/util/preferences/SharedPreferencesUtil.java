@@ -36,6 +36,25 @@ public class SharedPreferencesUtil {
         editor.commit();
     }
 
+    public static void putValue(Context context, String key, boolean value)
+    {
+        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public static boolean getValue(Context context, String key, boolean dftValue)
+    {
+        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        try {
+            return pref.getBoolean(key, dftValue);
+        }
+        catch (Exception e) {
+            return dftValue;
+        }
+    }
+
     public static String getValue(Context context, String key, String dftValue)
     {
         SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);

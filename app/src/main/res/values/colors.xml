@@ -9,11 +9,15 @@
     <color name="color2">#303F9F</color>
     <color name="color3">#FF4081</color>
     <color name="color4">#b4000000</color>
+    <color name="color5">#ff5a8e</color>
 
     <color name="yellow">#ff0</color>
     <color name="blue">#33b5e5</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+
+    <color name="orange">#FFDE6113</color>
+    <color name="gray">#696969</color>
 
     <color name="transparent">#00000000</color>
 </resources>

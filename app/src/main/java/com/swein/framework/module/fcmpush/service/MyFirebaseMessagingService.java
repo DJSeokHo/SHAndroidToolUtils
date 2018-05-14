@@ -7,8 +7,12 @@ import android.os.Bundle;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver;
+import com.swein.framework.module.mdmcustom.api.SHMDMDeviceManager;
+import com.swein.framework.tools.eventsplitshot.eventcenter.ESSCenter;
+import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.notification.NotificationUIUtil;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -18,6 +22,76 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            /*
+            data for app run background
+             */
+            ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
+
+            final SHMDMDeviceManager shmdmDeviceManager = new SHMDMDeviceManager(this);
+
+            if(!shmdmDeviceManager.isActive()) {
+
+                return;
+            }
+
+            switch (remoteMessage.getData().get("command")) {
+
+                case "disable_camera":
+
+                    ThreadUtil.startThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            shmdmDeviceManager.disableCamera();
+                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, null);
+                        }
+                    });
+
+                    break;
+
+                case "enable_camera":
+
+                    ThreadUtil.startThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            shmdmDeviceManager.enableCamera();
+                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, null);
+                        }
+                    });
+
+                    break;
+
+                case "disable_screen_capture":
+
+                    ThreadUtil.startThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            shmdmDeviceManager.disableScreenCapture();
+                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, null);
+                        }
+                    });
+
+                    break;
+
+                case "enable_screen_capture":
+
+                    ThreadUtil.startThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            shmdmDeviceManager.enableScreenCapture();
+                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, null);
+                        }
+                    });
+
+                    break;
+            }
+
+            return;
+        }
+
+
 
         ILog.iLogDebug(TAG, "push from sender id : " + remoteMessage.getFrom());
 
@@ -50,8 +124,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             /*
             data for app run background
              */
-
             ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
+
+
         }
 
         Bundle bundle = new Bundle();
