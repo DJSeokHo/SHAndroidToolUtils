@@ -12,10 +12,13 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
+import com.swein.framework.module.camera.custom.camera1.preview.FakeSurfaceView;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
@@ -38,6 +41,8 @@ public class MainActivity extends Activity {
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
 
+    private Button buttonCamera;
+
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
 
@@ -51,6 +56,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.rl_fake);
+        relativeLayout.addView(new FakeSurfaceView(this));
+
+        buttonCamera = (Button)findViewById(R.id.btn_camera);
+        buttonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+            }
+        });
+
 
         // full screen
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
@@ -95,7 +112,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 
-        ActivityUtil.startNewActivityWithoutFinish(this, CameraOneActivity.class);
+
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
 

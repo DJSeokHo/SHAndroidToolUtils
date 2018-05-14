@@ -10,7 +10,14 @@
     android:orientation="vertical"
     tools:context="com.swein.shandroidtoolutils.MainActivity"
     android:gravity="center">
-    
+
+    <Button
+        android:id="@+id/btn_camera"
+        android:textAllCaps="false"
+        android:text="camera"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     
     <ImageView
         android:layout_margin="5dp"
@@ -27,6 +34,11 @@
         android:layout_height="100dp"
         android:background="@drawable/t5"
         />
+
+    <RelativeLayout
+        android:id="@+id/rl_fake"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
 
 </LinearLayout>

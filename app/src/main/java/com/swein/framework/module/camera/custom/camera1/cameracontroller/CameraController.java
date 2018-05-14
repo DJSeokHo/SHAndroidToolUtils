@@ -17,6 +17,7 @@ public class CameraController {
 
     private Camera camera;
     private Context context;
+    private boolean isLandscape = false;
 
     public CameraController(Context context){
         this.context = context;
@@ -56,15 +57,17 @@ public class CameraController {
         SensorUtil.isLandscape(((Activity) context), new Runnable() {
             @Override
             public void run() {
-                takePicture(withFinish, true);
+                isLandscape = true;
+
             }
         }, new Runnable() {
             @Override
             public void run() {
-                takePicture(withFinish, false);
+                isLandscape = false;
             }
         });
 
+        takePicture(withFinish, isLandscape);
     }
 
     private void takePicture(final boolean withFinish, final boolean isLandscape) {

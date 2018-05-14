@@ -1,76 +1,49 @@
 package com.swein.framework.module.camera.custom.camera1.preview;
 
 import android.content.Context;
-import android.graphics.PixelFormat;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.TextureView;
 
 import java.io.IOException;
 
-/**
- *
- * if you add a surface view into fragment dynamically
- * it will flash a black screen after second
- *
- * so you should
- *
- * add "setZOrderOnTop(true);" to here
- * add "surfaceHolder.setFormat(PixelFormat.TRANSPARENT);" to here
- *
- * and add "getWindow().setFormat(PixelFormat.TRANSLUCENT);" to your activity
- *
- */
-public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
-    private SurfaceHolder surfaceHolder;
+public class CameraPreview extends TextureView implements TextureView.SurfaceTextureListener {
+
     private Camera camera;
     private int previewDegree;
 
-    public CameraPreview(Context context, Camera camera, int previewDegree) {
+    public CameraPreview(Context context) {
         super(context);
 
-        setZOrderOnTop(true);
+        setSurfaceTextureListener(this);
+    }
+
+    public void init(Camera camera, int previewDegree) {
 
         this.camera = camera;
         this.previewDegree = previewDegree;
 
-        // Install a SurfaceHolder.Callback so we get notified when the
-        // underlying surface is created and destroyed.
-        surfaceHolder = getHolder();
-
-        surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
-
-        surfaceHolder.addCallback(this);
-        // deprecated setting, but required on Android versions prior to 3.0
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        // The Surface has been created, now tell the camera where to draw the preview.
+    public void onSurfaceTextureAvailable(final SurfaceTexture surface, int width, int height) {
+
         try {
-            camera.setPreviewDisplay(holder);
+            camera.setPreviewTexture(surface);
             camera.setDisplayOrientation(previewDegree);
             camera.startPreview();
             camera.cancelAutoFocus();
         }
         catch (IOException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
+
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        // empty. Take care of releasing the Camera preview in your activity.
-    }
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        // If your preview can change or rotate, take care of those events here.
-        // Make sure to stop the preview before resizing or reformatting it.
-
-        if (surfaceHolder.getSurface() == null){
+        if (surface == null){
             // preview surface does not exist
             return;
         }
@@ -78,21 +51,29 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // stop preview before making changes
         try {
             camera.stopPreview();
-        } catch (Exception e){
+        }
+        catch (Exception e){
             // ignore: tried to stop a non-existent preview
         }
 
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
         // start preview with new settings
         try {
-            camera.setPreviewDisplay(surfaceHolder);
+            camera.setPreviewTexture(surface);
             camera.startPreview();
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        return false;
+    }
+
+    @Override
+    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+
     }
 
 }

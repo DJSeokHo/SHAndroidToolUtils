@@ -221,7 +221,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"/>
     </application>
 
 </manifest>
