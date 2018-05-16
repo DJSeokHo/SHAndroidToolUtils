@@ -66,7 +66,7 @@ public class CameraOneFragment extends Fragment {
         buttonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cameraController.checkAngle(true);
+                cameraController.checkAngle(false);
             }
         });
     }

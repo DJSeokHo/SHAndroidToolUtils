@@ -64,9 +64,7 @@ public class CameraController {
             }
         });
 
-
         takePicture(withFinish, isLandscape);
-
     }
 
     private void takePicture(final boolean withFinish, final boolean isLandscape) {
