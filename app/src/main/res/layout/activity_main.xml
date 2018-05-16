@@ -11,6 +11,13 @@
     tools:context="com.swein.shandroidtoolutils.MainActivity"
     android:gravity="center">
 
+    <Button
+        android:background="@color/transparent"
+        android:text="camera"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_camera"/>
 
     <ImageView
         android:layout_margin="5dp"

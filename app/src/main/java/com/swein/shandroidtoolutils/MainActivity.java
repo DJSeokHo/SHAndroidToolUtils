@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
+import com.swein.framework.module.camera.custom.camera1.preview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
     private ImageView imageViewMain2;
 
     private Button buttonCamera;
+
+    private RelativeLayout relativeLayoutFakeCameraOnePreview;
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
@@ -68,8 +72,17 @@ public class MainActivity extends Activity {
             }
         });
 
+        relativeLayoutFakeCameraOnePreview = (RelativeLayout)findViewById(R.id.rl_fake);
+        relativeLayoutFakeCameraOnePreview.addView(new FakeCameraOnePreview(this));
 
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+        buttonCamera = (Button)findViewById(R.id.btn_camera);
+        buttonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+            }
+        });
+
 
 
 
