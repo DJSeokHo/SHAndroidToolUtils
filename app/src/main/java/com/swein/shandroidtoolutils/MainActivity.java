@@ -3,7 +3,6 @@ package com.swein.shandroidtoolutils;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -12,12 +11,15 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
+import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
@@ -37,6 +39,8 @@ public class MainActivity extends Activity {
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
 
+    private Button buttonCamera;
+
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
 
@@ -51,6 +55,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // full screen
         WindowUtil.fullScreen(this);
 
         DeviceInfoUtil.initDeviceScreenDisplayMetricsPixels(this);
@@ -61,6 +67,10 @@ public class MainActivity extends Activity {
                 checkAppInstallInfoJSONObject(getApplicationContext());
             }
         });
+
+
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+
 
 
 //                ActivityUtil.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
@@ -85,7 +95,10 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 
+
+
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
+
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
@@ -93,6 +106,8 @@ public class MainActivity extends Activity {
         else {
             //TODO
         }
+
+
 
         TestObject testObject = new TestObject();
         testObject.name = "haha";

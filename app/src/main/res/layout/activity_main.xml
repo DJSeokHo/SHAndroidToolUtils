@@ -11,6 +11,7 @@
     tools:context="com.swein.shandroidtoolutils.MainActivity"
     android:gravity="center">
 
+
     <ImageView
         android:layout_margin="5dp"
         android:id="@+id/imageViewMain1"
@@ -27,6 +28,10 @@
         android:background="@drawable/t5"
         />
 
+    <RelativeLayout
+        android:id="@+id/rl_fake"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
 
 </LinearLayout>

@@ -40,6 +40,7 @@ public class SensorUtil {
             }
         }, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
 
+
     }
 
 }
