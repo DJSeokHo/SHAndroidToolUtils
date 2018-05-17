@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.swein.framework.module.camera.custom.camera1.fragment.CameraOneFragment;
 import com.swein.framework.tools.util.activity.ActivityUtil;
-import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.device.DeviceUtil;
 import com.swein.shandroidtoolutils.R;
 
 /**
@@ -27,7 +27,7 @@ public class CameraOneActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_one);
 
-        if(!DeviceInfoUtil.hasCameraDevice(this)) {
+        if(!DeviceUtil.hasCameraDevice(this)) {
             return;
         }
 

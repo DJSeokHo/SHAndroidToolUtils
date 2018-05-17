@@ -1,18 +1,22 @@
 package com.swein.framework.module.camera.custom.camera1.fragment;
 
 
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.swein.framework.module.camera.custom.camera1.cameracontroller.CameraController;
+import com.swein.framework.module.camera.custom.camera1.cameracontroller.delegate.CameraControllerDelegate;
 import com.swein.framework.module.camera.custom.camera1.constants.CameraOneConstants;
 import com.swein.framework.module.camera.custom.camera1.preview.CameraOnePreview;
+import com.swein.framework.tools.util.device.DeviceUtil;
 import com.swein.framework.tools.window.WindowUtil;
 import com.swein.shandroidtoolutils.R;
 
@@ -25,6 +29,8 @@ public class CameraOneFragment extends Fragment {
 
     private FrameLayout frameLayout;
 
+    private ImageView imageViewImagePreview;
+
     private CameraOneConstants.CameraId cameraId = CameraOneConstants.CameraId.BACK;
 
     public CameraOneFragment() {
@@ -33,16 +39,17 @@ public class CameraOneFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        cameraController = new CameraController(getActivity());
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_camera_one, container, false);
+
+        cameraController = new CameraController(getActivity(), new CameraControllerDelegate() {
+            @Override
+            public void captureFinished(String path) {
+                imageViewImagePreview.setImageBitmap(BitmapFactory.decodeFile(path));
+            }
+        });
 
         findView();
 
@@ -53,22 +60,48 @@ public class CameraOneFragment extends Fragment {
     private void findView() {
 
         frameLayout = (FrameLayout) rootView.findViewById(R.id.fl_camera);
-        ImageButton buttonSwitchCamera = (ImageButton) rootView.findViewById(R.id.btn_switch_camera);
-        ImageButton buttonCapture = (ImageButton) rootView.findViewById(R.id.btn_capture);
+        imageViewImagePreview = (ImageView) rootView.findViewById(R.id.img_preview);
 
-        buttonSwitchCamera.setOnClickListener(new View.OnClickListener() {
+        ImageButton imageButtonSwitchCamera = (ImageButton) rootView.findViewById(R.id.img_btn_switch_camera);
+        ImageButton imageButtonCapture = (ImageButton) rootView.findViewById(R.id.img_btn_capture);
+        final ImageButton imageButtonFlashLight = (ImageButton) rootView.findViewById(R.id.img_btn_flash_light);
+
+        imageButtonSwitchCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchCamera();
             }
         });
 
-        buttonCapture.setOnClickListener(new View.OnClickListener() {
+        imageButtonCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cameraController.checkAngle(false);
             }
         });
+
+        imageButtonFlashLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    Camera camera = cameraController.getCamera();
+                    if(Camera.Parameters.FLASH_MODE_TORCH.equals(camera.getParameters().getFlashMode())) {
+                        DeviceUtil.turnOffFlashLight(camera);
+                        imageButtonFlashLight.setImageResource(R.drawable.flash_off);
+                    }
+                    else {
+                        DeviceUtil.turnOnFlashLight(camera);
+                        imageButtonFlashLight.setImageResource(R.drawable.flash_on);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
     private void switchCamera() {

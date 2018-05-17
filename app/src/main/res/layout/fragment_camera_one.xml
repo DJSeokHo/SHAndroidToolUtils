@@ -18,18 +18,33 @@
         android:background="@color/transparent"
         android:gravity="right">
         <ImageButton
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
             android:background="@color/transparent"
             android:src="@drawable/multiple_cameras"
-            android:id="@+id/btn_switch_camera"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/img_btn_switch_camera"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:gravity="center"
             android:scaleType="fitCenter"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:text="change camera"/>
+
+        <ImageButton
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/transparent"
+            android:src="@drawable/flash_off"
+            android:id="@+id/img_btn_flash_light"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:text="change camera"/>
+
     </LinearLayout>
 
     <ImageButton
@@ -37,7 +52,7 @@
         android:background="@color/transparent"
         android:layout_gravity="bottom|center_horizontal"
         android:src="@drawable/aperture"
-        android:id="@+id/btn_capture"
+        android:id="@+id/img_btn_capture"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -45,5 +60,12 @@
         android:textAllCaps="false"
         android:scaleType="fitCenter"
         android:text="capture"/>
+
+    <ImageView
+        android:id="@+id/img_preview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:background="@color/transparent"/>
 
 </FrameLayout>

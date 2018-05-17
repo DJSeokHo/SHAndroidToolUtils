@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
-import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -23,7 +22,6 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,14 +30,8 @@ import java.util.UUID;
 
 public class DeviceInfoUtil {
 
-    public static boolean hasCameraDevice(Context context) {
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
-    }
 
-    public static boolean isAutoFocusSupported(Camera.Parameters params) {
-        List<String> modes = params.getSupportedFocusModes();
-        return modes.contains(Camera.Parameters.FOCUS_MODE_AUTO);
-    }
+
 
     public static void callWithDialog(Context context, String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));

@@ -6,12 +6,15 @@ import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.os.Environment;
 
+import com.swein.framework.module.camera.custom.camera1.cameracontroller.delegate.CameraControllerDelegate;
 import com.swein.framework.tools.util.bitmaps.BitmapUtil;
-import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.device.DeviceUtil;
 import com.swein.framework.tools.util.sensor.SensorUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
 import java.util.List;
+
+
 
 public class CameraController {
 
@@ -20,14 +23,21 @@ public class CameraController {
 
     private boolean isLandscape = false;
 
-    public CameraController(Context context){
+    private CameraControllerDelegate cameraControllerDelegate;
+
+    public CameraController(Context context, CameraControllerDelegate cameraControllerDelegate){
         this.context = context;
+        this.cameraControllerDelegate = cameraControllerDelegate;
     }
 
     public void openCamera(int id) {
 
         try {
             camera = Camera.open(id);
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            camera.setParameters(parameters);
+            camera.cancelAutoFocus();
         }
         catch (Exception e) {
             camera = null;
@@ -81,9 +91,9 @@ public class CameraController {
 
         parameters.setPictureSize(sizeList.get(0).width,sizeList.get(0).height);
 
-        parameters.setFlashMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 
-        if(DeviceInfoUtil.isAutoFocusSupported(parameters)) {
+        if(DeviceUtil.isAutoFocusSupported(parameters)) {
             camera.autoFocus(new Camera.AutoFocusCallback() {
 
                 @Override
@@ -107,13 +117,20 @@ public class CameraController {
                 final String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + System.currentTimeMillis() + ".png";
                 BitmapUtil.saveBitmapToJpeg(BitmapUtil.getBitmapFromByte(data), path);
 
-
                 ThreadUtil.startThread(new Runnable() {
                     @Override
                     public void run() {
 
                         if(!isLandscape) {
                             BitmapUtil.rotateImage(path, 90);
+
+                            ThreadUtil.startUIThread(0, new Runnable() {
+                                @Override
+                                public void run() {
+                                    cameraControllerDelegate.captureFinished(path);
+                                }
+                            });
+
                         }
                     }
                 });
