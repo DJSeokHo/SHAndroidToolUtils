@@ -1,4 +1,4 @@
-package com.swein.framework.module.camera.custom.camera1.preview;
+package com.swein.framework.module.camera.custom.camera1.preview.surfaceview;
 
 import android.content.Context;
 import android.view.SurfaceHolder;

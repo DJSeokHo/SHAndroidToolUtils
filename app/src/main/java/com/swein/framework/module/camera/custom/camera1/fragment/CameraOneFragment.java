@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.swein.framework.module.camera.custom.camera1.cameracontroller.CameraController;
 import com.swein.framework.module.camera.custom.camera1.cameracontroller.delegate.CameraControllerDelegate;
 import com.swein.framework.module.camera.custom.camera1.constants.CameraOneConstants;
-import com.swein.framework.module.camera.custom.camera1.preview.CameraOnePreview;
+import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.CameraOnePreview;
 import com.swein.framework.tools.util.device.DeviceUtil;
 import com.swein.framework.tools.window.WindowUtil;
 import com.swein.shandroidtoolutils.R;

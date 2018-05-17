@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
-import com.swein.framework.module.camera.custom.camera1.preview.FakeCameraOnePreview;
+import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
