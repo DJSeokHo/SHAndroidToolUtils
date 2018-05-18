@@ -251,16 +251,6 @@ public class SHMDMFragment extends Fragment {
         });
     }
 
-    private void setTimerTask() {
-
-        timer = TimerUtil.createTimerTask(0, 1500, new Runnable() {
-            @Override
-            public void run() {
-                shmdmActionBarViewHolder.rotateUnderControlView();
-            }
-        });
-    }
-
     private void addDeviceManage() {
 
         progressBar.setVisibility(View.VISIBLE);
@@ -271,8 +261,19 @@ public class SHMDMFragment extends Fragment {
                 shmdmDeviceManager.activate();
             }
         });
-
     }
+
+    private void setTimerTask() {
+
+        timer = TimerUtil.createTimerTask(0, 1500, new Runnable() {
+            @Override
+            public void run() {
+                shmdmActionBarViewHolder.rotateUnderControlView();
+            }
+        });
+    }
+
+
 
     private void cancelTimerTask() {
         if(timer != null) {
