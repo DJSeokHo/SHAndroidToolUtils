@@ -6,13 +6,16 @@ import android.os.Bundle;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver;
 import com.swein.framework.module.mdmcustom.api.SHMDMDeviceManager;
-import com.swein.framework.tools.eventsplitshot.eventcenter.ESSCenter;
+import com.swein.framework.tools.eventsplitshot.eventcenter.EventCenter;
 import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.notification.NotificationUIUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
+
+import java.util.HashMap;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -22,6 +25,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        if(FirebaseCloudMessage.example) {
+
+            if (remoteMessage.getData().size() > 0) {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("onMessageReceived", remoteMessage.getData().toString());
+                EventCenter.getInstance().sendEvent(ESSArrows.ESS_UPDATE_UI, this, hashMap);
+            }
+            else {
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("onMessageReceived", "message data part is null");
+                EventCenter.getInstance().sendEvent(ESSArrows.ESS_UPDATE_UI, this, hashMap);
+            }
+
+            return;
+        }
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
@@ -45,7 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             shmdmDeviceManager.disableCamera();
-                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, null);
+                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, null);
                         }
                     });
 
@@ -57,7 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             shmdmDeviceManager.enableCamera();
-                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, null);
+                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, null);
                         }
                     });
 
@@ -69,7 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             shmdmDeviceManager.disableScreenCapture();
-                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, null);
+                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, null);
                         }
                     });
 
@@ -81,7 +100,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             shmdmDeviceManager.enableScreenCapture();
-                            ESSCenter.getInstance().sendEventMessage(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, null);
+                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, null);
                         }
                     });
 

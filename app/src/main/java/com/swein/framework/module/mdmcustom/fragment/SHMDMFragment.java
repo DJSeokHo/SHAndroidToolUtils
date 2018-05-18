@@ -15,13 +15,13 @@ import android.widget.TextView;
 
 import com.swein.framework.module.mdmcustom.actionbar.SHMDMActionBarViewHolder;
 import com.swein.framework.module.mdmcustom.api.SHMDMDeviceManager;
-import com.swein.framework.tools.eventsplitshot.eventcenter.ESSCenter;
-import com.swein.framework.tools.eventsplitshot.observer.runnable.IESSObserver;
+import com.swein.framework.tools.eventsplitshot.eventcenter.EventCenter;
 import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.timer.TimerUtil;
 import com.swein.shandroidtoolutils.R;
 
+import java.util.HashMap;
 import java.util.Timer;
 
 /**
@@ -91,10 +91,9 @@ public class SHMDMFragment extends Fragment {
 
     private void initEventObserver() {
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_MANAGER_USABLE, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_MANAGER_USABLE, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -105,11 +104,9 @@ public class SHMDMFragment extends Fragment {
             }
         });
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_MANAGER_DISABLE, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_MANAGER_DISABLE, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -120,10 +117,9 @@ public class SHMDMFragment extends Fragment {
             }
         });
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -133,10 +129,9 @@ public class SHMDMFragment extends Fragment {
             }
         });
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -146,10 +141,9 @@ public class SHMDMFragment extends Fragment {
             }
         });
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -159,10 +153,9 @@ public class SHMDMFragment extends Fragment {
             }
         });
 
-        ESSCenter.getInstance().addESSObserver(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, new IESSObserver() {
+        EventCenter.getInstance().addEventObserver(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, new EventCenter.EventRunnable() {
             @Override
-            public void shot(Object object, Object data) {
-
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
@@ -289,7 +282,7 @@ public class SHMDMFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        ESSCenter.getInstance().removeAllESSObserverInThis(this);
+        EventCenter.getInstance().removeAllObserver(this);
         cancelTimerTask();
         super.onDestroy();
     }

@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
 import com.swein.framework.tools.picasso.SHPicasso;
@@ -58,7 +59,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // full screen
         WindowUtil.fullScreen(this);
@@ -112,7 +112,6 @@ public class MainActivity extends Activity {
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
 
-
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
         }
@@ -147,7 +146,7 @@ public class MainActivity extends Activity {
 //        }
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 
