@@ -70,6 +70,13 @@ public class SHVolley {
         ) {
             @Override protected Map<String, String> getParams() throws AuthFailureError {
 
+                // if need, add this can get correct content response
+//                Map<String,String> params = new HashMap<>();
+//                params.put("Content-Type","application/json");
+//                params.put("Accept","application/json");
+//
+//                return params;
+
                 if(hashMap == null) {
                     return new HashMap<>();
                 }
