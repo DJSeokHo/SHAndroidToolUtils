@@ -20,10 +20,12 @@ public class StorageInfoData implements Parcelable {
     // usable size
     public long usableSize;
 
+    public String description;
+
 
     @Override
     public String toString() {
-        return "storage path = " + path + "\n" + "mounted? = " + mounted + "\n" + "removable? = " + removable + "\n" + "total size = " + totalSize + "\n" + "use able size = " + usableSize;
+        return "storage path = " + path + "\n" + "mounted? = " + mounted + "\n" + "removable? = " + removable + "\n" + "total size = " + totalSize + "\n" + "use able size = " + usableSize + "\n" + "description = " + description;
     }
 
     public StorageInfoData() {}

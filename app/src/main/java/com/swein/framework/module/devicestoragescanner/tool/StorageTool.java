@@ -5,11 +5,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.support.v4.os.EnvironmentCompat;
 
 import com.swein.framework.module.devicestoragescanner.constants.DSSConstants;
 import com.swein.framework.module.devicestoragescanner.data.StorageInfoData;
-import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -44,18 +44,18 @@ public class StorageTool {
             final Method getVolumeList = storageManager.getClass().getMethod(GET_VOLUME_LIST_METHOD);
 
             //get object of StorageVolume class
-            final Class<?> storageValumeClazz = Class.forName(GET_STORAGE_VOLUME_METHOD);
+            final Class<?> storageVolumeClazz = Class.forName(GET_STORAGE_VOLUME_METHOD);
 
             //get some method from StorageVolume
-            final Method getPath = storageValumeClazz.getMethod(GET_GET_PATH_METHOD);
-            Method isRemovable = storageValumeClazz.getMethod(GET_IS_REMOVEABLE_METHOD);
+            final Method getPath = storageVolumeClazz.getMethod(GET_GET_PATH_METHOD);
+            Method isRemovable = storageVolumeClazz.getMethod(GET_IS_REMOVEABLE_METHOD);
 
             Method getState = null;
 
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 
                 try {
-                    getState = storageValumeClazz.getMethod(GET_GET_STATE_METHOD);
+                    getState = storageVolumeClazz.getMethod(GET_GET_STATE_METHOD);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -69,14 +69,12 @@ public class StorageTool {
              */
             final Object invokeVolumeList = getVolumeList.invoke(storageManager);
 
-
             final int length = Array.getLength(invokeVolumeList);
 
             ArrayList<StorageInfoData> list = new ArrayList<>();
 
             for (int i = 0; i < length; i++) {
-
-                Object storageVolume = Array.get(invokeVolumeList, i);//得到StorageVolume对象
+                Object storageVolume = Array.get(invokeVolumeList, i);
                 String path = (String) getPath.invoke(storageVolume);
                 boolean removable = (Boolean) isRemovable.invoke(storageVolume);
 
@@ -105,7 +103,6 @@ public class StorageTool {
                             state = Environment.MEDIA_MOUNTED;
                         }
 
-                        ILog.iLogDebug(TAG, "externalStorageDirectory is " + Environment.getExternalStorageDirectory());
                     }
                 }
 
@@ -117,12 +114,6 @@ public class StorageTool {
                     usableSize = getUsableSize(path);
                 }
 
-                ILog.iLogDebug(TAG, "path==" + path
-                        + " ,removable==" + removable
-                        + ",state==" + state
-                        + ",total size==" + totalSize + "(" + calculateSpace(totalSize) + ")"
-                        + ",usableSize size==" + usableSize + "(" + calculateSpace(usableSize) + ")");
-
                 StorageInfoData storageInfoData = new StorageInfoData();
                 storageInfoData.usableSize = usableSize;
                 storageInfoData.totalSize = totalSize;
@@ -132,6 +123,14 @@ public class StorageTool {
 
                 list.add(storageInfoData);
             }
+
+
+            StorageVolume[] volumes = (StorageVolume[]) invokeVolumeList;
+            for (int i = 0; i < volumes.length; i++) {
+                list.get(i).description = volumes[i].toString();
+            }
+
+
             return list;
 
         }
