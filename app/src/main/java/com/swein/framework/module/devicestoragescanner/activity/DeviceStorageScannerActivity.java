@@ -42,7 +42,7 @@ public class DeviceStorageScannerActivity extends Activity {
 //                if (file.exists()) {
 //                    Uri uri = Uri.parse(testFilePath);
 //                    intent.setDataAndType(uri, "text/plain");
-//                    startActivity(Intent.createChooser(intent, "建议使用系统自带文件浏览器"));
+//                    startActivity(Intent.createChooser(intent, "use system explorer"));
 //                } else {
 //                    writeStringToFile(testFilePath, file);
 //                }
