@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </ScrollView>
+
 </FrameLayout>

@@ -4,13 +4,11 @@ import android.os.Environment;
 
 import com.swein.data.global.symbol.Symbol;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,13 +35,19 @@ public class FileStorageUtil {
     }
 
     public static void deleteDirWithFile(File dir) {
-        if (dir == null || !dir.exists() || !dir.isDirectory())
+
+        if (dir == null || !dir.exists() || !dir.isDirectory()) {
             return;
+        }
+
         for (File file : dir.listFiles()) {
-            if (file.isFile())
+
+            if (file.isFile()) {
                 file.delete();
-            else if (file.isDirectory())
+            }
+            else if (file.isDirectory()) {
                 deleteDirWithFile(file);
+            }
         }
         dir.delete();
     }
@@ -67,9 +71,11 @@ public class FileStorageUtil {
             File file = new File(filePath + fileName);
 
             if(!file.exists()) {
+
                 try {
                     file.createNewFile();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -80,9 +86,8 @@ public class FileStorageUtil {
                 randomAccessFile.seek(file.length());
                 randomAccessFile.write(content.getBytes());
                 randomAccessFile.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -95,9 +100,11 @@ public class FileStorageUtil {
             File file = new File(filePath + fileName);
 
             if(!file.exists()) {
+
                 try {
                     file.createNewFile();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -106,9 +113,8 @@ public class FileStorageUtil {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(content.getBytes());
                 fileOutputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -123,7 +129,8 @@ public class FileStorageUtil {
             if(!file.exists()) {
                 try {
                     file.createNewFile();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -132,9 +139,8 @@ public class FileStorageUtil {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(jsonObject.toString().getBytes("UTF-8"));
                 fileOutputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -142,10 +148,11 @@ public class FileStorageUtil {
 
     public static String readExternalStorageDirectoryFile(String filePath, String fileName) {
 
-
         FileInputStream fileInputStream;
         StringBuilder stringBuilder = new StringBuilder(Symbol.NULL_STRING);
+
         try {
+
             fileInputStream = new FileInputStream(filePath + fileName);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
@@ -155,7 +162,8 @@ public class FileStorageUtil {
             }
 
             bufferedReader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -186,13 +194,8 @@ public class FileStorageUtil {
 
             jsonObject = new JSONObject(stringBuilder.toString());
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
-        catch ( JSONException e ) {
-            e.printStackTrace();
-        }
-        catch ( IOException e ) {
+        catch (Exception e) {
             e.printStackTrace();
         }
 

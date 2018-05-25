@@ -2,10 +2,10 @@ package com.swein.framework.module.devicestoragescanner.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.swein.framework.module.devicestoragescanner.data.StorageInfoData;
 import com.swein.framework.module.devicestoragescanner.tool.StorageTool;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
@@ -19,16 +19,25 @@ public class DeviceStorageScannerActivity extends Activity {
 
     private final static String TAG = "DeviceStorageScannerActivity";
 
+    private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_storage_scanner);
 
+        textView = (TextView) findViewById(R.id.textView);
+
         ArrayList<StorageInfoData> storageData = StorageTool.getStorageData(this);
 
+        StringBuffer stringBuffer = new StringBuffer();
+
         for(int i = 0; i < storageData.size(); i++) {
-            ILog.iLogDebug(TAG, storageData.get(i).toString());
+            stringBuffer.append(storageData.get(i).toString());
+            stringBuffer.append("\n\n");
         }
+
+        textView.setText(stringBuffer.toString());
     }
 
 //
