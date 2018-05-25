@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DeviceUtil {
 
+
     /*
         device camera start
      */

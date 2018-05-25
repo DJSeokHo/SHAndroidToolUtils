@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity;
 import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.tools.location.SHLocation;
@@ -84,13 +85,11 @@ public class MainActivity extends Activity {
         });
 
 
-
-
-//                ActivityUtil.startNewActivityWithoutFinish( this, DelegateExampleActivity.class );
-        //        ActivityUtil.startNewActivityWithoutFinish( this, VideoViewActivity.class );
-//                ActivityUtil.startNewActivityWithoutFinish( this, RecyclerViewListActivity.class );
-//                ActivityUtil.startNewActivityWithoutFinish( this, EspressoTestExampleActivity.class );
-//                ActivityUtil.startNewActivityWithoutFinish( this, TabHostActivity.class );
+//                ActivityUtil.startNewActivityWithoutFinish(this, DelegateExampleActivity.class);
+        //        ActivityUtil.startNewActivityWithoutFinish(this, VideoViewActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(this, RecyclerViewListActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(this, EspressoTestExampleActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(this, TabHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, BlockGameTZFEActivity.class);
@@ -319,6 +318,9 @@ public class MainActivity extends Activity {
         //        catch ( Exception e ) {
         //            e.printStackTrace();
         //        }
+
+
+        ActivityUtil.startNewActivityWithoutFinish(this, DeviceStorageScannerActivity.class);
 
     }
 

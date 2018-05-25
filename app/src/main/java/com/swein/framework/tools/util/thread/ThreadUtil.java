@@ -14,15 +14,15 @@ import java.util.concurrent.Future;
 public class ThreadUtil {
 
     //fixed number thread pool, can reuse
-    static private ExecutorService executor           = Executors.newFixedThreadPool( Runtime.getRuntime().availableProcessors() );
+    static private ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     //only one thread can run at one time
     static private ExecutorService executorSequential = Executors.newSingleThreadExecutor();
 
     public static void createThreadWithoutUI(final Runnable runnable) {
 
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
 
                 runnable.run();
 
@@ -34,10 +34,10 @@ public class ThreadUtil {
 
         final Handler handle = new Handler(Looper.getMainLooper());
 
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
 
-                handle.postDelayed(runnable , delayMillis);
+                handle.postDelayed(runnable, delayMillis);
 
             }
         }.start();
@@ -45,33 +45,32 @@ public class ThreadUtil {
 
     @Override
     protected void finalize() throws Throwable {
-        if ( executor != null && executor.isShutdown() ) {
+        if (executor != null && executor.isShutdown()) {
             executor.shutdown();
         }
-        if ( executorSequential != null && executorSequential.isShutdown() ) {
+        if (executorSequential != null && executorSequential.isShutdown()) {
             executorSequential.shutdown();
         }
         super.finalize();
     }
 
 
-    private static Handler handle = new Handler( Looper.getMainLooper() );
+    private static Handler handle = new Handler(Looper.getMainLooper());
 
-    public static Handler startUIThread( int delayMillis, Runnable runnable ) {
+    public static Handler startUIThread(int delayMillis, Runnable runnable) {
 
-        handle.postDelayed( runnable, delayMillis );
+        handle.postDelayed(runnable, delayMillis);
 
         return handle;
     }
 
-    public static Future< ? > startThread( final Runnable runnable ) {
-        Future< ? > future = executor.submit( new Runnable() {
+    public static Future<?> startThread(final Runnable runnable) {
+        Future<?> future = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     runnable.run();
-                }
-                catch ( Exception exception ) {
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             }
@@ -99,14 +98,13 @@ public class ThreadUtil {
     //        return executorSequential.submit( r );
     //    }
 
-    public static Future< ? > startSeqThread( final Runnable runnable ) {
-        Future< ? > future = executor.submit( new Runnable() {
+    public static Future<?> startSeqThread(final Runnable runnable) {
+        Future<?> future = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     runnable.run();
-                }
-                catch ( Exception exception ) {
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             }

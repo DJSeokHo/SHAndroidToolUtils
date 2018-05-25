@@ -226,6 +226,7 @@
         <activity
             android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity"></activity>
     </application>
 
 </manifest>
