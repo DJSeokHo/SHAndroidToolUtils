@@ -20,6 +20,7 @@ public class StorageInfoData implements Parcelable {
     // usable size
     public long usableSize;
 
+    // storage information
     public String description;
 
 

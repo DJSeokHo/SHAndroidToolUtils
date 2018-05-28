@@ -208,20 +208,20 @@ public class StorageTool {
             return "0";
         }
 
-        double gbValue = (double) space / DSSConstants.A_GB;
+        double gbValue = (double) space / DSSConstants.SH_GB;
 
         if (gbValue >= 1) {
             return String.format("%.2fGB", gbValue);
         }
         else {
 
-            double mbValue = (double) space / DSSConstants.A_MB;
+            double mbValue = (double) space / DSSConstants.SH_MB;
 
             if (mbValue >= 1) {
                 return String.format("%.2fMB", mbValue);
             }
             else {
-                return String.format("%.2fKB", (double) space / DSSConstants.A_KB);
+                return String.format("%.2fKB", (double) space / DSSConstants.SH_KB);
             }
         }
     }
