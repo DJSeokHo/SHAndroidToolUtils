@@ -43,6 +43,7 @@ public class StorageInfoData implements Parcelable {
         dest.writeByte(removable ? (byte) 1 : (byte) 0);
         dest.writeLong(totalSize);
         dest.writeLong(usableSize);
+        dest.writeString(description);
     }
 
     private StorageInfoData(Parcel in) {
@@ -51,6 +52,7 @@ public class StorageInfoData implements Parcelable {
         this.removable = in.readByte() != 0;
         this.totalSize = in.readLong();
         this.usableSize = in.readLong();
+        this.description = in.readString();
     }
 
     // package able storage data info
