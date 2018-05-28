@@ -28,6 +28,7 @@ import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
+import com.swein.framework.tools.util.thread.AsyncUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.volley.SHVolley;
@@ -322,6 +323,26 @@ public class MainActivity extends Activity {
 
         ActivityUtil.startNewActivityWithoutFinish(this, DeviceStorageScannerActivity.class);
 
+
+        AsyncUtil.getInstance().run(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for(int i = 0; i < 5; i++) {
+                        ILog.iLogDebug("???", i);
+                        Thread.sleep(1000);
+                    }
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showShortToastNormal(MainActivity.this, "hahaha");
+            }
+        });
     }
 
 

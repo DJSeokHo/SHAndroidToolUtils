@@ -11,7 +11,7 @@ import com.swein.shandroidtoolutils.R;
 import java.util.ArrayList;
 
 /**
- * document:
+ * document reference:
  * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4_r1/android/os/Environment.java
  * https://github.com/android/platform_packages_apps_settings/tree/master/src/com/android/settings
  */
