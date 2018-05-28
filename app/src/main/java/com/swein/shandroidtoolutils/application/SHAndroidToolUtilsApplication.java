@@ -15,9 +15,14 @@ import static com.swein.framework.module.googleanalytics.manager.TrackerManager.
 
 public class SHAndroidToolUtilsApplication extends Application {
 
+    //app context
+    private static SHAndroidToolUtilsApplication app;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        app = this;
 
         initGoogleAnalyticsTracker(getApplicationContext());
 
@@ -53,6 +58,13 @@ public class SHAndroidToolUtilsApplication extends Application {
 //            e.printStackTrace();
 //        }
 
+    }
+
+    /**
+     * @return app context
+     */
+    public static SHAndroidToolUtilsApplication getApp() {
+        return app;
     }
 
     @Override
