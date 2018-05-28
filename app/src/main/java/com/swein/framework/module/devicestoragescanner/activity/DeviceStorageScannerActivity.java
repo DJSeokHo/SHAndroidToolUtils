@@ -40,7 +40,7 @@ public class DeviceStorageScannerActivity extends Activity {
         textView.setText(stringBuffer.toString());
     }
 
-//
+
 //    @Override
 //    public void onOpenExplorer(String url) {
 //        try {
