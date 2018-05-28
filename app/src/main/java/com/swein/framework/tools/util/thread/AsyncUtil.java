@@ -13,10 +13,10 @@ public class AsyncUtil {
 
     private AsyncUtil(){}
 
-    private SHAsyncTask shAsyncTask;
+    private SHAsyncTask shAsyncTask = new SHAsyncTask();
 
     public void run(Runnable back, Runnable updateUI) {
-        shAsyncTask = new SHAsyncTask(back, updateUI);
+        shAsyncTask.setBackAndUpdateUI(back, updateUI);
         shAsyncTask.execute();
     }
 
@@ -26,7 +26,7 @@ public class AsyncUtil {
         private Runnable back;
         private Runnable updateUI;
 
-        SHAsyncTask(Runnable back, Runnable updateUI) {
+        public void setBackAndUpdateUI(Runnable back, Runnable updateUI) {
             this.back = back;
             this.updateUI = updateUI;
         }
@@ -49,8 +49,16 @@ public class AsyncUtil {
 
         @Override
         protected void onPostExecute(Void result) {
+
             updateUI.run();
-            shAsyncTask = null;
+
+            if(back != null) {
+                back = null;
+            }
+
+            if(updateUI != null) {
+                updateUI = null;
+            }
         }
     }
 
