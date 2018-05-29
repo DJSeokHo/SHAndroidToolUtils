@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class StorageTool {
 
-    private static final String TAG = "StorageTool";
     private static final String GET_VOLUME_LIST_METHOD = "getVolumeList";
     private static final String GET_STORAGE_VOLUME_METHOD = "android.os.storage.StorageVolume";
     private static final String GET_GET_PATH_METHOD = "getPath";
@@ -102,7 +101,6 @@ public class StorageTool {
                             // storage that can not be removed
                             state = Environment.MEDIA_MOUNTED;
                         }
-
                     }
                 }
 
@@ -119,6 +117,7 @@ public class StorageTool {
                 storageInfoData.totalSize = totalSize;
                 storageInfoData.mounted = state;
                 storageInfoData.path = path;
+                storageInfoData.name = path.replace("/storage/", "");
                 storageInfoData.removable = removable;
 
                 list.add(storageInfoData);
@@ -126,10 +125,59 @@ public class StorageTool {
 
 
             StorageVolume[] volumes = (StorageVolume[]) invokeVolumeList;
-            for (int i = 0; i < volumes.length; i++) {
-                list.get(i).description = volumes[i].toString();
-            }
 
+            for (int i = 0; i < volumes.length; i++) {
+
+                list.get(i).description = volumes[i].toString();
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                    if(volumes[i].toString().toLowerCase().contains("sd")) {
+                        list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
+                    }
+                    else if(volumes[i].toString().toLowerCase().contains("usb")) {
+                        list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
+                    }
+                    else {
+                        list.get(i).type = DSSConstants.STORAGE_TYPE.LOCAL;
+                    }
+                }
+                else {
+                    String[] attr = volumes[i].toString().split(" ");
+
+                    for(int j = 0; j < attr.length; j++) {
+                        if(attr[j].contains(DSSConstants.SUB_SYSTEM_KEY)) {
+                            String system = attr[j].replace(DSSConstants.SUB_SYSTEM_KEY + "=", "");
+                            if(system.toLowerCase().trim().equals("sd")) {
+                                list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
+                            }
+                            else if(system.toLowerCase().trim().equals("usb")) {
+                                list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
+                            }
+                            else {
+                                list.get(i).type = DSSConstants.STORAGE_TYPE.LOCAL;
+                            }
+                        }
+                        // for LG phone
+                        else if(attr[j].contains("mDescription")) {
+                            String system = attr[j].replace("mDescription=", "");
+                            if(system.toLowerCase().contains("sd")) {
+                                list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
+                            }
+
+                            if(system.toLowerCase().contains("usb")) {
+                                list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
+                            }
+                        }
+
+                        // for android 5.0
+                        if(attr[j].contains("mUuid") && !attr[j].contains("null")) {
+                            list.get(i).name = attr[j].replace("mUuid=", "");
+                        }
+                    }
+                }
+
+            }
 
             return list;
 

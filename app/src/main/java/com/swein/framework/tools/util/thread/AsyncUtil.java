@@ -3,9 +3,6 @@ package com.swein.framework.tools.util.thread;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class AsyncUtil {
 
     private static AsyncUtil instance = new AsyncUtil();
@@ -16,12 +13,11 @@ public class AsyncUtil {
 
     private AsyncUtil(){}
 
-    private SHAsyncTask shAsyncTask = new SHAsyncTask();
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-
     public void run(Runnable back, Runnable updateUI) {
+
+        SHAsyncTask shAsyncTask = new SHAsyncTask();
         shAsyncTask.setBackAndUpdateUI(back, updateUI);
-        shAsyncTask.executeOnExecutor(executorService);
+        shAsyncTask.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
