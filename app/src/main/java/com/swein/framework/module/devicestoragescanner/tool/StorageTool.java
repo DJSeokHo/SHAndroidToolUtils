@@ -132,10 +132,10 @@ public class StorageTool {
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                    if(volumes[i].toString().toLowerCase().contains("sd")) {
+                    if(volumes[i].toString().toLowerCase().contains(DSSConstants.SD_CARD_KEY)) {
                         list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
                     }
-                    else if(volumes[i].toString().toLowerCase().contains("usb")) {
+                    else if(volumes[i].toString().toLowerCase().contains(DSSConstants.USB_KEY)) {
                         list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
                     }
                     else {
@@ -148,10 +148,10 @@ public class StorageTool {
                     for(int j = 0; j < attr.length; j++) {
                         if(attr[j].contains(DSSConstants.SUB_SYSTEM_KEY)) {
                             String system = attr[j].replace(DSSConstants.SUB_SYSTEM_KEY + "=", "");
-                            if(system.toLowerCase().trim().equals("sd")) {
+                            if(system.toLowerCase().trim().equals(DSSConstants.SD_CARD_KEY)) {
                                 list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
                             }
-                            else if(system.toLowerCase().trim().equals("usb")) {
+                            else if(system.toLowerCase().trim().equals(DSSConstants.USB_KEY)) {
                                 list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
                             }
                             else {
@@ -161,11 +161,11 @@ public class StorageTool {
                         // for LG phone
                         else if(attr[j].contains("mDescription")) {
                             String system = attr[j].replace("mDescription=", "");
-                            if(system.toLowerCase().contains("sd")) {
+                            if(system.toLowerCase().contains(DSSConstants.SD_CARD_KEY)) {
                                 list.get(i).type = DSSConstants.STORAGE_TYPE.SD_CARD;
                             }
 
-                            if(system.toLowerCase().contains("usb")) {
+                            if(system.toLowerCase().contains(DSSConstants.USB_KEY)) {
                                 list.get(i).type = DSSConstants.STORAGE_TYPE.USB;
                             }
                         }
@@ -176,7 +176,6 @@ public class StorageTool {
                         }
                     }
                 }
-
             }
 
             return list;
