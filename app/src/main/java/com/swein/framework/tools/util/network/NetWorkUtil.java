@@ -2,7 +2,9 @@ package com.swein.framework.tools.util.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.DhcpInfo;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
 /**
@@ -123,6 +125,17 @@ public class NetWorkUtil {
         return netType;
     }
 
+    /**
+     * current wifi ip address that connect with
+     * @param context
+     * @return
+     */
+    public static String getGatewayIpAddress(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        DhcpInfo dhcp = wifiManager.getDhcpInfo();
+        int ip = dhcp.gateway;
+        return intIPtOStringIP(ip);
+    }
 
     public static String intIPtOStringIP(int ip) {
         return (ip & 0xFF) + "." +

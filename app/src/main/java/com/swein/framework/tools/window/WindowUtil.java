@@ -25,8 +25,11 @@ public class WindowUtil {
      *
      * put this before setContentView of Activity
      *
+     * without flash actionbar
+     *
      * @param activity
      */
+
     public static void hideTitleBarWithFullScreen(Activity activity) {
         // hide title bar
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
