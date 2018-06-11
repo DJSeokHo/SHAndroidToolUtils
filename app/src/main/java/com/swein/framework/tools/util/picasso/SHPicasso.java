@@ -1,4 +1,4 @@
-package com.swein.framework.tools.picasso;
+package com.swein.framework.tools.util.picasso;
 
 import android.content.Context;
 import android.widget.ImageView;

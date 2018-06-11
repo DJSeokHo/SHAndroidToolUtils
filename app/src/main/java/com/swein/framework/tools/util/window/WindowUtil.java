@@ -1,4 +1,4 @@
-package com.swein.framework.tools.window;
+package com.swein.framework.tools.util.window;
 
 import android.app.Activity;
 import android.os.Build;

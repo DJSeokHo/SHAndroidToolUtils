@@ -1,4 +1,4 @@
-package com.swein.framework.tools.eventsplitshot.eventcenter;
+package com.swein.framework.tools.util.eventsplitshot.eventcenter;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.swein.framework.tools.eventsplitshot.subject;
+package com.swein.framework.tools.util.eventsplitshot.subject;
 
 
 /**

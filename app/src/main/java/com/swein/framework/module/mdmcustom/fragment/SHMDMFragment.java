@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.swein.framework.module.mdmcustom.actionbar.SHMDMActionBarViewHolder;
 import com.swein.framework.module.mdmcustom.api.SHMDMDeviceManager;
-import com.swein.framework.tools.eventsplitshot.eventcenter.EventCenter;
-import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
+import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
+import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.timer.TimerUtil;
 import com.swein.shandroidtoolutils.R;

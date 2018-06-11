@@ -17,7 +17,7 @@ import com.swein.framework.module.camera.custom.camera1.cameracontroller.delegat
 import com.swein.framework.module.camera.custom.camera1.constants.CameraOneConstants;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.CameraOnePreview;
 import com.swein.framework.tools.util.device.DeviceUtil;
-import com.swein.framework.tools.window.WindowUtil;
+import com.swein.framework.tools.util.window.WindowUtil;
 import com.swein.shandroidtoolutils.R;
 
 

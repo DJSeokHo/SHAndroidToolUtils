@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.swein.framework.tools.picasso.SHPicasso;
+import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.shandroidtoolutils.R;
 
 

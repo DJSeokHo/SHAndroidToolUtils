@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.swein.framework.tools.eventsplitshot.eventcenter.EventCenter;
-import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
+import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
+import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.shandroidtoolutils.R;

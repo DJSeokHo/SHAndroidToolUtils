@@ -1,14 +1,24 @@
 package com.swein.framework.module.devicestoragescanner.activity;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.swein.framework.module.devicestoragescanner.data.StorageInfoData;
 import com.swein.framework.module.devicestoragescanner.tool.StorageTool;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * document reference:
@@ -21,14 +31,76 @@ public class DeviceStorageScannerActivity extends Activity {
 
     private TextView textView;
 
+    UsbManager mUsbManager = null;
+    IntentFilter filterAttached_and_Detached = null;
+
+    private static final String ACTION_USB_PERMISSION = "tw.g35gtwcms.android.test.list_usb_otg.USB_PERMISSION";
+
+    private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
+
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getAction();
+            if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+                synchronized (this) {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+                    if(device != null){
+                        //
+                        ILog.iLogDebug(TAG,"DEATTCHED-" + device);
+                    }
+                }
+            }
+
+            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+                synchronized (this) {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+
+                        if(device != null){
+
+                            ILog.iLogDebug(TAG,"ATTACHED-" + device);
+                        }
+                    }
+                    else {
+                        PendingIntent mPermissionIntent;
+                        mPermissionIntent = PendingIntent.getBroadcast(DeviceStorageScannerActivity.this, 0, new Intent(ACTION_USB_PERMISSION), PendingIntent.FLAG_ONE_SHOT);
+                        mUsbManager.requestPermission(device, mPermissionIntent);
+
+                    }
+
+                }
+            }
+
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+
+                        if(device != null){
+                            //
+                            ILog.iLogDebug(TAG,"PERMISSION-" + device);
+                        }
+                    }
+
+                }
+            }
+
+        }
+    };
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_storage_scanner);
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
 
-        ArrayList<StorageInfoData> storageData = StorageTool.getStorageData(this);
+        ArrayList<StorageInfoData> storageData = new ArrayList<>();
+        storageData.addAll(StorageTool.getStorageData(this));
+        storageData.addAll(StorageTool.getStorageInfoListThatCannotBeFoundByStorageManager(this));
 
         StringBuffer stringBuffer = new StringBuffer();
 
@@ -38,103 +110,32 @@ public class DeviceStorageScannerActivity extends Activity {
         }
 
         textView.setText(stringBuffer.toString());
+
+        mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        //
+        filterAttached_and_Detached = new IntentFilter(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
+        filterAttached_and_Detached.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        filterAttached_and_Detached.addAction(ACTION_USB_PERMISSION);
+        //
+        registerReceiver(mUsbReceiver, filterAttached_and_Detached);
+        //
+
+        HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
+        ILog.iLogDebug(TAG, deviceList.size() + " USB device(s) found");
+        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+
+        while(deviceIterator.hasNext()){
+            UsbDevice device = deviceIterator.next();
+            ILog.iLogDebug(TAG,"" + device);
+        }
+
+
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mUsbReceiver);
+        super.onDestroy();
+    }
 
-//    @Override
-//    public void onOpenExplorer(String url) {
-//        try {
-//            if (!TextUtils.isEmpty(url)) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                final String testFilePath = getTestDataPath(url);
-//                final File file = new File(testFilePath);
-//                if (file.exists()) {
-//                    Uri uri = Uri.parse(testFilePath);
-//                    intent.setDataAndType(uri, "text/plain");
-//                    startActivity(Intent.createChooser(intent, "use system explorer"));
-//                } else {
-//                    writeStringToFile(testFilePath, file);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void onWriteTest(String url) {
-//        String filePath = getTestDataPath(url);
-//        final File testFile = new File(filePath);
-//        writeStringToFile(filePath, testFile);
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.KITKAT)
-//    private void getFilesDirs() {
-//        try {
-//            final File[] dirs = getExternalFilesDirs(null);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void writeStringToFile(String filePath, File testFile) {
-//        FileOutputStream fileOutputStream = null;
-//        try {
-//            if (!testFile.exists()) {
-//                final boolean createSuccess = testFile.createNewFile();
-//                final String notice = createSuccess ? "create " + filePath + "success!" : "create" + filePath + "failed!";
-//                showSnack(notice);
-//
-//                if (createSuccess) {
-//                    fileOutputStream = new FileOutputStream(testFile);
-//                    fileOutputStream.write("test test ".getBytes());
-//                }
-//            } else {
-//                fileOutputStream = new FileOutputStream(testFile, true);
-//                fileOutputStream.write("+1".getBytes());
-//                showSnack("add success");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            showSnack(e.getMessage());
-//        } finally {
-//            if (fileOutputStream != null) {
-//                try {
-//                    fileOutputStream.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-//
-//    @NonNull
-//    private String getTestDataPath(String url) {
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            getFilesDirs();
-//        }
-//        final String dir = url + "/Android/data/" + getPackageName() + "/";
-//        final File file = new File(dir);
-//        if (!file.exists()) {
-//            file.mkdirs();
-//        }
-//        return dir + "test.txt";
-//    }
-//
-//    private void showSnack(String notice) {
-//        if (notice != null) {
-//            Snackbar.make(mRecyclerView, notice, Snackbar.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    @Override
-//    public void onDeleteTest(String url) {
-//        final File testFilePath = new File(getTestDataPath(url));
-//        if (testFilePath.exists()) {
-//            final boolean delete = testFilePath.delete();
-//            showSnack(delete ? "delete success！" : "delete failed");
-//        } else {
-//            showSnack(getTestDataPath(url) + " file not exists！");
-//        }
-//    }
 }

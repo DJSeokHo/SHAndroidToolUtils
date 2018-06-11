@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.UUID;
 
+/**
+ * uuid of current device
+ */
 public class Installation {
 
     private static String sID = null;

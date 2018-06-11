@@ -14,7 +14,7 @@ import com.swein.framework.module.dragmenu.view.holder.actionbar.method.ActionBa
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.DragMenuViewHolder;
 import com.swein.framework.module.dragmenu.view.holder.dragmenu.method.DragMenuViewHolderMethod;
 import com.swein.framework.tools.util.activity.ActivityUtil;
-import com.swein.framework.tools.window.WindowUtil;
+import com.swein.framework.tools.util.window.WindowUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class DMMainActivity extends FragmentActivity implements DMMainActivityMethod {

@@ -21,20 +21,23 @@ import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.Fake
 import com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity;
 import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.tools.location.SHLocation;
-import com.swein.framework.tools.picasso.SHPicasso;
+import com.swein.framework.module.sqlite.SHSQLiteController;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.location.SHLocation;
+import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.thread.AsyncUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
-import com.swein.framework.tools.volley.SHVolley;
-import com.swein.framework.tools.window.WindowUtil;
+import com.swein.framework.tools.util.volley.SHVolley;
+import com.swein.framework.tools.util.window.WindowUtil;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -343,6 +346,38 @@ public class MainActivity extends Activity {
                 ToastUtil.showShortToastNormal(MainActivity.this, "hahaha");
             }
         });
+
+
+
+        ThreadUtil.startThread(new Runnable() {
+
+            @Override
+            public void run() {
+                SHSQLiteController shsqLiteController = new SHSQLiteController(getApplicationContext());
+
+                for(int i = 0; i < 20; i++) {
+                    shsqLiteController.insert(UUID.randomUUID().toString(), String.valueOf(i));
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                List<SHSQLiteController.DataModel> list = shsqLiteController.getAllData();
+                for(SHSQLiteController.DataModel dataModel : list) {
+                    ILog.iLogDebug("db", dataModel.toString());
+                }
+
+                shsqLiteController.deleteDatabase();
+
+                List<SHSQLiteController.DataModel> list1 = shsqLiteController.getAllData();
+                for(SHSQLiteController.DataModel dataModel : list1) {
+                    ILog.iLogDebug("db", dataModel.toString());
+                }
+            }
+        });
+
     }
 
 

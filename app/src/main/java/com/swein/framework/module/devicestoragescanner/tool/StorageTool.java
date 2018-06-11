@@ -1,6 +1,8 @@
 package com.swein.framework.module.devicestoragescanner.tool;
 
 import android.content.Context;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -10,11 +12,15 @@ import android.support.v4.os.EnvironmentCompat;
 
 import com.swein.framework.module.devicestoragescanner.constants.DSSConstants;
 import com.swein.framework.module.devicestoragescanner.data.StorageInfoData;
+import com.swein.framework.module.devicestoragescanner.data.MountInfo;
 
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class StorageTool {
 
@@ -188,7 +194,6 @@ public class StorageTool {
         return null;
     }
 
-
     /**
      *
      * get total size of storage device
@@ -217,6 +222,127 @@ public class StorageTool {
             return 0;
         }
     }
+
+
+    /**
+     * LG G5 can not find usb device info by Storage Manager
+     * so need use this
+     * @param context
+     * @return
+     */
+    public static ArrayList<StorageInfoData> getStorageInfoListThatCannotBeFoundByStorageManager(Context context) {
+
+        UsbManager usbManager = (UsbManager)context.getSystemService(Context.USB_SERVICE);
+        HashMap<String, UsbDevice> deviceList = usbManager.getDeviceList();
+
+        if(deviceList == null || 0 == deviceList.size()) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<StorageInfoData> tempList = getStorageData(context);
+        ArrayList<StorageInfoData> removeList = new ArrayList<>();
+        for(StorageInfoData s : tempList) {
+            if(DSSConstants.STORAGE_STATE_UN_MOUNTED.equals(s.mounted) || !s.removable) {
+                removeList.add(s);
+            }
+        }
+
+        tempList.removeAll(removeList);
+
+        MountedDeviceManager.getInstance().load(context);
+        ArrayList<MountInfo> mountInfos =  MountedDeviceManager.getInstance().getMountInfos();
+
+        ArrayList<MountInfo> removeMountList = new ArrayList<>();
+
+        for(MountInfo mi : mountInfos) {
+
+            if(!Arrays.asList(mi.values).contains("sdcardfs")) {
+                removeMountList.add(mi);
+            }
+        }
+
+        mountInfos.removeAll(removeMountList);
+
+        List<HashMap<String, String>> mountUsbName = new ArrayList<>();
+
+        for(MountInfo m : mountInfos) {
+
+            for(int j = 0; j < m.values.length; j++) {
+
+                String value = m.values[j];
+
+                if(value.contains("/storage/") && !value.contains("emulated")) {
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+
+                    String name = value.replace("/storage/", "");
+                    hashMap.put("name", name);
+                    hashMap.put("path", value);
+                    mountUsbName.add(hashMap);
+                }
+            }
+        }
+
+        ArrayList<StorageInfoData> mountedList = new ArrayList<>();
+
+        for(HashMap<String, String> m : mountUsbName) {
+            StorageInfoData storageInfoData = new StorageInfoData();
+            storageInfoData.name = m.get("name");
+            storageInfoData.type = DSSConstants.STORAGE_TYPE.USB;
+            storageInfoData.removable = true;
+            storageInfoData.mounted = DSSConstants.STORAGE_STATE_MOUNTED;
+            storageInfoData.path = m.get("path");
+            mountedList.add(storageInfoData);
+        }
+
+        return getDifferenceSet(tempList, mountedList);
+    }
+
+    private static ArrayList<StorageInfoData> getDifferenceSet(ArrayList<StorageInfoData> list1, ArrayList<StorageInfoData> list2) {
+
+        ArrayList<StorageInfoData> storageInfoDataList = new ArrayList<>();
+
+        for(StorageInfoData m : list2) {
+            boolean duplicate = false;
+
+            for(StorageInfoData t : list1) {
+
+                if(m.name.equals(t.name)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if(!duplicate) {
+                storageInfoDataList.add(m);
+            }
+        }
+
+        return storageInfoDataList;
+    }
+
+
+    public static boolean isCurrentStorageUSB(Context context, String storageName) {
+
+        List<StorageInfoData> list = new ArrayList<StorageInfoData>();
+        list.addAll(getStorageData(context));
+        list.addAll(getStorageInfoListThatCannotBeFoundByStorageManager(context));
+
+        if(0 == list.size()) {
+            return false;
+        }
+
+        for(StorageInfoData storageInfoData : list) {
+            if(storageInfoData.name.equals(storageName) && DSSConstants.STORAGE_STATE_MOUNTED.equals(storageInfoData.mounted) && storageInfoData.removable) {
+                if(DSSConstants.STORAGE_TYPE.USB == storageInfoData.type) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      *
@@ -272,4 +398,5 @@ public class StorageTool {
             }
         }
     }
+
 }

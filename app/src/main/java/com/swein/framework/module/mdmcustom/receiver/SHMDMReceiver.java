@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 
 
-import com.swein.framework.tools.eventsplitshot.eventcenter.EventCenter;
-import com.swein.framework.tools.eventsplitshot.subject.ESSArrows;
+import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
+import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
 import com.swein.framework.tools.util.toast.ToastUtil;
 
 public class SHMDMReceiver extends DeviceAdminReceiver {
