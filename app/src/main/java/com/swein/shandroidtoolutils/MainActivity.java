@@ -353,7 +353,6 @@ public class MainActivity extends Activity {
         });
 
 
-
         ThreadUtil.startThread(new Runnable() {
 
             @Override
@@ -389,15 +388,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
-
-
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-
-
 
         super.onRestoreInstanceState(savedInstanceState);
     }
