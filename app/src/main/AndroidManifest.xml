@@ -31,8 +31,7 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
-    <!--<user-feature android:name="android.hardware.camera2.full" />-->
-
+    <!-- <user-feature android:name="android.hardware.camera2.full" /> -->
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
         android:allowBackup="true"

@@ -46,7 +46,7 @@ public class DeviceInfoUtil {
         return true;
     }
 
-    public static Point getScreenSize(Context context ) {
+    public static Point getScreenSize(Context context) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         Point          size    = new Point();
         size.x = metrics.widthPixels;
