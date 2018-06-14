@@ -42,8 +42,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.2.2') {
@@ -51,7 +51,10 @@ dependencies {
     }
     //    compile 'com.google.android.gms:play-services-appindexing:9.8.0'ƒ
     implementation files('libs/commons-io-2.5.jar')
-    //
+
+    runtimeOnly files('libs/supportlib.jar')
+    compileOnly files('libs/knoxsdk.jar')
+
     //    compile 'io.reactivex:rxjava:1.0.14'
     //    compile 'io.reactivex:rxandroid:1.0.1'
     //    compile 'com.google.firebase:firebase-appindexing:10.0.1'
@@ -83,6 +86,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation 'com.android.support:support-v4:27.1.1'
+
+
 }
 
 final def log = project.logger

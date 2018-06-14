@@ -24,6 +24,7 @@ import com.swein.shandroidtoolutils.R;
 import java.util.HashMap;
 import java.util.Timer;
 
+
 /**
  *
  * screen capture document
@@ -39,6 +40,8 @@ import java.util.Timer;
  *
  */
 public class SHMDMFragment extends Fragment {
+
+    private final static String TAG = "SHMDMFragment";
 
     private Timer timer;
 
@@ -78,7 +81,7 @@ public class SHMDMFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_sh_mdm, container, false);
 
         // actionbar view holder
-        FrameLayout frameLayoutActionBar = (FrameLayout)rootView.findViewById(R.id.frameLayoutActionBar);
+        FrameLayout frameLayoutActionBar = rootView.findViewById(R.id.frameLayoutActionBar);
         shmdmActionBarViewHolder = new SHMDMActionBarViewHolder(getActivity());
 
         frameLayoutActionBar.addView(shmdmActionBarViewHolder.getActionBarView());
@@ -170,14 +173,14 @@ public class SHMDMFragment extends Fragment {
 
     private void findView(View rooView) {
 
-        progressBar = (FrameLayout)rooView.findViewById(R.id.progressBar);
+        progressBar = rooView.findViewById(R.id.progressBar);
 
-        cardViewCheck = (CardView)rooView.findViewById(R.id.cardViewCheck);
-        textViewCheck = (TextView)rooView.findViewById(R.id.textViewCheck);
-        imageButtonCheck = (ImageButton)rooView.findViewById(R.id.imageButtonCheck);
+        cardViewCheck = rooView.findViewById(R.id.cardViewCheck);
+        textViewCheck = rooView.findViewById(R.id.textViewCheck);
+        imageButtonCheck = rooView.findViewById(R.id.imageButtonCheck);
 
-        imageViewNoCapture = (ImageView)rooView.findViewById(R.id.imageViewNoCapture);
-        imageViewNoPhoto = (ImageView)rooView.findViewById(R.id.imageViewNoPhoto);
+        imageViewNoCapture = rooView.findViewById(R.id.imageViewNoCapture);
+        imageViewNoPhoto = rooView.findViewById(R.id.imageViewNoPhoto);
 
         checkState();
         checkLimit();
@@ -205,6 +208,7 @@ public class SHMDMFragment extends Fragment {
     }
 
     private void checkLimit() {
+
         if(shmdmDeviceManager.getCamera()) {
             imageViewNoPhoto.setVisibility(View.VISIBLE);
         }
@@ -221,11 +225,11 @@ public class SHMDMFragment extends Fragment {
     }
 
     private void checkState() {
+
         if(shmdmDeviceManager.isActive()) {
             textViewCheck.setText("퇴근하기");
             imageButtonCheck.setImageResource(R.drawable.img_btn_work);
             shmdmActionBarViewHolder.showUnderControl();
-
             setTimerTask();
         }
         else {

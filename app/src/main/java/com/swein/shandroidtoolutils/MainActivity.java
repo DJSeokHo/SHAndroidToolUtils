@@ -18,15 +18,14 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.mdmcustom.activity.SHMDMActivity;
 import com.swein.framework.module.sqlite.SHSQLiteController;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
-import com.swein.framework.tools.util.notification.NotificationUIUtil;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.thread.AsyncUtil;
@@ -100,7 +99,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 
 
-//        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
@@ -149,7 +148,7 @@ public class MainActivity extends Activity {
 //        }
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 
@@ -326,10 +325,10 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DeviceStorageScannerActivity.class);
 
-        NotificationUIUtil.sendNotification(this, 0,
-                "title", "sub text", "message",
-                true, true,
-                null, "sh", "sh", "sh");
+//        NotificationUIUtil.sendNotification(this, 0,
+//                "title", "sub text", "message",
+//                true, true,
+//                null, "sh", "sh", "sh");
 
 
         AsyncUtil.getInstance().run(new Runnable() {
@@ -351,7 +350,6 @@ public class MainActivity extends Activity {
                 ToastUtil.showShortToastNormal(MainActivity.this, "hahaha");
             }
         });
-
 
         ThreadUtil.startThread(new Runnable() {
 
@@ -381,9 +379,7 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

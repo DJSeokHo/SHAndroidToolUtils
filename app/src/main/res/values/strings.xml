@@ -22,7 +22,13 @@
     <string name="month_picker_february_text">2월</string>
     <string name="month_picker_january_text">1월</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="enterprise_device_admin_description">DeviceAdmin class</string>
+    <string name="activate_admin">Activate Admin</string>
+    <string name="deactivate_admin">Deactivate Admin</string>
+    <string name="activate_license">Activate license</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="toggle_screen_capture">Toggle Screen Capture</string>
 
 </resources>

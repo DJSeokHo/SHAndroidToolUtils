@@ -40,6 +40,7 @@
         android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
@@ -101,6 +102,7 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
 
         <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
         <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
@@ -226,6 +228,7 @@
             android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" />
+
     </application>
 
 </manifest>
