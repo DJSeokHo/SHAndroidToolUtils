@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.mdmcustom.activity.SHMDMActivity;
+import com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity;
 import com.swein.framework.module.sqlite.SHSQLiteController;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -99,7 +99,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, DevicePolicyManagerActivity.class);
 
 
-        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, KnoxMDMActivity.class);
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
@@ -139,7 +140,7 @@ public class MainActivity extends Activity {
         catch (Exception e) {
             e.printStackTrace();
         }
-
+//
 //        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
 //        }
@@ -166,7 +167,6 @@ public class MainActivity extends Activity {
         });
 
         imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
-
 
         imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
 
@@ -379,6 +379,11 @@ public class MainActivity extends Activity {
                 }
             }
         });
+
+
+
+
+
     }
 
     @Override

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_margin="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Samsung KNOX SDK Sample"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:enabled="false"
+        android:textAllCaps="false"
+        android:text="Activate Device Admin"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_round_background"
+        android:id="@+id/buttonActivateDeviceAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:enabled="false"
+        android:textAllCaps="false"
+        android:text="Deactivate Device Admin"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_round_background"
+        android:id="@+id/buttonDeactivateDeviceAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textAllCaps="false"
+            android:text="disable camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:enabled="false"
+            android:layout_gravity="right"
+            android:background="#0000"
+            android:textAllCaps="false"
+            android:id="@+id/switchDisableCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textAllCaps="false"
+            android:text="disable screen capture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:enabled="false"
+            android:layout_gravity="right"
+            android:background="#0000"
+            android:textAllCaps="false"
+            android:id="@+id/switchDisableScreenCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

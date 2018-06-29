@@ -128,12 +128,13 @@ public class DialogUtil {
     }
 
 
-    public static ProgressDialog createProgressDialog(Context context, String msg, boolean cancelAble, boolean canceledOnTouchOutside){
+    public static ProgressDialog createProgressDialog(Context context, String title, String msg, boolean cancelAble, boolean canceledOnTouchOutside){
         ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(title);
         progressDialog.setMessage(msg);
         progressDialog.setCancelable(cancelAble);
         progressDialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
-        progressDialog.show();
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         return progressDialog;
     }
 

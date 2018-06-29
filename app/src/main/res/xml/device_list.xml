@@ -2,14 +2,29 @@
 <device-admin
     xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-policies>
-        <limit-password />
-        <watch-login />
-        <reset-password />
-        <force-lock />
-        <wipe-data />
-        <expire-password />
-        <encrypted-storage />
+        <!--<limit-password />-->
+        <!--<watch-login />-->
+        <!--<reset-password />-->
+        <!--<force-lock />-->
+        <!--<wipe-data />-->
+        <!--<expire-password />-->
+        <!--<encrypted-storage />-->
         <disable-camera />
-        <disable-keyguard-features />
+        <!--<disable-keyguard-features />-->
+
+        <allow-camera/>
+
+        <mdm-security/>
+        <mdm-email-account/>
+        <mdm-hardware-control/>
+        <mdm-phone-restriction/>
+        <mdm-application/>
+        <mdm-bluetooth/>
+        <mdm-wifi/>
+        <mdm-device-inventory/>
+        <mdm-date-time />
+        <mdm-exchange-account/>
+        <mdm-roaming/>
+
     </uses-policies>
 </device-admin>

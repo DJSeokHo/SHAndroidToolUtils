@@ -87,6 +87,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation 'com.android.support:support-v4:27.1.1'
 
+    compileOnly files('libs/knoxsdk.jar')
+    runtimeOnly files('libs/supportlib.jar')
 
 }
 
