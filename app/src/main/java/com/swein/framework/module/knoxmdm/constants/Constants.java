@@ -3,10 +3,10 @@ package com.swein.framework.module.knoxmdm.constants;
 public class Constants {
 
     /* This key currently only supports Knox 2.8+ devices. If devices are running Knox 2.7 and earlier, you must also activate the backwards-compatible key. */
-    public static final String KNOX_LICENSE_KEY = "YOUR KLM KEY";
+    public static final String KNOX_LICENSE_KEY = "";
 
     /* Use this key if you plan to deploy your solutions on devices running Knox 2.7 or earlier. This key provides no permissions, but needs to be activated along with a Samsung Knox license key in order to get the required permissions from the Samsung License Server. */
-    public static final String BACKWARD_LICENSE_KEY = "YOUR ELM KEY";
+    public static final String BACKWARD_LICENSE_KEY = "";
 
     public static final int KNOX_VERSION_CODES_BASE = 6;
     public static final int KNOX_VERSION_CODES1_0_1 = 7;

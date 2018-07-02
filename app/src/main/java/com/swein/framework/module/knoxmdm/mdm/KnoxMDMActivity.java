@@ -13,16 +13,32 @@ import com.swein.framework.module.knoxmdm.constants.Constants;
 import com.swein.framework.module.knoxmdm.manager.KnoxMDMManager;
 import com.swein.framework.module.knoxmdm.manager.interfaces.KnoxMDMManagerDelegate;
 import com.swein.framework.module.knoxmdm.share.KnoxMDMPreference;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
+/**
+ *
+ * order is :
+ *
+ * device admin first, then KLM licence, then ELM licence
+ *
+ */
 public class KnoxMDMActivity extends Activity {
+
+    private final static String TAG = "KnoxMDMActivity";
 
     private ProgressDialog progressDialog;
 
     private Button buttonActivateDeviceAdmin;
     private Button buttonDeactivateDeviceAdmin;
+
+    private Button buttonActivateKLMLicense;
+    private Button buttonDeactivateKLMLicense;
+
+    private Button buttonActivateELMLicense;
+    private Button buttonDeactivateELMLicense;
 
     private Switch switchDisableCamera;
     private Switch switchDisableScreenCapture;
@@ -32,17 +48,9 @@ public class KnoxMDMActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knox_mdm);
 
-        if (!KnoxMDMManager.getInstance().isKnoxSdkSupported()) {
-            showDeviceUnSupportedProblem();
-            return;
-        }
-
-        findView();
         KnoxMDMManager.getInstance().register(this, knoxMDMManagerDelegate);
+        findView();
 
-        if (KnoxMDMManager.getInstance().isDeviceAdminActivated(this)) {
-            setDeviceAdminActivated();
-        }
     }
 
     @Override
@@ -56,45 +64,151 @@ public class KnoxMDMActivity extends Activity {
         buttonActivateDeviceAdmin = findViewById(R.id.buttonActivateDeviceAdmin);
         buttonDeactivateDeviceAdmin = findViewById(R.id.buttonDeactivateDeviceAdmin);
 
-        switchDisableCamera = findViewById(R.id.switchDisableCamera);
-        switchDisableScreenCapture = findViewById(R.id.switchDisableScreenCapture);
-
         buttonActivateDeviceAdmin.setOnClickListener(onClickListener);
         buttonDeactivateDeviceAdmin.setOnClickListener(onClickListener);
+
+
+        buttonActivateKLMLicense = findViewById(R.id.buttonActivateKLMLicense);
+        buttonDeactivateKLMLicense = findViewById(R.id.buttonDeactivateKLMLicense);
+
+        buttonActivateKLMLicense.setOnClickListener(onClickListener);
+        buttonDeactivateKLMLicense.setOnClickListener(onClickListener);
+
+
+
+        buttonActivateELMLicense = findViewById(R.id.buttonActivateELMLicense);
+        buttonDeactivateELMLicense = findViewById(R.id.buttonDeactivateELMLicense);
+
+        buttonActivateELMLicense.setOnClickListener(onClickListener);
+        buttonDeactivateELMLicense.setOnClickListener(onClickListener);
+
+
+
+        switchDisableCamera = findViewById(R.id.switchDisableCamera);
+        switchDisableScreenCapture = findViewById(R.id.switchDisableScreenCapture);
 
         switchDisableCamera.setOnClickListener(onClickListener);
         switchDisableScreenCapture.setOnClickListener(onClickListener);
 
-        buttonActivateDeviceAdmin.setEnabled(true);
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
 
                 case R.id.buttonActivateDeviceAdmin:
-                    activateDeviceAdmin();
+
+                    if (KnoxMDMManager.getInstance().isDeviceAdminActivated(KnoxMDMActivity.this)) {
+                        ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device admin already activated");
+                    }
+                    else {
+                        activateDeviceAdmin();
+                    }
+
                     break;
 
                 case R.id.buttonDeactivateDeviceAdmin:
 
-                    KnoxMDMManager.getInstance().deactivateKnoxLicense(KnoxMDMActivity.this, Constants.KNOX_LICENSE_KEY);
-
-                    if(KnoxMDMManager.getInstance().isLegacySdk()) {
-                        KnoxMDMManager.getInstance().deactivateKnoxLicense(KnoxMDMActivity.this, Constants.BACKWARD_LICENSE_KEY);
+                    if(KnoxMDMManager.getInstance().isDeviceAdminActivated(KnoxMDMActivity.this)) {
+                        if(KnoxMDMManager.getInstance().deactivateDeviceAdmin(KnoxMDMActivity.this)) {
+                            ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device admin deactivated success");
+                        }
+                    }
+                    else {
+                        ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device admin already deactivated");
                     }
 
-                    KnoxMDMManager.getInstance().deactivateDeviceAdmin(KnoxMDMActivity.this);
+                    break;
 
-                    buttonDeactivateDeviceAdmin.setEnabled(false);
-                    buttonActivateDeviceAdmin.setEnabled(true);
-                    switchDisableCamera.setEnabled(false);
-                    switchDisableScreenCapture.setEnabled(false);
+                case R.id.buttonActivateKLMLicense:
+
+                    if (!KnoxMDMManager.getInstance().isKnoxSdkSupported()) {
+                        showDeviceUnSupportedProblem();
+                        return;
+                    }
+
+                    if(KnoxMDMPreference.isKLMLicenseActivated(KnoxMDMActivity.this)) {
+                        ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device KLM already activated");
+                        return;
+                    }
+
+                    activateKnoxLicense();
+
+                    break;
+
+                case R.id.buttonDeactivateKLMLicense:
+
+
+                    try {
+                        if(!KnoxMDMPreference.isKLMLicenseActivated(KnoxMDMActivity.this)) {
+                            ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device KLM already deactivated");
+                            return;
+                        }
+
+                        KnoxMDMManager.getInstance().setCamera(KnoxMDMActivity.this, true);
+                        KnoxMDMManager.getInstance().setScreenCapture(KnoxMDMActivity.this, true);
+
+                        KnoxMDMPreference.setKLMLicenseActivated(KnoxMDMActivity.this, false);
+
+                        deactivateKnoxLicense();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+                case R.id.buttonActivateELMLicense:
+
+                    if (!KnoxMDMManager.getInstance().isLegacySdk()) {
+                        return;
+                    }
+
+                    if(KnoxMDMPreference.isELMLicenseActivated(KnoxMDMActivity.this)) {
+
+                        ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device ELM already activated");
+
+                        return;
+                    }
+
+                    KnoxMDMManager.getInstance().setCamera(KnoxMDMActivity.this, true);
+                    KnoxMDMManager.getInstance().setScreenCapture(KnoxMDMActivity.this, true);
+
+                    activateBackwardLicense();
+
+                    break;
+
+                case R.id.buttonDeactivateELMLicense:
+
+                    try {
+
+                        if(!KnoxMDMPreference.isELMLicenseActivated(KnoxMDMActivity.this)) {
+                            ToastUtil.showShortToastNormal(KnoxMDMActivity.this, "Device ELM already deactivated");
+                            return;
+                        }
+
+                        if(KnoxMDMManager.getInstance().isLegacySdk()) {
+                            KnoxMDMManager.getInstance().deactivateKnoxLicense(KnoxMDMActivity.this, Constants.BACKWARD_LICENSE_KEY);
+                        }
+
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     break;
 
                 case R.id.switchDisableCamera:
+
+                    if(!KnoxMDMPreference.isKLMLicenseActivated(KnoxMDMActivity.this)) {
+                        return;
+                    }
+
+                    if(!KnoxMDMManager.getInstance().isLegacySdk()) {
+
+                    }
 
                     if (switchDisableCamera.isChecked()){
                         KnoxMDMManager.getInstance().setCamera(KnoxMDMActivity.this, false);
@@ -148,19 +262,21 @@ public class KnoxMDMActivity extends Activity {
         @Override
         public void onKnoxLicenseActivated() {
 
-            saveKnoxLicenseActivationStateToSharedPreference();
-            if (KnoxMDMManager.getInstance().isLegacySdk()) {
-                activateBackwardLicense();
-            }
-            else {
-                setLicenseActivationSuccess();
-            }
+            KnoxMDMPreference.setKLMLicenseActivated(KnoxMDMActivity.this, true);
+
+            ILog.iLogDebug(TAG, "KNOX KLM license activation success");
+
+            setKLMLicenseActivationSuccess();
+
         }
 
         @Override
         public void onBackwardLicenseActivated() {
-            saveBackwardLicenseActivationStateToSharedPreference();
-            setLicenseActivationSuccess();
+            KnoxMDMPreference.setELMLicenseActivated(KnoxMDMActivity.this, true);
+
+            ILog.iLogDebug(TAG, "KNOX ELM license activation success");
+
+            setELMLicenseActivationSuccess();
         }
 
         @Override
@@ -192,6 +308,11 @@ public class KnoxMDMActivity extends Activity {
         }
     }
 
+    private void deactivateKnoxLicense() {
+        KnoxMDMManager.getInstance().deactivateKnoxLicense(this, Constants.KNOX_LICENSE_KEY);
+
+    }
+
     /**
      * make phone get a Samsung Knox license ELM
      */
@@ -204,25 +325,34 @@ public class KnoxMDMActivity extends Activity {
         }
     }
 
+
     /**
      * check state
      */
     private void setDeviceAdminActivated() {
         ToastUtil.showShortToastNormal(this, "Device admin activation success");
-        buttonActivateDeviceAdmin.setEnabled(false);
-        buttonDeactivateDeviceAdmin.setEnabled(true);
-
-        activateKnoxLicense();
     }
 
-    private void setLicenseActivationSuccess() {
+    /**
+     * KLM license success
+     */
+    private void setKLMLicenseActivationSuccess() {
 
         hideLoadingDialog();
         // success
-        ToastUtil.showShortToastNormal(this, "KNOX license activation success");
+        ToastUtil.showShortToastNormal(this, "KNOX KLM license activation success");
 
-        switchDisableCamera.setEnabled(true);
-        switchDisableScreenCapture.setEnabled(true);
+        checkMDMUI();
+    }
+
+    /**
+     * ELM license success
+     */
+    private void setELMLicenseActivationSuccess() {
+
+        hideLoadingDialog();
+        // success
+        ToastUtil.showShortToastNormal(this, "KNOX ELM license activation success");
 
         checkMDMUI();
     }
@@ -248,15 +378,6 @@ public class KnoxMDMActivity extends Activity {
         }
 
     }
-
-    private void saveKnoxLicenseActivationStateToSharedPreference() {
-        KnoxMDMPreference.setKLMLicenseActivated(this);
-    }
-
-    private void saveBackwardLicenseActivationStateToSharedPreference() {
-        KnoxMDMPreference.setELMLicenseActivated(this);
-    }
-
 
     private void showDeviceUnSupportedProblem() {
         DialogUtil.createNormalDialogWithOneButton(this, "Device Problem", "This device does not support by KNOX Standard SDK.", false, "OK",
@@ -285,19 +406,15 @@ public class KnoxMDMActivity extends Activity {
     }
 
     private void showLicenseActivationProblem(int errorType, String errorMessage) {
-        DialogUtil.createNormalDialogWithTwoButton(this, "License Activation Problem" , String.format("Something wrong while license activation.\\n Code : %s (%d)", errorMessage, errorType), false, "Retry", "Cancel",
+
+        DialogUtil.createNormalDialogWithOneButton(this, "License Activation Problem", String.format("Something wrong while license activation.\\n Code : %s (%d)", errorMessage, errorType), false, "OK",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        activateKnoxLicense();
-                    }
-                },
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
+
                     }
                 });
+
     }
 
     private void showLoadingDialog() {

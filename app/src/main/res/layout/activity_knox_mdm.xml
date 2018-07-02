@@ -15,25 +15,97 @@
         android:text="Samsung KNOX SDK Sample"
         android:textAllCaps="false"/>
 
-    <Button
-        android:enabled="false"
-        android:textAllCaps="false"
-        android:text="Activate Device Admin"
+    <LinearLayout
         android:layout_margin="20dp"
-        android:background="@drawable/button_round_background"
-        android:id="@+id/buttonActivateDeviceAdmin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:enabled="false"
-        android:textAllCaps="false"
-        android:text="Deactivate Device Admin"
+        <Button
+            android:textAllCaps="false"
+            android:text="Activate Device Admin"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonActivateDeviceAdmin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textAllCaps="false"
+            android:text="Deactivate Device Admin"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonDeactivateDeviceAdmin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_margin="20dp"
-        android:background="@drawable/button_round_background"
-        android:id="@+id/buttonDeactivateDeviceAdmin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:textAllCaps="false"
+            android:text="Activate KLM"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonActivateKLMLicense"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textAllCaps="false"
+            android:text="Deactivate KLM"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonDeactivateKLMLicense"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:textAllCaps="false"
+            android:text="Activate ELM"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonActivateELMLicense"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textAllCaps="false"
+            android:text="Deactivate ELM"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_round_background"
+            android:id="@+id/buttonDeactivateELMLicense"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
 
     <FrameLayout
         android:layout_margin="20dp"
@@ -47,7 +119,6 @@
             android:layout_height="wrap_content" />
 
         <Switch
-            android:enabled="false"
             android:layout_gravity="right"
             android:background="#0000"
             android:textAllCaps="false"
@@ -69,7 +140,6 @@
             android:layout_height="wrap_content" />
 
         <Switch
-            android:enabled="false"
             android:layout_gravity="right"
             android:background="#0000"
             android:textAllCaps="false"
