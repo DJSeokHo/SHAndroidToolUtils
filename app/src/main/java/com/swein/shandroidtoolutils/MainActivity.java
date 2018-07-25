@@ -20,6 +20,8 @@ import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivi
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity;
+import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
+import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.module.sqlite.SHSQLiteController;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -140,13 +142,13 @@ public class MainActivity extends Activity {
         catch (Exception e) {
             e.printStackTrace();
         }
-//
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
-//        }
-//        else {
-//            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-//        }
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+        }
+        else {
+            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+        }
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);

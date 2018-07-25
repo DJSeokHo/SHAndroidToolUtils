@@ -22,6 +22,7 @@ import com.swein.shandroidtoolutils.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import me.dm7.barcodescanner.core.IViewFinder;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
