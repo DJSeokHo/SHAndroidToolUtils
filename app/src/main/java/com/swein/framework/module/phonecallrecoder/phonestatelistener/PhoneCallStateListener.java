@@ -97,10 +97,15 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
         File file;
 
         if(PRConstants.callType.OUT_CALL == callType) {
-
+            /*
+                out call
+             */
             file = new File(FILE_PATH + File.separator + "call_from_" + incomingPhoneNumber + "_to_" + callNumber + data + ".3gp");
         }
         else {
+            /*
+                incoming call
+             */
             file = new File(FILE_PATH + File.separator + "incoming_call_from_" + incomingPhoneNumber + data + ".3gp");
         }
 
