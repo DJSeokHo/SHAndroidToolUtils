@@ -3,6 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.swein.shandroidtoolutils">
 
+
+    <!-- 允许程序监视、修改或放弃拨打电话 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+
+    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT"
+        tools:ignore="ProtectedPermissions" />
+
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -281,7 +294,13 @@
             android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" />
-        <activity android:name="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity"></activity>
+        <activity android:name="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity" />
+
+        <activity android:name="com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+        <service android:name="com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService"
+            android:process=":recording"/>
     </application>
 
 </manifest>

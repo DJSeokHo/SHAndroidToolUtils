@@ -19,10 +19,7 @@ import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity;
-import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
-import com.swein.framework.module.qrcodescanner.constants.QRConstants;
-import com.swein.framework.module.sqlite.SHSQLiteController;
+import com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -30,15 +27,12 @@ import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
-import com.swein.framework.tools.util.thread.AsyncUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
 import com.swein.framework.tools.util.window.WindowUtil;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -102,7 +96,7 @@ public class MainActivity extends Activity {
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHMDMActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, KnoxMDMActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, KnoxMDMActivity.class);
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, NaverTranslationActivity.class);
@@ -124,8 +118,6 @@ public class MainActivity extends Activity {
             //TODO
         }
 
-
-
         TestObject testObject = new TestObject();
         testObject.name = "haha";
 
@@ -143,12 +135,15 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
-        }
-        else {
-            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-        }
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+//        }
+//        else {
+//            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
+//        }
+
+        ActivityUtil.startNewActivityWithoutFinish(this, PhoneCallRecorderDemoActivity.class);
+
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
@@ -327,60 +322,64 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DeviceStorageScannerActivity.class);
 
+
 //        NotificationUIUtil.sendNotification(this, 0,
 //                "title", "sub text", "message",
 //                true, true,
 //                null, "sh", "sh", "sh");
 
 
-        AsyncUtil.getInstance().run(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    for(int i = 0; i < 5; i++) {
-                        ILog.iLogDebug("???", i);
-                        Thread.sleep(1000);
-                    }
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Runnable() {
-            @Override
-            public void run() {
-                ToastUtil.showShortToastNormal(MainActivity.this, "hahaha");
-            }
-        });
 
-        ThreadUtil.startThread(new Runnable() {
+//        AsyncUtil.getInstance().run(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    for(int i = 0; i < 5; i++) {
+//                        ILog.iLogDebug("???", i);
+//                        Thread.sleep(1000);
+//                    }
+//                }
+//                catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Runnable() {
+//            @Override
+//            public void run() {
+//                ToastUtil.showShortToastNormal(MainActivity.this, "hahaha");
+//            }
+//        });
 
-            @Override
-            public void run() {
-                SHSQLiteController shsqLiteController = new SHSQLiteController(getApplicationContext());
 
-                for(int i = 0; i < 20; i++) {
-                    shsqLiteController.insert(UUID.randomUUID().toString(), String.valueOf(i));
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                List<SHSQLiteController.DataModel> list = shsqLiteController.getAllData();
-                for(SHSQLiteController.DataModel dataModel : list) {
-                    ILog.iLogDebug("db", dataModel.toString());
-                }
-
-                shsqLiteController.deleteDatabase();
-
-                List<SHSQLiteController.DataModel> list1 = shsqLiteController.getAllData();
-                for(SHSQLiteController.DataModel dataModel : list1) {
-                    ILog.iLogDebug("db", dataModel.toString());
-                }
-            }
-        });
+//        ThreadUtil.startThread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                SHSQLiteController shsqLiteController = new SHSQLiteController(getApplicationContext());
+//
+//                for(int i = 0; i < 20; i++) {
+//                    shsqLiteController.insert(UUID.randomUUID().toString(), String.valueOf(i));
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                List<SHSQLiteController.DataModel> list = shsqLiteController.getAllData();
+//                for(SHSQLiteController.DataModel dataModel : list) {
+//                    ILog.iLogDebug("db", dataModel.toString());
+//                }
+//
+//                shsqLiteController.deleteDatabase();
+//
+//                List<SHSQLiteController.DataModel> list1 = shsqLiteController.getAllData();
+//                for(SHSQLiteController.DataModel dataModel : list1) {
+//                    ILog.iLogDebug("db", dataModel.toString());
+//                }
+//            }
+//        });
 
 
 

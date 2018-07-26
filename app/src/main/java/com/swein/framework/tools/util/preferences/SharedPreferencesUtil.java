@@ -10,16 +10,16 @@ import java.util.Map;
 
 /**
  * Created by seokho on 22/11/2016.
+ *
+ * commit is better than apply
+ *
  */
-
 public class SharedPreferencesUtil {
 
 
     /**
      *  MODE_PRIVATE: can only edit by this app
      */
-
-
     public static void putValue(Context context, String key, String value)
     {
         SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
