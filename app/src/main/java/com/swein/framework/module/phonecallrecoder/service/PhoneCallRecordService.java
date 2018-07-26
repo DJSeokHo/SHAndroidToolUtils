@@ -4,14 +4,16 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
+
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+import com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver;
 import com.swein.framework.module.phonecallrecoder.phonestatelistener.PhoneCallStateListener;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 public class PhoneCallRecordService extends Service {
@@ -19,6 +21,8 @@ public class PhoneCallRecordService extends Service {
     private final static String TAG = "PhoneCallRecordService";
 
     private PhoneCallStateListener phoneStateListener;
+
+    private PhoneCallReceiver phoneCallReceiver;
 
     public static final String SERVICE_NAME = "com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService";
 
@@ -31,7 +35,26 @@ public class PhoneCallRecordService extends Service {
     @Override
     public void onCreate() {
         createPhoneStateListener();
+        registerPhoneCallReceiver();
         super.onCreate();
+    }
+
+    /**
+     * to get call number
+     */
+    private void registerPhoneCallReceiver() {
+        IntentFilter filter = new IntentFilter();
+        // android.intent.action.NEW_OUTGOING_CALL
+        filter.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+        phoneCallReceiver = new PhoneCallReceiver(new PhoneCallReceiver.PhoneCallReceiverDelegate() {
+            @Override
+            public void onReceiveCallNumber(String number) {
+                if(phoneStateListener != null) {
+                    phoneStateListener.setCallNumber(number);
+                }
+            }
+        });
+        this.registerReceiver(phoneCallReceiver, filter);
     }
 
     /**
@@ -79,6 +102,7 @@ public class PhoneCallRecordService extends Service {
     public void onDestroy() {
         stopForeground(true);
         destroyPhoneStateListener();
+        unregisterReceiver(phoneCallReceiver);
         super.onDestroy();
     }
 

@@ -296,11 +296,21 @@
         <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" />
         <activity android:name="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity" />
 
+        <!-- phone call recorder -->
         <activity android:name="com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <service android:name="com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService"
             android:process=":recording"/>
+
+        <!--<receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!-- phone call recorder -->
+
+
     </application>
 
 </manifest>

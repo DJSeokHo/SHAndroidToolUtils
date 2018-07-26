@@ -5,6 +5,7 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
+import com.swein.framework.module.phonecallrecoder.Constants.PRConstants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 
@@ -28,9 +29,19 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
 
     private Context context;
 
+    private String callNumber = "";
+
+    private PRConstants.callType callType;
+
 
     public PhoneCallStateListener(Context context) {
         this.context = context;
+        callType = PRConstants.callType.NONE;
+    }
+
+    public void setCallNumber(String number) {
+        callType = PRConstants.callType.OUT_CALL;
+        callNumber = number;
     }
 
     @Override
@@ -43,6 +54,7 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
 
             case TelephonyManager.CALL_STATE_RINGING: // ringing state can get incoming phone number
                 incomingPhoneNumber = incomingNumber;
+                callType = PRConstants.callType.INCOMING;
                 break;
 
             case TelephonyManager.CALL_STATE_OFFHOOK: // talking state, record start here
@@ -57,6 +69,10 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
     }
 
     private void record() {
+
+        if(PRConstants.callType.NONE == callType) {
+            return;
+        }
 
         if (mediaRecorder == null) {
             mediaRecorder = new MediaRecorder();
@@ -77,8 +93,16 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
         }
 
         String data = new SimpleDateFormat("_yyyy_MM_dd_HH_mm_sss", Locale.getDefault()).format(new Date());
-        File file = new File(FILE_PATH + File.separator + incomingPhoneNumber + data + ".3gp");
 
+        File file;
+
+        if(PRConstants.callType.OUT_CALL == callType) {
+
+            file = new File(FILE_PATH + File.separator + "call_from_" + incomingPhoneNumber + "_to_" + callNumber + data + ".3gp");
+        }
+        else {
+            file = new File(FILE_PATH + File.separator + "incoming_call_from_" + incomingPhoneNumber + data + ".3gp");
+        }
 
         try {
 
@@ -126,17 +150,22 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
 
             ILog.iLogDebug(TAG, "start recording with VOICE_COMMUNICATION");
         }
-
-
     }
 
     private void release() {
+
+        if(PRConstants.callType.NONE == callType) {
+            return;
+        }
 
         if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
         }
+
+        callType = PRConstants.callType.NONE;
+        callNumber = "";
 
         ILog.iLogDebug(TAG, "stop recording");
     }
