@@ -57,18 +57,18 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
                 callType = PRConstants.callType.INCOMING;
                 break;
 
-            case TelephonyManager.CALL_STATE_OFFHOOK: // talking state, record start here
-                record();
+            case TelephonyManager.CALL_STATE_OFFHOOK: // talking state, startRecordingPhoneCall start here
+                startRecordingPhoneCall();
                 break;
 
-            case TelephonyManager.CALL_STATE_IDLE: // idle state, record stop
-                release();
+            case TelephonyManager.CALL_STATE_IDLE: // idle state, stopRecordingPhoneCall
+                stopRecordingPhoneCall();
                 break;
 
         }
     }
 
-    private void record() {
+    private void startRecordingPhoneCall() {
 
         if(PRConstants.callType.NONE == callType) {
             return;
@@ -89,7 +89,9 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
         File directory = new File(FILE_PATH);
 
         if (!directory.exists()) {
-            directory.mkdir();
+            if(!directory.mkdir()) {
+                return;
+            }
         }
 
         String data = new SimpleDateFormat("_yyyy_MM_dd_HH_mm_sss", Locale.getDefault()).format(new Date());
@@ -157,7 +159,7 @@ public class PhoneCallStateListener extends android.telephony.PhoneStateListener
         }
     }
 
-    private void release() {
+    private void stopRecordingPhoneCall() {
 
         if(PRConstants.callType.NONE == callType) {
             return;
