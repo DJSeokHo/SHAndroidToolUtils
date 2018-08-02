@@ -3,6 +3,7 @@ package com.swein.framework.tools.util.input.keyboard;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 /**
@@ -55,6 +56,14 @@ public class KeyBoardUtil {
             //soft keyboard dismissed
             return false;
         }
+    }
+
+    /**
+     * use this in onCreate before setContentView()
+     * @param activity activity
+     */
+    public static void autoScrollLayerUpNotHideEditor(Activity activity) {
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
 }
