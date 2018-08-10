@@ -8,6 +8,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
 import com.swein.framework.template.doublescroll.custom.SHHorizontalScrollView;
@@ -20,8 +21,16 @@ public class SHDoubleScrollActivity extends Activity {
 
     private final static String TAG = "SHDoubleScrollActivity";
 
+    private final static int CARD_WIDTH = 330;
+    private final static int SPACE_WIDTH = 15;
+
     private HorizontalScrollView horizontalScrollView;
     private SHHorizontalScrollView horizontalScrollViewSmall;
+
+    private FrameLayout viewR;
+    private FrameLayout viewB;
+
+    private View viewSpace;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -43,15 +52,15 @@ public class SHDoubleScrollActivity extends Activity {
             }
         });
 
-        View viewR = findViewById(R.id.viewR);
+        viewR = findViewById(R.id.viewR);
         ViewGroup.LayoutParams viewRLayoutParams = viewR.getLayoutParams();
         viewRLayoutParams.width = width;
         viewR.setLayoutParams(viewRLayoutParams);
 
-        final View viewG = findViewById(R.id.viewG);
-        ViewGroup.LayoutParams viewGLayoutParams = viewG.getLayoutParams();
+        viewB = findViewById(R.id.viewB);
+        ViewGroup.LayoutParams viewGLayoutParams = viewB.getLayoutParams();
         viewGLayoutParams.width = width;
-        viewG.setLayoutParams(viewGLayoutParams);
+        viewB.setLayoutParams(viewGLayoutParams);
 
 
         horizontalScrollViewSmall = findViewById(R.id.horizontalScrollViewSmall);
@@ -63,7 +72,7 @@ public class SHDoubleScrollActivity extends Activity {
                 ILog.iLogDebug(TAG, l + " " + t + " " + oldl + " " + oldt + " -- " + DisplayUtils.pxToDip(SHDoubleScrollActivity.this, l));
                 horizontalScrollView.scrollTo(l, t);
 
-                if(DisplayUtils.pxToDip(SHDoubleScrollActivity.this, l) == 315) {
+                if(DisplayUtils.pxToDip(SHDoubleScrollActivity.this, l) == (CARD_WIDTH - SPACE_WIDTH)) {
                     /*
                         right end
                      */
@@ -81,8 +90,8 @@ public class SHDoubleScrollActivity extends Activity {
             }
         });
 
-        final View viewSpace = findViewById(R.id.viewSpace);
 
+        viewSpace = findViewById(R.id.viewSpace);
         horizontalScrollViewSmall.post(new Runnable() {
 
             @Override
@@ -91,7 +100,7 @@ public class SHDoubleScrollActivity extends Activity {
                 ILog.iLogDebug(TAG, horizontalScrollViewSmall.getWidth() + " " + horizontalScrollViewSmall.getHeight());
 
                 ViewGroup.LayoutParams viewGLayoutParams = viewSpace.getLayoutParams();
-                viewGLayoutParams.width = width - DisplayUtils.dipToPx(SHDoubleScrollActivity.this, 330) - DisplayUtils.dipToPx(SHDoubleScrollActivity.this, 15);
+                viewGLayoutParams.width = width - DisplayUtils.dipToPx(SHDoubleScrollActivity.this, CARD_WIDTH) - DisplayUtils.dipToPx(SHDoubleScrollActivity.this, SPACE_WIDTH);
                 viewSpace.setLayoutParams(viewGLayoutParams);
             }
         });

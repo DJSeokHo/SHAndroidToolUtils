@@ -39,7 +39,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/viewG"
+                android:id="@+id/viewB"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="#00f">
@@ -90,7 +90,6 @@
 
             <FrameLayout
                 android:background="#0000"
-                android:id="@+id/viewSmallR"
                 android:layout_width="330dp"
                 android:layout_height="match_parent"
                 android:paddingLeft="30dp"
@@ -118,7 +117,6 @@
 
             <FrameLayout
                 android:background="#0000"
-                android:id="@+id/viewSmallG"
                 android:layout_width="330dp"
                 android:layout_height="match_parent"
                 android:paddingLeft="10dp"
