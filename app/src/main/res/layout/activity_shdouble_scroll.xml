@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.template.doublescroll.SHDoubleScrollActivity">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/viewR"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#f00">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="8pt"
+                    android:text="back ground 1"
+                    android:layout_marginTop="50dp"
+                    android:layout_gravity="center"
+                    />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/viewG"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00f">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="8pt"
+                    android:text="back ground 2"
+                    android:layout_marginTop="50dp"
+                    android:layout_gravity="center"
+                    />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"/>
+
+    <TextView
+        android:text="fixed layer"
+        android:textColor="#fff"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <com.swein.framework.template.doublescroll.custom.SHHorizontalScrollView
+        android:id="@+id/horizontalScrollViewSmall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:background="#0000"
+                android:id="@+id/viewSmallR"
+                android:layout_width="330dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="30dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="8pt"
+                    android:text="인증 정보"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:background="#dc1bbf"/>
+
+            </FrameLayout>
+
+
+            <View
+                android:id="@+id/viewSpace"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#0000"/>
+
+            <FrameLayout
+                android:background="#0000"
+                android:id="@+id/viewSmallG"
+                android:layout_width="330dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="30dp">
+
+                <TextView
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="8pt"
+                    android:text="발급 정보"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:background="#2bc4e2"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </com.swein.framework.template.doublescroll.custom.SHHorizontalScrollView>
+
+</FrameLayout>

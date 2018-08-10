@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
 import com.swein.shandroidtoolutils.R;
@@ -19,6 +20,14 @@ public class AnimationUtil {
 
     public static void scrollViewSmoothScrollToY(ScrollView scrollView, int scrollToY, int duration, Animator.AnimatorListener animatorListener) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollY", scrollToY);
+        if (null != animatorListener) {
+            objectAnimator.addListener(animatorListener);
+        }
+        objectAnimator.setDuration(duration).start();
+    }
+
+    public static void scrollViewSmoothScrollToX(HorizontalScrollView scrollView, int scrollToX, int duration, Animator.AnimatorListener animatorListener) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollX", scrollToX);
         if (null != animatorListener) {
             objectAnimator.addListener(animatorListener);
         }

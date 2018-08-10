@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity;
+import com.swein.framework.template.doublescroll.SHDoubleScrollActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -106,6 +106,7 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHDoubleScrollActivity.class);
 
 
 
@@ -142,7 +143,7 @@ public class MainActivity extends Activity {
 //            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
 //        }
 
-        ActivityUtil.startNewActivityWithoutFinish(this, PhoneCallRecorderDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, PhoneCallRecorderDemoActivity.class);
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
