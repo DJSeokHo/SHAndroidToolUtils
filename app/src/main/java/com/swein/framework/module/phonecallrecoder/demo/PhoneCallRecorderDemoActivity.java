@@ -107,6 +107,7 @@ public class PhoneCallRecorderDemoActivity extends Activity {
     }
 
     private void checkService() {
+
         if(ServiceUtil.isServiceRunning(this, PhoneCallRecordService.SERVICE_NAME)) {
             setTimerTask();
         }
