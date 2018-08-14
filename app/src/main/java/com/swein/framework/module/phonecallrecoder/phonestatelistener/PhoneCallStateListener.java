@@ -5,7 +5,7 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
-import com.swein.framework.module.phonecallrecoder.constants.PRConstants;
+import com.swein.framework.module.phonecallrecoder.prconstants.PRConstants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 

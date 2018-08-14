@@ -1,4 +1,4 @@
-package com.swein.framework.module.phonecallrecoder.constants;
+package com.swein.framework.module.phonecallrecoder.prconstants;
 
 public class PRConstants {
 
