@@ -195,12 +195,12 @@ public class MainActivity extends Activity {
         });
 
 
-        new SHLocation().getLocation(this, new SHLocation.SHLocationDelegate() {
+        new SHLocation(this, new SHLocation.SHLocationDelegate() {
             @Override
             public void onLocation(double longitude, double latitude, long time) {
 
             }
-        });
+        }).requestLocation();
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
