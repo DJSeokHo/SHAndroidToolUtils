@@ -81,7 +81,10 @@ public class PhoneCallRecorderDemoActivity extends Activity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO},
+                requestPermissions(new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.RECORD_AUDIO
+                        },
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
             else {
