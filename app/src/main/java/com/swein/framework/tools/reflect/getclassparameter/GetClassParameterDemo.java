@@ -1,4 +1,4 @@
-package com.swein.framework.template.reflect.getclassparameter;
+package com.swein.framework.tools.reflect.getclassparameter;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package com.swein.framework.template.reflect.usemethod;
+package com.swein.framework.tools.reflect.usemethod;
 
 import java.lang.reflect.Method;
 

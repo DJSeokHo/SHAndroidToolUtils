@@ -1,4 +1,4 @@
-package com.swein.framework.template.reflect.classdemo;
+package com.swein.framework.tools.reflect.classdemo;
 
 public class ClassDemo {
 
@@ -14,7 +14,7 @@ public class ClassDemo {
         Class c3 = null;
 
         try {
-            c3 = Class.forName("com.swein.framework.template.reflect.classdemo.Foo");
+            c3 = Class.forName("com.swein.framework.tools.reflect.classdemo.Foo");
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();

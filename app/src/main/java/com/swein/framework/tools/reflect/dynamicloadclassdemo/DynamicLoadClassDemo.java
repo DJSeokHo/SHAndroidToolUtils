@@ -1,6 +1,6 @@
-package com.swein.framework.template.reflect.dynamicloadclassdemo;
+package com.swein.framework.tools.reflect.dynamicloadclassdemo;
 
-import com.swein.framework.template.reflect.dynamicloadclassdemo.subclass.PrintAble;
+import com.swein.framework.tools.reflect.dynamicloadclassdemo.subclass.PrintAble;
 
 public class DynamicLoadClassDemo {
 

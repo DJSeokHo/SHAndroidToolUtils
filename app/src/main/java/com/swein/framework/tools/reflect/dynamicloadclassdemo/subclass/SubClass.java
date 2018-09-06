@@ -1,4 +1,4 @@
-package com.swein.framework.template.reflect.dynamicloadclassdemo.subclass;
+package com.swein.framework.tools.reflect.dynamicloadclassdemo.subclass;
 
 public class SubClass implements PrintAble {
 

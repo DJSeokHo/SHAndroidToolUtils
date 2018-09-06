@@ -1,4 +1,4 @@
-package com.swein.framework.template.reflect.getclassmethod;
+package com.swein.framework.tools.reflect.getclassmethod;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
