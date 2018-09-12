@@ -22,6 +22,7 @@ public class EmailUtil {
              */
 
 //            intent.setType("application/octet-stream");
+            /* ex: need temp file real path Uri.fromFile("file:///sdcard/Chrysanthemum.jpg") */
 //            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
         }
         else {
