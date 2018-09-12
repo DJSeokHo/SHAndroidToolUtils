@@ -29,10 +29,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
         android:name="com.swein.shandroidtoolutils.permission.C2D_MESSAGE"
@@ -316,9 +315,9 @@
         <!-- </receiver> -->
         <!-- phone call recorder -->
 
-        <activity android:name="com.swein.framework.template.doublescroll.SHDoubleScrollActivity"/>
-        <activity android:name="com.swein.framework.module.screenrecording.activity.ScreenRecordingActivity"/>
-        <activity android:name="com.swein.framework.module.screenshot.screenshotmethod.ScreenShotActivity"/>
+        <activity android:name="com.swein.framework.template.doublescroll.SHDoubleScrollActivity" />
+        <activity android:name="com.swein.framework.module.screenrecording.activity.ScreenRecordingActivity" />
+        <activity android:name="com.swein.framework.module.screenshot.screenshotmethod.ScreenShotActivity" />
 
         <service android:name="com.swein.framework.module.easyscreenrecord.service.ScreenRecordModeService" />
 
@@ -327,9 +326,9 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize"/>
-        <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity"/>
-
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
+        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity"></activity>
     </application>
 
 </manifest>

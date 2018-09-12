@@ -68,17 +68,4 @@ public class DeviceUtil {
         context.startActivity(intent);
     }
 
-    public static void mailTo(Context context, String email) {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        emailIntent.setData(Uri.parse("mailto:" + email));
-
-        try {
-            context.startActivity(emailIntent);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
