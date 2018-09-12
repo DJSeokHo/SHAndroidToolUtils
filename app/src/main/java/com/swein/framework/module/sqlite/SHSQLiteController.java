@@ -71,10 +71,12 @@ public class SHSQLiteController extends SQLiteOpenHelper {
         }
         catch (Exception e) {
             e.printStackTrace();
+            close();
         }
         finally {
             if (db != null) {
                 db.endTransaction();
+                close();
             }
         }
     }
@@ -93,6 +95,8 @@ public class SHSQLiteController extends SQLiteOpenHelper {
             dataModelArrayList.add(dataModel);
         }
 
+        close();
+
         return dataModelArrayList;
     }
 
@@ -110,6 +114,7 @@ public class SHSQLiteController extends SQLiteOpenHelper {
             dataModelArrayList.add(dataModel);
         }
 
+        close();
         return dataModelArrayList;
     }
 
