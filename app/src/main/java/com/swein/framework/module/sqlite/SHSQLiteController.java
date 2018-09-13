@@ -81,7 +81,7 @@ public class SHSQLiteController extends SQLiteOpenHelper {
         }
     }
 
-    public List<DataModel> getData(String offset, String limit) {
+    public List<DataModel> getData(int offset, int limit) {
 
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + OTP_TABLE_COL_CREATE_DATE + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
 
