@@ -64,6 +64,15 @@ public class ShortCutUtil {
 
     }
 
+    /**
+     *
+     * @param context context
+     * @param targetClass targetClass
+     * @param bundle bundle
+     * @param shortcutId every single shortcut must be have a only id
+     * @param shortcutName shortcutName
+     * @param iconResource iconResource
+     */
     @TargetApi(Build.VERSION_CODES.O)
     public static void addShortcut(Context context, Class<?> targetClass, @Nullable Bundle bundle, String shortcutId, String shortcutName, int iconResource) {
 
@@ -85,7 +94,6 @@ public class ShortCutUtil {
 
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
 
             ShortcutInfo shortcutInfo = new ShortcutInfo.Builder(context, shortcutId)
                     .setIcon(Icon.createWithResource(context, iconResource))
