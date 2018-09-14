@@ -3,6 +3,7 @@ package com.swein.shandroidtoolutils;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
+import com.swein.framework.tools.util.shortcut.ShortCutUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
     private ImageView imageViewMain2;
 
     private Button buttonCamera;
+    private Button buttonCreateShortCut;
 
     private RelativeLayout relativeLayoutFakeCameraOnePreview;
 
@@ -53,12 +56,18 @@ public class MainActivity extends Activity {
 
     boolean closeFlag = false;
 
-
     @TimerTrace
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            String content = bundle.getString("shortcutContentKey");
+            ILog.iLogDebug("MainActivity", content);
+        }
 
         // full screen
         WindowUtil.fullScreen(this);
@@ -66,20 +75,50 @@ public class MainActivity extends Activity {
         DeviceInfoUtil.initDeviceScreenDisplayMetricsPixels(this);
 
         ThreadUtil.startThread(new Runnable() {
+
             @Override
             public void run() {
                 checkAppInstallInfoJSONObject(getApplicationContext());
             }
         });
 
-        relativeLayoutFakeCameraOnePreview = (RelativeLayout)findViewById(R.id.rl_fake);
+        relativeLayoutFakeCameraOnePreview = findViewById(R.id.rl_fake);
         relativeLayoutFakeCameraOnePreview.addView(new FakeCameraOnePreview(this));
 
-        buttonCamera = (Button)findViewById(R.id.btn_camera);
+        buttonCamera = findViewById(R.id.btn_camera);
         buttonCamera.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+            }
+        });
+
+        buttonCreateShortCut = findViewById(R.id.buttonCreateShortCut);
+        buttonCreateShortCut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*
+                    you can get bundle at onCreate of target class
+
+                    Bundle bundle = getIntent().getExtras();
+                    if(bundle != null) {
+                        String content = bundle.getString("shortcutContentKey");
+                        ILog.iLogDebug("MainActivity", content);
+                    }
+                */
+                Bundle bundle = new Bundle();
+                bundle.putString("shortcutContentKey", "from short cut");
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                    ShortCutUtil.addShortcut(MainActivity.this, MainActivity.class, bundle, "shortcut id", "haha", R.drawable.circle);
+                }
+                else {
+
+                    ShortCutUtil.addShortcut(MainActivity.this, MainActivity.class, bundle, "haha", R.drawable.btn_close);
+                }
             }
         });
 

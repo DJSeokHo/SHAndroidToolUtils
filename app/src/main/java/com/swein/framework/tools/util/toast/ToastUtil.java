@@ -50,7 +50,7 @@ public class ToastUtil {
         textView.setText(string);
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(20);
+        textView.setTextSize(16);
         textView.setTextColor(Color.WHITE);
         linearLayout.addView(textView);
 
@@ -74,7 +74,7 @@ public class ToastUtil {
         textView.setText(string);
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(20);
+        textView.setTextSize(16);
         textView.setTextColor(Color.WHITE);
         linearLayout.addView(textView);
 
@@ -103,7 +103,7 @@ public class ToastUtil {
         textView.setText(string);
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(20);
+        textView.setTextSize(16);
         textView.setTextColor(Color.WHITE);
         linearLayout.addView(textView);
 
@@ -132,7 +132,7 @@ public class ToastUtil {
         textView.setText(string);
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(20);
+        textView.setTextSize(16);
         textView.setTextColor(Color.WHITE);
         linearLayout.addView(textView);
 
