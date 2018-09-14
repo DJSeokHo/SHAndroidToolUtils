@@ -69,6 +69,10 @@ public class ShortCutUtil {
 
         ShortcutManager shortcutManager = (ShortcutManager) context.getSystemService(Context.SHORTCUT_SERVICE);
 
+        if(shortcutManager == null) {
+            return;
+        }
+
         if (shortcutManager.isRequestPinShortcutSupported()) {
 
             Intent launcherIntent = new Intent(context, targetClass);
