@@ -25,6 +25,6 @@ public class ExceptionEmailGateway implements ExceptionGatewayDelegate {
 
     @Override
     public void sendReport() {
-        EmailUtil.mailTo(context, "djseokho@gmail.com", "오류보고", exceptionModel.toReport());
+        EmailUtil.mailTo(context, "djseokho@gmail.com", "app name 오류보고", exceptionModel.toReport());
     }
 }
