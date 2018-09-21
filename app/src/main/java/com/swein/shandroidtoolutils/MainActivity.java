@@ -27,6 +27,7 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
 import com.swein.framework.tools.util.picasso.SHPicasso;
+import com.swein.framework.tools.util.regularexpression.RegularExpressionUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.shortcut.ShortCutUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
@@ -40,6 +41,8 @@ import static com.swein.framework.module.appinstallinfo.install.checker.AppInsta
 
 
 public class MainActivity extends Activity {
+
+    private final static String TAG = "MainActivity";
 
     private ImageView imageViewMain1;
     private ImageView imageViewMain2;
@@ -425,7 +428,23 @@ public class MainActivity extends Activity {
 //            }
 //        });
 
+        ILog.iLogDebug(TAG, "reg p1 " + RegularExpressionUtil.isMatchPhoneNumberLength("13985888888"));
+        ILog.iLogDebug(TAG, "reg p2 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("010-5506-0960"));
+        ILog.iLogDebug(TAG, "reg p3 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("01055060960"));
+        ILog.iLogDebug(TAG, "reg p4 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("02-2222-3333"));
+        ILog.iLogDebug(TAG, "reg p5 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("0212341234"));
+        ILog.iLogDebug(TAG, "reg p6 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("0702341234"));
+        ILog.iLogDebug(TAG, "reg p6 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("070-234-1234"));
+        ILog.iLogDebug(TAG, "reg p7 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("13985888888"));
+        ILog.iLogDebug(TAG, "reg p8 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("010-5506"));
+        ILog.iLogDebug(TAG, "reg p9 " + RegularExpressionUtil.isMatchKoreanPhoneNumberLength("0105506"));
 
+        ILog.iLogDebug(TAG, "reg p11 " + RegularExpressionUtil.isMatchEmail("djseokho"));
+        ILog.iLogDebug(TAG, "reg p12 " + RegularExpressionUtil.isMatchEmail("djseokho@.com"));
+        ILog.iLogDebug(TAG, "reg p13 " + RegularExpressionUtil.isMatchEmail("djseokho@gmail.com"));
+        ILog.iLogDebug(TAG, "reg p14 " + RegularExpressionUtil.isMatchEmail("djseokho@.co"));
+        ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
+        ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
 
 
 
