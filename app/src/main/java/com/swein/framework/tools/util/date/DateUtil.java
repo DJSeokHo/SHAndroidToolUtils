@@ -2,6 +2,8 @@ package com.swein.framework.tools.util.date;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -32,6 +34,26 @@ public class DateUtil
         }
 
         return date + "";
+    }
+
+    public static String getDayOfWeekOfDateTime(String date) {
+        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date));
+            int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+            if (w < 0) {
+                w = 0;
+            }
+
+            return weekDays[w];
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+
     }
 
 }
