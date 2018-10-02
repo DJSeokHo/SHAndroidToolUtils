@@ -19,7 +19,7 @@ repositories {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.swein.shandroidtoolutils"
         minSdkVersion 21
@@ -91,6 +91,7 @@ dependencies {
 
     compileOnly files('libs/knoxsdk.jar')
     runtimeOnly files('libs/supportlib.jar')
+    implementation project(path: ':zxinglite')
 
 }
 

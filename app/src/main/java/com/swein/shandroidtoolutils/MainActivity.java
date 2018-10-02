@@ -19,8 +19,9 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.qrcodescanner.constants.QRConstants;
+import com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -152,7 +153,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenShotActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, EasyScreenRecordingActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenRecordingActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
 
 
 
@@ -182,12 +183,13 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
-//        }
-//        else {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, QRConstants.CAMERA_PERMISSION);
+        }
+        else {
 //            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-//        }
+            ActivityUtil.startNewActivityWithoutFinish(this, QRCodeScannerLiteActivity.class);
+        }
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, PhoneCallRecorderDemoActivity.class);
 
@@ -501,7 +503,7 @@ public class MainActivity extends Activity {
             return super.onKeyDown( keyCode, event );
         }
 
-        if( closeFlag == false ){
+        if(!closeFlag){
             ToastUtil.showCustomShortToastNormal(this, "뒤로 버튼을 한번 더 누르면 종료됩니다.");
             closeFlag = true;
 

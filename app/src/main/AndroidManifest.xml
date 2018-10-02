@@ -28,11 +28,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
@@ -67,12 +67,9 @@
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="com.swein.framework.tools.util.shortcut.ShortcutReceiver"
-            android:exported="false">
-
-        </receiver>
+            android:exported="false" />
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
@@ -337,7 +334,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
-        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity"></activity>
+        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
+        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity"></activity>
     </application>
 
 </manifest>
