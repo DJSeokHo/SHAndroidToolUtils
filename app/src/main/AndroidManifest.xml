@@ -85,6 +85,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -335,7 +336,16 @@
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
         <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
-        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity"></activity>
+        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" />
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.AppAnalysisReportDemoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
     </application>
 
 </manifest>

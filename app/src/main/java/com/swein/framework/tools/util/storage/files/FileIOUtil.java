@@ -201,17 +201,25 @@ public class FileIOUtil {
         }
     }
 
-    public void copyFileUsingFileChannels(File source, File dest)
+    public static void copyFileUsingFileChannels( File source, File dest )
             throws IOException {
-        FileChannel inputChannel = null;
+        FileChannel inputChannel  = null;
         FileChannel outputChannel = null;
         try {
-            inputChannel = new FileInputStream(source).getChannel();
-            outputChannel = new FileOutputStream(dest).getChannel();
-            outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-        } finally {
-            inputChannel.close();
-            outputChannel.close();
+            inputChannel = new FileInputStream( source ).getChannel();
+            outputChannel = new FileOutputStream( dest ).getChannel();
+            outputChannel.transferFrom( inputChannel, 0, inputChannel.size() );
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        finally {
+            if(inputChannel != null) {
+                inputChannel.close();
+            }
+            if(outputChannel != null) {
+                outputChannel.close();
+            }
         }
     }
 

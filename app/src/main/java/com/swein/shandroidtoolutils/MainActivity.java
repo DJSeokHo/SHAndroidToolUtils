@@ -17,11 +17,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
+import com.swein.framework.module.appanalysisreport.demo.AppAnalysisReportDemoActivity;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
-import com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -37,6 +37,7 @@ import com.swein.framework.tools.util.volley.SHVolley;
 import com.swein.framework.tools.util.window.WindowUtil;
 
 import java.io.Serializable;
+import java.util.List;
 
 import static com.swein.framework.module.appinstallinfo.install.checker.AppInstallChecker.checkAppInstallInfoJSONObject;
 
@@ -50,6 +51,7 @@ public class MainActivity extends Activity {
 
     private Button buttonCamera;
     private Button buttonCreateShortCut;
+    private Button buttonCrash;
 
     private RelativeLayout relativeLayoutFakeCameraOnePreview;
 
@@ -88,6 +90,15 @@ public class MainActivity extends Activity {
 
         relativeLayoutFakeCameraOnePreview = findViewById(R.id.rl_fake);
         relativeLayoutFakeCameraOnePreview.addView(new FakeCameraOnePreview(this));
+
+        buttonCrash = findViewById(R.id.buttonCrash);
+        buttonCrash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List l = null;
+                l.get(5).toString();
+            }
+        });
 
         buttonCamera = findViewById(R.id.btn_camera);
         buttonCamera.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +199,7 @@ public class MainActivity extends Activity {
         }
         else {
 //            ActivityUtil.startNewActivityWithoutFinish(this, SHQRCodeScannerActivity.class);
-            ActivityUtil.startNewActivityWithoutFinish(this, QRCodeScannerLiteActivity.class);
+//            ActivityUtil.startNewActivityWithoutFinish(this, QRCodeScannerLiteActivity.class);
         }
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, PhoneCallRecorderDemoActivity.class);
@@ -198,6 +209,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
+
+        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisReportDemoActivity.class);
 
         SHVolley shVolley = new SHVolley(this);
         shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
@@ -249,6 +262,7 @@ public class MainActivity extends Activity {
 
             }
         }).requestLocation();
+
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
@@ -447,8 +461,6 @@ public class MainActivity extends Activity {
         ILog.iLogDebug(TAG, "reg p14 " + RegularExpressionUtil.isMatchEmail("djseokho@.co"));
         ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
         ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
-
-
 
     }
 

@@ -2,7 +2,7 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.googleanalytics.handler.CrashExceptionHandler;
+import com.swein.framework.module.appanalysisreport.applicationhandler.CrashExceptionReportHandler;
 
 import static com.swein.framework.module.googleanalytics.data.Tracker.getAnalytics;
 import static com.swein.framework.module.googleanalytics.manager.TrackerManager.initGoogleAnalyticsTracker;
@@ -28,7 +28,12 @@ public class SHAndroidToolUtilsApplication extends Application {
 
         getAnalytics(getApplicationContext(), true);
         //will auto send crash report when application crashed
-        CrashExceptionHandler.getInstance().init( getApplicationContext() );
+
+        // google
+//        CrashExceptionHandler.getInstance().init( getApplicationContext() );
+
+        // app analysis report
+        CrashExceptionReportHandler.getInstance().init( getApplicationContext() );
 
 
 //        try {

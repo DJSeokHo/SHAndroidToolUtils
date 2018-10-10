@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/bug"/>
+
+    <TextView
+        android:text="앱 오류정보 개발자에게 보내시겠습니까?"
+        android:textAllCaps="false"
+        android:layout_marginTop="120dp"
+        android:textColor="@color/gray"
+        android:textSize="7pt"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonSendExceptionEmail"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="E-mail 으로 보내기"
+            android:textAllCaps="false"
+            android:textSize="6pt"
+            android:background="@drawable/button_round_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonSendExceptionApi"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="API 으로 보내기"
+            android:textAllCaps="false"
+            android:textSize="6pt"
+            android:background="@drawable/button_round_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_margin="5dp"
+        android:id="@+id/buttonExit"
+        android:layout_gravity="bottom|right"
+        android:textColor="@color/gray_light"
+        android:background="#0000"
+        android:text="앱 중료"
+        android:textSize="6pt"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:padding="10dp"
+        android:id="@+id/buttonRestart"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/blue"
+        android:text="앱 다시 실행"
+        android:layout_marginBottom="100dp"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>
