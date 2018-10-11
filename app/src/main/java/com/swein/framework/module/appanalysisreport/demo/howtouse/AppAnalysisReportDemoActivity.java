@@ -49,8 +49,11 @@ public class AppAnalysisReportDemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_report_demo);
 
-        AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(this);
-        appAnalysisReportDBController.deleteDBFileToOutsideFolderForTemp();
+        /*
+            do not miss this part when app started
+         */
+        ReportTracker.getInstance().init(this);
+
 
         buttonCrash = findViewById(R.id.buttonCrash);
         buttonCrash.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +94,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
                         .setUuid(UUID.randomUUID().toString())
                         .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
-                        .setViewUIName(buttonLongClick.getText().toString())
+                        .setViewUINameOrMethodName(buttonLongClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setOperationType(AAConstants.OPERATION_TYPE.LC)
                         .setEventGroup(AAConstants.EVENT_GROUP_LOGIN)
@@ -111,7 +114,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
                         .setUuid(UUID.randomUUID().toString())
                         .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
-                        .setViewUIName(buttonClick.getText().toString())
+                        .setViewUINameOrMethodName(buttonClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setOperationType(AAConstants.OPERATION_TYPE.C)
                         .setEventGroup(AAConstants.EVENT_GROUP_REGISTER)

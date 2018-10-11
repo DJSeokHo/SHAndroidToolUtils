@@ -22,9 +22,12 @@ public class RecordManager {
     public void checkReportRecord(Context context, AAConstants.REPORT_RECORD_MANAGE_TYPE reportRecordManageType) {
 
         switch (reportRecordManageType) {
+
             case TODAY:
                 deleteInDateTimeRange(context, 1);
                 break;
+
+            default:
 
             case ONE_WEEK:
                 deleteInDateTimeRange(context, 7);

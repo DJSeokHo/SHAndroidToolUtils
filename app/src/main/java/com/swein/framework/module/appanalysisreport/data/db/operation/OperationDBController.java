@@ -65,7 +65,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
                 .setUserID(cursor.getString(cursor.getColumnIndex(TABLE_COL_USER_ID)))
                 .setDateTime(cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)))
                 .setClassFileName(cursor.getString(cursor.getColumnIndex(TABLE_COL_CLASS_FILE_NAME)))
-                .setViewUIName(cursor.getString(cursor.getColumnIndex(TABLE_COL_VIEW_UI_NAME)))
+                .setViewUINameOrMethodName(cursor.getString(cursor.getColumnIndex(TABLE_COL_VIEW_UI_NAME)))
                 .setOperationType(
                         OperationData.getOperationType(cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_TYPE)))
                         )

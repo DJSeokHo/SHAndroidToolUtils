@@ -67,7 +67,7 @@ public class OperationData implements AppAnalysisData {
             return this;
         }
 
-        public Builder setViewUIName(String viewUIName) {
+        public Builder setViewUINameOrMethodName(String viewUIName) {
             this.viewUIName = viewUIName;
             return this;
         }

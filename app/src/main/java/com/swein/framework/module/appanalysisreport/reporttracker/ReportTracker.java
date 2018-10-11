@@ -20,6 +20,16 @@ public class ReportTracker {
         return instance;
     }
 
+    public void init(Context context) {
+
+        /*
+            do not miss this part when app started
+         */
+        AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(context);
+        appAnalysisReportDBController.deleteDBFileToOutsideFolderForTemp();
+
+    }
+
 
     public void saveAppAnalysisIntoDB(Context context, AppAnalysisData appAnalysisData) {
         AppAnalysisDAO.getInstance().insertAppAnalysisIntoDB(context, appAnalysisData);

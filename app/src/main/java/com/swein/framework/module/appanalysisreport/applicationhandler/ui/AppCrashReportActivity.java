@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
@@ -20,6 +21,8 @@ public class AppCrashReportActivity extends Activity {
     private Button buttonSendExceptionEmail;
     private Button buttonSendExceptionApi;
 
+    private Button buttonResetDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,15 @@ public class AppCrashReportActivity extends Activity {
         buttonExit = findViewById(R.id.buttonExit);
         buttonSendExceptionEmail = findViewById(R.id.buttonSendExceptionEmail);
         buttonSendExceptionApi = findViewById(R.id.buttonSendExceptionApi);
+
+        buttonResetDB = findViewById(R.id.buttonResetDB);
+        buttonResetDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(AppCrashReportActivity.this);
+                appAnalysisReportDBController.clearDataBase();
+            }
+        });
 
         buttonSendExceptionEmail.setOnClickListener(new View.OnClickListener() {
             @Override

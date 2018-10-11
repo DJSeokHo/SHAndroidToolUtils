@@ -84,4 +84,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/buttonResetDB"
+        android:text="reset DB"
+        android:textColor="@color/gray_light"
+        android:textAllCaps="false"
+        android:background="#0000"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </FrameLayout>

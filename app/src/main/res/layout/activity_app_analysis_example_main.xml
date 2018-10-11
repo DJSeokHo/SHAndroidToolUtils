@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.swein.framework.module.appanalysisreport.demo.example.main.AppAnalysisExampleMainActivity">
 
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="@color/gray_light"
+        android:text="Home Screen will Crash In 3 Seconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </FrameLayout>

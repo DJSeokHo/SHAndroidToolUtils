@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="10pt"
+        android:text="Splash Page 2 seconds"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
 </FrameLayout>
