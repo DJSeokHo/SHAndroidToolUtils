@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
-import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
             contentValues.put(TABLE_COL_MESSAGE, exceptionData.getExceptionMessage());
             contentValues.put(TABLE_COL_EVENT_GROUP, exceptionData.getEventGroup());
 
-            db.insertOrThrow(EXCEPTION_REPORT_TABLE_NAME, null, contentValues);
+            db.replace(EXCEPTION_REPORT_TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -118,4 +117,5 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
         getWritableDatabase().execSQL(stringBuilder);
         close();
     }
+
 }

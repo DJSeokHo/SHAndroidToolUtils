@@ -37,7 +37,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
             contentValues.put(TABLE_COL_OPERATION_TYPE, operationData.getOperationType());
             contentValues.put(TABLE_COL_EVENT_GROUP, operationData.getEventGroup());
 
-            db.insertOrThrow(OPERATION_REPORT_TABLE_NAME, null, contentValues);
+            db.replace(OPERATION_REPORT_TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -118,4 +118,5 @@ public class OperationDBController extends AppAnalysisReportDBController {
         getWritableDatabase().execSQL(stringBuilder);
         close();
     }
+
 }

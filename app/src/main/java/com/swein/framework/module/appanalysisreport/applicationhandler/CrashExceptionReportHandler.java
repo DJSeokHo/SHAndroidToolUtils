@@ -9,7 +9,6 @@ import android.os.Looper;
 import com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity;
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
-import com.swein.framework.module.appanalysisreport.data.model.dao.AppAnalysisDAO;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
@@ -105,7 +104,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
                 AppAnalysisData appAnalysisData = new ExceptionData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID("user01")
+                        .setUserID(AAConstants.TEST_USER_ID)
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(exception))
                         .setLineNumber(StackTraceParser.getLineNumberFromThrowable(exception))

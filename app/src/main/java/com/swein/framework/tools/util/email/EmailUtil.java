@@ -28,6 +28,16 @@ public class EmailUtil {
 
     }
 
+    public static void mailToWithText(Context context, String[] emailReceiver, String title, String message) {
+        Intent email = new Intent(android.content.Intent.ACTION_SEND);
+        email.setType("plain/text");
+        email.putExtra(android.content.Intent.EXTRA_EMAIL, emailReceiver);
+        email.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+        email.putExtra(android.content.Intent.EXTRA_TEXT, message);
+        context.startActivity(Intent.createChooser(email, "请选择邮件发送软件"));
+
+    }
+
     public static void mailToWithFile(Context context, File file, String[] emailReceiver, String title, String message) {
 
         if(file == null) {

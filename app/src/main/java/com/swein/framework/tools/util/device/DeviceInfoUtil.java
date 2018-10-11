@@ -88,6 +88,10 @@ public class DeviceInfoUtil {
         return android.os.Build.MODEL;
     }
 
+    public static String getDeviceOSVersion() {
+        return android.os.Build.VERSION.RELEASE;
+    }
+
     public static String getDeviceID( Context context ) {
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService( Context.TELEPHONY_SERVICE );
 

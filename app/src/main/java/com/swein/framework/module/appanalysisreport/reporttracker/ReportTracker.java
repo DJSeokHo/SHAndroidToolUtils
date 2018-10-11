@@ -25,11 +25,11 @@ public class ReportTracker {
         AppAnalysisDAO.getInstance().insertAppAnalysisIntoDB(context, appAnalysisData);
     }
 
-    public void sendAppAnalysisReportByEmail(Context context) {
+    public void sendAppAnalysisReportByEmail(Context context, boolean anonymous) {
 
-        File file = new AppAnalysisReportDBController(context).copyDBFileToOutsideFolderForTemp();
+        File file = new AppAnalysisReportDBController(context).copyDBFileToOutsideFolderForTemp(anonymous);
         EmailUtil.mailToWithFile(context, file, new String[]{AAConstants.EMAIL_RECEIVER, AAConstants.EMAIL_RECEIVER},
-                "AppAnalysisReport", "AppAnalysisReport");
+                "AppNameAppAnalysisReport", "AppNameAppAnalysisReport");
 
     }
 

@@ -1,6 +1,7 @@
-package com.swein.framework.module.appanalysisreport.demo;
+package com.swein.framework.module.appanalysisreport.demo.howtouse;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,11 +13,16 @@ import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.db.recordmanager.RecordManager;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
+import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
+import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.date.DateUtil;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
+import com.swein.framework.tools.util.dialog.DialogUtil;
+import com.swein.framework.tools.util.uuid.Installation;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.ArrayList;
@@ -43,7 +49,8 @@ public class AppAnalysisReportDemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_report_demo);
 
-        new AppAnalysisReportDBController(this).deleteDBFileToOutsideFolderForTemp();
+        AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(this);
+        appAnalysisReportDBController.deleteDBFileToOutsideFolderForTemp();
 
         buttonCrash = findViewById(R.id.buttonCrash);
         buttonCrash.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +71,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
                 AppAnalysisData appAnalysisData = new ExceptionData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID("user01")
+                        .setUserID(AAConstants.TEST_USER_ID)
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(throwable))
                         .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
@@ -82,7 +89,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
             public boolean onLongClick(View v) {
                 AppAnalysisData appAnalysisData = new OperationData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID("user01")
+                        .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
                         .setViewUIName(buttonLongClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -102,7 +109,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
                 AppAnalysisData appAnalysisData = new OperationData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID("user01")
+                        .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
                         .setViewUIName(buttonClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -127,7 +134,26 @@ public class AppAnalysisReportDemoActivity extends Activity {
         buttonSendReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisReportDemoActivity.this);
+
+                DialogUtil.createNormalDialogWithThreeButton(AppAnalysisReportDemoActivity.this,
+                        "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisReportDemoActivity.this, false);
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisReportDemoActivity.this, true);
+                            }
+                        });
+
             }
         });
 
@@ -185,6 +211,19 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
             }
         });
+
+        AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
+                .setUserID(AAConstants.TEST_USER_ID)
+                .setUserEmail(AAConstants.TEST_USER_EMAIL)
+                .setDeviceModel(DeviceInfoUtil.getDeviceModel())
+                .setDeviceUUID(Installation.id(this))
+                .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
+                .setAppName(AppInfoUtil.getPackageName(this))
+                .setAppVersion(AppInfoUtil.getVersionName(this))
+                .setOther("")
+                .build();
+
+        ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisReportDemoActivity.this, appAnalysisData);
 
     }
 

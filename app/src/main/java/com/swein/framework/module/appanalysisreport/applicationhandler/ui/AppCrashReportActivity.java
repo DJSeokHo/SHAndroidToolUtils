@@ -1,11 +1,14 @@
 package com.swein.framework.module.appanalysisreport.applicationhandler.ui;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.MainActivity;
 import com.swein.shandroidtoolutils.R;
@@ -30,6 +33,25 @@ public class AppCrashReportActivity extends Activity {
         buttonSendExceptionEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                DialogUtil.createNormalDialogWithThreeButton(AppCrashReportActivity.this,
+                        "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, false);
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, true);
+                            }
+                        });
 
             }
         });

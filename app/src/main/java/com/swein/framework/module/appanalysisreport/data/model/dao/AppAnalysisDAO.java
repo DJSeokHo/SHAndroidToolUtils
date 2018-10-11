@@ -2,9 +2,11 @@ package com.swein.framework.module.appanalysisreport.data.model.dao;
 
 import android.content.Context;
 
+import com.swein.framework.module.appanalysisreport.data.db.deviceuser.DeviceUserDBController;
 import com.swein.framework.module.appanalysisreport.data.db.exception.ExceptionDBController;
 import com.swein.framework.module.appanalysisreport.data.db.operation.OperationDBController;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
+import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 
@@ -30,6 +32,11 @@ public class AppAnalysisDAO {
             OperationData operationData = (OperationData) appAnalysisData;
             OperationDBController operationDBController = new OperationDBController(context);
             operationDBController.insert(operationData);
+        }
+        else if(appAnalysisData instanceof DeviceUserData) {
+            DeviceUserData deviceUserData = (DeviceUserData) appAnalysisData;
+            DeviceUserDBController deviceUserDBController = new DeviceUserDBController(context);
+            deviceUserDBController.insert(deviceUserData);
         }
 
     }

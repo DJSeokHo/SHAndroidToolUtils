@@ -6,9 +6,13 @@ public class AAConstants {
 
     public final static int SECONDS_IN_DAY = 86400;
 
-    public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppAnalysisReportTemp/";
-    public final static String DB_FILE_TEMP_NAME = "AppAnalysisReport.db";
+    public final static String TEST_USER_ID = "user01";
+    public final static String TEST_USER_EMAIL = "userEmail01";
+
+    public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppNameAnalysisReportTemp/";
+    public final static String DB_FILE_TEMP_NAME = "AppNameAppAnalysisReport.db";
     public final static String EMAIL_RECEIVER = "djseokho@gmail.com";
+    public final static String ANONYMOUS_USER_TEMP_KEY = "app_anonymous_user";
 
     /*
      * you can add your own event group here
@@ -61,7 +65,8 @@ public class AAConstants {
 
     public enum OPERATION_TYPE {
         /*
-            행동 유형
+            행동 유형 자유롭게 추가 가능
+
             NONE: none (default)
             SU: Scroll Up
             SD: Scroll Down
