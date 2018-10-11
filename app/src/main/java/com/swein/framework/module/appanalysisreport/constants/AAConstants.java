@@ -2,6 +2,7 @@ package com.swein.framework.module.appanalysisreport.constants;
 
 public class AAConstants {
 
+    public final static int SECONDS_IN_DAY = 86400;
 
     /*
      * you can add your own event group here
@@ -71,11 +72,11 @@ public class AAConstants {
 
         ex:
         DELETE FROM TB_EXCEPTION_REPORT
-        WHERE TB_EXCEPTION_REPORT.UUID IN (SELECT TB_EXCEPTION_REPORT.UUID AS ID FROM TB_EXCEPTION_REPORT
+        WHERE TB_EXCEPTION_REPORT.UUID IN (SELECT TB_EXCEPTION_REPORT.UUID FROM TB_EXCEPTION_REPORT
         WHERE strftime('%s','now') - strftime('%s', TB_EXCEPTION_REPORT.DATE_TIME) > (86400 * 7));
 
         DELETE FROM TB_OPERATION_REPORT
-        WHERE TB_OPERATION_REPORT.UUID IN (SELECT TB_OPERATION_REPORT.UUID AS ID FROM TB_OPERATION_REPORT
+        WHERE TB_OPERATION_REPORT.UUID IN (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
         WHERE strftime('%s','now') - strftime('%s', TB_OPERATION_REPORT.DATE_TIME) > (86400 * 7));
 
 
@@ -103,7 +104,7 @@ public class AAConstants {
             RECORD_MAX_5000: 최대 5000 개 기록 저장
             RECORD_MAX_10000: 최대 10000 개 기록 저장
         */
-        TODAY, ONE_WEEK, ONE_MONTH, RECORD_MAX_ONE_K, RECORD_MAX_FIVE_K, RECORD_TEN_K, FOR_TEST
+        TODAY, ONE_WEEK, ONE_MONTH, RECORD_MAX_ONE_K, RECORD_MAX_FIVE_K, RECORD_MAX_TEN_K, FOR_TEST
     }
 
 }

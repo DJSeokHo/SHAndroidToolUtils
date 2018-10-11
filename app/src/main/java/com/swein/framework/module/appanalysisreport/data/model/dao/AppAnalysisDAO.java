@@ -25,13 +25,11 @@ public class AppAnalysisDAO {
             ExceptionData exceptionData = (ExceptionData) appAnalysisData;
             ExceptionDBController exceptionDBController = new ExceptionDBController(context);
             exceptionDBController.insert(exceptionData);
-            exceptionDBController.copy();
         }
         else if(appAnalysisData instanceof OperationData) {
             OperationData operationData = (OperationData) appAnalysisData;
             OperationDBController operationDBController = new OperationDBController(context);
             operationDBController.insert(operationData);
-            operationDBController.copy();
         }
 
     }

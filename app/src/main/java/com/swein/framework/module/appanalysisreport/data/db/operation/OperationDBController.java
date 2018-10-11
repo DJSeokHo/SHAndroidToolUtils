@@ -6,13 +6,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
+import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OperationDBController extends AppAnalysisReportDBController {
+
+    private final static String TAG = "OperationDBController";
 
     public OperationDBController(Context context) {
         super(context);
@@ -78,5 +82,45 @@ public class OperationDBController extends AppAnalysisReportDBController {
         close();
 
         return operationDataArrayList;
+    }
+
+    public void deleteInDateTimeRange(int day) {
+        /*
+            DELETE FROM TB_OPERATION_REPORT
+            WHERE TB_OPERATION_REPORT.UUID IN (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
+            WHERE strftime('%s','now') - strftime('%s', TB_OPERATION_REPORT.DATE_TIME) > (86400 * 7));
+         */
+        String stringBuilder = "DELETE FROM " + OPERATION_REPORT_TABLE_NAME +
+                " WHERE " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                    "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
+                    " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + AAConstants.SECONDS_IN_DAY * day + ")" +
+                ");";
+
+        getWritableDatabase().execSQL(stringBuilder);
+        close();
+    }
+
+    public void deleteInRecordTotalNumberRange(int totalNumber) {
+        /*
+            DELETE FROM TB_OPERATION_REPORT WHERE
+            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT
+            ) > 5000 AND TB_OPERATION_REPORT.UUID IN
+            (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
+            ORDER BY TB_OPERATION_REPORT.DATE_TIME DESC LIMIT
+            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT) OFFSET 5000 );
+         */
+        String stringBuilder = "DELETE FROM " + OPERATION_REPORT_TABLE_NAME + " WHERE " +
+                "(" +
+                    "SELECT COUNT(" + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + OPERATION_REPORT_TABLE_NAME +
+                ") > " + totalNumber + " AND " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                    "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
+                    " ORDER BY " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + " DESC LIMIT " +
+                    "(SELECT COUNT(" + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + OPERATION_REPORT_TABLE_NAME + ") OFFSET " + totalNumber +
+                ");";
+
+        getWritableDatabase().execSQL(stringBuilder);
+        close();
     }
 }
