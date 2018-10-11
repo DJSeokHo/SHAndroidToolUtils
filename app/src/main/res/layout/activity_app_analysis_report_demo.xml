@@ -57,8 +57,8 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonClearDB"
-        android:text="clear DB"
+        android:id="@+id/buttonResetDB"
+        android:text="reset DB"
         android:textColor="@color/gray_light"
         android:textAllCaps="false"
         android:background="#0000"

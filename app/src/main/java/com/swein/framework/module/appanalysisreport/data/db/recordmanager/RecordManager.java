@@ -48,7 +48,7 @@ public class RecordManager {
 
             case FOR_TEST:
                 deleteInDateTimeRange(context, 5);
-                deleteInRecordTotalNumberRange(context, 10);
+                deleteInRecordTotalNumberRange(context, 5);
 
                 break;
         }

@@ -210,6 +210,28 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         close();
 
     }
+    private void setOperationReportAnonymous(String userID) {
+
+        /*
+         * before temp db file copy set to Anonymous
+         */
+        String before = "UPDATE " + OPERATION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
+        getWritableDatabase().execSQL(before);
+        close();
+
+    }
+    private void setExceptionReportAnonymous(String userID) {
+
+        /*
+         * before temp db file copy set to Anonymous
+         */
+        String before = "UPDATE " + EXCEPTION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
+        getWritableDatabase().execSQL(before);
+        close();
+
+    }
+
+
     private void setAntiDeviceUserReportAnonymous(String userID, String userEmail) {
 
         /*
@@ -223,17 +245,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         getWritableDatabase().execSQL(after);
         close();
     }
-
-    private void setExceptionReportAnonymous(String userID) {
-
-        /*
-         * before temp db file copy set to Anonymous
-         */
-        String before = "UPDATE " + EXCEPTION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
-        getWritableDatabase().execSQL(before);
-        close();
-
-    }
     private void setAntiExceptionReportAnonymous(String userID) {
 
         /*
@@ -241,17 +252,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
          */
         String after = "UPDATE " + EXCEPTION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + userID + "' WHERE " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "';";
         getWritableDatabase().execSQL(after);
-        close();
-
-    }
-
-    private void setOperationReportAnonymous(String userID) {
-
-        /*
-         * before temp db file copy set to Anonymous
-         */
-        String before = "UPDATE " + OPERATION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
-        getWritableDatabase().execSQL(before);
         close();
 
     }

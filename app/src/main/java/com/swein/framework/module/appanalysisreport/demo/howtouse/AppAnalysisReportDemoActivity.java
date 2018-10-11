@@ -39,7 +39,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
     private Button buttonLongClick;
     private Button buttonClick;
 
-    private Button buttonClearDB;
+    private Button buttonResetDB;
     private Button buttonSendReport;
 
     private Spinner spinnerManageDB;
@@ -121,8 +121,8 @@ public class AppAnalysisReportDemoActivity extends Activity {
             }
         });
 
-        buttonClearDB = findViewById(R.id.buttonClearDB);
-        buttonClearDB.setOnClickListener(new View.OnClickListener() {
+        buttonResetDB = findViewById(R.id.buttonResetDB);
+        buttonResetDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(AppAnalysisReportDemoActivity.this);
