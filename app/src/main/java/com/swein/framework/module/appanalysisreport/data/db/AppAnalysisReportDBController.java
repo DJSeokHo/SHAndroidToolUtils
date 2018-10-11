@@ -3,8 +3,8 @@ package com.swein.framework.module.appanalysisreport.data.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 
+import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 
 import java.io.File;
@@ -45,12 +45,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
         createOperationReportTable(db);
         createExceptionReportTable(db);
-    }
-
-    protected void copyDBForTest() {
-        SQLiteDatabase db = getReadableDatabase();
-        copyDBFileToOutsideFolderForTesting(db);
-        close();
     }
 
     private void createOperationReportTable(SQLiteDatabase db) {
@@ -110,20 +104,46 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         close();
     }
 
-    private void copyDBFileToOutsideFolderForTesting(SQLiteDatabase db) {
+    public void deleteDBFileToOutsideFolderForTemp() {
+        File file = new File(AAConstants.DB_FILE_TEMP_PATH, AAConstants.DB_FILE_TEMP_NAME);
+        if(file.exists()) {
+            file.delete();
+        }
+    }
+
+    public File copyDBFileToOutsideFolderForTemp() {
 
         /*
          * ************ DB copy just for debugging. Do not delete this part ************ from here [DB test issue]
          * //check here before release !!!!warning: [this part] only for debugging, commented out code between [this part] in release
          *
          */
+        File folder = new File(AAConstants.DB_FILE_TEMP_PATH);
+        if(!folder.exists()) {
+            folder.mkdir();
+        }
+
+        File file = new File(AAConstants.DB_FILE_TEMP_PATH, AAConstants.DB_FILE_TEMP_NAME);
+
+        if(file.exists()) {
+            boolean success = file.delete();
+            if(!success) {
+                return null;
+            }
+        }
+
         try {
-            FileIOUtil.copyFileUsingFileChannels(new File(db.getPath()), new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "AppAnalysisReport.db"));
+            FileIOUtil.copyFileUsingFileChannels(new File(getReadableDatabase().getPath()), file);
         }
         catch (IOException e) {
             e.printStackTrace();
+            close();
+        }
+        finally {
+            close();
         }
 
+        return file;
     }
 
 }

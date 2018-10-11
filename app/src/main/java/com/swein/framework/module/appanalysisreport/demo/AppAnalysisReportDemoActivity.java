@@ -34,6 +34,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
     private Button buttonClick;
 
     private Button buttonClearDB;
+    private Button buttonSendReport;
 
     private Spinner spinnerManageDB;
 
@@ -42,6 +43,7 @@ public class AppAnalysisReportDemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_report_demo);
 
+        new AppAnalysisReportDBController(this).deleteDBFileToOutsideFolderForTemp();
 
         buttonCrash = findViewById(R.id.buttonCrash);
         buttonCrash.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +123,14 @@ public class AppAnalysisReportDemoActivity extends Activity {
             }
         });
 
+        buttonSendReport = findViewById(R.id.buttonSendReport);
+        buttonSendReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisReportDemoActivity.this);
+            }
+        });
+
         spinnerManageDB = findViewById(R.id.spinnerManageDB);
         List<String> dataList = getData();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.view_holder_spinner_drop_item_light_bg, dataList);
@@ -168,7 +178,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
                 }
 
                 RecordManager.getInstance().checkReportRecord(AppAnalysisReportDemoActivity.this, reportRecordManageType);
-
             }
 
             @Override
@@ -176,9 +185,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
             }
         });
-
-
-
 
     }
 

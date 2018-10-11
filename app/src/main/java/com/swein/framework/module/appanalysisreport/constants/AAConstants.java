@@ -1,8 +1,13 @@
 package com.swein.framework.module.appanalysisreport.constants;
 
+import android.os.Environment;
+
 public class AAConstants {
 
     public final static int SECONDS_IN_DAY = 86400;
+
+    public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppAnalysisReportTemp/";
+    public final static String DB_FILE_TEMP_NAME = "AppAnalysisReport.db";
 
     /*
      * you can add your own event group here

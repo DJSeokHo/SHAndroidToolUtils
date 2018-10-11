@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
-import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,6 @@ public class OperationDBController extends AppAnalysisReportDBController {
     public OperationDBController(Context context) {
         super(context);
 
-    }
-
-    public void copy() {
-        copyDBForTest();
     }
 
     public void insert(OperationData operationData) {

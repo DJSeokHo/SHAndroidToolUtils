@@ -21,10 +21,6 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
         super(context);
     }
 
-    public void copy() {
-        copyDBForTest();
-    }
-
     public void insert(ExceptionData exceptionData) {
         SQLiteDatabase db = null;
         try {
