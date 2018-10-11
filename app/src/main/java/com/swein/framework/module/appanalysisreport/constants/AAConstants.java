@@ -8,6 +8,7 @@ public class AAConstants {
 
     public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppAnalysisReportTemp/";
     public final static String DB_FILE_TEMP_NAME = "AppAnalysisReport.db";
+    public final static String EMAIL_RECEIVER = "djseokho@gmail.com";
 
     /*
      * you can add your own event group here
