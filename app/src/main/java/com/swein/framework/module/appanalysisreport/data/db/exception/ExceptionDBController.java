@@ -3,11 +3,12 @@ package com.swein.framework.module.appanalysisreport.data.db.exception;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
         SQLiteDatabase db = null;
         try {
 
-            db = getWritableDatabase();
+            db = getWritableDatabase(DB_KEY);
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_UUID, exceptionData.getUuid());
@@ -52,7 +53,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
 
     public List<ExceptionData> getData(int offset, int limit) {
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + EXCEPTION_REPORT_TABLE_NAME + " ORDER BY " + TABLE_COL_DATE_TIME + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
+        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery("SELECT * FROM " + EXCEPTION_REPORT_TABLE_NAME + " ORDER BY " + TABLE_COL_DATE_TIME + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
 
         ArrayList<ExceptionData> exceptionModelArrayList = new ArrayList<>();
 
@@ -89,7 +90,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
                 " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + AAConstants.SECONDS_IN_DAY * day + ")" +
                 ");";
 
-        getWritableDatabase().execSQL(stringBuilder);
+        getWritableDatabase(DB_KEY).execSQL(stringBuilder);
         close();
     }
 
@@ -112,7 +113,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
                     "(SELECT COUNT(" + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + EXCEPTION_REPORT_TABLE_NAME + ") OFFSET " + totalNumber +
                 ");";
 
-        getWritableDatabase().execSQL(stringBuilder);
+        getWritableDatabase(DB_KEY).execSQL(stringBuilder);
         close();
     }
 

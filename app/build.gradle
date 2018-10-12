@@ -89,6 +89,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation 'com.android.support:support-v4:27.1.1'
 
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
+
     compileOnly files('libs/knoxsdk.jar')
     runtimeOnly files('libs/supportlib.jar')
     implementation project(path: ':zxinglite')

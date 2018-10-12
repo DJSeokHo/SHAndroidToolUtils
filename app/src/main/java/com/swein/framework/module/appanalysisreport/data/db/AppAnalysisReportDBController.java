@@ -1,11 +1,13 @@
 package com.swein.framework.module.appanalysisreport.data.db;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.tools.util.dbcrypt.SQLCipherHelper;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
+
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     private final static int DB_VERSION = 1;
 
+    protected final static String DB_KEY = "878905o5i4ifi3i33332opjfif93934tif9303033jof3oltkth31";
     /* 사용자&기기 */
     protected final static String DEVICE_USER_TABLE_NAME = "TB_DEVICE_USER";
 
@@ -45,9 +48,12 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     protected final static String TABLE_COL_LINE_NUMBER = "LINE_NUMBER";
     protected final static String TABLE_COL_MESSAGE = "MESSAGE";
 
+    private net.sqlcipher.database.SQLiteDatabase db;
 
     public AppAnalysisReportDBController(Context context) {
         super(context, AAConstants.DB_FILE_TEMP_NAME, null, DB_VERSION);
+        net.sqlcipher.database.SQLiteDatabase.loadLibs( context );
+        db = SQLCipherHelper.autoEncryptDB(this, context, AAConstants.DB_FILE_TEMP_NAME, DB_KEY);
     }
 
     @Override
@@ -118,11 +124,11 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     public void deleteDatabase(Context context) {
         close();
-        context.deleteDatabase(this.getDatabaseName());
+        context.deleteDatabase(AAConstants.DB_FILE_TEMP_NAME);
     }
 
     public void clearDataBase() {
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase(DB_KEY);
         db.execSQL("DROP TABLE IF EXISTS " + DEVICE_USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + OPERATION_REPORT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EXCEPTION_REPORT_TABLE_NAME);
@@ -163,7 +169,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         }
 
         try {
-            FileIOUtil.copyFileUsingFileChannels(new File(getReadableDatabase().getPath()), file);
+            FileIOUtil.copyFileUsingFileChannels(new File(getReadableDatabase(DB_KEY).getPath()), file);
         }
         catch (IOException e) {
             e.printStackTrace();

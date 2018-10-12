@@ -3,10 +3,11 @@ package com.swein.framework.module.appanalysisreport.data.db.deviceuser;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class DeviceUserDBController extends AppAnalysisReportDBController {
         SQLiteDatabase db = null;
         try {
 
-            db = getWritableDatabase();
+            db = getWritableDatabase(DB_KEY);
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_DEVICE_UUID, deviceUserData.getDeviceUUID());
@@ -50,7 +51,7 @@ public class DeviceUserDBController extends AppAnalysisReportDBController {
 
     public List<DeviceUserData> getData() {
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + DEVICE_USER_TABLE_NAME, null);
+        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery("SELECT * FROM " + DEVICE_USER_TABLE_NAME, null);
 
         ArrayList<DeviceUserData> deviceUserDataArrayList = new ArrayList<>();
 
