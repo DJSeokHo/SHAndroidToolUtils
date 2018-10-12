@@ -22,7 +22,6 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
 
         AppAnalysisData appAnalysisData = new OperationData.Builder()
                 .setUuid(UUID.randomUUID().toString())
-                .setUserID(AAConstants.TEST_USER_ID)
                 .setClassFileName(this.getClass().getName())
                 .setViewUINameOrMethodName("onCreate()")
                 .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -44,7 +43,6 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
     protected void onDestroy() {
         AppAnalysisData appAnalysisData = new OperationData.Builder()
                 .setUuid(UUID.randomUUID().toString())
-                .setUserID(AAConstants.TEST_USER_ID)
                 .setClassFileName(this.getClass().getName())
                 .setViewUINameOrMethodName("onDestroy()")
                 .setDateTime(DateUtil.getCurrentDateTimeString())

@@ -6,9 +6,6 @@ public class ExceptionData implements AppAnalysisData {
 
     private String uuid = "";
 
-    /* 사용자 ID */
-    private String userID = "";
-
     /* 시간 */
     private String dateTime = "";
 
@@ -29,9 +26,6 @@ public class ExceptionData implements AppAnalysisData {
     public static class Builder {
 
         private String uuid = "";
-
-        /* 사용자 ID */
-        private String userID = "";
 
         /* 시간 */
         private String dateTime = "";
@@ -80,11 +74,6 @@ public class ExceptionData implements AppAnalysisData {
             return this;
         }
 
-        public Builder setUserID(String userID) {
-            this.userID = userID;
-            return this;
-        }
-
         public Builder setEventGroup(String eventGroup) {
             this.eventGroup = eventGroup;
             return this;
@@ -97,7 +86,6 @@ public class ExceptionData implements AppAnalysisData {
 
     private ExceptionData(Builder builder) {
         this.uuid = builder.uuid;
-        this.userID = builder.userID;
         this.dateTime = builder.dateTime;
         this.classFileName = builder.classFileName;
         this.methodName = builder.methodName;
@@ -130,24 +118,19 @@ public class ExceptionData implements AppAnalysisData {
         return methodName;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
     public String getEventGroup() {
         return eventGroup;
     }
 
     @Override
     public String toString() {
-        return uuid + " " + userID + " " + dateTime + " " + classFileName + " " + methodName + " " + lineNumber + " " + exceptionMessage + " " + eventGroup;
+        return uuid + " " + dateTime + " " + classFileName + " " + methodName + " " + lineNumber + " " + exceptionMessage + " " + eventGroup;
     }
 
     @Override
     public String toReport() {
 
-        return USER_ID_KEY + userID + "\n" +
-                DATE_TIME_KEY + dateTime + "\n" +
+        return DATE_TIME_KEY + dateTime + "\n" +
                 CLASS_FILE_NAME_KEY + classFileName + "\n" +
                 METHOD_NAME_KEY + methodName + "\n" +
                 LINE_NUMBER_KEY + lineNumber + "\n" +
@@ -155,7 +138,6 @@ public class ExceptionData implements AppAnalysisData {
                 EVENT_GROUP_KEY + eventGroup;
     }
 
-    private final static String USER_ID_KEY = "사용자 계정: ";
     private final static String DATE_TIME_KEY = "오류 발생 일시: ";
     private final static String CLASS_FILE_NAME_KEY = "오류 발생한 파일: ";
     private final static String METHOD_NAME_KEY = "오류 발생한 메소드: ";

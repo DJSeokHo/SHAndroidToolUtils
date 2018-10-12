@@ -28,7 +28,6 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_UUID, exceptionData.getUuid());
-            contentValues.put(TABLE_COL_USER_ID, exceptionData.getUserID());
             contentValues.put(TABLE_COL_DATE_TIME, exceptionData.getDateTime());
             contentValues.put(TABLE_COL_CLASS_FILE_NAME, exceptionData.getClassFileName());
             contentValues.put(TABLE_COL_METHOD_NAME, exceptionData.getMethodName());
@@ -61,7 +60,6 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
 
             ExceptionData exceptionData = new ExceptionData.Builder()
                     .setUuid(cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)))
-                    .setUserID(cursor.getString(cursor.getColumnIndex(TABLE_COL_USER_ID)))
                     .setDateTime(cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)))
                     .setClassFileName(cursor.getString(cursor.getColumnIndex(TABLE_COL_CLASS_FILE_NAME)))
                     .setLineNumber(cursor.getString(cursor.getColumnIndex(TABLE_COL_LINE_NUMBER)))

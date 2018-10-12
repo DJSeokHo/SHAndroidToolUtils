@@ -7,7 +7,6 @@ public class AAConstants {
     public final static int SECONDS_IN_DAY = 86400;
 
     public final static String TEST_USER_ID = "user01";
-    public final static String TEST_USER_EMAIL = "userEmail01";
 
     public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppNameAnalysisReportTemp/";
     public final static String DB_FILE_TEMP_NAME = "AppNameAppAnalysisReport.db";

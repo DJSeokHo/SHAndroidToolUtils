@@ -23,7 +23,6 @@ public class AppAnalysisExampleMainActivity extends AppCompatActivity {
 
         AppAnalysisData appAnalysisData = new OperationData.Builder()
                 .setUuid(UUID.randomUUID().toString())
-                .setUserID(AAConstants.TEST_USER_ID)
                 .setClassFileName(this.getClass().getName())
                 .setViewUINameOrMethodName("onCreate()")
                 .setDateTime(DateUtil.getCurrentDateTimeString())

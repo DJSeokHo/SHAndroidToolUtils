@@ -30,7 +30,6 @@ public class OperationDBController extends AppAnalysisReportDBController {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_UUID, operationData.getUuid());
-            contentValues.put(TABLE_COL_USER_ID, operationData.getUserID());
             contentValues.put(TABLE_COL_DATE_TIME, operationData.getDateTime());
             contentValues.put(TABLE_COL_CLASS_FILE_NAME, operationData.getClassFileName());
             contentValues.put(TABLE_COL_VIEW_UI_NAME, operationData.getViewUIName());
@@ -62,7 +61,6 @@ public class OperationDBController extends AppAnalysisReportDBController {
 
             OperationData operationData = new OperationData.Builder()
                 .setUuid(cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)))
-                .setUserID(cursor.getString(cursor.getColumnIndex(TABLE_COL_USER_ID)))
                 .setDateTime(cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)))
                 .setClassFileName(cursor.getString(cursor.getColumnIndex(TABLE_COL_CLASS_FILE_NAME)))
                 .setViewUINameOrMethodName(cursor.getString(cursor.getColumnIndex(TABLE_COL_VIEW_UI_NAME)))

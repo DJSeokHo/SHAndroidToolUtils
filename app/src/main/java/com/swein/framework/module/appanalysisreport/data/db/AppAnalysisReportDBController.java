@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 
 import java.io.File;
@@ -20,7 +19,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     /* 사용자&기기 */
     protected final static String DEVICE_USER_TABLE_NAME = "TB_DEVICE_USER";
 
-    protected final static String TABLE_COL_USER_EMAIL = "USER_EMAIL";
     protected final static String TABLE_COL_DEVICE_UUID = "DEVICE_UUID";
     protected final static String TABLE_COL_DEVICE_MODEL = "DEVICE_MODEL";
     protected final static String TABLE_COL_OS_VERSION = "OS_VERSION";
@@ -30,7 +28,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     /* 공통 */
     protected final static String TABLE_COL_UUID = "UUID";
-    protected final static String TABLE_COL_USER_ID = "USER_ID";
     protected final static String TABLE_COL_DATE_TIME = "DATE_TIME";
     protected final static String TABLE_COL_CLASS_FILE_NAME = "CLASS_FILE_NAME";
     protected final static String TABLE_COL_EVENT_GROUP = "EVENT_GROUP";
@@ -66,9 +63,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         String stringBuilder = "CREATE TABLE IF NOT EXISTS " +
                 DEVICE_USER_TABLE_NAME +
                 '(' +
-                    TABLE_COL_USER_ID + " TEXT NOT NULL PRIMARY KEY," +
-                    TABLE_COL_USER_EMAIL + " TEXT," +
-                    TABLE_COL_DEVICE_UUID + " TEXT," +
+                    TABLE_COL_DEVICE_UUID + " TEXT NOT NULL PRIMARY KEY," +
                     TABLE_COL_DEVICE_MODEL + " TEXT," +
                     TABLE_COL_OS_VERSION + " TEXT," +
                     TABLE_COL_APP_NAME + " TEXT," +
@@ -85,7 +80,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                 OPERATION_REPORT_TABLE_NAME +
                 '(' +
                     TABLE_COL_UUID + " TEXT NOT NULL PRIMARY KEY," +
-                    TABLE_COL_USER_ID + " TEXT," +
                     TABLE_COL_DATE_TIME + " TEXT," +
                     TABLE_COL_CLASS_FILE_NAME + " TEXT," +
                     TABLE_COL_VIEW_UI_NAME + " TEXT," +
@@ -102,7 +96,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                 EXCEPTION_REPORT_TABLE_NAME +
                 '(' +
                     TABLE_COL_UUID + " TEXT NOT NULL PRIMARY KEY," +
-                    TABLE_COL_USER_ID + " TEXT," +
                     TABLE_COL_DATE_TIME + " TEXT," +
                     TABLE_COL_CLASS_FILE_NAME + " TEXT," +
                     TABLE_COL_METHOD_NAME + " TEXT," +
@@ -148,14 +141,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         }
     }
 
-    public File copyDBFileToOutsideFolderForTemp(boolean anonymous) {
-
-
-        if(anonymous) {
-            setDeviceUserReportAnonymous(AAConstants.TEST_USER_ID);
-            setOperationReportAnonymous(AAConstants.TEST_USER_ID);
-            setExceptionReportAnonymous(AAConstants.TEST_USER_ID);
-        }
+    public File copyDBFileToOutsideFolderForTemp() {
 
         /*
          * ************ DB copy just for debugging. Do not delete this part ************ from here [DB test issue]
@@ -187,82 +173,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
             close();
         }
 
-        if(anonymous) {
-            setAntiDeviceUserReportAnonymous(AAConstants.TEST_USER_ID, AAConstants.TEST_USER_EMAIL);
-            setAntiOperationReportAnonymous(AAConstants.TEST_USER_ID);
-            setAntiExceptionReportAnonymous(AAConstants.TEST_USER_ID);
-        }
-
         return file;
     }
-
-    private void setDeviceUserReportAnonymous(String userID) {
-
-        /*
-         * before temp db file copy set to Anonymous
-         */
-        String before = "UPDATE " + DEVICE_USER_TABLE_NAME +
-                " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "', " +
-                TABLE_COL_USER_EMAIL + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' " +
-                " WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
-        ILog.iLogDebug(TAG, before);
-        getWritableDatabase().execSQL(before);
-        close();
-
-    }
-    private void setOperationReportAnonymous(String userID) {
-
-        /*
-         * before temp db file copy set to Anonymous
-         */
-        String before = "UPDATE " + OPERATION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
-        getWritableDatabase().execSQL(before);
-        close();
-
-    }
-    private void setExceptionReportAnonymous(String userID) {
-
-        /*
-         * before temp db file copy set to Anonymous
-         */
-        String before = "UPDATE " + EXCEPTION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "' WHERE " + TABLE_COL_USER_ID + " = '" + userID + "';";
-        getWritableDatabase().execSQL(before);
-        close();
-
-    }
-
-
-    private void setAntiDeviceUserReportAnonymous(String userID, String userEmail) {
-
-        /*
-         * after temp db file copy set back to User Info
-         */
-        String after = "UPDATE " + DEVICE_USER_TABLE_NAME +
-                " SET " + TABLE_COL_USER_ID + " = '" + userID + "', " +
-                TABLE_COL_USER_EMAIL + " = '" + userEmail + "' " +
-                " WHERE " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "';";
-        ILog.iLogDebug(TAG, after);
-        getWritableDatabase().execSQL(after);
-        close();
-    }
-    private void setAntiExceptionReportAnonymous(String userID) {
-
-        /*
-         * after temp db file copy set back to User Info
-         */
-        String after = "UPDATE " + EXCEPTION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + userID + "' WHERE " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "';";
-        getWritableDatabase().execSQL(after);
-        close();
-
-    }
-    private void setAntiOperationReportAnonymous(String userID) {
-
-        /*
-         * after temp db file copy set back to User Info
-         */
-        String after = "UPDATE " + OPERATION_REPORT_TABLE_NAME + " SET " + TABLE_COL_USER_ID + " = '" + userID + "' WHERE " + TABLE_COL_USER_ID + " = '" + AAConstants.ANONYMOUS_USER_TEMP_KEY + "';";
-        getWritableDatabase().execSQL(after);
-        close();
-    }
-
 }

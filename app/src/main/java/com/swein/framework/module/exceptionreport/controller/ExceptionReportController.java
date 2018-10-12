@@ -2,7 +2,6 @@ package com.swein.framework.module.exceptionreport.controller;
 
 import android.content.Context;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.exceptionreport.constants.EConstants;
 import com.swein.framework.module.exceptionreport.controller.gateway.ExceptionGatewayDelegate;
 import com.swein.framework.module.exceptionreport.controller.gateway.email.ExceptionEmailGateway;
@@ -49,7 +48,7 @@ public class ExceptionReportController {
         exceptionModel.setDateTime(DateUtil.getCurrentDateTimeString());
         exceptionModel.setLineNumber(String.valueOf(stackTraceElement.getLineNumber()));
         exceptionModel.setMethodName(stackTraceElement.getMethodName());
-        exceptionModel.setUserID(AAConstants.TEST_USER_ID);
+        exceptionModel.setUserID("user01");
 
         exceptionModel.setExceptionMessage(Arrays.toString(e.getStackTrace()));
 
@@ -67,7 +66,7 @@ public class ExceptionReportController {
         exceptionModel.setDateTime(DateUtil.getCurrentDateTimeString());
         exceptionModel.setLineNumber(lineNumber);
         exceptionModel.setMethodName(methodName);
-        exceptionModel.setUserID(AAConstants.TEST_USER_ID);
+        exceptionModel.setUserID("user01");
 
         exceptionModel.setExceptionMessage(response);
 

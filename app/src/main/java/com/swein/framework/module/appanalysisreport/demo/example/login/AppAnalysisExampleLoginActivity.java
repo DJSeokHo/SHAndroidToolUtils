@@ -40,7 +40,6 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         AppAnalysisData appAnalysisData = new OperationData.Builder()
                 .setUuid(UUID.randomUUID().toString())
-                .setUserID(AAConstants.TEST_USER_ID)
                 .setClassFileName(this.getClass().getName())
                 .setViewUINameOrMethodName("onCreate()")
                 .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -59,7 +58,6 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
                 AppAnalysisData appAnalysisData = new OperationData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisExampleLoginActivity.this.getClass().getName())
                         .setViewUINameOrMethodName(buttonLogin.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -82,7 +80,6 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         Throwable throwable = new Throwable();
                         AppAnalysisData appAnalysisData = new ExceptionData.Builder()
                                 .setUuid(UUID.randomUUID().toString())
-                                .setUserID(AAConstants.TEST_USER_ID)
                                 .setDateTime(DateUtil.getCurrentDateTimeString())
                                 .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(throwable))
                                 .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
@@ -111,7 +108,6 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         AppAnalysisData appAnalysisData = new OperationData.Builder()
                 .setUuid(UUID.randomUUID().toString())
-                .setUserID(AAConstants.TEST_USER_ID)
                 .setClassFileName(this.getClass().getName())
                 .setViewUINameOrMethodName("checkInput()")
                 .setDateTime(DateUtil.getCurrentDateTimeString())

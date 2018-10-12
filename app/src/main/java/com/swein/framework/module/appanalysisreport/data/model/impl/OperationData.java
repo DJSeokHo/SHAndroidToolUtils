@@ -8,9 +8,6 @@ public class OperationData implements AppAnalysisData {
     /* uuid */
     private String uuid = "";
 
-    /* user ID */
-    private String userID = "";
-
     /* class file name */
     private String classFileName = "";
 
@@ -30,9 +27,6 @@ public class OperationData implements AppAnalysisData {
         /* uuid */
         private String uuid = "";
 
-        /* user ID */
-        private String userID = "";
-
         /* class file name */
         private String classFileName = "";
 
@@ -49,11 +43,6 @@ public class OperationData implements AppAnalysisData {
 
         public Builder setUuid(String uuid) {
             this.uuid = uuid;
-            return this;
-        }
-
-        public Builder setUserID(String userID) {
-            this.userID = userID;
             return this;
         }
 
@@ -89,7 +78,6 @@ public class OperationData implements AppAnalysisData {
 
     private OperationData(Builder builder) {
         this.uuid = builder.uuid;
-        this.userID = builder.userID;
         this.classFileName = builder.classFileName;
         this.dateTime = builder.dateTime;
         this.viewUIName = builder.viewUIName;
@@ -99,10 +87,6 @@ public class OperationData implements AppAnalysisData {
 
     public String getUuid() {
         return uuid;
-    }
-
-    public String getUserID() {
-        return userID;
     }
 
     public String getClassFileName() {
@@ -127,10 +111,9 @@ public class OperationData implements AppAnalysisData {
 
     @Override
     public String toString() {
-        return uuid + " " + userID + " " + classFileName + " " + dateTime + " " + viewUIName + " " + getOperationTypeString(operationType) + " " + eventGroup;
+        return uuid + " " + classFileName + " " + dateTime + " " + viewUIName + " " + getOperationTypeString(operationType) + " " + eventGroup;
     }
 
-    private final static String USER_ID_KEY = "사용자 계정: ";
     private final static String CLASS_FILE_KEY = "화면 파일: ";
     private final static String VIEW_UI_NAME_KEY = "터치한 위치: ";
     private final static String DATE_TIME_KEY = "시간: ";
@@ -140,8 +123,7 @@ public class OperationData implements AppAnalysisData {
     @Override
     public String toReport() {
 
-        return USER_ID_KEY + userID + "\n" +
-                CLASS_FILE_KEY + classFileName + "\n" +
+        return CLASS_FILE_KEY + classFileName + "\n" +
                 DATE_TIME_KEY + dateTime + "\n" +
                 VIEW_UI_NAME_KEY + viewUIName + "\n" +
                 OPERATION_TYPE_KEY + getOperationTypeString(operationType) + "\n" +

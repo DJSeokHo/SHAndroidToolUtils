@@ -26,8 +26,6 @@ public class DeviceUserDBController extends AppAnalysisReportDBController {
             db = getWritableDatabase();
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(TABLE_COL_USER_ID, deviceUserData.getUserID());
-            contentValues.put(TABLE_COL_USER_EMAIL, deviceUserData.getUserEmail());
             contentValues.put(TABLE_COL_DEVICE_UUID, deviceUserData.getDeviceUUID());
             contentValues.put(TABLE_COL_DEVICE_MODEL, deviceUserData.getDeviceModel());
             contentValues.put(TABLE_COL_OS_VERSION, deviceUserData.getOsVersion());
@@ -59,8 +57,6 @@ public class DeviceUserDBController extends AppAnalysisReportDBController {
         while (cursor.moveToNext()) {
 
             DeviceUserData deviceUserData = new DeviceUserData.Builder()
-                    .setUserID(cursor.getString(cursor.getColumnIndex(TABLE_COL_USER_ID)))
-                    .setUserEmail(cursor.getString(cursor.getColumnIndex(TABLE_COL_USER_EMAIL)))
                     .setDeviceUUID(cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_UUID)))
                     .setDeviceModel(cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_MODEL)))
                     .setOsVersion(cursor.getString(cursor.getColumnIndex(TABLE_COL_OS_VERSION)))

@@ -74,7 +74,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
                 AppAnalysisData appAnalysisData = new ExceptionData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID(AAConstants.TEST_USER_ID)
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(throwable))
                         .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
@@ -92,7 +91,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
             public boolean onLongClick(View v) {
                 AppAnalysisData appAnalysisData = new OperationData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
                         .setViewUINameOrMethodName(buttonLongClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -112,7 +110,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
                 AppAnalysisData appAnalysisData = new OperationData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID(AAConstants.TEST_USER_ID)
                         .setClassFileName(AppAnalysisReportDemoActivity.class.getName())
                         .setViewUINameOrMethodName(buttonClick.getText().toString())
                         .setDateTime(DateUtil.getCurrentDateTimeString())
@@ -216,8 +213,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
         });
 
         AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
-                .setUserID(AAConstants.TEST_USER_ID)
-                .setUserEmail(AAConstants.TEST_USER_EMAIL)
                 .setDeviceModel(DeviceInfoUtil.getDeviceModel())
                 .setDeviceUUID(Installation.id(this))
                 .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())

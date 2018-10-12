@@ -104,7 +104,6 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
                 AppAnalysisData appAnalysisData = new ExceptionData.Builder()
                         .setUuid(UUID.randomUUID().toString())
-                        .setUserID(AAConstants.TEST_USER_ID)
                         .setDateTime(DateUtil.getCurrentDateTimeString())
                         .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(exception))
                         .setLineNumber(StackTraceParser.getLineNumberFromThrowable(exception))

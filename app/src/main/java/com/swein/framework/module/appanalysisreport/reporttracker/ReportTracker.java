@@ -37,9 +37,21 @@ public class ReportTracker {
 
     public void sendAppAnalysisReportByEmail(Context context, boolean anonymous) {
 
-        File file = new AppAnalysisReportDBController(context).copyDBFileToOutsideFolderForTemp(anonymous);
+        File file = new AppAnalysisReportDBController(context).copyDBFileToOutsideFolderForTemp();
+
+        String title = "AppNameAppAnalysisReport";
+
+        String content;
+
+        if(anonymous) {
+            content = "AppNameAppAnalysisReport";
+        }
+        else {
+            content = "user : " + AAConstants.TEST_USER_ID;
+        }
+
         EmailUtil.mailToWithFile(context, file, new String[]{AAConstants.EMAIL_RECEIVER, AAConstants.EMAIL_RECEIVER},
-                "AppNameAppAnalysisReport", "AppNameAppAnalysisReport");
+                title, content);
 
     }
 
