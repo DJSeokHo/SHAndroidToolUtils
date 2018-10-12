@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.Button;
 
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
+import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
+import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
+import com.swein.framework.module.appanalysisreport.demo.howtouse.AppAnalysisReportDemoActivity;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.appinfo.AppInfoUtil;
+import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
+import com.swein.framework.tools.util.uuid.Installation;
 import com.swein.shandroidtoolutils.MainActivity;
 import com.swein.shandroidtoolutils.R;
 
@@ -45,6 +51,18 @@ public class AppCrashReportActivity extends Activity {
         buttonSendExceptionEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
+                        .setDeviceModel(DeviceInfoUtil.getDeviceModel())
+                        .setDeviceUUID(Installation.id(AppCrashReportActivity.this))
+                        .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
+                        .setAppName(AppInfoUtil.getPackageName(AppCrashReportActivity.this))
+                        .setAppVersion(AppInfoUtil.getVersionName(AppCrashReportActivity.this))
+                        .setOther("")
+                        .build();
+
+                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppCrashReportActivity.this, appAnalysisData);
+
 
                 DialogUtil.createNormalDialogWithThreeButton(AppCrashReportActivity.this,
                         "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",

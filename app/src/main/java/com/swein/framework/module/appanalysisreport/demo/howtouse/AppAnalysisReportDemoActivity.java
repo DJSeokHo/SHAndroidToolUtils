@@ -135,6 +135,17 @@ public class AppAnalysisReportDemoActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
+                        .setDeviceModel(DeviceInfoUtil.getDeviceModel())
+                        .setDeviceUUID(Installation.id(AppAnalysisReportDemoActivity.this))
+                        .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
+                        .setAppName(AppInfoUtil.getPackageName(AppAnalysisReportDemoActivity.this))
+                        .setAppVersion(AppInfoUtil.getVersionName(AppAnalysisReportDemoActivity.this))
+                        .setOther("")
+                        .build();
+
+                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisReportDemoActivity.this, appAnalysisData);
+
                 DialogUtil.createNormalDialogWithThreeButton(AppAnalysisReportDemoActivity.this,
                         "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
                         new DialogInterface.OnClickListener() {
@@ -211,17 +222,6 @@ public class AppAnalysisReportDemoActivity extends Activity {
 
             }
         });
-
-        AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
-                .setDeviceModel(DeviceInfoUtil.getDeviceModel())
-                .setDeviceUUID(Installation.id(this))
-                .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
-                .setAppName(AppInfoUtil.getPackageName(this))
-                .setAppVersion(AppInfoUtil.getVersionName(this))
-                .setOther("")
-                .build();
-
-        ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisReportDemoActivity.this, appAnalysisData);
 
     }
 
