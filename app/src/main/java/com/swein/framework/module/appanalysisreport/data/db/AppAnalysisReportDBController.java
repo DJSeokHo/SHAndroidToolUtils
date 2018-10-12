@@ -48,12 +48,10 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     protected final static String TABLE_COL_LINE_NUMBER = "LINE_NUMBER";
     protected final static String TABLE_COL_MESSAGE = "MESSAGE";
 
-    private net.sqlcipher.database.SQLiteDatabase db;
-
     public AppAnalysisReportDBController(Context context) {
         super(context, AAConstants.DB_FILE_TEMP_NAME, null, DB_VERSION);
         net.sqlcipher.database.SQLiteDatabase.loadLibs( context );
-        db = SQLCipherHelper.autoEncryptDB(this, context, AAConstants.DB_FILE_TEMP_NAME, DB_KEY);
+        SQLCipherHelper.autoEncryptDB(this, context, AAConstants.DB_FILE_TEMP_NAME, DB_KEY);
     }
 
     @Override
