@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
-import com.swein.framework.module.appanalysisreport.demo.howtouse.AppAnalysisReportDemoActivity;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
