@@ -345,13 +345,19 @@
             android:name="com.swein.framework.module.appanalysisreport.demo.howtouse.AppAnalysisReportDemoActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.swein.framework.module.appanalysisreport.demo.example.main.AppAnalysisExampleMainActivity"
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.main.AppAnalysisExampleMainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
