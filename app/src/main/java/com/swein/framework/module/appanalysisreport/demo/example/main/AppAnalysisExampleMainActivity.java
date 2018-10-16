@@ -1,7 +1,7 @@
 package com.swein.framework.module.appanalysisreport.demo.example.main;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.swein.framework.module.aop.authlogin.AuthLogin;
@@ -19,7 +19,7 @@ import com.swein.shandroidtoolutils.R;
 
 import java.util.UUID;
 
-public class AppAnalysisExampleMainActivity extends Activity {
+public class AppAnalysisExampleMainActivity extends AppCompatActivity {
 
     private final static String TAG = "AppAnalysisExampleMainActivity";
 
@@ -35,7 +35,6 @@ public class AppAnalysisExampleMainActivity extends Activity {
                 ThreadUtil.startUIThread(0, new Runnable() {
                     @Override
                     public void run() {
-
                         checkNetwork();
                     }
                 });
@@ -62,8 +61,8 @@ public class AppAnalysisExampleMainActivity extends Activity {
         authLogin();
     }
 
-//    @AuthLogin(userID = "shd")
-    @AuthLogin(userID = "sh")
+    @AuthLogin(userID = "shd")
+//    @AuthLogin(userID = "sh")
     private void authLogin() {
 
         ILog.iLogDebug(TAG, "authLogin");
