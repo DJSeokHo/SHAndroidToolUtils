@@ -12,7 +12,20 @@
         android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="@color/gray_light"
-        android:text="Home Screen will Crash In 3 Seconds"
+        android:text="Main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="7pt"
+        android:textColor="@color/white"/>
+
+
 </FrameLayout>

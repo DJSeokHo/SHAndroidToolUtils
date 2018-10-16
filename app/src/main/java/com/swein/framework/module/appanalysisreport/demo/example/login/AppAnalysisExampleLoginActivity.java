@@ -11,7 +11,7 @@ import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
-import com.swein.framework.module.appanalysisreport.demo.example.main.AppAnalysisExampleMainActivity;
+import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
 import com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
@@ -89,7 +89,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                                 .build();
                         ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
 
-                        ActivityUtil.startNewActivityWithoutFinish(AppAnalysisExampleLoginActivity.this, AppAnalysisExampleMainActivity.class);
+                        ActivityUtil.startNewActivityWithoutFinish(AppAnalysisExampleLoginActivity.this, AppAnalysisExampleHomeActivity.class);
                     }
                 });
 
