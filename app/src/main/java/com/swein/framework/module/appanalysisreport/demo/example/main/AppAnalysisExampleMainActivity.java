@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.swein.framework.module.aop.authlogin.AuthLogin;
 import com.swein.framework.module.aop.networkcheck.NetworkCheckAnnotation;
+import com.swein.framework.module.aop.runningtime.RunningTime;
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
@@ -54,10 +55,16 @@ public class AppAnalysisExampleMainActivity extends AppCompatActivity {
 
     }
 
+    @RunningTime
     @NetworkCheckAnnotation
     private void checkNetwork() {
         ILog.iLogDebug(TAG, "checkNetwork");
-
+        try {
+            Thread.sleep(2000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         authLogin();
     }
 
