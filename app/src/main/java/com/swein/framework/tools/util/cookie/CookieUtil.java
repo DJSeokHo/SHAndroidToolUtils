@@ -16,6 +16,34 @@ import com.swein.framework.tools.util.debug.log.ILog;
 
 public class CookieUtil {
 
+
+    /**
+     * must add this in WebViewClient - onPageFinished
+     *
+     public void onPageFinished(WebView view, String url) {
+     super.onPageFinished(view, url);
+
+     // add here !!!
+     CookieUtil.syncCookies(context);
+
+     * @param context
+     */
+    public static void syncCookies(Context context) {
+
+        // clear cookie
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+
+            CookieManager.getInstance().flush();
+        }
+        else
+        {
+            CookieSyncManager.createInstance(context).sync();
+        }
+
+    }
+
+
+
     /**
      * put this in here:
      * @see {@link WebViewClient#onPageFinished(WebView, String)}
@@ -43,6 +71,31 @@ public class CookieUtil {
                 if (target != null && target.length > 1) {
                     value = target[1];
 
+                    return value;
+                }
+            }
+        }
+
+        return "";
+    }
+
+    public static String getKeyValueFromCookie(String url, String key) {
+        final CookieManager cookieManager = CookieManager.getInstance();
+        String cookie = cookieManager.getCookie(url);
+        if (cookie == null || cookie.length() == 0) {
+            return "";
+        }
+
+        String value;
+        String[] items = cookie.split(";");
+        for (String item : items) {
+
+            String[] target = item.trim().split("=");
+            if (target != null && target.length > 1) {
+
+                if(target[0].trim().equals(key)) {
+
+                    value = target[1];
                     return value;
                 }
             }

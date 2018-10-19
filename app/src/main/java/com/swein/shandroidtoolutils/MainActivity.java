@@ -3,6 +3,7 @@ package com.swein.shandroidtoolutils;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
+import com.swein.framework.tools.util.location.geo.SHGeoCoder;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.regularexpression.RegularExpressionUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
@@ -36,6 +38,7 @@ import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
 import com.swein.framework.tools.util.window.WindowUtil;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -262,6 +265,16 @@ public class MainActivity extends Activity {
         new SHLocation(this, new SHLocation.SHLocationDelegate() {
             @Override
             public void onLocation(double longitude, double latitude, long time) {
+
+                try {
+                    List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
+                    for(Address address : addressList) {
+                        ILog.iLogDebug(TAG, address.toString());
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         }).requestLocation();
