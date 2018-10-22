@@ -47,7 +47,6 @@ public class NetworkCheckAspectJ {
                     ToastUtil.showCustomShortToastNormal(context, "net work is good");
                     return joinPoint.proceed();
                 }
-
             }
         }
         return joinPoint.proceed();

@@ -18,6 +18,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.swein.framework.module.javascript.JSResponder;
+import com.swein.framework.tools.util.cookie.CookieUtil;
+import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.lang.ref.WeakReference;
 
@@ -28,15 +30,20 @@ import java.lang.ref.WeakReference;
 
 public class WebViewService {
 
+    private final static String TAG = "WebViewService";
+
     private WebView webView;
     private View progressBar;
 
     private WeakReference<Context> contextWeakReference;
 
+    private Context context;
+
     public WebViewService(Context context, WebView webView, View progressBar) {
         this.contextWeakReference = new WeakReference<Context>(context);
         this.webView = webView;
         this.progressBar = progressBar;
+        this.context = context;
 
         setupWebViewSetting();
         setupWebChromeClient();
@@ -106,6 +113,11 @@ public class WebViewService {
                 if (progressBar != null) {
                     progressBar.setVisibility(View.GONE);
                 }
+
+                CookieUtil.syncCookies(context);
+
+                String currentUserId = CookieUtil.getValueFromCookie(url, "your_key");
+                ILog.iLogDebug(TAG, currentUserId);
             }
 
         });
