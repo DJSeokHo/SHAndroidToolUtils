@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
+import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
@@ -23,7 +23,7 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app_analysis_example_splash);
 
 
-        ReportTracker.getInstance().trackOperation(
+        Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
                 ReportProperty.OPERATION_TYPE.NONE,
@@ -43,7 +43,7 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
 
     private void autoStartSomeMethod() {
 
-        operationRelateID = ReportTracker.getInstance().trackOperation(
+        operationRelateID = Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_AUTO_RUN_METHOD,
                 ReportProperty.OPERATION_TYPE.NONE,
@@ -61,7 +61,7 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
                 }
                 catch (Throwable throwable) {
 
-                    ReportTracker.getInstance().trackException(
+                    Reporter.getInstance().trackException(
                             ReportParser.getLocationFromThrowable(throwable),
                             ReportParser.getExceptionMessage(throwable),
                             ReportProperty.EVENT_GROUP_API_ERROR,

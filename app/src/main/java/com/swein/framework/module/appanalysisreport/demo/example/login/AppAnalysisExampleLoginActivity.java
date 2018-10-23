@@ -12,7 +12,7 @@ import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
 import com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
+import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
@@ -35,7 +35,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_login);
 
-        ReportTracker.getInstance().trackOperation(
+        Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
                 ReportProperty.OPERATION_TYPE.NONE,
@@ -55,7 +55,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false, ReportProperty.TEST_USER_ID);
+                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false, ReportProperty.TEST_USER_ID);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -65,7 +65,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         }, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true, ReportProperty.TEST_USER_ID);
+                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true, ReportProperty.TEST_USER_ID);
                             }
                         });
 
@@ -91,7 +91,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                ReportTracker.getInstance().trackOperation(
+                Reporter.getInstance().trackOperation(
                         ReportParser.getLocationFromThrowable(new Throwable()),
                         ReportProperty.EVENT_GROUP_LOGIN,
                         ReportProperty.OPERATION_TYPE.C,
@@ -115,7 +115,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
     private boolean checkInput() {
 
-        operationRelateID = ReportTracker.getInstance().trackOperation(
+        operationRelateID = Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_LOGIN,
                 ReportProperty.OPERATION_TYPE.NONE,
@@ -125,7 +125,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         if("".equals(editTextID.getText().toString()) || "".equals(editTextPassword.getText().toString()) || "ID".equals(editTextID.getText().toString()) || "Password".equals(editTextPassword.getText().toString())) {
 
-            ReportTracker.getInstance().trackException(
+            Reporter.getInstance().trackException(
                     ReportParser.getLocationFromThrowable(new Throwable()),
                     "input id or password was wrong",
                     ReportProperty.EVENT_GROUP_LOGIN,
@@ -142,7 +142,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
     private void loginWithAPI() {
 
-        operationRelateID = ReportTracker.getInstance().trackOperation(
+        operationRelateID = Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_LOGIN,
                 ReportProperty.OPERATION_TYPE.NONE,
@@ -153,7 +153,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         if(!"sh".equals(id)) {
 
-            ReportTracker.getInstance().trackException(
+            Reporter.getInstance().trackException(
                     ReportParser.getLocationFromThrowable(new Throwable()),
                     "id not right",
                     ReportProperty.EVENT_GROUP_LOGIN,

@@ -33,14 +33,14 @@ import java.io.File;
  * TB_OPERATION_REPORT.UUID = TB_EXCEPTION_REPORT.OPERATION_RELATE_ID;
  *
  */
-public class ReportTracker {
+public class Reporter {
 
-    private ReportTracker() {}
+    private Reporter() {}
 
     @SuppressLint("StaticFieldLeak")
-    private static ReportTracker instance = new ReportTracker();
+    private static Reporter instance = new Reporter();
 
-    public static ReportTracker getInstance() {
+    public static Reporter getInstance() {
         return instance;
     }
 

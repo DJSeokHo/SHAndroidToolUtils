@@ -10,7 +10,7 @@ import android.os.Looper;
 import com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity;
 import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
+import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
@@ -100,7 +100,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
                 Looper.prepare();
                 ToastUtil.showShortToastNormal(context, context.getString(R.string.exception_save));
 
-                ReportTracker.getInstance().trackException(
+                Reporter.getInstance().trackException(
                         ReportParser.getLocationFromThrowable(exception.getCause()),
                         ReportParser.getExceptionMessage(exception),
                         ReportProperty.EVENT_GROUP_CRASH,

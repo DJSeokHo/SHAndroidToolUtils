@@ -45,7 +45,7 @@ public class AOPExampleMainActivity extends AppCompatActivity {
 //                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
 //                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)
 //                .build();
-//        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
+//        Reporter.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 
     }
 

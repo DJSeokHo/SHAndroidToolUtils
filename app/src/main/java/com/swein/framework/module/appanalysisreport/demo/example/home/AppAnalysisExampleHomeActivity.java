@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
+import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
@@ -18,7 +18,7 @@ public class AppAnalysisExampleHomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_home);
 
-        ReportTracker.getInstance().trackOperation(
+        Reporter.getInstance().trackOperation(
                 ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
                 ReportProperty.OPERATION_TYPE.NONE,
