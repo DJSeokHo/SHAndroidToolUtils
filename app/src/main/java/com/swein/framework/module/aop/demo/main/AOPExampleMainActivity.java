@@ -39,8 +39,8 @@ public class AOPExampleMainActivity extends AppCompatActivity {
 //
 //        AppAnalysisData appAnalysisData = new OperationData.Builder()
 //                .setUuid(UUID.randomUUID().toString())
-//                .setClassFileName(StackTraceParser.getClassFileNameFromThread(Thread.currentThread()))
-//                .setViewUINameOrMethodName(StackTraceParser.getMethodNameFromThread(Thread.currentThread()))
+//                .setClassFileName(ReportParser.getClassFileNameFromThread(Thread.currentThread()))
+//                .setViewUINameOrMethodName(ReportParser.getMethodNameFromThread(Thread.currentThread()))
 //                .setDateTime(DateUtil.getCurrentDateTimeString())
 //                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
 //                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
@@ -51,7 +52,7 @@ public class AppCrashReportActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, false);
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, false, ReportProperty.TEST_USER_ID);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -61,7 +62,7 @@ public class AppCrashReportActivity extends Activity {
                         }, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, true);
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, true, ReportProperty.TEST_USER_ID);
                             }
                         });
 

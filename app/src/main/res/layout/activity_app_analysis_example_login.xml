@@ -7,6 +7,7 @@
     tools:context="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity">
 
     <Button
+
         android:id="@+id/buttonResetDB"
         android:textColor="@color/white"
         android:textAllCaps="false"
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:layout_marginTop="100dp"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,5 +80,6 @@
         android:textSize="9pt"
         android:textStyle="bold"
         android:text="Login"
+        android:layout_marginTop="100dp"
         />
 </FrameLayout>

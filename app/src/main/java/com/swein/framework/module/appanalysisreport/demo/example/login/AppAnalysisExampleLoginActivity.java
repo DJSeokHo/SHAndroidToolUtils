@@ -7,15 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
-import com.swein.framework.module.appanalysisreport.data.db.recordmanager.RecordManager;
+import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
 import com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class AppAnalysisExampleLoginActivity extends Activity {
@@ -27,53 +28,34 @@ public class AppAnalysisExampleLoginActivity extends Activity {
     private Button buttonSendExceptionEmail;
     private Button buttonResetDB;
 
+    private String operationRelateID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_login);
 
-        /*
-            do not miss this part when app started
-         */
-        ReportTracker.getInstance().init(this);
-
-//        AppAnalysisData appAnalysisData = new OperationData.Builder()
-//                .setUuid(UUID.randomUUID().toString())
-//                .setClassFileName(this.getClass().getName())
-//                .setViewUINameOrMethodName("onCreate()")
-//                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
-//                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)
-//                .build();
-//        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
+        ReportTracker.getInstance().trackOperation(
+                ReportParser.getLocationFromThrowable(new Throwable()),
+                ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
+                ReportProperty.OPERATION_TYPE.NONE,
+                ""
+        );
 
         editTextID = findViewById(R.id.editTextID);
         editTextPassword = findViewById(R.id.editTextPassword);
-
 
         buttonSendExceptionEmail = findViewById(R.id.buttonSendExceptionEmail);
         buttonSendExceptionEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
-//                        .setDeviceModel(DeviceInfoUtil.getDeviceModel())
-//                        .setDeviceUUID(Installation.id(AppAnalysisExampleLoginActivity.this))
-//                        .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
-//                        .setAppName(AppInfoUtil.getPackageName(AppAnalysisExampleLoginActivity.this))
-//                        .setAppVersion(AppInfoUtil.getVersionName(AppAnalysisExampleLoginActivity.this))
-//                        .setOther("")
-//                        .build();
-//
-//                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
-
-
                 DialogUtil.createNormalDialogWithThreeButton(AppAnalysisExampleLoginActivity.this,
                         "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false);
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false, ReportProperty.TEST_USER_ID);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -83,7 +65,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         }, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true);
+                                ReportTracker.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true, ReportProperty.TEST_USER_ID);
                             }
                         });
 
@@ -105,21 +87,19 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-//                AppAnalysisData appAnalysisData = new OperationData.Builder()
-//                        .setUuid(UUID.randomUUID().toString())
-//                        .setClassFileName(AppAnalysisExampleLoginActivity.this.getClass().getName())
-//                        .setViewUINameOrMethodName(buttonLogin.getText().toString())
-//                        .setDateTime(DateUtil.getCurrentDateTimeString())
-//                        .setOperationType(ReportProperty.OPERATION_TYPE.C)
-//                        .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
-//                        .build();
-//                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
+                ReportTracker.getInstance().trackOperation(
+                        ReportParser.getLocationFromThrowable(new Throwable()),
+                        ReportProperty.EVENT_GROUP_LOGIN,
+                        ReportProperty.OPERATION_TYPE.C,
+                        "click buttonLogin to login"
+                );
 
                 if(!checkInput()) {
-
+                    ToastUtil.showCustomShortToastNormal(AppAnalysisExampleLoginActivity.this, "check id or password");
                     return;
                 }
 
@@ -131,51 +111,65 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleSplashActivity.class);
 
-        RecordManager.getInstance().checkReportRecord(this, ReportProperty.REPORT_RECORD_MANAGE_TYPE.FOR_TEST);
-
     }
 
+    private boolean checkInput() {
+
+        operationRelateID = ReportTracker.getInstance().trackOperation(
+                ReportParser.getLocationFromThrowable(new Throwable()),
+                ReportProperty.EVENT_GROUP_LOGIN,
+                ReportProperty.OPERATION_TYPE.NONE,
+                "check input id and password"
+        );
+
+
+        if("".equals(editTextID.getText().toString()) || "".equals(editTextPassword.getText().toString()) || "ID".equals(editTextID.getText().toString()) || "Password".equals(editTextPassword.getText().toString())) {
+
+            ReportTracker.getInstance().trackException(
+                    ReportParser.getLocationFromThrowable(new Throwable()),
+                    "input id or password was wrong",
+                    ReportProperty.EVENT_GROUP_LOGIN,
+                    operationRelateID,
+                    ""
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+
     private void loginWithAPI() {
+
+        operationRelateID = ReportTracker.getInstance().trackOperation(
+                ReportParser.getLocationFromThrowable(new Throwable()),
+                ReportProperty.EVENT_GROUP_LOGIN,
+                ReportProperty.OPERATION_TYPE.NONE,
+                "login api started"
+        );
 
         String id = editTextID.getText().toString();
 
         if(!"sh".equals(id)) {
 
-//            Throwable throwable = new Throwable();
-//            AppAnalysisData appAnalysisData = new ExceptionData.Builder()
-//                    .setUuid(UUID.randomUUID().toString())
-//                    .setDateTime(DateUtil.getCurrentDateTimeString())
-//                    .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(throwable))
-//                    .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
-//                    .setMethodName(StackTraceParser.getMethodNameFromThrowable(throwable))
-//                    .setExceptionMessage("id not right")
-//                    .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
-//                    .build();
-//            ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
-
+            ReportTracker.getInstance().trackException(
+                    ReportParser.getLocationFromThrowable(new Throwable()),
+                    "id not right",
+                    ReportProperty.EVENT_GROUP_LOGIN,
+                    operationRelateID,
+                    ""
+            );
+            ToastUtil.showCustomShortToastNormal(AppAnalysisExampleLoginActivity.this, "id not right");
             return;
         }
+
+        ToastUtil.showCustomShortToastNormal(AppAnalysisExampleLoginActivity.this, "login success");
 
         ThreadUtil.startThread(new Runnable() {
 
             @Override
             public void run() {
-
-                String response = "success";
-                        /*
-                            just make a response exception
-                         */
-//                Throwable throwable = new Throwable();
-//                AppAnalysisData appAnalysisData = new ExceptionData.Builder()
-//                        .setUuid(UUID.randomUUID().toString())
-//                        .setDateTime(DateUtil.getCurrentDateTimeString())
-//                        .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(throwable))
-//                        .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
-//                        .setMethodName(StackTraceParser.getMethodNameFromThrowable(throwable))
-//                        .setExceptionMessage(response)
-//                        .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
-//                        .build();
-//                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
 
                 ThreadUtil.startUIThread(2000, new Runnable() {
                     @Override
@@ -188,23 +182,5 @@ public class AppAnalysisExampleLoginActivity extends Activity {
         });
     }
 
-    private boolean checkInput() {
 
-//        AppAnalysisData appAnalysisData = new OperationData.Builder()
-//                .setUuid(UUID.randomUUID().toString())
-//                .setClassFileName(StackTraceParser.getClassFileNameFromThread(Thread.currentThread()))
-//                .setViewUINameOrMethodName(StackTraceParser.getMethodNameFromThread(Thread.currentThread()))
-//                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
-//                .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
-//                .build();
-//        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
-
-        if("".equals(editTextID.getText()) || "".equals(editTextPassword.getText()) || "ID".equals(editTextID.getText()) || "Password".equals(editTextPassword.getText())) {
-
-            return false;
-        }
-
-        return true;
-    }
 }

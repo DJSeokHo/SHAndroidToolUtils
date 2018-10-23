@@ -76,6 +76,22 @@ public class OperationDBController extends AppAnalysisReportDBController {
         return operationDataArrayList;
     }
 
+    public String getLastOperationUUID() {
+        String sql = "SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT ORDER BY TB_OPERATION_REPORT.DATE_TIME DESC LIMIT 0,1;";
+
+        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery(sql, null);
+
+        String id = "NONE";
+
+        while (cursor.moveToNext()) {
+
+            id = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
+        }
+        close();
+
+        return id;
+    }
+
     public void deleteInDateTimeRange(int day) {
         /*
             DELETE FROM TB_OPERATION_REPORT

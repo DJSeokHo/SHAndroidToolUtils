@@ -3,10 +3,7 @@ package com.swein.framework.module.appanalysisreport.demo.example.splash;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
-import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
-import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
-import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
+import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -25,14 +22,13 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_splash);
 
-        AppAnalysisData appAnalysisData = new OperationData(
-                StackTraceParser.getLocationFromThrowable(new Throwable()),
+
+        ReportTracker.getInstance().trackOperation(
+                ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
                 ReportProperty.OPERATION_TYPE.NONE,
                 ""
         );
-
-        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 
         autoStartSomeMethod();
 
@@ -47,17 +43,12 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
 
     private void autoStartSomeMethod() {
 
-        AppAnalysisData appAnalysisData = new OperationData(
-                StackTraceParser.getLocationFromThrowable(new Throwable()),
+        operationRelateID = ReportTracker.getInstance().trackOperation(
+                ReportParser.getLocationFromThrowable(new Throwable()),
                 ReportProperty.EVENT_GROUP_AUTO_RUN_METHOD,
                 ReportProperty.OPERATION_TYPE.NONE,
                 ""
         );
-
-        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
-
-        operationRelateID = ((OperationData) appAnalysisData).getUuid();
-
 
         ThreadUtil.startThread(new Runnable() {
 
@@ -70,15 +61,13 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
                 }
                 catch (Throwable throwable) {
 
-                    AppAnalysisData appAnalysisData = new ExceptionData(
-                            StackTraceParser.getLocationFromThrowable(throwable),
-                            StackTraceParser.getExceptionMessage(throwable),
+                    ReportTracker.getInstance().trackException(
+                            ReportParser.getLocationFromThrowable(throwable),
+                            ReportParser.getExceptionMessage(throwable),
                             ReportProperty.EVENT_GROUP_API_ERROR,
                             operationRelateID,
                             "check api success or not"
                     );
-
-                    ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleSplashActivity.this, appAnalysisData);
 
                     ThreadUtil.startUIThread(100, new Runnable() {
                         @Override

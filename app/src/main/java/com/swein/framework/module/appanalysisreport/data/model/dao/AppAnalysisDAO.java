@@ -14,6 +14,11 @@ import java.util.List;
 
 public class AppAnalysisDAO {
 
+    private ExceptionDBController exceptionDBController;
+    private OperationDBController operationDBController;
+    private DeviceUserDBController deviceUserDBController;
+
+
     private AppAnalysisDAO() {}
 
     private static AppAnalysisDAO instance = new AppAnalysisDAO();
@@ -22,32 +27,38 @@ public class AppAnalysisDAO {
         return instance;
     }
 
-    public void insertAppAnalysisIntoDB(Context context, AppAnalysisData appAnalysisData) {
+    public void init(Context context) {
+        exceptionDBController = new ExceptionDBController(context);
+        operationDBController = new OperationDBController(context);
+        deviceUserDBController = new DeviceUserDBController(context);
+    }
+
+    public void insertAppAnalysisIntoDB(AppAnalysisData appAnalysisData) {
         if(appAnalysisData instanceof ExceptionData) {
             ExceptionData exceptionData = (ExceptionData) appAnalysisData;
-            ExceptionDBController exceptionDBController = new ExceptionDBController(context);
             exceptionDBController.insert(exceptionData);
         }
         else if(appAnalysisData instanceof OperationData) {
             OperationData operationData = (OperationData) appAnalysisData;
-            OperationDBController operationDBController = new OperationDBController(context);
             operationDBController.insert(operationData);
         }
         else if(appAnalysisData instanceof DeviceUserData) {
             DeviceUserData deviceUserData = (DeviceUserData) appAnalysisData;
-            DeviceUserDBController deviceUserDBController = new DeviceUserDBController(context);
             deviceUserDBController.insert(deviceUserData);
         }
 
     }
 
-    public List<ExceptionData> getExceptionDataListFromDB(Context context, int offset, int limit) {
-        ExceptionDBController exceptionDBController = new ExceptionDBController(context);
+    public String getLastOperationUUID() {
+        return operationDBController.getLastOperationUUID();
+    }
+
+
+    public List<ExceptionData> getExceptionDataListFromDB(int offset, int limit) {
         return exceptionDBController.getData(offset, limit);
     }
 
-    public List<OperationData> getOperationDataListFromDB(Context context, int offset, int limit) {
-        OperationDBController operationDBController = new OperationDBController(context);
+    public List<OperationData> getOperationDataListFromDB(int offset, int limit) {
         return operationDBController.getData(offset, limit);
     }
 }

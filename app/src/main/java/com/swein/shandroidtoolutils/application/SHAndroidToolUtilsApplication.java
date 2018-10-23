@@ -2,11 +2,11 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.appanalysisreport.applicationhandler.CrashExceptionReportHandler;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
 
 
 /**
- *
  * Created by seokho on 15/11/2016.
  */
 
@@ -27,38 +27,11 @@ public class SHAndroidToolUtilsApplication extends Application {
         //will auto send crash report when application crashed
 
         // google
-//        CrashExceptionHandler.getInstance().init( getApplicationContext() );
+//        CrashExceptionHandler.getInstance().init(getApplicationContext());
+
 
         // app analysis report
-        CrashExceptionReportHandler.getInstance().init( getApplicationContext() );
-
-
-//        try {
-//            String[] strings = new String[] {"1", "2"};
-//            ILog.iLogDebug( this, strings[5] );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            List list = null;
-//            list.get( 5 );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        try {
-//            int one = 1;
-//            int zero = 0;
-//            int result = one / zero;
-//            ILog.iLogDebug( this, result );
-//        }
-//        catch ( Exception e ) {
-//            e.printStackTrace();
-//        }
+        ReportTracker.getInstance().init(getApplicationContext(), ReportProperty.REPORT_RECORD_MANAGE_TYPE.FOR_TEST);
 
     }
 
