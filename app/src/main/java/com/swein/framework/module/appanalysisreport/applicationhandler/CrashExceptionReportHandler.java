@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Looper;
 
 import com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity;
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
@@ -102,14 +102,12 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
                 Looper.prepare();
                 ToastUtil.showShortToastNormal(context, context.getString(R.string.exception_save));
 
-                StringBuilder exceptionMessage = new StringBuilder();
-                StackTraceElement[] stackTraceElements = exception.getCause().getStackTrace();
-                for(StackTraceElement stackTraceElement : stackTraceElements) {
-                    exceptionMessage.append(stackTraceElement.toString()).append("\n");
-                }
-
                 AppAnalysisData appAnalysisData = new ExceptionData(
-                        StackTraceParser.getLocationFromThrowable(exception.getCause()), exceptionMessage.toString(), AAConstants.EVENT_GROUP_CRASH, ""
+                        StackTraceParser.getLocationFromThrowable(exception.getCause()),
+                        StackTraceParser.getExceptionMessage(exception),
+                        ReportProperty.EVENT_GROUP_CRASH,
+                        "",
+                        ""
                 );
 
                 ReportTracker.getInstance().saveAppAnalysisIntoDB(context, appAnalysisData);

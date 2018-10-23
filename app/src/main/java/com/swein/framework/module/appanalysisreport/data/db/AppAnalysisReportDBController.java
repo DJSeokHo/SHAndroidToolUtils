@@ -2,7 +2,7 @@ package com.swein.framework.module.appanalysisreport.data.db;
 
 import android.content.Context;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.tools.util.dbcrypt.SQLCipherHelper;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 
@@ -28,6 +28,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     protected final static String TABLE_COL_APP_NAME = "APP_NAME";
     protected final static String TABLE_COL_APP_VERSION = "APP_VERSION";
     protected final static String TABLE_COL_OTHER = "OTHER";
+    protected final static String TABLE_COL_NOTE = "NOTE";
 
     /* 공통 */
     protected final static String TABLE_COL_UUID = "UUID";
@@ -39,18 +40,18 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     protected final static String OPERATION_REPORT_TABLE_NAME = "TB_OPERATION_REPORT";
 
     protected final static String TABLE_COL_OPERATION_TYPE = "OPERATION_TYPE";
-    protected final static String TABLE_COL_EXCEPTION_RELATE_ID = "EXCEPTION_RELATE_ID";
 
     /* 오류 */
     protected final static String EXCEPTION_REPORT_TABLE_NAME = "TB_EXCEPTION_REPORT";
 
+    protected final static String TABLE_COL_OPERATION_RELATE_ID = "OPERATION_RELATE_ID";
     protected final static String TABLE_COL_MESSAGE = "MESSAGE";
-    protected final static String TABLE_COL_NOTE = "NOTE";
+
 
     public AppAnalysisReportDBController(Context context) {
-        super(context, AAConstants.DB_FILE_TEMP_NAME, null, DB_VERSION);
+        super(context, ReportProperty.DB_FILE_TEMP_NAME, null, DB_VERSION);
         net.sqlcipher.database.SQLiteDatabase.loadLibs( context );
-        SQLCipherHelper.autoEncryptDB(this, context, AAConstants.DB_FILE_TEMP_NAME, DB_KEY);
+        SQLCipherHelper.autoEncryptDB(this, context, ReportProperty.DB_FILE_TEMP_NAME, DB_KEY);
     }
 
     @Override
@@ -87,7 +88,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                     TABLE_COL_LOCATION + " TEXT," +
                     TABLE_COL_OPERATION_TYPE + " TEXT," +
                     TABLE_COL_EVENT_GROUP + " TEXT," +
-                    TABLE_COL_EXCEPTION_RELATE_ID + " TEXT" +
+                    TABLE_COL_NOTE + " TEXT" +
                 ')';
 
         db.execSQL(stringBuilder);
@@ -103,6 +104,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                     TABLE_COL_LOCATION + " TEXT," +
                     TABLE_COL_MESSAGE + " TEXT," +
                     TABLE_COL_EVENT_GROUP + " TEXT," +
+                    TABLE_COL_OPERATION_RELATE_ID + " TEXT," +
                     TABLE_COL_NOTE + " TEXT" +
                 ')';
 
@@ -120,7 +122,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     public void deleteDatabase(Context context) {
         close();
-        context.deleteDatabase(AAConstants.DB_FILE_TEMP_NAME);
+        context.deleteDatabase(ReportProperty.DB_FILE_TEMP_NAME);
     }
 
     public void clearDataBase() {
@@ -137,7 +139,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     }
 
     public void deleteDBFileToOutsideFolderForTemp() {
-        File file = new File(AAConstants.DB_FILE_TEMP_PATH, AAConstants.DB_FILE_TEMP_NAME);
+        File file = new File(ReportProperty.DB_FILE_TEMP_PATH, ReportProperty.DB_FILE_TEMP_NAME);
         if(file.exists()) {
             file.delete();
         }
@@ -150,12 +152,12 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
          * //check here before release !!!!warning: [this part] only for debugging, commented out code between [this part] in release
          *
          */
-        File folder = new File(AAConstants.DB_FILE_TEMP_PATH);
+        File folder = new File(ReportProperty.DB_FILE_TEMP_PATH);
         if(!folder.exists()) {
             folder.mkdir();
         }
 
-        File file = new File(AAConstants.DB_FILE_TEMP_PATH, AAConstants.DB_FILE_TEMP_NAME);
+        File file = new File(ReportProperty.DB_FILE_TEMP_PATH, ReportProperty.DB_FILE_TEMP_NAME);
 
         if(file.exists()) {
             boolean success = file.delete();

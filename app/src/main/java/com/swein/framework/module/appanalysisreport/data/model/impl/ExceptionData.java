@@ -21,25 +21,34 @@ public class ExceptionData implements AppAnalysisData {
 
     private String eventGroup = "";
 
+    /* uuid relate */
+    private String operationRelateID = "";
+
     /* 기타정보 */
     private String note = "";
 
-    public ExceptionData(String location, String exceptionMessage, String eventGroup, String note) {
+    public ExceptionData(String location, String exceptionMessage, String eventGroup, String operationRelateID, String note) {
         this.uuid = UUIDUtil.getUUIDString();
         this.dateTime = DateUtil.getCurrentDateTimeString();
         this.location = location;
         this.exceptionMessage = exceptionMessage;
         this.eventGroup = eventGroup;
+        this.operationRelateID = operationRelateID;
         this.note = note;
     }
 
-    public ExceptionData(String uuid, String dateTime, String location, String exceptionMessage, String eventGroup, String note) {
+    public ExceptionData(String uuid, String dateTime, String location, String exceptionMessage, String eventGroup, String operationRelateID, String note) {
         this.uuid = uuid;
         this.dateTime = dateTime;
         this.location = location;
         this.exceptionMessage = exceptionMessage;
         this.eventGroup = eventGroup;
+        this.operationRelateID = operationRelateID;
         this.note = note;
+    }
+
+    public String getOperationRelateID() {
+        return operationRelateID;
     }
 
     public String getLocation() {
@@ -68,7 +77,7 @@ public class ExceptionData implements AppAnalysisData {
 
     @Override
     public String toString() {
-        return uuid + " " + dateTime + " " + location + " " + exceptionMessage + " " + eventGroup + " " + note;
+        return uuid + " " + dateTime + " " + location + " " + exceptionMessage + " " + eventGroup + " " + operationRelateID + " " + note;
     }
 
     @Override
@@ -78,6 +87,7 @@ public class ExceptionData implements AppAnalysisData {
                 LOCATION_KEY + location + "\n" +
                 MESSAGE_KEY + exceptionMessage + "\n" +
                 NOTE_KEY + note + "\n" +
+                OPERATION_RELATE_ID_KEY + operationRelateID + "\n" +
                 EVENT_GROUP_KEY + eventGroup;
     }
 
@@ -85,6 +95,7 @@ public class ExceptionData implements AppAnalysisData {
     private final static String LOCATION_KEY = "오류 발생한 위치: ";
     private final static String MESSAGE_KEY = "오류 발생한 정보: ";
     private final static String EVENT_GROUP_KEY = "이벤트 그룹: ";
+    private final static String OPERATION_RELATE_ID_KEY = "사용자 행위: ";
     private final static String NOTE_KEY = "비고: ";
 
 }

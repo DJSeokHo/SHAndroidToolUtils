@@ -1,11 +1,13 @@
-package com.swein.framework.module.appanalysisreport.constants;
+package com.swein.framework.module.appanalysisreport.reportproperty;
 
 import android.os.Environment;
 
-public class AAConstants {
+public class ReportProperty {
 
     public final static int SECONDS_IN_DAY = 86400;
 
+    public final static String APP_ANALYSIS_REPORT_TITLE = "오류 리포트";
+    public final static String APP_ANALYSIS_REPORT_CONTENT = "사용자 보낸 리포트입니다.";
     public final static String TEST_USER_ID = "user01";
 
     public final static String DB_FILE_TEMP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.AppNameAnalysisReportTemp/";
@@ -29,6 +31,9 @@ public class AAConstants {
     public final static String EVENT_GROUP_REGISTER = "register";
 
     public final static String EVENT_GROUP_CHANGE_SCREEN = "change screen";
+    public final static String EVENT_GROUP_API_ERROR = "api error";
+
+    public final static String EVENT_GROUP_AUTO_RUN_METHOD = "auto run method";
 
     public final static String EVENT_GROUP_ACTIVITY_STATE = "activity state";
 

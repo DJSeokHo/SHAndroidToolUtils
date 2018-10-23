@@ -42,8 +42,8 @@ public class AOPExampleMainActivity extends AppCompatActivity {
 //                .setClassFileName(StackTraceParser.getClassFileNameFromThread(Thread.currentThread()))
 //                .setViewUINameOrMethodName(StackTraceParser.getMethodNameFromThread(Thread.currentThread()))
 //                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(AAConstants.OPERATION_TYPE.NONE)
-//                .setEventGroup(AAConstants.EVENT_GROUP_CHANGE_SCREEN)
+//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
+//                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)
 //                .build();
 //        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.db.recordmanager.RecordManager;
 import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
@@ -42,8 +42,8 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 //                .setClassFileName(this.getClass().getName())
 //                .setViewUINameOrMethodName("onCreate()")
 //                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(AAConstants.OPERATION_TYPE.NONE)
-//                .setEventGroup(AAConstants.EVENT_GROUP_CHANGE_SCREEN)
+//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
+//                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)
 //                .build();
 //        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 
@@ -113,8 +113,8 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 //                        .setClassFileName(AppAnalysisExampleLoginActivity.this.getClass().getName())
 //                        .setViewUINameOrMethodName(buttonLogin.getText().toString())
 //                        .setDateTime(DateUtil.getCurrentDateTimeString())
-//                        .setOperationType(AAConstants.OPERATION_TYPE.C)
-//                        .setEventGroup(AAConstants.EVENT_GROUP_LOGIN)
+//                        .setOperationType(ReportProperty.OPERATION_TYPE.C)
+//                        .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
 //                        .build();
 //                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
 
@@ -131,7 +131,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleSplashActivity.class);
 
-        RecordManager.getInstance().checkReportRecord(this, AAConstants.REPORT_RECORD_MANAGE_TYPE.FOR_TEST);
+        RecordManager.getInstance().checkReportRecord(this, ReportProperty.REPORT_RECORD_MANAGE_TYPE.FOR_TEST);
 
     }
 
@@ -149,7 +149,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 //                    .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
 //                    .setMethodName(StackTraceParser.getMethodNameFromThrowable(throwable))
 //                    .setExceptionMessage("id not right")
-//                    .setEventGroup(AAConstants.EVENT_GROUP_LOGIN)
+//                    .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
 //                    .build();
 //            ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
 
@@ -173,7 +173,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 //                        .setLineNumber(StackTraceParser.getLineNumberFromThrowable(throwable))
 //                        .setMethodName(StackTraceParser.getMethodNameFromThrowable(throwable))
 //                        .setExceptionMessage(response)
-//                        .setEventGroup(AAConstants.EVENT_GROUP_LOGIN)
+//                        .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
 //                        .build();
 //                ReportTracker.getInstance().saveAppAnalysisIntoDB(AppAnalysisExampleLoginActivity.this, appAnalysisData);
 
@@ -195,8 +195,8 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 //                .setClassFileName(StackTraceParser.getClassFileNameFromThread(Thread.currentThread()))
 //                .setViewUINameOrMethodName(StackTraceParser.getMethodNameFromThread(Thread.currentThread()))
 //                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(AAConstants.OPERATION_TYPE.NONE)
-//                .setEventGroup(AAConstants.EVENT_GROUP_LOGIN)
+//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
+//                .setEventGroup(ReportProperty.EVENT_GROUP_LOGIN)
 //                .build();
 //        ReportTracker.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 

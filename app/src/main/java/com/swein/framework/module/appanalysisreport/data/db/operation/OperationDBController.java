@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 
@@ -35,7 +35,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
             contentValues.put(TABLE_COL_LOCATION, operationData.getLocation());
             contentValues.put(TABLE_COL_OPERATION_TYPE, operationData.getOperationType());
             contentValues.put(TABLE_COL_EVENT_GROUP, operationData.getEventGroup());
-            contentValues.put(TABLE_COL_EXCEPTION_RELATE_ID, operationData.getExceptionRelateID());
+            contentValues.put(TABLE_COL_NOTE, operationData.getNote());
 
             db.replace(OPERATION_REPORT_TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
@@ -66,7 +66,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
                     OperationData.getOperationType(cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_TYPE))),
-                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EXCEPTION_RELATE_ID))
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_NOTE))
             );
 
             operationDataArrayList.add(operationData);
@@ -86,7 +86,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
                 " WHERE " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
                 "(" +
                     "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
-                    " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + AAConstants.SECONDS_IN_DAY * day + ")" +
+                    " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + ReportProperty.SECONDS_IN_DAY * day + ")" +
                 ");";
 
         getWritableDatabase(DB_KEY).execSQL(stringBuilder);

@@ -2,7 +2,7 @@ package com.swein.framework.module.appanalysisreport.data.db.recordmanager;
 
 import android.content.Context;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.db.exception.ExceptionDBController;
 import com.swein.framework.module.appanalysisreport.data.db.operation.OperationDBController;
 
@@ -19,7 +19,7 @@ public class RecordManager {
     /**
      * run this when app start
      */
-    public void checkReportRecord(Context context, AAConstants.REPORT_RECORD_MANAGE_TYPE reportRecordManageType) {
+    public void checkReportRecord(Context context, ReportProperty.REPORT_RECORD_MANAGE_TYPE reportRecordManageType) {
 
         switch (reportRecordManageType) {
 

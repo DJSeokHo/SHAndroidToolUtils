@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.swein.framework.module.appanalysisreport.constants.AAConstants;
+import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 
@@ -31,6 +31,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
             contentValues.put(TABLE_COL_LOCATION, exceptionData.getLocation());
             contentValues.put(TABLE_COL_MESSAGE, exceptionData.getExceptionMessage());
             contentValues.put(TABLE_COL_EVENT_GROUP, exceptionData.getEventGroup());
+            contentValues.put(TABLE_COL_OPERATION_RELATE_ID, exceptionData.getOperationRelateID());
             contentValues.put(TABLE_COL_NOTE, exceptionData.getNote());
 
             db.replace(EXCEPTION_REPORT_TABLE_NAME, null, contentValues);
@@ -62,6 +63,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_MESSAGE)),
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_RELATE_ID)),
                     cursor.getString(cursor.getColumnIndex(TABLE_COL_NOTE))
             );
 
@@ -83,7 +85,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
                 " WHERE " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
                 "(" +
                 "SELECT " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + EXCEPTION_REPORT_TABLE_NAME +
-                " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + AAConstants.SECONDS_IN_DAY * day + ")" +
+                " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + ReportProperty.SECONDS_IN_DAY * day + ")" +
                 ");";
 
         getWritableDatabase(DB_KEY).execSQL(stringBuilder);
