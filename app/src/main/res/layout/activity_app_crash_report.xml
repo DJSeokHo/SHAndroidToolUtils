@@ -30,19 +30,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/buttonSendExceptionEmail"
-            android:layout_margin="5dp"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:text="E-mail 으로 보내기"
-            android:textAllCaps="false"
-            android:textSize="6pt"
-            android:background="@drawable/button_round_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonSendExceptionApi"
@@ -50,6 +38,18 @@
             android:padding="5dp"
             android:textStyle="bold"
             android:text="API 으로 보내기"
+            android:textAllCaps="false"
+            android:textSize="6pt"
+            android:background="@drawable/button_round_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonSendExceptionEmail"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="E-mail 으로 보내기"
             android:textAllCaps="false"
             android:textSize="6pt"
             android:background="@drawable/button_round_background"
