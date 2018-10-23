@@ -15,8 +15,6 @@ import java.util.List;
 
 public class ExceptionDBController extends AppAnalysisReportDBController {
 
-    private final static String TAG = "ExceptionDBController";
-
     public ExceptionDBController(Context context) {
         super(context);
     }
@@ -30,11 +28,10 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_UUID, exceptionData.getUuid());
             contentValues.put(TABLE_COL_DATE_TIME, exceptionData.getDateTime());
-            contentValues.put(TABLE_COL_CLASS_FILE_NAME, exceptionData.getClassFileName());
-            contentValues.put(TABLE_COL_METHOD_NAME, exceptionData.getMethodName());
-            contentValues.put(TABLE_COL_LINE_NUMBER, exceptionData.getLineNumber());
+            contentValues.put(TABLE_COL_LOCATION, exceptionData.getLocation());
             contentValues.put(TABLE_COL_MESSAGE, exceptionData.getExceptionMessage());
             contentValues.put(TABLE_COL_EVENT_GROUP, exceptionData.getEventGroup());
+            contentValues.put(TABLE_COL_NOTE, exceptionData.getNote());
 
             db.replace(EXCEPTION_REPORT_TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
@@ -59,15 +56,14 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
 
         while (cursor.moveToNext()) {
 
-            ExceptionData exceptionData = new ExceptionData.Builder()
-                    .setUuid(cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)))
-                    .setDateTime(cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)))
-                    .setClassFileName(cursor.getString(cursor.getColumnIndex(TABLE_COL_CLASS_FILE_NAME)))
-                    .setLineNumber(cursor.getString(cursor.getColumnIndex(TABLE_COL_LINE_NUMBER)))
-                    .setMethodName(cursor.getString(cursor.getColumnIndex(TABLE_COL_METHOD_NAME)))
-                    .setExceptionMessage(cursor.getString(cursor.getColumnIndex(TABLE_COL_MESSAGE)))
-                    .setEventGroup(cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)))
-                    .build();
+            ExceptionData exceptionData = new ExceptionData(
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_MESSAGE)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_NOTE))
+            );
 
             exceptionModelArrayList.add(exceptionData);
         }

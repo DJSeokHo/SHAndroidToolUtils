@@ -1,5 +1,6 @@
 package com.swein.framework.module.appanalysisreport.applicationhandler;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,12 +13,8 @@ import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.parser.StackTraceParser;
 import com.swein.framework.module.appanalysisreport.reporttracker.ReportTracker;
-import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
-
-import java.util.Arrays;
-import java.util.UUID;
 
 /**
  * Created by seokho on 23/11/2016.
@@ -28,6 +25,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
     private final static String TAG = "CrashExceptionReportHandler";
 
     private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
+    @SuppressLint("StaticFieldLeak")
     private static CrashExceptionReportHandler instance = new CrashExceptionReportHandler();
 
     private Context context;
@@ -40,7 +38,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * init
-     * @param context
+     * @param context context
      */
     public void init(Context context) {
         this.context = context;
@@ -50,8 +48,8 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * when uncaught exception
-     * @param thread
-     * @param exception
+     * @param thread thread
+     * @param exception exception
      */
     @Override
     public void uncaughtException(Thread thread, Throwable exception) {
@@ -63,7 +61,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
         else {
 
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
@@ -76,7 +74,9 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("crash", true);
             PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 3000, restartIntent);
+            if (alarmManager != null) {
+                alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 1500, restartIntent);
+            }
 
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
@@ -87,8 +87,8 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * custom defined exception handler
-     * @param exception
-     * @return
+     * @param exception exception
+     * @return boolean
      */
     private boolean handleException(final Throwable exception) {
         if( null == exception ) {
@@ -102,14 +102,15 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
                 Looper.prepare();
                 ToastUtil.showShortToastNormal(context, context.getString(R.string.exception_save));
 
-                AppAnalysisData appAnalysisData = new ExceptionData.Builder()
-                        .setUuid(UUID.randomUUID().toString())
-                        .setDateTime(DateUtil.getCurrentDateTimeString())
-                        .setClassFileName(StackTraceParser.getClassFileNameFromThrowable(exception))
-                        .setLineNumber(StackTraceParser.getLineNumberFromThrowable(exception))
-                        .setMethodName(StackTraceParser.getMethodNameFromThrowable(exception))
-                        .setExceptionMessage(Arrays.toString(exception.getStackTrace()))
-                        .setEventGroup(AAConstants.EVENT_GROUP_CRASH).build();
+                StringBuilder exceptionMessage = new StringBuilder();
+                StackTraceElement[] stackTraceElements = exception.getCause().getStackTrace();
+                for(StackTraceElement stackTraceElement : stackTraceElements) {
+                    exceptionMessage.append(stackTraceElement.toString()).append("\n");
+                }
+
+                AppAnalysisData appAnalysisData = new ExceptionData(
+                        StackTraceParser.getLocationFromThrowable(exception.getCause()), exceptionMessage.toString(), AAConstants.EVENT_GROUP_CRASH, ""
+                );
 
                 ReportTracker.getInstance().saveAppAnalysisIntoDB(context, appAnalysisData);
 
@@ -117,7 +118,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
             }
         }.start();
 
-        /**
+        /*
          * here is crash exception handler.
          * if app crash because exception from somewhere that you don't catch
          * here will go to send exception crash report view.

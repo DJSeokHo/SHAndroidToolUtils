@@ -32,21 +32,20 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     /* 공통 */
     protected final static String TABLE_COL_UUID = "UUID";
     protected final static String TABLE_COL_DATE_TIME = "DATE_TIME";
-    protected final static String TABLE_COL_CLASS_FILE_NAME = "CLASS_FILE_NAME";
+    protected final static String TABLE_COL_LOCATION = "LOCATION";
     protected final static String TABLE_COL_EVENT_GROUP = "EVENT_GROUP";
 
     /* 행동 */
     protected final static String OPERATION_REPORT_TABLE_NAME = "TB_OPERATION_REPORT";
 
-    protected final static String TABLE_COL_VIEW_UI_NAME = "VIEW_UI_NAME";
     protected final static String TABLE_COL_OPERATION_TYPE = "OPERATION_TYPE";
+    protected final static String TABLE_COL_EXCEPTION_RELATE_ID = "EXCEPTION_RELATE_ID";
 
     /* 오류 */
     protected final static String EXCEPTION_REPORT_TABLE_NAME = "TB_EXCEPTION_REPORT";
 
-    protected final static String TABLE_COL_METHOD_NAME = "METHOD_NAME";
-    protected final static String TABLE_COL_LINE_NUMBER = "LINE_NUMBER";
     protected final static String TABLE_COL_MESSAGE = "MESSAGE";
+    protected final static String TABLE_COL_NOTE = "NOTE";
 
     public AppAnalysisReportDBController(Context context) {
         super(context, AAConstants.DB_FILE_TEMP_NAME, null, DB_VERSION);
@@ -85,10 +84,10 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                 '(' +
                     TABLE_COL_UUID + " TEXT NOT NULL PRIMARY KEY," +
                     TABLE_COL_DATE_TIME + " TEXT," +
-                    TABLE_COL_CLASS_FILE_NAME + " TEXT," +
-                    TABLE_COL_VIEW_UI_NAME + " TEXT," +
+                    TABLE_COL_LOCATION + " TEXT," +
                     TABLE_COL_OPERATION_TYPE + " TEXT," +
-                    TABLE_COL_EVENT_GROUP + " TEXT" +
+                    TABLE_COL_EVENT_GROUP + " TEXT," +
+                    TABLE_COL_EXCEPTION_RELATE_ID + " TEXT" +
                 ')';
 
         db.execSQL(stringBuilder);
@@ -101,11 +100,10 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
                 '(' +
                     TABLE_COL_UUID + " TEXT NOT NULL PRIMARY KEY," +
                     TABLE_COL_DATE_TIME + " TEXT," +
-                    TABLE_COL_CLASS_FILE_NAME + " TEXT," +
-                    TABLE_COL_METHOD_NAME + " TEXT," +
-                    TABLE_COL_LINE_NUMBER + " TEXT," +
+                    TABLE_COL_LOCATION + " TEXT," +
                     TABLE_COL_MESSAGE + " TEXT," +
-                    TABLE_COL_EVENT_GROUP + " TEXT" +
+                    TABLE_COL_EVENT_GROUP + " TEXT," +
+                    TABLE_COL_NOTE + " TEXT" +
                 ')';
 
         db.execSQL(stringBuilder);

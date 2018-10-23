@@ -51,14 +51,14 @@ public class AppCrashReportActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                AppAnalysisData appAnalysisData = new DeviceUserData.Builder()
-                        .setDeviceModel(DeviceInfoUtil.getDeviceModel())
-                        .setDeviceUUID(Installation.id(AppCrashReportActivity.this))
-                        .setOsVersion(DeviceInfoUtil.getDeviceOSVersion())
-                        .setAppName(AppInfoUtil.getPackageName(AppCrashReportActivity.this))
-                        .setAppVersion(AppInfoUtil.getVersionName(AppCrashReportActivity.this))
-                        .setOther("")
-                        .build();
+                AppAnalysisData appAnalysisData = new DeviceUserData(
+                        Installation.id(AppCrashReportActivity.this),
+                        DeviceInfoUtil.getDeviceModel(),
+                        DeviceInfoUtil.getDeviceOSVersion(),
+                        AppInfoUtil.getPackageName(AppCrashReportActivity.this),
+                        AppInfoUtil.getVersionName(AppCrashReportActivity.this),
+                        ""
+                );
 
                 ReportTracker.getInstance().saveAppAnalysisIntoDB(AppCrashReportActivity.this, appAnalysisData);
 

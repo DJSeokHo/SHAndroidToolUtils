@@ -93,7 +93,7 @@ public class CrashExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         ILog.iLogDebug( this.getClass().getName(), "sendExceptionReport" );
 
-        TrackerManager.sendExceptionReport( context, exception, true, true );
+        TrackerManager.sendExceptionReport( context, exception.getCause(), true, true );
 
         return true;
 

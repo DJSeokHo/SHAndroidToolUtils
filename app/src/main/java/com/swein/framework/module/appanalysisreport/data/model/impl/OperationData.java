@@ -2,6 +2,8 @@ package com.swein.framework.module.appanalysisreport.data.model.impl;
 
 import com.swein.framework.module.appanalysisreport.constants.AAConstants;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
+import com.swein.framework.tools.util.date.DateUtil;
+import com.swein.framework.tools.util.uuid.UUIDUtil;
 
 public class OperationData implements AppAnalysisData {
 
@@ -9,96 +11,49 @@ public class OperationData implements AppAnalysisData {
     private String uuid = "";
 
     /* class file name */
-    private String classFileName = "";
+    /* 클릭한 뷰 이름 */
+    private String location = "";
 
     /* 시간 */
     private String dateTime = "";
-
-    /* 클릭한 뷰 이름 */
-    private String viewUIName = "";
 
     /* 이벤트 그룹 */
     private String eventGroup = "";
 
     private AAConstants.OPERATION_TYPE operationType = AAConstants.OPERATION_TYPE.NONE;
 
-    public static class Builder {
+    /* uuid relate */
+    private String exceptionRelateID = "";
 
-        /* uuid */
-        private String uuid = "";
 
-        /* class file name */
-        private String classFileName = "";
-
-        /* 시간 */
-        private String dateTime = "";
-
-        /* 클릭한 뷰 이름 */
-        private String viewUIName = "";
-
-        /* 이벤트 그룹 */
-        private String eventGroup = "";
-
-        private AAConstants.OPERATION_TYPE operationType = AAConstants.OPERATION_TYPE.NONE;
-
-        public Builder setUuid(String uuid) {
-            this.uuid = uuid;
-            return this;
-        }
-
-        public Builder setClassFileName(String classFileName) {
-            this.classFileName = classFileName;
-            return this;
-        }
-
-        public Builder setDateTime(String dateTime) {
-            this.dateTime = dateTime;
-            return this;
-        }
-
-        public Builder setViewUINameOrMethodName(String viewUIName) {
-            this.viewUIName = viewUIName;
-            return this;
-        }
-
-        public Builder setOperationType(AAConstants.OPERATION_TYPE operationType) {
-            this.operationType = operationType;
-            return this;
-        }
-
-        public Builder setEventGroup(String eventGroup) {
-            this.eventGroup = eventGroup;
-            return this;
-        }
-
-        public OperationData build() {
-            return new OperationData(this);
-        }
+    public OperationData(String location, String eventGroup, AAConstants.OPERATION_TYPE operationType, String exceptionRelateID) {
+        this.uuid = UUIDUtil.getUUIDString();
+        this.dateTime = DateUtil.getCurrentDateTimeString();
+        this.location = location;
+        this.eventGroup = eventGroup;
+        this.operationType = operationType;
+        this.exceptionRelateID = exceptionRelateID;
     }
 
-    private OperationData(Builder builder) {
-        this.uuid = builder.uuid;
-        this.classFileName = builder.classFileName;
-        this.dateTime = builder.dateTime;
-        this.viewUIName = builder.viewUIName;
-        this.operationType = builder.operationType;
-        this.eventGroup = builder.eventGroup;
+    public OperationData(String uuid, String location, String dateTime, String eventGroup, AAConstants.OPERATION_TYPE operationType, String exceptionRelateID) {
+        this.uuid = uuid;
+        this.location = location;
+        this.dateTime = dateTime;
+        this.eventGroup = eventGroup;
+        this.operationType = operationType;
+        this.exceptionRelateID = exceptionRelateID;
     }
 
     public String getUuid() {
         return uuid;
     }
 
-    public String getClassFileName() {
-        return classFileName;
+    public String getLocation() {
+        return location;
     }
 
     public String getDateTime() {
         return dateTime;
-    }
-
-    public String getViewUIName() {
-        return viewUIName;
     }
 
     public String getOperationType() {
@@ -109,25 +64,29 @@ public class OperationData implements AppAnalysisData {
         return eventGroup;
     }
 
-    @Override
-    public String toString() {
-        return uuid + " " + classFileName + " " + dateTime + " " + viewUIName + " " + getOperationTypeString(operationType) + " " + eventGroup;
+    public String getExceptionRelateID() {
+        return exceptionRelateID;
     }
 
-    private final static String CLASS_FILE_KEY = "화면 파일: ";
-    private final static String VIEW_UI_NAME_KEY = "터치한 위치: ";
+    @Override
+    public String toString() {
+        return uuid + " " + location + " " + dateTime + " " + getOperationTypeString(operationType) + " " + eventGroup + " " + exceptionRelateID;
+    }
+
+    private final static String LOCATION_KEY = "위치: ";
     private final static String DATE_TIME_KEY = "시간: ";
     private final static String OPERATION_TYPE_KEY = "행동 방식: ";
     private final static String EVENT_GROUP_KEY = "이벤트 그룹: ";
+    private final static String EXCEPTION_RELATE_ID_KEY = "오류: ";
 
     @Override
     public String toReport() {
 
-        return CLASS_FILE_KEY + classFileName + "\n" +
+        return LOCATION_KEY + location + "\n" +
                 DATE_TIME_KEY + dateTime + "\n" +
-                VIEW_UI_NAME_KEY + viewUIName + "\n" +
                 OPERATION_TYPE_KEY + getOperationTypeString(operationType) + "\n" +
-                EVENT_GROUP_KEY + eventGroup;
+                EVENT_GROUP_KEY + eventGroup + "\n" +
+                EXCEPTION_RELATE_ID_KEY + exceptionRelateID;
 
     }
 

@@ -14,8 +14,6 @@ import java.util.List;
 
 public class DeviceUserDBController extends AppAnalysisReportDBController {
 
-    private final static String TAG = "DeviceUserDBController";
-
     public DeviceUserDBController(Context context) {
         super(context);
     }
@@ -56,15 +54,14 @@ public class DeviceUserDBController extends AppAnalysisReportDBController {
         ArrayList<DeviceUserData> deviceUserDataArrayList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-
-            DeviceUserData deviceUserData = new DeviceUserData.Builder()
-                    .setDeviceUUID(cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_UUID)))
-                    .setDeviceModel(cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_MODEL)))
-                    .setOsVersion(cursor.getString(cursor.getColumnIndex(TABLE_COL_OS_VERSION)))
-                    .setAppName(cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_NAME)))
-                    .setAppVersion(cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_VERSION)))
-                    .setOther(cursor.getString(cursor.getColumnIndex(TABLE_COL_OTHER)))
-                    .build();
+            DeviceUserData deviceUserData = new DeviceUserData(
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_UUID)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_MODEL)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OS_VERSION)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_NAME)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_VERSION)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OTHER))
+            );
 
             deviceUserDataArrayList.add(deviceUserData);
         }

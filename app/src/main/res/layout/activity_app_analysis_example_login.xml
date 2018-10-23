@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity">
 
+    <Button
+        android:id="@+id/buttonResetDB"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="6pt"
+        android:layout_margin="5dp"
+        android:text="reset db"
+        android:background="#0000"
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/buttonSendExceptionEmail"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="6pt"
+        android:layout_margin="5dp"
+        android:text="send email"
+        android:background="#0000"
+        android:layout_gravity="bottom|left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"

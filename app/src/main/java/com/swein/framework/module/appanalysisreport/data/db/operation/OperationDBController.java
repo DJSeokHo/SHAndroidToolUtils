@@ -32,10 +32,10 @@ public class OperationDBController extends AppAnalysisReportDBController {
             ContentValues contentValues = new ContentValues();
             contentValues.put(TABLE_COL_UUID, operationData.getUuid());
             contentValues.put(TABLE_COL_DATE_TIME, operationData.getDateTime());
-            contentValues.put(TABLE_COL_CLASS_FILE_NAME, operationData.getClassFileName());
-            contentValues.put(TABLE_COL_VIEW_UI_NAME, operationData.getViewUIName());
+            contentValues.put(TABLE_COL_LOCATION, operationData.getLocation());
             contentValues.put(TABLE_COL_OPERATION_TYPE, operationData.getOperationType());
             contentValues.put(TABLE_COL_EVENT_GROUP, operationData.getEventGroup());
+            contentValues.put(TABLE_COL_EXCEPTION_RELATE_ID, operationData.getExceptionRelateID());
 
             db.replace(OPERATION_REPORT_TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
@@ -60,16 +60,14 @@ public class OperationDBController extends AppAnalysisReportDBController {
 
         while (cursor.moveToNext()) {
 
-            OperationData operationData = new OperationData.Builder()
-                .setUuid(cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)))
-                .setDateTime(cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)))
-                .setClassFileName(cursor.getString(cursor.getColumnIndex(TABLE_COL_CLASS_FILE_NAME)))
-                .setViewUINameOrMethodName(cursor.getString(cursor.getColumnIndex(TABLE_COL_VIEW_UI_NAME)))
-                .setOperationType(
-                        OperationData.getOperationType(cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_TYPE)))
-                        )
-                .setEventGroup(cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)))
-                .build();
+            OperationData operationData = new OperationData(
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
+                    OperationData.getOperationType(cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_TYPE))),
+                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EXCEPTION_RELATE_ID))
+            );
 
             operationDataArrayList.add(operationData);
         }

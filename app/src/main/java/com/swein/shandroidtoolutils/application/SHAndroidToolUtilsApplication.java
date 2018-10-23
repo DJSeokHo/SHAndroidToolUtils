@@ -4,9 +4,6 @@ import android.app.Application;
 
 import com.swein.framework.module.appanalysisreport.applicationhandler.CrashExceptionReportHandler;
 
-import static com.swein.framework.module.googleanalytics.data.Tracker.getAnalytics;
-import static com.swein.framework.module.googleanalytics.manager.TrackerManager.initGoogleAnalyticsTracker;
-
 
 /**
  *
@@ -24,9 +21,9 @@ public class SHAndroidToolUtilsApplication extends Application {
 
         app = this;
 
-        initGoogleAnalyticsTracker(getApplicationContext());
+//        initGoogleAnalyticsTracker(getApplicationContext());
 
-        getAnalytics(getApplicationContext(), true);
+//        getAnalytics(getApplicationContext(), true);
         //will auto send crash report when application crashed
 
         // google

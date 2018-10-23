@@ -22,70 +22,16 @@ public class DeviceUserData implements AppAnalysisData {
     /* 기타 */
     private String other = "";
 
-
-    public static class Builder {
-
-        /* 기기 UUID */
-        private String deviceUUID = "";
-
-        /* 기기 모델 */
-        private String deviceModel = "";
-
-        /* OS 버전 */
-        private String osVersion = "";
-
-        /* 앱 이름 */
-        private String appName = "";
-
-        /* 앱 버전 */
-        private String appVersion = "";
-
-        /* 기타 */
-        private String other = "";
-
-        public Builder setDeviceUUID(String deviceUUID) {
-            this.deviceUUID = deviceUUID;
-            return this;
-        }
-
-        public Builder setDeviceModel(String deviceModel) {
-            this.deviceModel = deviceModel;
-            return this;
-        }
-
-        public Builder setOsVersion(String osVersion) {
-            this.osVersion = osVersion;
-            return this;
-        }
-
-        public Builder setAppName(String appName) {
-            this.appName = appName;
-            return this;
-        }
-
-        public Builder setAppVersion(String appVersion) {
-            this.appVersion = appVersion;
-            return this;
-        }
-
-        public Builder setOther(String other) {
-            this.other = other;
-            return this;
-        }
-
-        public DeviceUserData build() {
-            return new DeviceUserData(this);
-        }
+    
+    public DeviceUserData(String deviceUUID, String deviceModel, String osVersion, String appName, String appVersion, String other) {
+        this.deviceUUID = deviceUUID;
+        this.deviceModel = deviceModel;
+        this.osVersion = osVersion;
+        this.appName = appName;
+        this.appVersion = appVersion;
+        this.other = other;
     }
-
-    private DeviceUserData(Builder builder) {
-        this.deviceUUID = builder.deviceUUID;
-        this.deviceModel = builder.deviceModel;
-        this.osVersion = builder.osVersion;
-        this.appName = builder.appName;
-        this.appVersion = builder.appVersion;
-        this.other = builder.other;
-    }
+    
 
     public String getDeviceUUID() {
         return deviceUUID;

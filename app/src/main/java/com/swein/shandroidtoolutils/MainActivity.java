@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.appanalysisreport.demo.example.main.AppAnalysisExampleMainActivity;
+import com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
@@ -213,10 +213,9 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 
-
 //        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisReportDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, BottomNavigateDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleMainActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleLoginActivity.class);
 
         SHVolley shVolley = new SHVolley(this);
         shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
@@ -231,14 +230,15 @@ public class MainActivity extends Activity {
             }
         });
 
-        imageViewMain1 = (ImageView) findViewById(R.id.imageViewMain1);
+        imageViewMain1 = findViewById(R.id.imageViewMain1);
 
-        imageViewMain2 = (ImageView) findViewById(R.id.imageViewMain2);
+        imageViewMain2 = findViewById(R.id.imageViewMain2);
 
 
         SHPicasso.getInstance().loadImage(this, "http://img3.imgtn.bdimg.com/it/u=1332377433,2524957434&fm=27&gp=0.jpg", imageViewMain2, false, 0);
 
         imageViewMain2.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -250,7 +250,7 @@ public class MainActivity extends Activity {
 
                 AnimationUtil.setViewToPositionY(imageViewMain2, 0, 600, null);
 
-                /**
+                /*
                  * translationX, translationY
                  * rotation, rotationX, rotationY
                  * scaleX, scaleY
@@ -499,6 +499,7 @@ public class MainActivity extends Activity {
             case REQUEST_READ_PHONE_STATE:
                 if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     //TODO
+
                 }
                 break;
 
