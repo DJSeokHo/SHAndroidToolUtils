@@ -64,7 +64,7 @@ public class AppAnalysisExampleSplashActivity extends AppCompatActivity {
                     Reporter.getInstance().trackException(
                             ReportParser.getLocationFromThrowable(throwable),
                             ReportParser.getExceptionMessage(throwable),
-                            ReportProperty.EVENT_GROUP_API_ERROR,
+                            ReportProperty.EVENT_GROUP_REQUEST_API,
                             operationRelateID,
                             "check api success or not"
                     );

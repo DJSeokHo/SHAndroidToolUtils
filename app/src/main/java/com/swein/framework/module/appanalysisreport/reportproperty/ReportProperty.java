@@ -31,7 +31,7 @@ public class ReportProperty {
     public final static String EVENT_GROUP_REGISTER = "register";
 
     public final static String EVENT_GROUP_CHANGE_SCREEN = "change screen";
-    public final static String EVENT_GROUP_API_ERROR = "api error";
+    public final static String EVENT_GROUP_REQUEST_API = "request api";
 
     public final static String EVENT_GROUP_AUTO_RUN_METHOD = "auto run method";
 
