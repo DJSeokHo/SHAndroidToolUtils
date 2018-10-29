@@ -9,18 +9,15 @@ import android.widget.Button;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
 import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
-import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
-import com.swein.framework.tools.util.toast.ToastUtil;
-import com.swein.shandroidtoolutils.MainActivity;
 import com.swein.shandroidtoolutils.R;
 
 public class AppCrashReportActivity extends Activity {
 
-    private Button buttonRestart;
+    private final static String TAG = "AppCrashReportActivity";
+
     private Button buttonExit;
     private Button buttonSendExceptionEmail;
-    private Button buttonSendExceptionApi;
 
     private Button buttonResetDB;
 
@@ -29,10 +26,14 @@ public class AppCrashReportActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_crash_report);
 
-        buttonRestart = findViewById(R.id.buttonRestart);
+
+        String message = getIntent().getStringExtra("message");
+        String location = getIntent().getStringExtra("location");
+
+        Reporter.getInstance().trackException(location, message, ReportProperty.EVENT_GROUP_CRASH, "", ReportProperty.EVENT_GROUP_CRASH);
+
         buttonExit = findViewById(R.id.buttonExit);
         buttonSendExceptionEmail = findViewById(R.id.buttonSendExceptionEmail);
-        buttonSendExceptionApi = findViewById(R.id.buttonSendExceptionApi);
 
         buttonResetDB = findViewById(R.id.buttonResetDB);
         buttonResetDB.setOnClickListener(new View.OnClickListener() {
@@ -66,20 +67,6 @@ public class AppCrashReportActivity extends Activity {
                             }
                         });
 
-            }
-        });
-
-        buttonSendExceptionApi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.showCustomShortToastNormal(AppCrashReportActivity.this, "개발중");
-            }
-        });
-
-        buttonRestart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtil.startNewActivityWithFinish(AppCrashReportActivity.this, MainActivity.class);
             }
         });
 

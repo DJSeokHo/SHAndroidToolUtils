@@ -45,6 +45,9 @@ public class AppAnalysisExampleLoginActivity extends Activity {
         editTextID = findViewById(R.id.editTextID);
         editTextPassword = findViewById(R.id.editTextPassword);
 
+        editTextID.setText("sh");
+        editTextPassword.setText("qq");
+
         buttonSendExceptionEmail = findViewById(R.id.buttonSendExceptionEmail);
         buttonSendExceptionEmail.setOnClickListener(new View.OnClickListener() {
             @Override

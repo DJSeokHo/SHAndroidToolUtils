@@ -31,7 +31,7 @@ public class SHAndroidToolUtilsApplication extends Application {
 
 
         // app analysis report
-        Reporter.getInstance().init(getApplicationContext(), ReportProperty.REPORT_RECORD_MANAGE_TYPE.FOR_TEST);
+        Reporter.getInstance().init(getApplicationContext(), ReportProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
 
     }
 

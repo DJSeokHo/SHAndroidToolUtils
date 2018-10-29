@@ -5,14 +5,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Looper;
 
 import com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity;
 import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
-import com.swein.framework.tools.util.toast.ToastUtil;
-import com.swein.shandroidtoolutils.R;
 
 /**
  * Created by seokho on 23/11/2016.
@@ -28,7 +23,8 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     private Context context;
 
-    private CrashExceptionReportHandler() {}
+    private CrashExceptionReportHandler() {
+    }
 
     public static CrashExceptionReportHandler getInstance() {
         return instance;
@@ -36,6 +32,7 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * init
+     *
      * @param context context
      */
     public void init(Context context) {
@@ -46,34 +43,30 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * when uncaught exception
-     * @param thread thread
+     *
+     * @param thread    thread
      * @param exception exception
      */
     @Override
     public void uncaughtException(Thread thread, Throwable exception) {
 
-        if ( !handleException(exception) && uncaughtExceptionHandler != null ) {
+        if (!handleException(exception) && uncaughtExceptionHandler != null) {
 
             uncaughtExceptionHandler.uncaughtException(thread, exception);
         }
         else {
 
-            try {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             Intent intent = new Intent(context, AppCrashReportActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("crash", true);
+
+            intent.putExtra("message", ReportParser.getExceptionMessage(exception));
+            intent.putExtra("location", ReportParser.getLocationFromThrowable(exception));
+
             PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             if (alarmManager != null) {
-                alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 1500, restartIntent);
+                alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), restartIntent);
             }
 
             android.os.Process.killProcess(android.os.Process.myPid());
@@ -85,31 +78,14 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
 
     /**
      * custom defined exception handler
+     *
      * @param exception exception
      * @return boolean
      */
     private boolean handleException(final Throwable exception) {
-        if( null == exception ) {
+        if (null == exception) {
             return false;
         }
-
-        new Thread() {
-
-            @Override
-            public void run() {
-                Looper.prepare();
-                ToastUtil.showShortToastNormal(context, context.getString(R.string.exception_save));
-
-                Reporter.getInstance().trackException(
-                        ReportParser.getLocationFromThrowable(exception.getCause()),
-                        ReportParser.getExceptionMessage(exception),
-                        ReportProperty.EVENT_GROUP_CRASH,
-                        "",
-                        "");
-
-                Looper.loop();
-            }
-        }.start();
 
         /*
          * here is crash exception handler.

@@ -4,14 +4,27 @@ public class ReportParser {
 
     public static String getLocationFromThrowable(Throwable throwable) {
         String location = "";
+
+        if(throwable == null) {
+            return location;
+        }
+
+        if(throwable.getStackTrace() == null) {
+
+            location = throwable.toString();
+            return location;
+        }
+
         location += "[ " + throwable.getStackTrace()[0].getFileName() + " ]\n";
         location += "[ " + throwable.getStackTrace()[0].getMethodName() + " ]\n";
         location += "[ " + throwable.getStackTrace()[0].getLineNumber() + " ]";
+
         return location;
     }
 
     public static String getExceptionMessage(Throwable exception) {
-        StringBuilder exceptionMessage = new StringBuilder();
+
+        String exceptionMessage = "";
 
         Throwable temp = exception.getCause();
 
@@ -24,11 +37,11 @@ public class ReportParser {
         }
 
         StackTraceElement[] stackTraceElements = temp.getStackTrace();
-        exceptionMessage.append(temp.getMessage()).append("\n");
+        exceptionMessage += temp.getMessage() + "\n";
         for(StackTraceElement stackTraceElement : stackTraceElements) {
-            exceptionMessage.append(stackTraceElement.toString()).append("\n");
+            exceptionMessage += stackTraceElement.toString() + "\n";
         }
 
-        return exceptionMessage.toString();
+        return exceptionMessage;
     }
 }
