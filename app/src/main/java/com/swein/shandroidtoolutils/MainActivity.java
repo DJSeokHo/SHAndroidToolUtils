@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
@@ -55,6 +54,8 @@ public class MainActivity extends Activity {
     private Button buttonCamera;
     private Button buttonCreateShortCut;
     private Button buttonCrash;
+
+    private Button buttonLocation;
 
     private RelativeLayout relativeLayoutFakeCameraOnePreview;
 
@@ -93,6 +94,31 @@ public class MainActivity extends Activity {
 
         relativeLayoutFakeCameraOnePreview = findViewById(R.id.rl_fake);
         relativeLayoutFakeCameraOnePreview.addView(new FakeCameraOnePreview(this));
+
+        buttonLocation = findViewById(R.id.buttonLocation);
+        buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new SHLocation(MainActivity.this, new SHLocation.SHLocationDelegate() {
+                    @Override
+                    public void onLocation(double longitude, double latitude, long time) {
+
+                        try {
+                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
+                            for(Address address : addressList) {
+                                ILog.iLogDebug(TAG, address.toString());
+                            }
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).requestLocation();
+
+            }
+        });
 
         buttonCrash = findViewById(R.id.buttonCrash);
         buttonCrash.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +241,7 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisReportDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, BottomNavigateDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleLoginActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleLoginActivity.class);
 
         SHVolley shVolley = new SHVolley(this);
         shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
@@ -260,24 +286,6 @@ public class MainActivity extends Activity {
                  */
             }
         });
-
-
-        new SHLocation(this, new SHLocation.SHLocationDelegate() {
-            @Override
-            public void onLocation(double longitude, double latitude, long time) {
-
-                try {
-                    List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
-                    for(Address address : addressList) {
-                        ILog.iLogDebug(TAG, address.toString());
-                    }
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).requestLocation();
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
