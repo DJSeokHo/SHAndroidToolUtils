@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:scaleType="centerInside"
+        android:id="@+id/imageButtonCake"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:src="@drawable/nonya_kueh"
+        android:layout_marginBottom="30dp"/>
+
+    <ImageButton
+        android:scaleType="centerInside"
+        android:alpha="0.5"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/imageButtonCheese"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:src="@drawable/cheese"/>
+
+    <ImageButton
+        android:scaleType="centerInside"
+        android:alpha="0.5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/imageButtonEspresso"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:src="@drawable/espresso_cup"/>
+
+</FrameLayout>
