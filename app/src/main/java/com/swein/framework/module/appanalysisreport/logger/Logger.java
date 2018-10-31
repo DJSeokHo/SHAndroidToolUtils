@@ -1,4 +1,4 @@
-package com.swein.framework.module.appanalysisreport.reporttracker;
+package com.swein.framework.module.appanalysisreport.logger;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.swein.framework.module.appanalysisreport.data.model.dao.AppAnalysisDA
 import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.email.EmailUtil;
@@ -33,14 +33,14 @@ ON
 TB_OPERATION_REPORT.UUID = TB_EXCEPTION_REPORT.OPERATION_RELATE_ID;
  *
  */
-public class Reporter {
+public class Logger {
 
-    private Reporter() {}
+    private Logger() {}
 
     @SuppressLint("StaticFieldLeak")
-    private static Reporter instance = new Reporter();
+    private static Logger instance = new Logger();
 
-    public static Reporter getInstance() {
+    public static Logger getInstance() {
         return instance;
     }
 
@@ -48,7 +48,7 @@ public class Reporter {
      * add this method to your application
      * @param context context
      */
-    public void init(Context context, ReportProperty.REPORT_RECORD_MANAGE_TYPE recordLimit) {
+    public void init(Context context, LoggerProperty.REPORT_RECORD_MANAGE_TYPE recordLimit) {
 
         CrashExceptionReportHandler.getInstance().init(context);
 
@@ -86,7 +86,7 @@ public class Reporter {
         ));
     }
 
-    public String trackOperation(String location, String eventGroup, ReportProperty.OPERATION_TYPE operationType, String note) {
+    public String trackOperation(String location, String eventGroup, LoggerProperty.OPERATION_TYPE operationType, String note) {
         AppAnalysisData appAnalysisData = new OperationData(
                 location, eventGroup, operationType, note
         );
@@ -99,18 +99,18 @@ public class Reporter {
 
         File file = new AppAnalysisReportDBController(context).copyDBFileToOutsideFolderForTemp();
 
-        String title = ReportProperty.APP_ANALYSIS_REPORT_TITLE;
+        String title = LoggerProperty.APP_ANALYSIS_REPORT_TITLE;
 
         String content;
 
         if(anonymous) {
-            content = ReportProperty.APP_ANALYSIS_REPORT_CONTENT;
+            content = LoggerProperty.APP_ANALYSIS_REPORT_CONTENT;
         }
         else {
-            content = userID + " " + ReportProperty.APP_ANALYSIS_REPORT_CONTENT;
+            content = userID + " " + LoggerProperty.APP_ANALYSIS_REPORT_CONTENT;
         }
 
-        EmailUtil.mailToWithFile(context, file, new String[]{ReportProperty.EMAIL_RECEIVER, ReportProperty.EMAIL_RECEIVER},
+        EmailUtil.mailToWithFile(context, file, new String[]{LoggerProperty.EMAIL_RECEIVER, LoggerProperty.EMAIL_RECEIVER},
                 title, content);
 
     }

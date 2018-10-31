@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity;
-import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
+import com.swein.framework.module.appanalysisreport.data.parser.LoggerParser;
 
 /**
  * Created by seokho on 23/11/2016.
@@ -61,8 +61,8 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
             Intent intent = new Intent(context, AppCrashReportActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-            intent.putExtra("message", ReportParser.getExceptionMessage(exception));
-            intent.putExtra("location", ReportParser.getLocationFromThrowable(exception));
+            intent.putExtra("message", LoggerParser.getExceptionMessage(exception));
+            intent.putExtra("location", LoggerParser.getLocationFromThrowable(exception));
 
             PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             if (alarmManager != null) {

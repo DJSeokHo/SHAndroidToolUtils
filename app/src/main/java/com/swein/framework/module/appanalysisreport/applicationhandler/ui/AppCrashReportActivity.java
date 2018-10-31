@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
+import com.swein.framework.module.appanalysisreport.logger.Logger;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.shandroidtoolutils.R;
 
@@ -30,7 +30,7 @@ public class AppCrashReportActivity extends Activity {
         String message = getIntent().getStringExtra("message");
         String location = getIntent().getStringExtra("location");
 
-        Reporter.getInstance().trackException(location, message, ReportProperty.EVENT_GROUP_CRASH, "", ReportProperty.EVENT_GROUP_CRASH);
+        Logger.getInstance().trackException(location, message, LoggerProperty.EVENT_GROUP_CRASH, "", LoggerProperty.EVENT_GROUP_CRASH);
 
         buttonExit = findViewById(R.id.buttonExit);
         buttonSendExceptionEmail = findViewById(R.id.buttonSendExceptionEmail);
@@ -53,7 +53,7 @@ public class AppCrashReportActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, false, ReportProperty.TEST_USER_ID);
+                                Logger.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, false, LoggerProperty.TEST_USER_ID);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -63,7 +63,7 @@ public class AppCrashReportActivity extends Activity {
                         }, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, true, ReportProperty.TEST_USER_ID);
+                                Logger.getInstance().sendAppAnalysisReportByEmail(AppCrashReportActivity.this, true, LoggerProperty.TEST_USER_ID);
                             }
                         });
 

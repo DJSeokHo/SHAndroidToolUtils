@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 
@@ -102,7 +102,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
                 " WHERE " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
                 "(" +
                     "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
-                    " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + ReportProperty.SECONDS_IN_DAY * day + ")" +
+                    " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + LoggerProperty.SECONDS_IN_DAY * day + ")" +
                 ");";
 
         getWritableDatabase(DB_KEY).execSQL(stringBuilder);
@@ -116,7 +116,7 @@ public class OperationDBController extends AppAnalysisReportDBController {
             ) > 5000 AND TB_OPERATION_REPORT.UUID IN
             (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
             ORDER BY TB_OPERATION_REPORT.DATE_TIME DESC LIMIT
-            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT) OFFSET 5000 );
+            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT) OFFSET 5000);
          */
         String stringBuilder = "DELETE FROM " + OPERATION_REPORT_TABLE_NAME + " WHERE " +
                 "(" +

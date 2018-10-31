@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
+import com.swein.framework.module.appanalysisreport.data.parser.LoggerParser;
+import com.swein.framework.module.appanalysisreport.logger.Logger;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
@@ -30,10 +30,10 @@ public class AppAnalysisExampleHomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_home);
 
-        Reporter.getInstance().trackOperation(
-                ReportParser.getLocationFromThrowable(new Throwable()),
-                ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
-                ReportProperty.OPERATION_TYPE.NONE,
+        Logger.getInstance().trackOperation(
+                LoggerParser.getLocationFromThrowable(new Throwable()),
+                LoggerProperty.EVENT_GROUP_CHANGE_SCREEN,
+                LoggerProperty.OPERATION_TYPE.NONE,
                 ""
         );
 
@@ -44,10 +44,10 @@ public class AppAnalysisExampleHomeActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                operationRelateID = Reporter.getInstance().trackOperation(
-                        ReportParser.getLocationFromThrowable(new Throwable()),
-                        ReportProperty.EVENT_GROUP_REQUEST_API,
-                        ReportProperty.OPERATION_TYPE.C,
+                operationRelateID = Logger.getInstance().trackOperation(
+                        LoggerParser.getLocationFromThrowable(new Throwable()),
+                        LoggerProperty.EVENT_GROUP_REQUEST_API,
+                        LoggerProperty.OPERATION_TYPE.C,
                         "request 3 address");
 
                 requestAPI();
@@ -59,10 +59,10 @@ public class AppAnalysisExampleHomeActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Reporter.getInstance().trackOperation(
-                        ReportParser.getLocationFromThrowable(new Throwable()),
-                        ReportProperty.EVENT_GROUP_REQUEST_API,
-                        ReportProperty.OPERATION_TYPE.C,
+                Logger.getInstance().trackOperation(
+                        LoggerParser.getLocationFromThrowable(new Throwable()),
+                        LoggerProperty.EVENT_GROUP_REQUEST_API,
+                        LoggerProperty.OPERATION_TYPE.C,
                         "");
 
                 List list = null;
@@ -103,10 +103,10 @@ public class AppAnalysisExampleHomeActivity extends Activity {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Reporter.getInstance().trackException(
-                                    ReportParser.getLocationFromThrowable(new Throwable()),
-                                    ReportParser.getExceptionMessage(error),
-                                    ReportProperty.EVENT_GROUP_REQUEST_API,
+                            Logger.getInstance().trackException(
+                                    LoggerParser.getLocationFromThrowable(new Throwable()),
+                                    LoggerParser.getExceptionMessage(error),
+                                    LoggerProperty.EVENT_GROUP_REQUEST_API,
                                     operationRelateID,
                                     list.size() + "  개 api 중 1 개 오류 발생: " + s
                             );

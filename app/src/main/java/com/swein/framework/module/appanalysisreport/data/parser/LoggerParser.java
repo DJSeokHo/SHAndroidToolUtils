@@ -1,6 +1,6 @@
 package com.swein.framework.module.appanalysisreport.data.parser;
 
-public class ReportParser {
+public class LoggerParser {
 
     public static String getLocationFromThrowable(Throwable throwable) {
         String location = "";

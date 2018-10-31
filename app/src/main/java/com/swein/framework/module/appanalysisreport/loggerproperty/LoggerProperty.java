@@ -1,8 +1,8 @@
-package com.swein.framework.module.appanalysisreport.reportproperty;
+package com.swein.framework.module.appanalysisreport.loggerproperty;
 
 import android.os.Environment;
 
-public class ReportProperty {
+public class LoggerProperty {
 
     public final static int SECONDS_IN_DAY = 86400;
 

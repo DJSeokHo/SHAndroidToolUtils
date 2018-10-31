@@ -39,13 +39,13 @@ public class AOPExampleMainActivity extends AppCompatActivity {
 //
 //        AppAnalysisData appAnalysisData = new OperationData.Builder()
 //                .setUuid(UUID.randomUUID().toString())
-//                .setClassFileName(ReportParser.getClassFileNameFromThread(Thread.currentThread()))
-//                .setViewUINameOrMethodName(ReportParser.getMethodNameFromThread(Thread.currentThread()))
+//                .setClassFileName(LoggerParser.getClassFileNameFromThread(Thread.currentThread()))
+//                .setViewUINameOrMethodName(LoggerParser.getMethodNameFromThread(Thread.currentThread()))
 //                .setDateTime(DateUtil.getCurrentDateTimeString())
-//                .setOperationType(ReportProperty.OPERATION_TYPE.NONE)
-//                .setEventGroup(ReportProperty.EVENT_GROUP_CHANGE_SCREEN)
+//                .setOperationType(LoggerProperty.OPERATION_TYPE.NONE)
+//                .setEventGroup(LoggerProperty.EVENT_GROUP_CHANGE_SCREEN)
 //                .build();
-//        Reporter.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
+//        Logger.getInstance().saveAppAnalysisIntoDB(this, appAnalysisData);
 
     }
 

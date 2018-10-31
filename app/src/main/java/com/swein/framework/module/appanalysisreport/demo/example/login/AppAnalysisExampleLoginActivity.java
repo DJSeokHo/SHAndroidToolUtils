@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
-import com.swein.framework.module.appanalysisreport.data.parser.ReportParser;
+import com.swein.framework.module.appanalysisreport.data.parser.LoggerParser;
 import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
 import com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity;
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
+import com.swein.framework.module.appanalysisreport.logger.Logger;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.dialog.DialogUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
@@ -35,10 +35,10 @@ public class AppAnalysisExampleLoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_analysis_example_login);
 
-        Reporter.getInstance().trackOperation(
-                ReportParser.getLocationFromThrowable(new Throwable()),
-                ReportProperty.EVENT_GROUP_CHANGE_SCREEN,
-                ReportProperty.OPERATION_TYPE.NONE,
+        Logger.getInstance().trackOperation(
+                LoggerParser.getLocationFromThrowable(new Throwable()),
+                LoggerProperty.EVENT_GROUP_CHANGE_SCREEN,
+                LoggerProperty.OPERATION_TYPE.NONE,
                 ""
         );
 
@@ -58,7 +58,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false, ReportProperty.TEST_USER_ID);
+                                Logger.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, false, LoggerProperty.TEST_USER_ID);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -68,7 +68,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
                         }, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Reporter.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true, ReportProperty.TEST_USER_ID);
+                                Logger.getInstance().sendAppAnalysisReportByEmail(AppAnalysisExampleLoginActivity.this, true, LoggerProperty.TEST_USER_ID);
                             }
                         });
 
@@ -94,10 +94,10 @@ public class AppAnalysisExampleLoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Reporter.getInstance().trackOperation(
-                        ReportParser.getLocationFromThrowable(new Throwable()),
-                        ReportProperty.EVENT_GROUP_LOGIN,
-                        ReportProperty.OPERATION_TYPE.C,
+                Logger.getInstance().trackOperation(
+                        LoggerParser.getLocationFromThrowable(new Throwable()),
+                        LoggerProperty.EVENT_GROUP_LOGIN,
+                        LoggerProperty.OPERATION_TYPE.C,
                         "click buttonLogin to login"
                 );
 
@@ -118,20 +118,20 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
     private boolean checkInput() {
 
-        operationRelateID = Reporter.getInstance().trackOperation(
-                ReportParser.getLocationFromThrowable(new Throwable()),
-                ReportProperty.EVENT_GROUP_LOGIN,
-                ReportProperty.OPERATION_TYPE.NONE,
+        operationRelateID = Logger.getInstance().trackOperation(
+                LoggerParser.getLocationFromThrowable(new Throwable()),
+                LoggerProperty.EVENT_GROUP_LOGIN,
+                LoggerProperty.OPERATION_TYPE.NONE,
                 "check input id and password"
         );
 
 
         if("".equals(editTextID.getText().toString()) || "".equals(editTextPassword.getText().toString()) || "ID".equals(editTextID.getText().toString()) || "Password".equals(editTextPassword.getText().toString())) {
 
-            Reporter.getInstance().trackException(
-                    ReportParser.getLocationFromThrowable(new Throwable()),
+            Logger.getInstance().trackException(
+                    LoggerParser.getLocationFromThrowable(new Throwable()),
                     "input id or password was wrong",
-                    ReportProperty.EVENT_GROUP_LOGIN,
+                    LoggerProperty.EVENT_GROUP_LOGIN,
                     operationRelateID,
                     ""
             );
@@ -145,10 +145,10 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
     private void loginWithAPI() {
 
-        operationRelateID = Reporter.getInstance().trackOperation(
-                ReportParser.getLocationFromThrowable(new Throwable()),
-                ReportProperty.EVENT_GROUP_LOGIN,
-                ReportProperty.OPERATION_TYPE.NONE,
+        operationRelateID = Logger.getInstance().trackOperation(
+                LoggerParser.getLocationFromThrowable(new Throwable()),
+                LoggerProperty.EVENT_GROUP_LOGIN,
+                LoggerProperty.OPERATION_TYPE.NONE,
                 "login api started"
         );
 
@@ -156,10 +156,10 @@ public class AppAnalysisExampleLoginActivity extends Activity {
 
         if(!"sh".equals(id)) {
 
-            Reporter.getInstance().trackException(
-                    ReportParser.getLocationFromThrowable(new Throwable()),
+            Logger.getInstance().trackException(
+                    LoggerParser.getLocationFromThrowable(new Throwable()),
                     "id not right",
-                    ReportProperty.EVENT_GROUP_LOGIN,
+                    LoggerProperty.EVENT_GROUP_LOGIN,
                     operationRelateID,
                     ""
             );

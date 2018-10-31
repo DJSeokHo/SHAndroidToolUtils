@@ -2,7 +2,7 @@ package com.swein.framework.module.appanalysisreport.data.db;
 
 import android.content.Context;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.dbcrypt.SQLCipherHelper;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 
@@ -49,9 +49,9 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
 
     public AppAnalysisReportDBController(Context context) {
-        super(context, ReportProperty.DB_FILE_TEMP_NAME, null, DB_VERSION);
+        super(context, LoggerProperty.DB_FILE_TEMP_NAME, null, DB_VERSION);
         net.sqlcipher.database.SQLiteDatabase.loadLibs( context );
-        SQLCipherHelper.autoEncryptDB(this, context, ReportProperty.DB_FILE_TEMP_NAME, DB_KEY);
+        SQLCipherHelper.autoEncryptDB(this, context, LoggerProperty.DB_FILE_TEMP_NAME, DB_KEY);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     public void deleteDatabase(Context context) {
         close();
-        context.deleteDatabase(ReportProperty.DB_FILE_TEMP_NAME);
+        context.deleteDatabase(LoggerProperty.DB_FILE_TEMP_NAME);
     }
 
     public void clearDataBase() {
@@ -139,7 +139,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     }
 
     public void deleteDBFileToOutsideFolderForTemp() {
-        File file = new File(ReportProperty.DB_FILE_TEMP_PATH, ReportProperty.DB_FILE_TEMP_NAME);
+        File file = new File(LoggerProperty.DB_FILE_TEMP_PATH, LoggerProperty.DB_FILE_TEMP_NAME);
         if(file.exists()) {
             file.delete();
         }
@@ -152,12 +152,12 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
          * //check here before release !!!!warning: [this part] only for debugging, commented out code between [this part] in release
          *
          */
-        File folder = new File(ReportProperty.DB_FILE_TEMP_PATH);
+        File folder = new File(LoggerProperty.DB_FILE_TEMP_PATH);
         if(!folder.exists()) {
             folder.mkdir();
         }
 
-        File file = new File(ReportProperty.DB_FILE_TEMP_PATH, ReportProperty.DB_FILE_TEMP_NAME);
+        File file = new File(LoggerProperty.DB_FILE_TEMP_PATH, LoggerProperty.DB_FILE_TEMP_NAME);
 
         if(file.exists()) {
             boolean success = file.delete();

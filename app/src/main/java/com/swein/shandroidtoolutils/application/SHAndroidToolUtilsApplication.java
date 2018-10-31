@@ -2,8 +2,8 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
-import com.swein.framework.module.appanalysisreport.reporttracker.Reporter;
+import com.swein.framework.module.appanalysisreport.logger.Logger;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 
 
 /**
@@ -31,7 +31,7 @@ public class SHAndroidToolUtilsApplication extends Application {
 
 
         // app analysis report
-        Reporter.getInstance().init(getApplicationContext(), ReportProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
+        Logger.getInstance().init(getApplicationContext(), LoggerProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
 
     }
 

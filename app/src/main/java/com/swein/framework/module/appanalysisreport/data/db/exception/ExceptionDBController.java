@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
 
@@ -85,7 +85,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
                 " WHERE " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
                 "(" +
                 "SELECT " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + EXCEPTION_REPORT_TABLE_NAME +
-                " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + ReportProperty.SECONDS_IN_DAY * day + ")" +
+                " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + LoggerProperty.SECONDS_IN_DAY * day + ")" +
                 ");";
 
         getWritableDatabase(DB_KEY).execSQL(stringBuilder);
@@ -99,7 +99,7 @@ public class ExceptionDBController extends AppAnalysisReportDBController {
             ) > 5000 AND TB_EXCEPTION_REPORT.UUID IN
             (SELECT TB_EXCEPTION_REPORT.UUID FROM TB_EXCEPTION_REPORT
             ORDER BY TB_EXCEPTION_REPORT.DATE_TIME DESC LIMIT
-            (SELECT COUNT(TB_EXCEPTION_REPORT.UUID) FROM TB_EXCEPTION_REPORT) OFFSET 5000 );
+            (SELECT COUNT(TB_EXCEPTION_REPORT.UUID) FROM TB_EXCEPTION_REPORT) OFFSET 5000);
          */
         String stringBuilder = "DELETE FROM " + EXCEPTION_REPORT_TABLE_NAME + " WHERE " +
                 "(" +

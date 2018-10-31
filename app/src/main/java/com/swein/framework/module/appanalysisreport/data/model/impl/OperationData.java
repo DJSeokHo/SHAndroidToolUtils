@@ -1,6 +1,6 @@
 package com.swein.framework.module.appanalysisreport.data.model.impl;
 
-import com.swein.framework.module.appanalysisreport.reportproperty.ReportProperty;
+import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.module.appanalysisreport.data.model.AppAnalysisData;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.uuid.UUIDUtil;
@@ -20,12 +20,12 @@ public class OperationData implements AppAnalysisData {
     /* 이벤트 그룹 */
     private String eventGroup = "";
 
-    private ReportProperty.OPERATION_TYPE operationType = ReportProperty.OPERATION_TYPE.NONE;
+    private LoggerProperty.OPERATION_TYPE operationType = LoggerProperty.OPERATION_TYPE.NONE;
 
     /* 기타정보 */
     private String note = "";
 
-    public OperationData(String location, String eventGroup, ReportProperty.OPERATION_TYPE operationType, String note) {
+    public OperationData(String location, String eventGroup, LoggerProperty.OPERATION_TYPE operationType, String note) {
         this.uuid = UUIDUtil.getUUIDString();
         this.dateTime = DateUtil.getCurrentDateTimeString();
         this.location = location;
@@ -34,7 +34,7 @@ public class OperationData implements AppAnalysisData {
         this.note = note;
     }
 
-    public OperationData(String uuid, String location, String dateTime, String eventGroup, ReportProperty.OPERATION_TYPE operationType, String note) {
+    public OperationData(String uuid, String location, String dateTime, String eventGroup, LoggerProperty.OPERATION_TYPE operationType, String note) {
         this.uuid = uuid;
         this.location = location;
         this.dateTime = dateTime;
@@ -89,45 +89,45 @@ public class OperationData implements AppAnalysisData {
 
     }
 
-    public static ReportProperty.OPERATION_TYPE getOperationType(String operationTypeString) {
+    public static LoggerProperty.OPERATION_TYPE getOperationType(String operationTypeString) {
         switch (operationTypeString) {
-            case ReportProperty.OPERATION_C:
-                return ReportProperty.OPERATION_TYPE.C;
+            case LoggerProperty.OPERATION_C:
+                return LoggerProperty.OPERATION_TYPE.C;
 
-            case ReportProperty.OPERATION_LC:
-                return ReportProperty.OPERATION_TYPE.LC;
+            case LoggerProperty.OPERATION_LC:
+                return LoggerProperty.OPERATION_TYPE.LC;
 
-            case ReportProperty.OPERATION_SU:
-                return ReportProperty.OPERATION_TYPE.SU;
+            case LoggerProperty.OPERATION_SU:
+                return LoggerProperty.OPERATION_TYPE.SU;
 
-            case ReportProperty.OPERATION_SD:
-                return ReportProperty.OPERATION_TYPE.SD;
+            case LoggerProperty.OPERATION_SD:
+                return LoggerProperty.OPERATION_TYPE.SD;
 
-            case ReportProperty.OPERATION_NONE:
+            case LoggerProperty.OPERATION_NONE:
 
             default:
-                return ReportProperty.OPERATION_TYPE.NONE;
+                return LoggerProperty.OPERATION_TYPE.NONE;
         }
     }
 
-    private String getOperationTypeString(ReportProperty.OPERATION_TYPE operationType) {
+    private String getOperationTypeString(LoggerProperty.OPERATION_TYPE operationType) {
         switch (operationType) {
             case C:
-                return ReportProperty.OPERATION_C;
+                return LoggerProperty.OPERATION_C;
 
             case LC:
-                return ReportProperty.OPERATION_LC;
+                return LoggerProperty.OPERATION_LC;
 
             case SD:
-                return ReportProperty.OPERATION_SD;
+                return LoggerProperty.OPERATION_SD;
 
             case SU:
-                return ReportProperty.OPERATION_SU;
+                return LoggerProperty.OPERATION_SU;
 
             case NONE:
 
             default:
-                return ReportProperty.OPERATION_NONE;
+                return LoggerProperty.OPERATION_NONE;
         }
     }
 }
