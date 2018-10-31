@@ -54,7 +54,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
             public void onClick(View v) {
 
                 DialogUtil.createNormalDialogWithThreeButton(AppAnalysisExampleLoginActivity.this,
-                        "리포트", "개인 정보 보함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
+                        "리포트", "개인 정보 포함해서 같이 보내시겠습니까?", false, "같이 보내기", "취소",  "익명 보내기",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
