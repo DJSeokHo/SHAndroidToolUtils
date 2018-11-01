@@ -16,7 +16,7 @@
         android:src="@drawable/bug"/>
 
     <TextView
-        android:text="앱 오류정보 개발자에게 보내시겠습니까?"
+        android:text="앱 오류정보 담당자에게 보내시겠습니까?"
         android:textAllCaps="false"
         android:layout_marginTop="120dp"
         android:textColor="@color/gray"

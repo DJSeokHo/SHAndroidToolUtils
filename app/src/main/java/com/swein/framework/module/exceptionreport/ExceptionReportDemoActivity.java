@@ -57,7 +57,7 @@ public class ExceptionReportDemoActivity extends Activity {
             final ExceptionReportController exceptionReportController = new ExceptionReportController(this, EConstants.REPORT_WAY.EMAIL);
             exceptionReportController.setReport(e);
 
-            DialogUtil.createNormalDialogWithTwoButton(ExceptionReportDemoActivity.this, "오류 보고", "오류 정보를 이메일으로 개발자에게 보내시겠습니까?", false, "네", "아니요",
+            DialogUtil.createNormalDialogWithTwoButton(ExceptionReportDemoActivity.this, "오류 보고", "오류 정보를 이메일으로 담당자에게 보내시겠습니까?", false, "네", "아니요",
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -84,7 +84,7 @@ public class ExceptionReportDemoActivity extends Activity {
         final ExceptionReportController exceptionReportController = new ExceptionReportController(this, EConstants.REPORT_WAY.EMAIL);
         exceptionReportController.setReport(stackTraceElement.getClassName(), String.valueOf(stackTraceElement.getLineNumber()), stackTraceElement.getMethodName(), "SystemOid is wrong");
 
-        DialogUtil.createNormalDialogWithTwoButton(ExceptionReportDemoActivity.this, "오류 보고", "오류 정보를 이메일으로 개발자에게 보내시겠습니까?", false, "네", "아니요",
+        DialogUtil.createNormalDialogWithTwoButton(ExceptionReportDemoActivity.this, "오류 보고", "오류 정보를 이메일으로 담당자에게 보내시겠습니까?", false, "네", "아니요",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
