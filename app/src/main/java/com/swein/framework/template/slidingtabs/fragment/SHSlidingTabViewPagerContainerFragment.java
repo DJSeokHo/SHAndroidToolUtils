@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 public class SHSlidingTabViewPagerContainerFragment extends Fragment {
 
-    ArrayList<Fragment> list;
+    private ArrayList<Fragment> list;
 
-    SlidingTabLayout slidingTabLayout;
-    ViewPager slidingViewPager;
-    SHSlidingTabViewPagerAdapter shSlidingTabViewPagerAdapter;
-    View rootView;
+    private SlidingTabLayout slidingTabLayout;
+    private ViewPager slidingViewPager;
+    private SHSlidingTabViewPagerAdapter shSlidingTabViewPagerAdapter;
+    private View rootView;
 
     public SHSlidingTabViewPagerContainerFragment() {
         // Required empty public constructor
@@ -41,10 +41,10 @@ public class SHSlidingTabViewPagerContainerFragment extends Fragment {
         return rootView;
     }
 
-    void findView() {
+    private void findView() {
 
-        slidingViewPager = (ViewPager)rootView.findViewById(R.id.slidingViewPager);
-        slidingTabLayout = (SlidingTabLayout)rootView.findViewById(R.id.slidingTabLayout);
+        slidingViewPager = rootView.findViewById(R.id.slidingViewPager);
+        slidingTabLayout = rootView.findViewById(R.id.slidingTabLayout);
 
         shSlidingTabViewPagerAdapter = new SHSlidingTabViewPagerAdapter(getActivity().getSupportFragmentManager(), list);
         slidingViewPager.setAdapter(shSlidingTabViewPagerAdapter);
@@ -52,8 +52,8 @@ public class SHSlidingTabViewPagerContainerFragment extends Fragment {
         slidingTabLayout.setViewPager(slidingViewPager);
     }
 
-    void initData() {
-        list = new ArrayList<Fragment>();
+    private void initData() {
+        list = new ArrayList<>();
         list.add(new ViewPagerSampleFragment());
         list.add(new ViewPagerSampleFragment());
         list.add(new ViewPagerSampleFragment());
