@@ -1,7 +1,8 @@
 package com.swein.framework.module.devicestoragescanner.data;
 
 import android.os.Build;
-import android.util.Log;
+
+import com.swein.framework.module.easyscreenrecord.framework.util.debug.log.ILog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class MountInfo {
 
     public String[] getMajorNumAndMinorNum() {
         String fileName = new File( values[0] ).getName();
-        Log.d( "fileName", fileName );
+        ILog.iLogDebug( "fileName", fileName );
 
         ArrayList< ArrayList< Integer > > digitIndexes = findDigitIndex( fileName );
         String major        = "";

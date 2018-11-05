@@ -11,6 +11,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.swein.framework.module.easyscreenrecord.framework.util.debug.log.ILog;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -24,12 +26,56 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by seokho on 10/11/2016.
  */
 
 public class FileIOUtil {
+
+    public static String getPathFromUri(Context context, Uri uri){
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null );
+        cursor.moveToNext();
+        String path = cursor.getString( cursor.getColumnIndex( "_data" ) );
+        cursor.close();
+        return path;
+    }
+
+
+    public static Uri getOutputMediaFileUri(int type){
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+
+    private static File getOutputMediaFile(int type){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+        File mediaFile;
+        if (type == 1){
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    ""+ timeStamp + ".jpg");
+        }
+        else {
+            return null;
+        }
+
+        return mediaFile;
+    }
 
     /**
      * get image file with path
@@ -114,7 +160,7 @@ public class FileIOUtil {
 
             if(offset < bytes.length)
             {
-                Log.d(FileIOUtil.class.getName(), "file length is error");
+                ILog.iLogDebug(FileIOUtil.class.getName(), "file length is error");
                 return null;
             }
             is.close();

@@ -2,8 +2,8 @@ package com.swein.framework.module.navertranslation.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
+import com.swein.framework.module.easyscreenrecord.framework.util.debug.log.ILog;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.BufferedReader;
@@ -55,7 +55,7 @@ public class NaverTranslationActivity extends AppCompatActivity {
                 }
                 br.close();
                 //System.out.println(response.toString());
-                Log.d("seokho", response.toString());
+                ILog.iLogDebug("seokho", response.toString());
 
             } catch (Exception e) {
                 //System.out.println(e);

@@ -361,10 +361,13 @@
             android:name="com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
+        <activity
+            android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.swein.framework.module.easyscreenrecord.framework.util.debug.log.ILog;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -111,7 +113,7 @@ public class FileIOUtils {
 
             if(offset < bytes.length)
             {
-                Log.d(FileIOUtils.class.getName(), "file length is error");
+                ILog.iLogDebug(FileIOUtils.class.getName(), "file length is error");
                 return null;
             }
             is.close();
