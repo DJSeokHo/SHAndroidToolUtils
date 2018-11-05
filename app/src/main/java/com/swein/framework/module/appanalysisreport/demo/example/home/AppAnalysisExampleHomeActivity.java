@@ -3,10 +3,12 @@ package com.swein.framework.module.appanalysisreport.demo.example.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.appanalysisreport.data.parser.LoggerParser;
+import com.swein.framework.module.appanalysisreport.demo.example.home.controller.WebViewController;
 import com.swein.framework.module.appanalysisreport.logger.Logger;
 import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -25,6 +27,8 @@ public class AppAnalysisExampleHomeActivity extends Activity {
 
     private String operationRelateID;
 
+    private WebViewController webViewController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,9 @@ public class AppAnalysisExampleHomeActivity extends Activity {
                 LoggerProperty.OPERATION_TYPE.NONE,
                 ""
         );
+
+        webViewController = new WebViewController(this, (WebView) findViewById(R.id.webView));
+        webViewController.loadUrl("file:///android_asset/test.html");
 
         buttonAPI = findViewById(R.id.buttonAPI);
         buttonCrash = findViewById(R.id.buttonCrash);

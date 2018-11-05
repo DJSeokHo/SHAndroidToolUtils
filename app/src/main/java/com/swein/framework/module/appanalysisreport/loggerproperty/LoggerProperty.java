@@ -32,6 +32,7 @@ public class LoggerProperty {
 
     public final static String EVENT_GROUP_CHANGE_SCREEN = "change screen";
     public final static String EVENT_GROUP_REQUEST_API = "request api";
+    public final static String EVENT_GROUP_WEB_VIEW = "web view";
 
     public final static String EVENT_GROUP_AUTO_RUN_METHOD = "auto run method";
 

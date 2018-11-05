@@ -339,7 +339,7 @@ public class WebViewController {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                ILog.iLogDebug(TAG, "onConsoleMessage " + consoleMessage.message() + " " + consoleMessage.lineNumber() + " " + consoleMessage.sourceId() + " " + consoleMessage.toString());
+                ILog.iLogDebug(TAG, "onConsoleMessage " + consoleMessage.message() + " - " + consoleMessage.lineNumber() + " - " + consoleMessage.sourceId());
                 return super.onConsoleMessage(consoleMessage);
             }
 

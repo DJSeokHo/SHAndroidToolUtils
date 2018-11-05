@@ -25,7 +25,6 @@ public class WebViewTemplateActivity extends Activity {
         setContentView(R.layout.activity_web_view_templete);
 
         webViewController = new WebViewController(this, (WebView) findViewById(R.id.webView));
-
         webViewController.loadUrl("file:///android_asset/test.html");
 
 
