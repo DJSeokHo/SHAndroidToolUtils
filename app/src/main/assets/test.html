@@ -1,34 +1,95 @@
 <!DOCTYPE HTML>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>title</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>title</title>
 
-    <script type="text/javascript">
+        <style type="text/css">
 
+        </style>
+
+        <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+        <script type="text/javascript">
+                /*
+                    最常用的方式是在页面中head部分放置<script>元素，浏览器解析head部分就会执行这个代码，然后才解析页面的其余部分。
+                */
+                /* DOM ready */
+                $(document).ready(function() {
+
+                    changePObj();
+                    parsingJQObjToDOM();
+                    parsingDOMToJQObj();
+                    findElementByClass();
+                    findElement();
+                });
+
+                function changePObj() {
+                    /* #: find element by id */
+                    var $pObj = $('#pObj');
+                    $pObj.html('Hello world').css('color', 'red');
+                }
+
+                function parsingJQObjToDOM() {
+                    /* find all div elements */
+                    var $div = $('div')
+                    var divObj = $div[1];
+                    divObj.style.color = 'red';
+                }
+
+                function parsingDOMToJQObj() {
+                    var divObj = document.getElementsByTagName('div');
+                    var $div = $(divObj);
+
+                    var $first = $div.eq(0);
+
+                    $first.css('color', 'green');
+                }
+
+                function findElementByClass() {
+                    /* . : find element by class */
+                    var $div = $('.divObj');
+                    $div.css('color', 'red');
+                }
+
+                function findElement() {
+                    /* find element */
+                    var $p = $('p');
+                    $p.css('color', 'green');
+                }
+
+                var nullValue;
+                console.log(nullValue.innerHTML);
+            </script>
+
+    </head>
+
+    <body>
+
+        <p id="pObj"></p>
+
+        <div>1</div>
+        <div>2</div>
+        <div class="divObj">3</div>
+
+        <p id="test1">点击测试：通过原生DOM处理</p>
+        <p id="test2">点击测试：通过原生jQuery处理</p>
+
+        <script type="text/javascript">
+                    var p1 = document.getElementById('test1')
+                    p1.addEventListener('click',function(){
+                        //直接通过dom的方法改变颜色
+                        this.style.color = "red";
+                    }, false);
+                </script>
+
+        <script type="text/javascript">
+                    $('#test2').click(function(){
+                        //通过包装成jQuery对象改变颜色
+                        $(this).css('color','blue');
+                    })
         </script>
 
-    <style type="text/css">
-
-    </style>
-</head>
-
-<body>
-
-<p id="pObj">JavaScript</p>
-
-<script type="text/javascript">
-
-            var obj = document.getElementById("pObj");           ;
-            document.write(obj.innerHTML + "<br>");
-            obj.innerHTML = "Hello world";
-            document.write(obj.innerHTML);
-
-            var node1;
-            document.write(node1.innerHTML + "<br>");
-        </script>
-
-</body>
+    </body>
 
 </html>
