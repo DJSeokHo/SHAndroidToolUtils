@@ -1,7 +1,12 @@
 package com.swein.framework.module.appanalysisreport.data.db;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
+import com.swein.framework.module.appanalysisreport.data.model.impl.DeviceUserData;
+import com.swein.framework.module.appanalysisreport.data.model.impl.ExceptionData;
+import com.swein.framework.module.appanalysisreport.data.model.impl.OperationData;
 import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.dbcrypt.SQLCipherHelper;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
@@ -18,35 +23,37 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
     private final static int DB_VERSION = 1;
 
-    protected final static String DB_KEY = "878905o5i4ifi3i33332opjfif93934tif9303033jof3oltkth31";
+    private final static String DB_KEY = "878905o5i4ifi3i33332opjfif93934tif9303033jof3oltkth31";
     /* 사용자&기기 */
-    protected final static String DEVICE_USER_TABLE_NAME = "TB_DEVICE_USER";
+    private final static String DEVICE_USER_TABLE_NAME = "TB_DEVICE_USER";
 
-    protected final static String TABLE_COL_DEVICE_UUID = "DEVICE_UUID";
-    protected final static String TABLE_COL_DEVICE_MODEL = "DEVICE_MODEL";
-    protected final static String TABLE_COL_OS_VERSION = "OS_VERSION";
-    protected final static String TABLE_COL_APP_NAME = "APP_NAME";
-    protected final static String TABLE_COL_APP_VERSION = "APP_VERSION";
-    protected final static String TABLE_COL_OTHER = "OTHER";
-    protected final static String TABLE_COL_NOTE = "NOTE";
+    private final static String TABLE_COL_DEVICE_UUID = "DEVICE_UUID";
+    private final static String TABLE_COL_DEVICE_MODEL = "DEVICE_MODEL";
+    private final static String TABLE_COL_OS_VERSION = "OS_VERSION";
+    private final static String TABLE_COL_APP_NAME = "APP_NAME";
+    private final static String TABLE_COL_APP_VERSION = "APP_VERSION";
+    private final static String TABLE_COL_OTHER = "OTHER";
+    private final static String TABLE_COL_NOTE = "NOTE";
 
     /* 공통 */
-    protected final static String TABLE_COL_UUID = "UUID";
-    protected final static String TABLE_COL_DATE_TIME = "DATE_TIME";
-    protected final static String TABLE_COL_LOCATION = "LOCATION";
-    protected final static String TABLE_COL_EVENT_GROUP = "EVENT_GROUP";
+    private final static String TABLE_COL_UUID = "UUID";
+    private final static String TABLE_COL_DATE_TIME = "DATE_TIME";
+    private final static String TABLE_COL_LOCATION = "LOCATION";
+    private final static String TABLE_COL_EVENT_GROUP = "EVENT_GROUP";
 
     /* 행동 */
-    protected final static String OPERATION_REPORT_TABLE_NAME = "TB_OPERATION_REPORT";
+    private final static String OPERATION_REPORT_TABLE_NAME = "TB_OPERATION_REPORT";
 
-    protected final static String TABLE_COL_OPERATION_TYPE = "OPERATION_TYPE";
+    private final static String TABLE_COL_OPERATION_TYPE = "OPERATION_TYPE";
 
     /* 오류 */
-    protected final static String EXCEPTION_REPORT_TABLE_NAME = "TB_EXCEPTION_REPORT";
+    private final static String EXCEPTION_REPORT_TABLE_NAME = "TB_EXCEPTION_REPORT";
 
-    protected final static String TABLE_COL_OPERATION_RELATE_ID = "OPERATION_RELATE_ID";
-    protected final static String TABLE_COL_MESSAGE = "MESSAGE";
+    private final static String TABLE_COL_OPERATION_RELATE_ID = "OPERATION_RELATE_ID";
+    private final static String TABLE_COL_MESSAGE = "MESSAGE";
 
+
+    private SQLiteDatabase db;
 
     public AppAnalysisReportDBController(Context context) {
         super(context, LoggerProperty.DB_FILE_TEMP_NAME, null, DB_VERSION);
@@ -60,6 +67,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         createDeviceUserTable(db);
         createOperationReportTable(db);
         createExceptionReportTable(db);
+
     }
 
     private void createDeviceUserTable(SQLiteDatabase db) {
@@ -126,7 +134,6 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
     }
 
     public void clearDataBase() {
-        SQLiteDatabase db = getWritableDatabase(DB_KEY);
         db.execSQL("DROP TABLE IF EXISTS " + DEVICE_USER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + OPERATION_REPORT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + EXCEPTION_REPORT_TABLE_NAME);
@@ -134,7 +141,9 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         createDeviceUserTable(db);
         createOperationReportTable(db);
         createExceptionReportTable(db);
+    }
 
+    public void closeDataBase() {
         close();
     }
 
@@ -171,12 +180,256 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
         }
         catch (IOException e) {
             e.printStackTrace();
-            close();
-        }
-        finally {
-            close();
         }
 
         return file;
     }
+
+    public void openDB() {
+        db = getWritableDatabase(DB_KEY);
+    }
+
+    public void insertOperation(OperationData operationData) {
+
+        try {
+            db.beginTransaction();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TABLE_COL_UUID, operationData.getUuid());
+            contentValues.put(TABLE_COL_DATE_TIME, operationData.getDateTime());
+            contentValues.put(TABLE_COL_LOCATION, operationData.getLocation());
+            contentValues.put(TABLE_COL_OPERATION_TYPE, operationData.getOperationType());
+            contentValues.put(TABLE_COL_EVENT_GROUP, operationData.getEventGroup());
+            contentValues.put(TABLE_COL_NOTE, operationData.getNote());
+
+            db.replace(OPERATION_REPORT_TABLE_NAME, null, contentValues);
+            db.setTransactionSuccessful();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+    }
+
+    public String getLastOperationUUID() {
+        String sql = "SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT ORDER BY TB_OPERATION_REPORT.DATE_TIME DESC LIMIT 0, 1;";
+
+        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery(sql, null);
+
+        String id = "NONE";
+
+        while (cursor.moveToNext()) {
+
+            id = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
+        }
+
+        return id;
+    }
+
+    public void deleteOperationInDateTimeRange(int day) {
+        /*
+            DELETE FROM TB_OPERATION_REPORT
+            WHERE TB_OPERATION_REPORT.UUID IN (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
+            WHERE strftime('%s','now') - strftime('%s', TB_OPERATION_REPORT.DATE_TIME) > (86400 * 7));
+         */
+        String stringBuilder = "DELETE FROM " + OPERATION_REPORT_TABLE_NAME +
+                " WHERE " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
+                " WHERE strftime('%s','now') - strftime('%s', " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + LoggerProperty.SECONDS_IN_DAY * day + ")" +
+                ");";
+
+        db.execSQL(stringBuilder);
+    }
+
+    public void deleteOperationInRecordTotalNumberRange(int totalNumber) {
+        /*
+            DELETE FROM TB_OPERATION_REPORT WHERE
+            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT
+            ) > 5000 AND TB_OPERATION_REPORT.UUID IN
+            (SELECT TB_OPERATION_REPORT.UUID FROM TB_OPERATION_REPORT
+            ORDER BY TB_OPERATION_REPORT.DATE_TIME DESC LIMIT
+            (SELECT COUNT(TB_OPERATION_REPORT.UUID) FROM TB_OPERATION_REPORT) OFFSET 5000);
+         */
+        String stringBuilder = "DELETE FROM " + OPERATION_REPORT_TABLE_NAME + " WHERE " +
+                "(" +
+                "SELECT COUNT(" + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + OPERATION_REPORT_TABLE_NAME +
+                ") > " + totalNumber + " AND " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                "SELECT " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + OPERATION_REPORT_TABLE_NAME +
+                " ORDER BY " + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + " DESC LIMIT " +
+                "(SELECT COUNT(" + OPERATION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + OPERATION_REPORT_TABLE_NAME + ") OFFSET " + totalNumber +
+                ");";
+
+        db.execSQL(stringBuilder);
+    }
+
+    public void insertException(ExceptionData exceptionData) {
+
+        try {
+
+            db.beginTransaction();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TABLE_COL_UUID, exceptionData.getUuid());
+            contentValues.put(TABLE_COL_DATE_TIME, exceptionData.getDateTime());
+            contentValues.put(TABLE_COL_LOCATION, exceptionData.getLocation());
+            contentValues.put(TABLE_COL_MESSAGE, exceptionData.getExceptionMessage());
+            contentValues.put(TABLE_COL_EVENT_GROUP, exceptionData.getEventGroup());
+            contentValues.put(TABLE_COL_OPERATION_RELATE_ID, exceptionData.getOperationRelateID());
+            contentValues.put(TABLE_COL_NOTE, exceptionData.getNote());
+
+            db.replace(EXCEPTION_REPORT_TABLE_NAME, null, contentValues);
+            db.setTransactionSuccessful();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+    }
+
+
+    public void deleteExceptionInDateTimeRange(int day) {
+        /*
+            DELETE FROM TB_EXCEPTION_REPORT
+            WHERE TB_EXCEPTION_REPORT.UUID IN (SELECT TB_EXCEPTION_REPORT.UUID FROM TB_EXCEPTION_REPORT
+            WHERE strftime('%s','now') - strftime('%s', TB_EXCEPTION_REPORT.DATE_TIME) > (86400 * 7));
+         */
+        String stringBuilder = "DELETE FROM " + EXCEPTION_REPORT_TABLE_NAME +
+                " WHERE " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                "SELECT " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + EXCEPTION_REPORT_TABLE_NAME +
+                " WHERE strftime('%s','now') - strftime('%s', " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + ") > (" + LoggerProperty.SECONDS_IN_DAY * day + ")" +
+                ");";
+
+        db.execSQL(stringBuilder);
+    }
+
+    public void deleteExceptionInRecordTotalNumberRange(int totalNumber) {
+        /*
+            DELETE FROM TB_EXCEPTION_REPORT WHERE
+            (SELECT COUNT(TB_EXCEPTION_REPORT.UUID) FROM TB_EXCEPTION_REPORT
+            ) > 5000 AND TB_EXCEPTION_REPORT.UUID IN
+            (SELECT TB_EXCEPTION_REPORT.UUID FROM TB_EXCEPTION_REPORT
+            ORDER BY TB_EXCEPTION_REPORT.DATE_TIME DESC LIMIT
+            (SELECT COUNT(TB_EXCEPTION_REPORT.UUID) FROM TB_EXCEPTION_REPORT) OFFSET 5000);
+         */
+        String stringBuilder = "DELETE FROM " + EXCEPTION_REPORT_TABLE_NAME + " WHERE " +
+                "(" +
+                "SELECT COUNT(" + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + EXCEPTION_REPORT_TABLE_NAME +
+                ") > " + totalNumber + " AND " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " IN " +
+                "(" +
+                "SELECT " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + " FROM " + EXCEPTION_REPORT_TABLE_NAME +
+                " ORDER BY " + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_DATE_TIME + " DESC LIMIT " +
+                "(SELECT COUNT(" + EXCEPTION_REPORT_TABLE_NAME + "." + TABLE_COL_UUID + ") FROM " + EXCEPTION_REPORT_TABLE_NAME + ") OFFSET " + totalNumber +
+                ");";
+
+        db.execSQL(stringBuilder);
+    }
+
+    public void insertDeviceUser(DeviceUserData deviceUserData) {
+        try {
+
+            db.beginTransaction();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TABLE_COL_DEVICE_UUID, deviceUserData.getDeviceUUID());
+            contentValues.put(TABLE_COL_DEVICE_MODEL, deviceUserData.getDeviceModel());
+            contentValues.put(TABLE_COL_OS_VERSION, deviceUserData.getOsVersion());
+            contentValues.put(TABLE_COL_APP_NAME, deviceUserData.getAppName());
+            contentValues.put(TABLE_COL_APP_VERSION, deviceUserData.getAppVersion());
+            contentValues.put(TABLE_COL_OTHER, deviceUserData.getOther());
+
+            db.replace(DEVICE_USER_TABLE_NAME, null, contentValues);
+            db.setTransactionSuccessful();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (db != null) {
+                db.endTransaction();
+            }
+        }
+    }
+
+//    public List<OperationData> getData(int offset, int limit) {
+//
+//        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery("SELECT * FROM " + OPERATION_REPORT_TABLE_NAME + " ORDER BY " + TABLE_COL_DATE_TIME + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
+//
+//        ArrayList<OperationData> operationDataArrayList = new ArrayList<>();
+//
+//        while (cursor.moveToNext()) {
+//
+//            OperationData operationData = new OperationData(
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
+//                    OperationData.getOperationType(cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_TYPE))),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_NOTE))
+//            );
+//
+//            operationDataArrayList.add(operationData);
+//        }
+//        close();
+//
+//        return operationDataArrayList;
+//    }
+
+
+//    public List<ExceptionData> getData(int offset, int limit) {
+//
+//        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery("SELECT * FROM " + EXCEPTION_REPORT_TABLE_NAME + " ORDER BY " + TABLE_COL_DATE_TIME + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
+//
+//        ArrayList<ExceptionData> exceptionModelArrayList = new ArrayList<>();
+//
+//        while (cursor.moveToNext()) {
+//
+//            ExceptionData exceptionData = new ExceptionData(
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DATE_TIME)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_LOCATION)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_MESSAGE)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_EVENT_GROUP)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OPERATION_RELATE_ID)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_NOTE))
+//            );
+//
+//            exceptionModelArrayList.add(exceptionData);
+//        }
+//        close();
+//
+//        return exceptionModelArrayList;
+//    }
+
+
+//    public List<DeviceUserData> getData() {
+//
+//        Cursor cursor = getReadableDatabase(DB_KEY).rawQuery("SELECT * FROM " + DEVICE_USER_TABLE_NAME, null);
+//
+//        ArrayList<DeviceUserData> deviceUserDataArrayList = new ArrayList<>();
+//
+//        while (cursor.moveToNext()) {
+//            DeviceUserData deviceUserData = new DeviceUserData(
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_UUID)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_DEVICE_MODEL)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OS_VERSION)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_NAME)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_APP_VERSION)),
+//                    cursor.getString(cursor.getColumnIndex(TABLE_COL_OTHER))
+//            );
+//
+//            deviceUserDataArrayList.add(deviceUserData);
+//        }
+//        close();
+//
+//        return deviceUserDataArrayList;
+//    }
+
 }

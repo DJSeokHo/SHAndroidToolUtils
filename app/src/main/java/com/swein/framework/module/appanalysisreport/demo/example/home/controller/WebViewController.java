@@ -160,7 +160,14 @@ public class WebViewController {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
                 ILog.iLogDebug(TAG, "onConsoleMessage " + consoleMessage.message() + " - " + consoleMessage.lineNumber() + " - " + consoleMessage.sourceId());
-                Logger.getInstance().trackException(consoleMessage.sourceId() + " " + consoleMessage.lineNumber(), consoleMessage.message(), LoggerProperty.EVENT_GROUP_WEB_VIEW, "", "");
+                if(consoleMessage.message().startsWith("Uncaught TypeError")) {
+                    Logger.getInstance().trackException(consoleMessage.sourceId() + "\n" + consoleMessage.lineNumber(), consoleMessage.message(), LoggerProperty.EVENT_GROUP_WEB_VIEW, String.valueOf(consoleMessage.lineNumber()), "");
+                }
+                else {
+                    Logger.getInstance().trackOperation(consoleMessage.sourceId() + "\n" + consoleMessage.lineNumber(), LoggerProperty.EVENT_GROUP_WEB_VIEW, LoggerProperty.OPERATION_TYPE.NONE, consoleMessage.message());
+                    ILog.iLogDebug(TAG, consoleMessage.message());
+                }
+
                 return super.onConsoleMessage(consoleMessage);
             }
 

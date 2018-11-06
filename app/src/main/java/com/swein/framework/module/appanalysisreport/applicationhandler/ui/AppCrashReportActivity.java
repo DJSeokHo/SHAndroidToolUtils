@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.swein.framework.module.appanalysisreport.data.db.AppAnalysisReportDBController;
 import com.swein.framework.module.appanalysisreport.logger.Logger;
 import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
 import com.swein.framework.tools.util.dialog.DialogUtil;
@@ -39,8 +38,7 @@ public class AppCrashReportActivity extends Activity {
         buttonResetDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(AppCrashReportActivity.this);
-                appAnalysisReportDBController.clearDataBase();
+               Logger.getInstance().clear();
             }
         });
 

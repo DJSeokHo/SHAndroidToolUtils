@@ -79,6 +79,17 @@ public class ThreadUtil {
         return future;
     }
 
+    public static Future<?> startSingleThread(final Runnable runnable) {
+        Future<?> future = executorSequential.submit(new Runnable() {
+            @Override
+            public void run() {
+                runnable.run();
+            }
+        });
+
+        return future;
+    }
+
     //***************** [Do not delete this part] **********************
     //    public static Future< ? > startThreadWithExceptionReport( Runnable r, Context context ) {
     //

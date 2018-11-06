@@ -80,8 +80,7 @@ public class AppAnalysisExampleLoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                AppAnalysisReportDBController appAnalysisReportDBController = new AppAnalysisReportDBController(AppAnalysisExampleLoginActivity.this);
-                appAnalysisReportDBController.clearDataBase();
+                Logger.getInstance().clear();
 
             }
         });
