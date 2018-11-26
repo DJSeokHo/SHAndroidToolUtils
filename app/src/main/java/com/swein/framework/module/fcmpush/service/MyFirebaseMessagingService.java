@@ -8,12 +8,10 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver;
-import com.swein.framework.module.mdmcustom.api.SHMDMDeviceManager;
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
 import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.notification.NotificationUIUtil;
-import com.swein.framework.tools.util.thread.ThreadUtil;
 
 import java.util.HashMap;
 
@@ -49,63 +47,63 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
              */
             ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
 
-            final SHMDMDeviceManager shmdmDeviceManager = new SHMDMDeviceManager(this);
-
-            if(!shmdmDeviceManager.isActive()) {
-
-                return;
-            }
-
-            switch (remoteMessage.getData().get("command")) {
-
-                case "disable_camera":
-
-                    ThreadUtil.startThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            shmdmDeviceManager.disableCamera();
-                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, null);
-                        }
-                    });
-
-                    break;
-
-                case "enable_camera":
-
-                    ThreadUtil.startThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            shmdmDeviceManager.enableCamera();
-                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, null);
-                        }
-                    });
-
-                    break;
-
-                case "disable_screen_capture":
-
-                    ThreadUtil.startThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            shmdmDeviceManager.disableScreenCapture();
-                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, null);
-                        }
-                    });
-
-                    break;
-
-                case "enable_screen_capture":
-
-                    ThreadUtil.startThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            shmdmDeviceManager.enableScreenCapture();
-                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, null);
-                        }
-                    });
-
-                    break;
-            }
+//            final SHMDMDeviceManager shmdmDeviceManager = new SHMDMDeviceManager(this);
+//
+//            if(!shmdmDeviceManager.isActive()) {
+//
+//                return;
+//            }
+//
+//            switch (remoteMessage.getData().get("command")) {
+//
+//                case "disable_camera":
+//
+//                    ThreadUtil.startThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            shmdmDeviceManager.disableCamera();
+//                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_CAMERA, this, null);
+//                        }
+//                    });
+//
+//                    break;
+//
+//                case "enable_camera":
+//
+//                    ThreadUtil.startThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            shmdmDeviceManager.enableCamera();
+//                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_CAMERA, this, null);
+//                        }
+//                    });
+//
+//                    break;
+//
+//                case "disable_screen_capture":
+//
+//                    ThreadUtil.startThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            shmdmDeviceManager.disableScreenCapture();
+//                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_DISABLE_SCREEN_CAPTURE, this, null);
+//                        }
+//                    });
+//
+//                    break;
+//
+//                case "enable_screen_capture":
+//
+//                    ThreadUtil.startThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            shmdmDeviceManager.enableScreenCapture();
+//                            EventCenter.getInstance().sendEvent(ESSArrows.ESS_DEVICE_ENABLE_SCREEN_CAPTURE, this, null);
+//                        }
+//                    });
+//
+//                    break;
+//            }
 
             return;
         }

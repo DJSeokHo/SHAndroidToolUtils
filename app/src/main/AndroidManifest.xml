@@ -365,7 +365,11 @@
             android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
+        <activity
+            android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>

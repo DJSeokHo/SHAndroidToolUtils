@@ -15,12 +15,41 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by seokho on 10/11/2016.
  */
 
 public class BitmapUtil {
+
+    /**
+     * must in thread
+     *
+     * @param urlString
+     * @return
+     */
+    public static Bitmap getBitmapFromUrl(String urlString) {
+
+        try {
+
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }
+        catch (IOException e) {
+            // Log exception
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
         int width = drawable.getIntrinsicWidth();
