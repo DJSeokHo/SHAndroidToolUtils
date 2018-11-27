@@ -7,16 +7,23 @@ import android.app.NotificationChannel;
 import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.RemoteInput;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 
 import com.swein.framework.module.noticenotification.constants.NoticeConstants;
+import com.swein.framework.tools.util.toast.ToastUtil;
+import com.swein.shandroidtoolutils.R;
 
 import io.reactivex.annotations.Nullable;
 
@@ -37,12 +44,71 @@ public class NoticeNotificationManager {
      */
     public void cancelNoticeNotification(Context context, int noticeID) {
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        assert notificationManager != null;
-        notificationManager.cancel(noticeID);
 
     }
 
+
+    /**
+     * API must >= android 7.0 (N)
+     * than action can be usable
+     * @param context
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public void createActionNoticeNotification(Context context, boolean headsUp) {
+
+        Intent quickIntent = new Intent();
+        quickIntent.setAction("quick.reply.input");
+
+        Notification notification = new Notification.Builder(context)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText("You can reply on notification.")
+                .setContentTitle("Test Notification")
+                .setAutoCancel(true)
+                .addAction(
+                        new Notification.Action.Builder(
+                                null,
+                                "MyAction",
+                                PendingIntent.getBroadcast(context, 1, quickIntent,
+                                        PendingIntent.FLAG_ONE_SHOT))
+                                //直接回复输入框，quick_notification_reply是key
+                                .addRemoteInput(new RemoteInput.Builder("quick_notification_reply")
+                                        .setLabel("Please input here!").build())
+                                .build())
+                .build();
+
+
+
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        assert notificationManager != null;
+        notificationManager.notify(1, notification);
+
+
+        BroadcastReceiver br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Bundle results = RemoteInput.getResultsFromIntent(intent);
+                if (results != null) {
+                    CharSequence result = results.getCharSequence("quick_notification_reply");
+                    if (TextUtils.isEmpty(result)) {
+                        ToastUtil.showCustomShortToastNormal(context, "no content");
+                    }
+                    else {
+                        ToastUtil.showCustomShortToastNormal(context, result.toString());
+                    }
+                }
+                notificationManager.cancelAll();
+                context.unregisterReceiver(this);
+
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addCategory(context.getPackageName());
+        filter.addAction("quick.reply.input");
+        context.registerReceiver(br, filter);
+
+    }
 
     /**
      * how to use

@@ -20,8 +20,8 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
@@ -236,8 +236,8 @@ public class MainActivity extends Activity {
 
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, GoogleCloudMessageActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, NoticeNotificationActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, FirebaseCloudMessage.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, NoticeNotificationActivity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, DatePickerActivity.class);
 

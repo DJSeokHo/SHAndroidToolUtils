@@ -22,6 +22,7 @@ public class NoticeNotificationActivity extends Activity {
     private Button button60;
     private Button button70;
     private Button button80;
+    private Button buttonCustom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class NoticeNotificationActivity extends Activity {
         button60 = findViewById(R.id.button60);
         button70 = findViewById(R.id.button70);
         button80 = findViewById(R.id.button80);
+        buttonCustom = findViewById(R.id.buttonCustom);
 
         button44.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,6 +284,15 @@ public class NoticeNotificationActivity extends Activity {
                 NoticeNotificationManager.getInstance().createNoticeNotificationAfter8_0(NoticeNotificationActivity.this, NoticeConstants.Type.HEADS_UP,
                         "heads up title", "heads up message", "heads up subtext", true, R.mipmap.ic_launcher, bitmap, null, null,
                         MainActivity.class, 5, 5, "4", "2", "app2", true);
+            }
+        });
+
+        buttonCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NoticeNotificationManager.getInstance().createActionNoticeNotification(NoticeNotificationActivity.this);
+
             }
         });
 
