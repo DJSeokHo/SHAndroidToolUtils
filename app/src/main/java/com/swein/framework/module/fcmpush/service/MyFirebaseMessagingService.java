@@ -1,19 +1,23 @@
 package com.swein.framework.module.fcmpush.service;
 
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage;
 import com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver;
+import com.swein.framework.module.noticenotification.NoticeNotificationManager;
+import com.swein.framework.module.noticenotification.constants.NoticeConstants;
+import com.swein.framework.tools.util.bitmaps.BitmapUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
 import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
-import com.swein.framework.tools.util.notification.NotificationUIUtil;
+import com.swein.shandroidtoolutils.MainActivity;
+import com.swein.shandroidtoolutils.R;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -42,6 +46,63 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
+
+            Map<String, String> map = remoteMessage.getData();
+
+            String msgType = map.get("msgType");
+            String title = map.get("title");
+            String message = map.get("message");
+            String longMessage = map.get("longMessage");
+            String imageUrl = map.get("imageUrl");
+            String bigIcon = map.get("bigIcon");
+            String badge = map.get("badge");
+
+            switch (msgType) {
+                case "SHORT_NORMAL": {
+
+                    NoticeNotificationManager.getInstance().createNoticeNotificationBefore8_0(getApplicationContext(), NoticeConstants.Type.SHORT_NORMAL,
+                            title, message, null, true, R.mipmap.ic_launcher, null, null, null,
+                            MainActivity.class, 1, 1);
+
+                    break;
+                }
+                case "SHORT_BIG": {
+
+                    Bitmap bitmap = BitmapUtil.getBitmapFromUrl(bigIcon);
+                    NoticeNotificationManager.getInstance().createNoticeNotificationBefore8_0(getApplicationContext(), NoticeConstants.Type.SHORT_BIG,
+                            title, message, null, true, R.mipmap.ic_launcher, bitmap, null, null,
+                            MainActivity.class, 1, 1);
+                    break;
+                }
+                case "LONG_BIG": {
+
+                    Bitmap bitmap = BitmapUtil.getBitmapFromUrl(bigIcon);
+
+                    NoticeNotificationManager.getInstance().createNoticeNotificationBefore8_0(getApplicationContext(), NoticeConstants.Type.LONG_BIG,
+                            title, message, null, true, R.mipmap.ic_launcher, bitmap, longMessage, null,
+                            MainActivity.class, 3, 3);
+                    break;
+                }
+                case "BIG_IMAGE": {
+
+                    Bitmap icon = BitmapUtil.getBitmapFromUrl(bigIcon);
+                    Bitmap image = BitmapUtil.getBitmapFromUrl(imageUrl);
+
+                    NoticeNotificationManager.getInstance().createNoticeNotificationBefore8_0(getApplicationContext(), NoticeConstants.Type.BIG_IMAGE,
+                            title, message, null, true, R.mipmap.ic_launcher, icon, null, image,
+                            MainActivity.class, 4, 4);
+                    break;
+                }
+
+                case "HEADS_UP": {
+                    Bitmap icon = BitmapUtil.getBitmapFromUrl(bigIcon);
+
+                    NoticeNotificationManager.getInstance().createNoticeNotificationBefore8_0(getApplicationContext(), NoticeConstants.Type.HEADS_UP,
+                            title, message, null, true, R.mipmap.ic_launcher, icon, null, null,
+                            MainActivity.class, 5, 5);
+                    break;
+                }
+            }
             /*
             data for app run background
              */
@@ -114,7 +175,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         String title = "";
         String body = "";
-        String link = "";
+        String imageUrl = "";
 
         Intent intent = new Intent(this, FirebaseIntentReceiver.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -129,7 +190,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
              */
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
-            link = remoteMessage.getNotification().getClickAction();
+            imageUrl = remoteMessage.getNotification().getClickAction();
 
             ILog.iLogDebug(TAG, "getNotification : " + remoteMessage.getNotification().getTitle());
             ILog.iLogDebug(TAG, "getNotification : " + remoteMessage.getNotification().getBody());
@@ -145,19 +206,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         }
-
-        Bundle bundle = new Bundle();
-
-        bundle.putString("title", title);
-        bundle.putString("body", body);
-        bundle.putString("link", link);
-
-        intent.putExtra("firebase", bundle);
-
-        NotificationUIUtil.sendNotification(this, 0,
-                title, "", body,
-                true, true,
-                PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+//
+//        Bundle bundle = new Bundle();
+//
+//        bundle.putString("title", title);
+//        bundle.putString("body", body);
+//        bundle.putString("link", link);
+//
+//        intent.putExtra("firebase", bundle);
 
 
     }

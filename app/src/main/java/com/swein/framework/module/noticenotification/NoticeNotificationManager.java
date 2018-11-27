@@ -1,12 +1,18 @@
 package com.swein.framework.module.noticenotification;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
@@ -67,7 +73,7 @@ public class NoticeNotificationManager {
      * @param noticeID noticeID
      * @param requestCode requestCode
      */
-    public void createNoticeNotification4_4Or5_0(Context context, NoticeConstants.Type type,
+    public void createNoticeNotificationBefore8_0(Context context, NoticeConstants.Type type,
                                             String title, String message, @Nullable String ticker, boolean autoCancel, int smallIcon, @Nullable Bitmap largeIcon,
                                             @Nullable String longMessage, @Nullable Bitmap bigImage,
                                             Class<?> targetClass, int noticeID, int requestCode) {
@@ -80,14 +86,22 @@ public class NoticeNotificationManager {
         @SuppressLint("WrongConstant") PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, Notification.FLAG_AUTO_CANCEL);
 
         switch (type) {
-            case NORMAL: {
+            case SHORT_NORMAL: {
+
+                builder.setContentTitle(title)
+                        .setContentText(message);
+                builder.setContentIntent(pendingIntent);
+                largeIcon = null;
+                break;
+            }
+            case SHORT_BIG: {
 
                 builder.setContentTitle(title)
                         .setContentText(message);
                 builder.setContentIntent(pendingIntent);
                 break;
             }
-            case LONG_TEXT: {
+            case LONG_BIG: {
 
                 android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
 
@@ -147,5 +161,121 @@ public class NoticeNotificationManager {
         notificationManager.notify(noticeID, builder.build());
     }
 
+
+    public void createNoticeNotificationAfter8_0(Context context, NoticeConstants.Type type,
+                                                 String title, String message, String subText, boolean autoCancel, int smallIcon, @Nullable Bitmap largeIcon,
+                                                 @Nullable String longMessage, @Nullable Bitmap bigImage,
+                                                 Class<?> targetClass, int noticeID, int requestCode, String channelID, String channelGroupID, String channelGroupName, boolean defaultSound) {
+
+        NotificationCompat.Builder builder;
+        builder = new NotificationCompat.Builder(context, channelID);
+
+        if(defaultSound) {
+            Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            builder.setSound(sound);
+        }
+
+
+        Intent intent = new Intent(context, targetClass);
+        @SuppressLint("WrongConstant") PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, Notification.FLAG_AUTO_CANCEL);
+
+        switch (type) {
+            case SHORT_NORMAL: {
+
+                builder.setContentTitle(title)
+                        .setContentText(message);
+                builder.setContentIntent(pendingIntent);
+                largeIcon = null;
+                break;
+            }
+            case SHORT_BIG: {
+
+                builder.setContentTitle(title)
+                        .setContentText(message);
+                builder.setContentIntent(pendingIntent);
+                break;
+            }
+            case LONG_BIG: {
+
+                android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+
+                style.setBigContentTitle(title);
+
+                if (longMessage != null && !longMessage.equals("")) {
+                    style.bigText(longMessage);
+                }
+
+                style.setSummaryText(message);
+
+                builder.setStyle(style);
+                builder.setContentIntent(pendingIntent);
+                break;
+            }
+            case BIG_IMAGE: {
+
+                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                style.setBigContentTitle(title);
+                style.setSummaryText(message);
+                style.bigPicture(bigImage);
+
+                builder.setStyle(style);
+                builder.setContentIntent(pendingIntent);
+                break;
+            }
+            case HEADS_UP: {
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+                    return;
+                }
+
+                builder.setContentTitle(title)
+                        .setContentText(message)
+                        .setFullScreenIntent(pendingIntent, true);
+
+                break;
+            }
+        }
+
+        builder.setSmallIcon(smallIcon)
+                .setSubText(subText)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setAutoCancel(autoCancel)
+                .setDefaults(Notification.DEFAULT_ALL);
+
+        if(largeIcon != null) {
+            builder.setLargeIcon(largeIcon);
+        }
+
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // must set if Android O
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannelId(notificationManager, channelID, channelGroupID, channelGroupName);
+        }
+
+        notificationManager.notify(noticeID, builder.build());
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void createChannelId(NotificationManager notificationManager, String channelId, String channelGroupID, String channelGroupName){
+
+        NotificationChannelGroup ncp1 = new NotificationChannelGroup(channelGroupID, channelGroupName);
+
+        notificationManager.createNotificationChannelGroup(ncp1);
+
+        NotificationChannel chan = new NotificationChannel(channelId,
+                channelGroupName,
+                NotificationManager.IMPORTANCE_DEFAULT);
+        chan.setLightColor(Color.GREEN);
+        chan.setGroup(channelGroupID);
+
+        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        notificationManager.createNotificationChannel(chan);
+    }
 
 }

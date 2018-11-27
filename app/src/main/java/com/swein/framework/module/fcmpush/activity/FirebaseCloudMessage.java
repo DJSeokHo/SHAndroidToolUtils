@@ -2,7 +2,6 @@ package com.swein.framework.module.fcmpush.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.widget.TextView;
 
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -11,11 +10,7 @@ import com.swein.framework.module.sound.effert.SoundEffect;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
 import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
-import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.shandroidtoolutils.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -47,7 +42,7 @@ public class FirebaseCloudMessage extends Activity {
         String token = FirebaseInstanceId.getInstance().getToken();
         ILog.iLogDebug(TAG, token);
 
-        example = true;
+//        example = true;
 
         textViewPushContent = findViewById(R.id.textViewPushContent);
 
@@ -57,26 +52,26 @@ public class FirebaseCloudMessage extends Activity {
         EventCenter.getInstance().addEventObserver(ESSArrows.ESS_UPDATE_UI, this, new EventCenter.EventRunnable() {
             @Override
             public void run(String arrow, Object poster, final HashMap<String, Object> data) {
-                ThreadUtil.startUIThread(0, new Runnable() {
-                    @Override
-                    public void run() {
-                        String content = (String) data.get("onMessageReceived");
-                        try {
-                            JSONObject jsonObject = new JSONObject(content);
-                            String title = jsonObject.getString("title");
-                            String body = jsonObject.getString("body");
-                            textViewPushContent.setText(title + "\n" + body);
-                            SoundEffect.getInstance().play(FirebaseCloudMessage.this, 1);
-
-                            Vibrator vibrator = (Vibrator)FirebaseCloudMessage.this.getSystemService(FirebaseCloudMessage.this.VIBRATOR_SERVICE);
-                            vibrator.vibrate(2000);
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
+//                ThreadUtil.startUIThread(0, new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        String content = (String) data.get("onMessageReceived");
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(content);
+//                            String title = jsonObject.getString("title");
+//                            String body = jsonObject.getString("body");
+//                            textViewPushContent.setText(title + "\n" + body);
+//                            SoundEffect.getInstance().play(FirebaseCloudMessage.this, 1);
+//
+//                            Vibrator vibrator = (Vibrator)FirebaseCloudMessage.this.getSystemService(FirebaseCloudMessage.this.VIBRATOR_SERVICE);
+//                            vibrator.vibrate(2000);
+//                        }
+//                        catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                });
             }
         });
 
