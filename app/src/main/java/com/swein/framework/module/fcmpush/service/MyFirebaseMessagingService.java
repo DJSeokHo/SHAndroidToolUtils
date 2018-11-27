@@ -19,6 +19,60 @@ import com.swein.shandroidtoolutils.R;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * 일반 푸시(title, message, small icon)
+ *
+ * data_message = {
+ *         "msgType": "SHORT_NORMAL",
+ *         "title": "저는 일반 제목입니다. 작은 아이콘",
+ *         "message": "저는 일반 메시지입니다. 작은 아이콘 있습니다.",
+ *         "badge": 42
+ *     }
+ *
+ * 일반 푸시(title, message, small icon and big icon)
+ *
+ * data_message = {
+ *         "msgType": "SHORT_BIG",
+ *         "title": "저는 일반 제목입니다. 큰 아이콘",
+ *         "message": "저는 일반 메시지입니다. 큰 아이콘 있습니다.",
+ * 	"bigIcon": "http://www.studynews.net/wp-content/uploads/2017/10/health-club-680.jpg",
+ *         "badge": 42
+ *     }
+ *
+ * 긴 메시지 푸시(title, longMessage, small icon and big icon)
+ *
+ * data_message = {
+ *         "msgType": "LONG_BIG",
+ *         "title": "저는 일반 제목입니다.",
+ * 	"message": "긴 메시지입니다.",
+ *         "longMessage": "저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.저는 긴 메시지입니다.",
+ * 	"bigIcon": "http://www.studynews.net/wp-content/uploads/2017/10/health-club-680.jpg",
+ *         "badge": 42
+ *     }
+ *
+ * 큰 이미지
+ * data_message = {
+ *         "msgType": "BIG_IMAGE",
+ *         "title": "저는 이미지 제목입니다.",
+ *         "message": "저는 큰 이미지 메시지입니다.",
+ * 	"imageUrl": "http://www.studynews.net/wp-content/uploads/2017/10/health-club-680.jpg",
+ * 	"bigIcon": "http://www.studynews.net/wp-content/uploads/2017/10/health-club-680.jpg",
+ *         "badge": 42
+ *     }
+ *
+ *
+ * full screen 내린 것
+ *
+ * data_message = {
+ *         "msgType": "HEADS_UP",
+ *         "title": "저는 일반 제목입니다.",
+ *         "message": "저는 화면 상단 에서 내릴 수 있습니다.",
+ * 	"bigIcon": "http://www.studynews.net/wp-content/uploads/2017/10/health-club-680.jpg",
+ *         "badge": 42
+ *     }
+ *
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMessagingService";
