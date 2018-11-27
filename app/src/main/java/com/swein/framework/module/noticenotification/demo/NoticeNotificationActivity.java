@@ -79,16 +79,20 @@ public class NoticeNotificationActivity extends Activity {
                         "\n";
 
                 NoticeNotificationManager.getInstance().createNoticeNotification4_4Or5_0(NoticeNotificationActivity.this, NoticeConstants.Type.NORMAL,
-                        "normal title", "normal message", "coming", true, R.mipmap.ic_launcher, bitmap, null, null,
+                        "normal title", "normal message", null, true, R.mipmap.ic_launcher, bitmap, null, null,
                         MainActivity.class, 1, 1);
 
                 NoticeNotificationManager.getInstance().createNoticeNotification4_4Or5_0(NoticeNotificationActivity.this, NoticeConstants.Type.LONG_TEXT,
-                        "long title", "long message", "coming", true, R.mipmap.ic_launcher, bitmap, longMessage, null,
+                        "long title", "long message", null, true, R.mipmap.ic_launcher, bitmap, longMessage, null,
                         MainActivity.class, 2, 2);
 
                 NoticeNotificationManager.getInstance().createNoticeNotification4_4Or5_0(NoticeNotificationActivity.this, NoticeConstants.Type.BIG_IMAGE,
-                        "big image title", "big image message", "coming", true, R.mipmap.ic_launcher, bitmap, null, bitmap,
+                        "big image title", "big image message", null, true, R.mipmap.ic_launcher, bitmap, null, bitmap,
                         MainActivity.class, 3, 3);
+
+                NoticeNotificationManager.getInstance().createNoticeNotification4_4Or5_0(NoticeNotificationActivity.this, NoticeConstants.Type.HEADS_UP,
+                        "heads up title", "heads up message", null, true, R.mipmap.ic_launcher, bitmap, null, null,
+                        MainActivity.class, 4, 4);
 
             }
         });

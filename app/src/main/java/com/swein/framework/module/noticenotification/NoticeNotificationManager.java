@@ -75,6 +75,7 @@ public class NoticeNotificationManager {
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+
         Intent intent = new Intent(context, targetClass);
         @SuppressLint("WrongConstant") PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, Notification.FLAG_AUTO_CANCEL);
 
@@ -83,6 +84,7 @@ public class NoticeNotificationManager {
 
                 builder.setContentTitle(title)
                         .setContentText(message);
+                builder.setContentIntent(pendingIntent);
                 break;
             }
             case LONG_TEXT: {
@@ -98,7 +100,7 @@ public class NoticeNotificationManager {
                 style.setSummaryText(message);
 
                 builder.setStyle(style);
-
+                builder.setContentIntent(pendingIntent);
                 break;
             }
             case BIG_IMAGE: {
@@ -109,10 +111,9 @@ public class NoticeNotificationManager {
                 style.bigPicture(bigImage);
 
                 builder.setStyle(style);
-
+                builder.setContentIntent(pendingIntent);
                 break;
             }
-
             case HEADS_UP: {
 
                 if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -120,14 +121,15 @@ public class NoticeNotificationManager {
                     return;
                 }
 
-
+                builder.setContentTitle(title)
+                        .setContentText(message)
+                        .setFullScreenIntent(pendingIntent, true);
 
                 break;
             }
         }
 
         builder.setSmallIcon(smallIcon)
-                .setContentIntent(pendingIntent)
                 .setWhen(System.currentTimeMillis())
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setAutoCancel(autoCancel)
