@@ -29,6 +29,11 @@ import io.reactivex.annotations.Nullable;
 
 public class NoticeNotificationManager {
 
+    public interface NoticeNotificationManagerDelegate {
+        void input(String string);
+    }
+
+
     private static NoticeNotificationManager instance = new NoticeNotificationManager();
 
     public static NoticeNotificationManager getInstance() {
@@ -47,34 +52,52 @@ public class NoticeNotificationManager {
 
     }
 
-
     /**
      * API must >= android 7.0 (N)
      * than action can be usable
      * @param context
      */
-    @TargetApi(Build.VERSION_CODES.M)
-    public void createActionNoticeNotification(Context context, boolean headsUp) {
+    @TargetApi(Build.VERSION_CODES.N)
+    public void createActionNoticeNotification(Context context, String title, String message, boolean autoCancel, boolean headsUp, NoticeNotificationManagerDelegate noticeNotificationManagerDelegate) {
 
         Intent quickIntent = new Intent();
         quickIntent.setAction("quick.reply.input");
 
-        Notification notification = new Notification.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText("You can reply on notification.")
-                .setContentTitle("Test Notification")
-                .setAutoCancel(true)
-                .addAction(
-                        new Notification.Action.Builder(
-                                null,
-                                "MyAction",
-                                PendingIntent.getBroadcast(context, 1, quickIntent,
-                                        PendingIntent.FLAG_ONE_SHOT))
-                                //直接回复输入框，quick_notification_reply是key
-                                .addRemoteInput(new RemoteInput.Builder("quick_notification_reply")
-                                        .setLabel("Please input here!").build())
-                                .build())
-                .build();
+        Notification notification;
+
+        if(headsUp) {
+            notification = new Notification.Builder(context)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setAutoCancel(autoCancel)
+                    .setFullScreenIntent(PendingIntent.getActivity(context, 1, quickIntent,PendingIntent.FLAG_ONE_SHOT), true)
+                    .addAction(
+                            new Notification.Action.Builder(
+                                    null,
+                                    "간편입력",
+                                    PendingIntent.getBroadcast(context, 1, quickIntent, PendingIntent.FLAG_ONE_SHOT))
+                                    //input edit text view，key is quick_notification_reply
+                                    .addRemoteInput(new RemoteInput.Builder("quick_notification_reply").setLabel("입력하세요.").build())
+                                    .build())
+                    .build();
+        }
+        else {
+            notification = new Notification.Builder(context)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setAutoCancel(autoCancel)
+                    .addAction(
+                            new Notification.Action.Builder(
+                                    null,
+                                    "간편입력",
+                                    PendingIntent.getBroadcast(context, 1, quickIntent, PendingIntent.FLAG_ONE_SHOT))
+                                    //input edit text view，key is quick_notification_reply
+                                    .addRemoteInput(new RemoteInput.Builder("quick_notification_reply").setLabel("입력하세요.").build())
+                                    .build())
+                    .build();
+        }
 
 
 
@@ -91,10 +114,12 @@ public class NoticeNotificationManager {
                 if (results != null) {
                     CharSequence result = results.getCharSequence("quick_notification_reply");
                     if (TextUtils.isEmpty(result)) {
-                        ToastUtil.showCustomShortToastNormal(context, "no content");
+                        ToastUtil.showCustomShortToastNormal(context, "내용이 없습니다.");
                     }
                     else {
                         ToastUtil.showCustomShortToastNormal(context, result.toString());
+
+                        noticeNotificationManagerDelegate.input(result.toString());
                     }
                 }
                 notificationManager.cancelAll();

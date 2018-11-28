@@ -8,6 +8,16 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TextView
+        android:textColor="#fff"
+        android:layout_marginBottom="10dp"
+        android:textSize="8pt"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:id="@+id/textViewInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/button44"
         android:text="4.4"
@@ -39,9 +49,12 @@
         android:layout_height="wrap_content"
         />
     <Button
-        android:id="@+id/buttonCustom"
-        android:text="custom"
+        android:id="@+id/buttonAction"
+        android:text="action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+
+
 </LinearLayout>

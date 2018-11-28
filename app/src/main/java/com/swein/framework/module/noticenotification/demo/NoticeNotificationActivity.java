@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.swein.framework.module.noticenotification.NoticeNotificationManager;
 import com.swein.framework.module.noticenotification.constants.NoticeConstants;
@@ -22,7 +23,9 @@ public class NoticeNotificationActivity extends Activity {
     private Button button60;
     private Button button70;
     private Button button80;
-    private Button buttonCustom;
+    private Button buttonAction;
+
+    private TextView textViewInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,10 @@ public class NoticeNotificationActivity extends Activity {
         button60 = findViewById(R.id.button60);
         button70 = findViewById(R.id.button70);
         button80 = findViewById(R.id.button80);
-        buttonCustom = findViewById(R.id.buttonCustom);
+        buttonAction = findViewById(R.id.buttonAction);
+
+        textViewInput = findViewById(R.id.textViewInput);
+
 
         button44.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,11 +293,16 @@ public class NoticeNotificationActivity extends Activity {
             }
         });
 
-        buttonCustom.setOnClickListener(new View.OnClickListener() {
+        buttonAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                NoticeNotificationManager.getInstance().createActionNoticeNotification(NoticeNotificationActivity.this);
+                NoticeNotificationManager.getInstance().createActionNoticeNotification(NoticeNotificationActivity.this, "친구", "어디야??", true, true,
+                        new NoticeNotificationManager.NoticeNotificationManagerDelegate() {
+                            @Override
+                            public void input(String string) {
+                                textViewInput.setText("간편입력 내용: " + string);
+                            }
+                        });
 
             }
         });

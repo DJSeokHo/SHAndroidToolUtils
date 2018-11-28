@@ -156,6 +156,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             MainActivity.class, 5, 5);
                     break;
                 }
+                case "CHAT_ACTION_NORMAL": {
+                    NoticeNotificationManager.getInstance().createActionNoticeNotification(getApplicationContext(), title, message, true, false,
+                            new NoticeNotificationManager.NoticeNotificationManagerDelegate() {
+                                @Override
+                                public void input(String string) {
+
+                                }
+                            });
+                    break;
+                }
+                case "CHAT_ACTION_HEADS_UP": {
+                    NoticeNotificationManager.getInstance().createActionNoticeNotification(getApplicationContext(), title, message, true, true,
+                            new NoticeNotificationManager.NoticeNotificationManagerDelegate() {
+                                @Override
+                                public void input(String string) {
+
+                                }
+                            });
+                    break;
+                }
             }
             /*
             data for app run background
