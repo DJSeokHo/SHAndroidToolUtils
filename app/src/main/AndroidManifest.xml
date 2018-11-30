@@ -369,9 +369,14 @@
             android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
+        <activity
+            android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
     </application>
 
 </manifest>

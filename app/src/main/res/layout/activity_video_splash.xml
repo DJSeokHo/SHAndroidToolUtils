@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.videosplash.demo.VideoSplashActivity">
+
+    <com.swein.framework.module.videosplash.customview.CustomVideoView
+        android:id="@+id/customVideoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/buttonStart"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/button_round_background"
+        android:text="start" />
+
+
+</FrameLayout>
