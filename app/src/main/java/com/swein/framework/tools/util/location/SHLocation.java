@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.location.model.LocationModel;
 
 /**
  * target api <= 22 just use this
@@ -19,47 +20,45 @@ import com.swein.framework.tools.util.debug.log.ILog;
 public class SHLocation {
 
     private final static String TAG = "SHLocation";
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
+
+    /* gps max wait time */
+    public static final int GPS_WATI_TIME_ONE_MINUTES = 1000 * 60 * 1;
+
+    /* if network accuracy small than 100 meter than will use it */
+    public static final float NETWORK_ACCURACY_MIN = 200;
 
     public interface SHLocationDelegate {
         void onLocation(double longitude, double latitude, long time);
     }
 
     private LocationManager locationManager;
-    private Location bestLocation;
     private Context context;
     private SHLocationDelegate shLocationDelegate;
 
-    private boolean shouldUseLastKnowLocation;
+    private Location bestLocation;
+
+    private boolean requestLocationJustOnce;
 
     private LocationListener networkLocationListener = new LocationListener() {
 
         @Override
         public void onLocationChanged(Location location) {
 
-            bestLocation = getBestLocation(location, bestLocation);
-
-            if(shouldUseLastKnowLocation) {
-                if (bestLocation == null) {
-                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
-
-                }
-
-                if (bestLocation == null) {
-                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
-                }
+            if(bestLocation == null) {
+                bestLocation = location;
             }
             else {
-                if(bestLocation == null) {
-                    bestLocation = location;
-                }
+                bestLocation = getBestLocation(bestLocation, location);
             }
 
+            LocationModel locationModel = getLocationModel(location);
 
-            /* if request just once */
-            locationManager.removeUpdates(this);
+            if(requestLocationJustOnce) {
+                clear();
+            }
 
-            showLocation(bestLocation, shLocationDelegate);
+            ILog.iLogDebug(TAG, locationModel.toJSONString());
+            showLocation(location, shLocationDelegate);
         }
 
         @Override
@@ -83,28 +82,21 @@ public class SHLocation {
         @Override
         public void onLocationChanged(Location location) {
 
-            bestLocation = getBestLocation(location, bestLocation);
-
-            if(shouldUseLastKnowLocation) {
-                if (bestLocation == null) {
-                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
-
-                }
-
-                if (bestLocation == null) {
-                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
-                }
+            if(bestLocation == null) {
+                bestLocation = location;
             }
             else {
-                if(bestLocation == null) {
-                    bestLocation = location;
-                }
+                bestLocation = getBestLocation(bestLocation, location);
             }
 
-            /* if request just once */
-            locationManager.removeUpdates(this);
+            LocationModel locationModel = getLocationModel(bestLocation);
 
-            showLocation(bestLocation, shLocationDelegate);
+            if(requestLocationJustOnce) {
+                clear();
+            }
+
+            ILog.iLogDebug(TAG, locationModel.toJSONString());
+            showLocation(location, shLocationDelegate);
         }
 
         @Override
@@ -123,8 +115,28 @@ public class SHLocation {
         }
     };
 
-    public SHLocation(Context context, SHLocationDelegate shLocationDelegate, boolean shouldUseLastKnowLocation) {
-        this.shouldUseLastKnowLocation = shouldUseLastKnowLocation;
+    private LocationModel getLocationModel(Location location) {
+
+        LocationModel locationModel = new LocationModel();
+        locationModel.provider = location.getProvider();
+        locationModel.latitude = location.getLatitude();
+        locationModel.longitude = location.getLongitude();
+
+        if(location.hasAccuracy()) {
+            locationModel.accuracy = location.getAccuracy();
+        }
+
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            if(location.hasVerticalAccuracy()) {
+//                locationModel.verticalAccuracy = location.getVerticalAccuracyMeters();
+//            }
+//        }
+
+        return locationModel;
+    }
+
+    public SHLocation(Context context, SHLocationDelegate shLocationDelegate, boolean requestLocationJustOnce) {
+        this.requestLocationJustOnce = requestLocationJustOnce;
         this.context = context;
         this.shLocationDelegate = shLocationDelegate;
     }
@@ -148,77 +160,31 @@ public class SHLocation {
         shLocationDelegate.onLocation(location.getLongitude(), location.getLatitude(), System.currentTimeMillis());
     }
 
-    private Location getBestLocation(Location newLocation, Location currentBestLocation) {
+    private Location getBestLocation(Location knownPosition, Location newPosition) {
 
-        if (newLocation == null) {
-            return null;
+        if(!knownPosition.hasAccuracy() && !newPosition.hasAccuracy()) {
+            return newPosition;
         }
 
-        if (currentBestLocation == null) {
-            // A new location is always better than no location
-            return newLocation;
+        if(knownPosition.getAccuracy() < newPosition.getAccuracy()) {
+            return knownPosition;
         }
-
-        // Check whether the new location fix is newer or older
-        long timeDelta = newLocation.getTime() - currentBestLocation.getTime();
-        boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
-        boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
-        boolean isNewer = timeDelta > 0;
-
-        // If it's been more than two minutes since the current location, use the new location
-        // because the user has likely moved
-        if (isSignificantlyNewer) {
-
-            return newLocation;
-            // If the new location is more than two minutes older, it must be worse
+        else {
+            return newPosition;
         }
-        else if (isSignificantlyOlder) {
-
-            return currentBestLocation;
-        }
-
-        // Check whether the new location fix is more or less accurate
-        int accuracyDelta = (int) (newLocation.getAccuracy() - currentBestLocation.getAccuracy());
-        boolean isLessAccurate = accuracyDelta > 0;
-        boolean isMoreAccurate = accuracyDelta < 0;
-        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-        // Check if the old and new location are from the same provider
-        boolean isFromSameProvider = isSameProvider(newLocation.getProvider(),
-                currentBestLocation.getProvider());
-
-        // Determine location quality using a combination of timeliness and accuracy
-        if (isMoreAccurate) {
-
-            return newLocation;
-        }
-        else if (isNewer && !isLessAccurate) {
-
-            return newLocation;
-        }
-        else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
-
-            return newLocation;
-        }
-
-        return currentBestLocation;
     }
 
-    private boolean isSameProvider(String provider1, String provider2) {
+    public void clear() {
+        locationManager.removeUpdates(networkLocationListener);
+        locationManager.removeUpdates(gpsLocationListener);
 
-        if (provider1 == null) {
-
-            return provider2 == null;
-        }
-
-        return provider1.equals(provider2);
+        bestLocation = null;
     }
 
     @Override
     protected void finalize() throws Throwable {
 
-        locationManager.removeUpdates(networkLocationListener);
-        locationManager.removeUpdates(gpsLocationListener);
+        clear();
 
         super.finalize();
     }

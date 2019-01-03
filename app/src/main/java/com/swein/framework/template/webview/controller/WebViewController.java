@@ -635,7 +635,7 @@ public class WebViewController {
 
             }
 
-        });
+        },  false);
 
         shLocation.requestLocation();
 
