@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.swein.data.global.key.SharedPreferenceDataKey;
-
 import java.util.Map;
 
 /**
@@ -16,13 +14,14 @@ import java.util.Map;
  */
 public class SharedPreferencesUtil {
 
+    private final static String KEY = "com.swein.shandroidtoolutils";
 
     /**
      *  MODE_PRIVATE: can only edit by this app
      */
     public static void putValue(Context context, String key, String value)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
         editor.commit();
@@ -30,7 +29,7 @@ public class SharedPreferencesUtil {
 
     public static void putValue(Context context, String key, int value)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(key, value);
         editor.commit();
@@ -38,7 +37,7 @@ public class SharedPreferencesUtil {
 
     public static void putValue(Context context, String key, boolean value)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(key, value);
         editor.commit();
@@ -46,7 +45,7 @@ public class SharedPreferencesUtil {
 
     public static boolean getValue(Context context, String key, boolean dftValue)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         try {
             return pref.getBoolean(key, dftValue);
         }
@@ -57,7 +56,7 @@ public class SharedPreferencesUtil {
 
     public static String getValue(Context context, String key, String dftValue)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         try {
             return pref.getString(key, dftValue);
         }
@@ -68,7 +67,7 @@ public class SharedPreferencesUtil {
 
     public static int getValue(Context context, String key, int dftValue)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         try {
             return pref.getInt(key, dftValue);
         }
@@ -79,27 +78,27 @@ public class SharedPreferencesUtil {
 
     public static boolean isContainValue(Context context, String key)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
 
         return pref.contains(key);
     }
 
     public static Map getAllKeyValue(Context context)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         return pref.getAll();
     }
 
     public static void clearSharedPreferencesData(Context context)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
     }
 
     public static void removeValue(Context context, String key)
     {
-        SharedPreferences pref = context.getSharedPreferences(SharedPreferenceDataKey.KEY, Activity.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove(key);
     }

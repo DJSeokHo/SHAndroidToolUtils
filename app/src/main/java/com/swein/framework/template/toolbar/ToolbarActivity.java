@@ -1,4 +1,4 @@
-package com.swein.toolbar.activity;
+package com.swein.framework.template.toolbar;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,19 +12,19 @@ import com.swein.shandroidtoolutils.R;
 /**
  * toolbar need Theme.AppCompat.Light.NoActionBar setting
  * <p>
- * <activity android:name="com.swein.toolbar.activity.ToolbarActivity"
+ * <activity android:name="com.swein.framework.template.toolbar.ToolbarActivity"
  * android:theme="@style/AppThemeToolbar"/>
  */
 public class ToolbarActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toolbar_activity);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         toolbar.setLogo(R.drawable.tx);
         toolbar.setTitle("Tool Bar");

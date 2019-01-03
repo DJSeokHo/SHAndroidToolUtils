@@ -18,13 +18,9 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Window;
 
-import com.swein.data.global.activity.RequestData;
-import com.swein.data.local.BundleData;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.List;
-
-import static com.swein.data.global.key.BundleDataKey.ACTIVITY_RESULT_STRING_VALUE;
 
 /**
  * Created by seokho on 29/12/2016.
@@ -51,19 +47,6 @@ public class ActivityUtil {
         ((Activity) packageContext).finish();
     }
 
-    public static void startNewActivityWithoutFinishWithBundleData(Context packageContext, Class<?> cls, BundleData bundleData) {
-        Intent intent = new Intent(packageContext, cls);
-        intent.putExtras(bundleData.getBundle());
-        packageContext.startActivity(intent);
-    }
-
-    public static void startNewActivityWithFinishWithBundleData(Context packageContext, Class<?> cls, BundleData bundleData) {
-        Intent intent = new Intent(packageContext, cls);
-        intent.putExtras(bundleData.getBundle());
-        packageContext.startActivity(intent);
-        ((Activity) packageContext).finish();
-    }
-
     public static Bundle getBundleDataFromPreActivity(Activity activity) {
 
         Bundle bundle = activity.getIntent().getExtras();
@@ -81,28 +64,6 @@ public class ActivityUtil {
     public static void startNewActivityWithoutFinishForResult(Activity activity, Class<?> cls, int requestCode) {
         Intent intent = new Intent(activity, cls);
         activity.startActivityForResult(intent, requestCode);
-    }
-
-    public static void setActivityResultStringWithFinish(Activity activity, String result, int resultCode) {
-        Bundle bundle = new Bundle();
-        bundle.putString(ACTIVITY_RESULT_STRING_VALUE, result);
-        Intent intent = new Intent();
-        intent.putExtras(bundle);
-        activity.setResult(resultCode, intent);
-        activity.finish();
-    }
-
-    public static String getActivityResultString(int requestCode, int resultCode, Intent intent) {
-
-        if(RequestData.ACTIVITY_REQUEST_CODE == requestCode && RequestData.ACTIVITY_RESULT_CODE == resultCode) {
-            Bundle data = ActivityUtil.getActivityResultBundleDataFromPreActivity(intent);
-
-            String string = (String) data.get(ACTIVITY_RESULT_STRING_VALUE);
-
-            return string;
-        }
-
-        return "";
     }
 
     public static void startActivityWithTransitionAnimationWithoutFinish(Activity activity, Class<?> cls) {

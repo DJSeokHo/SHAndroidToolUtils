@@ -86,6 +86,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -161,7 +162,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.swein.toolbar.activity.ToolbarActivity"
+            android:name="com.swein.framework.template.toolbar.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
         <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
@@ -332,7 +333,7 @@
             android:name="com.swein.framework.module.easyscreenrecord.activity.ScreenRecordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
         <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
@@ -340,43 +341,46 @@
         <activity
             android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.aop.demo.main.AOPExampleMainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.swein.framework.module.cameracolorfilter.demo.CameraColorFilterActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>

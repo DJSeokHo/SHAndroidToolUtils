@@ -30,6 +30,8 @@ public class SHLocation {
     private Context context;
     private SHLocationDelegate shLocationDelegate;
 
+    private boolean shouldUseLastKnowLocation;
+
     private LocationListener networkLocationListener = new LocationListener() {
 
         @Override
@@ -37,14 +39,22 @@ public class SHLocation {
 
             bestLocation = getBestLocation(location, bestLocation);
 
-            if (bestLocation == null) {
-                bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
+            if(shouldUseLastKnowLocation) {
+                if (bestLocation == null) {
+                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
 
+                }
+
+                if (bestLocation == null) {
+                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
+                }
+            }
+            else {
+                if(bestLocation == null) {
+                    bestLocation = location;
+                }
             }
 
-            if (bestLocation == null) {
-                bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
-            }
 
             /* if request just once */
             locationManager.removeUpdates(this);
@@ -75,13 +85,20 @@ public class SHLocation {
 
             bestLocation = getBestLocation(location, bestLocation);
 
-            if (bestLocation == null) {
-                bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
+            if(shouldUseLastKnowLocation) {
+                if (bestLocation == null) {
+                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), bestLocation);
 
+                }
+
+                if (bestLocation == null) {
+                    bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
+                }
             }
-
-            if (bestLocation == null) {
-                bestLocation = getBestLocation(locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER), bestLocation);
+            else {
+                if(bestLocation == null) {
+                    bestLocation = location;
+                }
             }
 
             /* if request just once */
@@ -106,7 +123,8 @@ public class SHLocation {
         }
     };
 
-    public SHLocation(Context context, SHLocationDelegate shLocationDelegate) {
+    public SHLocation(Context context, SHLocationDelegate shLocationDelegate, boolean shouldUseLastKnowLocation) {
+        this.shouldUseLastKnowLocation = shouldUseLastKnowLocation;
         this.context = context;
         this.shLocationDelegate = shLocationDelegate;
     }

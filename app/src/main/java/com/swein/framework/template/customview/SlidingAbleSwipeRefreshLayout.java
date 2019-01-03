@@ -1,4 +1,4 @@
-package com.swein.framework.template;
+package com.swein.framework.template.customview;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;

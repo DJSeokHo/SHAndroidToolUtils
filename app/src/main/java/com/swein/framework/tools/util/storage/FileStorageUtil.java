@@ -2,8 +2,6 @@ package com.swein.framework.tools.util.storage;
 
 import android.os.Environment;
 
-import com.swein.data.global.symbol.Symbol;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -54,13 +52,13 @@ public class FileStorageUtil {
 
     public static String createExternalStorageDirectoryFolder(String folderName, String rootPath) {
 
-        File fileDirectory = new File(rootPath + Symbol.VIRGULE + folderName);
+        File fileDirectory = new File(rootPath + "/" + folderName);
 
         if(!fileDirectory.exists()) {
             fileDirectory.mkdir();
         }
 
-        return rootPath + Symbol.VIRGULE + folderName;
+        return rootPath + "/" + folderName;
 
     }
 
@@ -149,7 +147,7 @@ public class FileStorageUtil {
     public static String readExternalStorageDirectoryFile(String filePath, String fileName) {
 
         FileInputStream fileInputStream;
-        StringBuilder stringBuilder = new StringBuilder(Symbol.NULL_STRING);
+        StringBuilder stringBuilder = new StringBuilder("");
 
         try {
 
