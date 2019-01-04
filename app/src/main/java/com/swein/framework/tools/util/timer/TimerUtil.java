@@ -1,10 +1,10 @@
 package com.swein.framework.tools.util.timer;
 
-import android.os.Handler;
+import android.os.CountDownTimer;
 
+import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,66 +14,41 @@ import java.util.TimerTask;
 
 public class TimerUtil {
 
-    public static void countdownTimerTaskWithUI(int unit, final int time, final Runnable runnable) {
+    /**
+     *
+     * @param onTick
+     * @param onFinish
+     * @param second count down time (unit second)
+     * @param interval count down interval (unit second)
+     * @return
+     */
+    public static CountDownTimer countDownTimerTask(Runnable onTick, Runnable onFinish, int second, int interval) {
 
-        final Calendar limit = Calendar.getInstance();
-        limit.add(unit, time);
+        CountDownTimer countDownTimer = new CountDownTimer(second * 1000, interval * 1000) {
 
-        final Handler handler = new Handler();
-
-        final Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
             @Override
-            public void run() {
+            public void onTick(long millisUntilFinished) {
+                ILog.iLogDebug("", "onTick " + String.valueOf((millisUntilFinished / 1000)));
 
-                for (int i = 0; i < 10000; i++) {
+                onTick.run();
+            }
 
-                    handler.post(runnable);
+            @Override
+            public void onFinish() {
+                ILog.iLogDebug("", "onFinish");
 
-                }
-                timer.cancel();
+                onFinish.run();
 
             }
         };
 
-        /**
-         * public void schedule(TimerTask task, long delay, long period)
-         * @param task   task to be scheduled.
-         * @param delay  delay in milliseconds before task is to be executed.
-         * @param period time in milliseconds between successive task executions.
-         */
-        timer.schedule(timerTask, 0, time * 1000);
+        countDownTimer.start();
+
+        return countDownTimer;
     }
+    public static void stopCountDownTimerTask(CountDownTimer countDownTimer) {
 
-    public static void countdownTimerTaskWithoutUI(int unit, final int time, final Runnable runnable) {
-
-        final Calendar limit = Calendar.getInstance();
-        limit.add(unit, time);
-
-        final Handler handler = new Handler();
-
-        final Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-
-                for (int i = 0; i < 10000; i++) {
-
-                    runnable.run();
-
-                }
-                timer.cancel();
-
-            }
-        };
-
-        /**
-         * public void schedule(TimerTask task, long delay, long period)
-         * @param task   task to be scheduled.
-         * @param delay  delay in milliseconds before task is to be executed.
-         * @param period time in milliseconds between successive task executions.
-         */
-        timer.schedule(timerTask, 0, time * 1000);
+        countDownTimer.cancel();
     }
 
     public static Timer createTimerTask(long delay, long period, final Runnable runnable) {
