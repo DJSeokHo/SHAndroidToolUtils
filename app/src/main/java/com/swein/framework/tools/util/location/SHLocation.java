@@ -25,7 +25,8 @@ public class SHLocation {
     public static final int GPS_WATI_TIME_ONE_MINUTES = 1000 * 60 * 1;
 
     /* if network accuracy small than 100 meter than will use it */
-    public static final float NETWORK_ACCURACY_MIN = 200;
+    /* 20 is same as gps */
+    public static final float NETWORK_ACCURACY_MIN = 20.0f;
 
     public interface SHLocationDelegate {
         void onLocation(double longitude, double latitude, long time);
