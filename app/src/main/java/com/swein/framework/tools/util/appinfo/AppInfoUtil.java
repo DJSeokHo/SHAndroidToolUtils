@@ -2,10 +2,13 @@ package com.swein.framework.tools.util.appinfo;
 
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 
 import java.lang.reflect.Field;
@@ -17,7 +20,30 @@ import java.lang.reflect.Method;
 
 public class AppInfoUtil {
 
-    public static boolean isNotificationEnable(Context context) {
+    public static void moveToAppPushSetting(Context context) {
+
+        Intent intent = new Intent();
+
+        if(android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1){
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("android.provider.extra.APP_PACKAGE", context.getPackageName());
+        }
+        else if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", context.getPackageName());
+            intent.putExtra("app_uid", context.getApplicationInfo().uid);
+        }
+        else {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+        }
+
+        context.startActivity(intent);
+
+    }
+
+    public static boolean isPushNotificationEnable(Context context) {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

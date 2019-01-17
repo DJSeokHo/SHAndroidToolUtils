@@ -179,7 +179,10 @@ public class MainActivity extends Activity {
             }
         });
 
-        boolean push = AppInfoUtil.isNotificationEnable(this);
+        boolean push = AppInfoUtil.isPushNotificationEnable(this);
+        if(!push) {
+            AppInfoUtil.moveToAppPushSetting(this);
+        }
         ILog.iLogDebug(TAG, push);
 
 
