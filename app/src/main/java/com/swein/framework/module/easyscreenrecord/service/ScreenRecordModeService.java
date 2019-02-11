@@ -8,14 +8,9 @@ import android.os.Build;
 import android.os.HandlerThread;
 import android.os.IBinder;
 
-import com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity;
-import com.swein.framework.module.easyscreenrecord.data.global.applicaiton.ESRContent;
 import com.swein.framework.module.easyscreenrecord.data.singleton.DataCenter;
 import com.swein.framework.module.easyscreenrecord.data.singleton.ScreenRecordData;
-import com.swein.framework.module.easyscreenrecord.framework.util.notification.NotificationUIUtils;
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.intent.IntentUtil;
-import com.swein.shandroidtoolutils.R;
 
 import java.io.IOException;
 
@@ -49,14 +44,14 @@ public class ScreenRecordModeService extends Service implements ScreenRecordInte
         ILog.iLogDebug(ScreenRecordModeService.class.getSimpleName(), "onStartCommand");
         setRecordConfig(DataCenter.getInstance().getDisplayMetrics().widthPixels, DataCenter.getInstance().getDisplayMetrics().heightPixels, DataCenter.getInstance().getDisplayMetrics().densityDpi);
 
-        startForeground(1003, NotificationUIUtils.getContentIntentNotification(this,
-                "record",
-                ESRContent.APP_NAME_CN,
-                "record notification",
-                R.mipmap.ic_launcher,
-                false,
-                IntentUtil.getPendingIntentWithClass(this, EasyScreenRecordingActivity.class)
-        ));
+//        startForeground(1003, NotificationUIUtils.getContentIntentNotification(this,
+//                "record",
+//                ESRContent.APP_NAME_CN,
+//                "record notification",
+//                R.mipmap.ic_launcher,
+//                false,
+//                IntentUtil.getPendingIntentWithClass(this, EasyScreenRecordingActivity.class)
+//        ));
 
         startRecord();
 

@@ -21,13 +21,6 @@ public class DialogUtil {
                                                        DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-        if(title == null || title.length() == 0) {
-
-        }
-
-        if(message == null || message.length() == 0) {
-
-        }
 
         // set title
         alertDialogBuilder.setTitle(title);
