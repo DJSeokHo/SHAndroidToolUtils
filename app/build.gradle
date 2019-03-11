@@ -98,6 +98,8 @@ dependencies {
 
     implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
 
+    implementation 'org.jsoup:jsoup:1.10.2'
+
     compileOnly files('libs/knoxsdk.jar')
     runtimeOnly files('libs/supportlib.jar')
     implementation project(path: ':zxinglite')
