@@ -54,7 +54,9 @@
         android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"></activity>
+        <activity
+            android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <!-- google analytics -->
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
@@ -153,8 +155,6 @@
         <activity
             android:name="com.swein.framework.template.toolbar.ToolbarActivity"
             android:theme="@style/AppThemeToolbar" />
-        <activity android:name="com.swein.autotest.ui.espresso.EspressoTestExampleActivity" />
-        <activity android:name="com.swein.autotest.ui.espresso.EspressoTestWebViewActivity" />
         <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
 
         <receiver

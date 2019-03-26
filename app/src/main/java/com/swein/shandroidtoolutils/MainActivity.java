@@ -23,6 +23,7 @@ import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.Fake
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
 import com.swein.framework.module.qrcodescanner.constants.QRConstants;
+import com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -190,7 +191,6 @@ public class MainActivity extends Activity {
 //                ActivityUtil.startNewActivityWithoutFinish(this, DelegateExampleActivity.class);
         //        ActivityUtil.startNewActivityWithoutFinish(this, VideoViewActivity.class);
 //                ActivityUtil.startNewActivityWithoutFinish(this, RecyclerViewListActivity.class);
-//                ActivityUtil.startNewActivityWithoutFinish(this, EspressoTestExampleActivity.class);
 //                ActivityUtil.startNewActivityWithoutFinish(this, TabHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ToolbarActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, HandlerExampleActivity.class);
@@ -268,6 +268,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, WebViewTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, CameraColorFilterActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, NestedScrollWithFixedBarActivity.class);
 
 
 

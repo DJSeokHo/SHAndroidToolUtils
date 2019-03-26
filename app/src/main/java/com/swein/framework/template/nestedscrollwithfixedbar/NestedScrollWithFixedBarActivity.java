@@ -1,11 +1,11 @@
 package com.swein.framework.template.nestedscrollwithfixedbar;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.swein.shandroidtoolutils.R;
 
-public class NestedScrollWithFixedBarActivity extends Activity {
+public class NestedScrollWithFixedBarActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
