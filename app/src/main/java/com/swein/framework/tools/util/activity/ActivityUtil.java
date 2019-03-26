@@ -167,6 +167,20 @@ public class ActivityUtil {
         transaction.add(containerViewId, fragment).commit();
     }
 
+    public static void addFragmentWithTAG(FragmentActivity activity, int containerViewId, Fragment fragment, String tag) {
+        if(fragment.isAdded()) {
+            return;
+        }
+
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.add(containerViewId, fragment, tag).commit();
+    }
+
+    public static Fragment findFragmentByTAG(FragmentActivity activity, String fragmentTAGString) {
+
+        return activity.getSupportFragmentManager().findFragmentByTag(fragmentTAGString);
+    }
+
     public static void removeFragment(FragmentActivity activity, Fragment fragment, boolean withAnimation) {
         if(fragment == null || !fragment.isAdded()) {
             return;
