@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.swein.shandroidtoolutils">
-
     <!-- 允许程序监视、修改或放弃拨打电话 -->
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-
-    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- 录音权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
@@ -49,7 +46,6 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
-    <!-- <user-feature android:name="android.hardware.camera2.full" /> -->
     <application
         android:name=".application.SHAndroidToolUtilsApplication"
         android:allowBackup="true"
@@ -58,7 +54,7 @@
         android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"></activity>
         <!-- google analytics -->
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
@@ -74,10 +70,7 @@
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false" />
-        <!-- google analytics -->
-
-
+            android:exported="false" /> <!-- google analytics -->
         <!--
             add android:configChanges="orientation|screenSize"
             can make activity not re-create when screen size and orientation changed
@@ -86,8 +79,8 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -98,9 +91,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-
-        <!-- samsung knox sdk -->
+        </activity> <!-- samsung knox sdk -->
         <receiver
             android:name="com.swein.framework.module.knoxmdm.knoxlicenseactivator.device.KnoxDeviceAdminReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -147,9 +138,7 @@
                 <action android:name="com.sec.action.USER_ACTIVITY" />
                 <action android:name="com.samsung.android.mdm.VPN_BIND_RESULT" />
             </intent-filter>
-        </receiver>
-        <!-- samsung knox sdk -->
-
+        </receiver> <!-- samsung knox sdk -->
         <activity
             android:name="com.swein.framework.module.spacemanage.ManageSpaceActivity"
             android:screenOrientation="portrait" />
@@ -195,9 +184,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
-            android:launchMode="singleTask" />
-
-        <!-- GCM -->
+            android:launchMode="singleTask" /> <!-- GCM -->
         <!--
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -232,8 +219,6 @@
             </intent-filter>
         </receiver>
         -->
-
-
         <!-- FCM -->
         <service android:name="com.swein.framework.module.fcmpush.service.MyFirebaseMessagingService">
             <intent-filter>
@@ -250,9 +235,7 @@
             <intent-filter>
                 <action android:name="com.android.broadcast.RECEIVER_ACTION" />
             </intent-filter>
-        </receiver>
-
-        <!-- Custom MDM receiver -->
+        </receiver> <!-- Custom MDM receiver -->
         <receiver
             android:name="com.swein.framework.module.mdmcustom.receiver.SHMDMReceiver"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -264,7 +247,6 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
-
         <!--
              Set custom default icon. This is used when no icon is set for incoming notification messages.
             See README(https://goo.gl/l4GJaQ) for more.
@@ -283,8 +265,6 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
         -->
-
-
         <!--
         8.0
         <meta-data
@@ -304,9 +284,7 @@
             android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" />
-        <activity android:name="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity" />
-
-        <!-- phone call recorder -->
+        <activity android:name="com.swein.framework.module.knoxmdm.mdm.KnoxMDMActivity" /> <!-- phone call recorder -->
         <activity
             android:name="com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity"
             android:launchMode="singleTask"
@@ -314,15 +292,12 @@
 
         <service
             android:name="com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService"
-            android:process=":recording" />
-
-        <!-- <receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver"> -->
+            android:process=":recording" /> <!-- <receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.NEW_OUTGOING_CALL"/> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
         <!-- phone call recorder -->
-
         <activity android:name="com.swein.framework.template.doublescroll.SHDoubleScrollActivity" />
         <activity android:name="com.swein.framework.module.screenrecording.activity.ScreenRecordingActivity" />
         <activity android:name="com.swein.framework.module.screenshot.screenshotmethod.ScreenShotActivity" />
@@ -378,7 +353,8 @@
             android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name="com.swein.framework.module.cameracolorfilter.demo.CameraColorFilterActivity"
+        <activity
+            android:name="com.swein.framework.module.cameracolorfilter.demo.CameraColorFilterActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
