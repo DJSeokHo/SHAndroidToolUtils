@@ -182,8 +182,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
              */
             ILog.iLogDebug(TAG, "getData : " + remoteMessage.getData());
 
-//            final SHMDMDeviceManager shmdmDeviceManager = new SHMDMDeviceManager(this);
-//
 //            if(!shmdmDeviceManager.isActive()) {
 //
 //                return;

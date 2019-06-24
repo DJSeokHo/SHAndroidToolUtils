@@ -28,6 +28,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
  * reference documentation - https://www.jianshu.com/p/168bef5526ae
+ * need lib from https://github.com/yangxixi88/ZxingLite
+ *
  */
 public class SHQRCodeScannerActivity extends Activity {
 

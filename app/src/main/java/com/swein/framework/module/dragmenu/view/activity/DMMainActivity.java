@@ -64,18 +64,6 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 
 
 
-
-
-//        actionBarViewHolder = new SHMDMActionBarViewHolder(this, new ActionBarViewHolderMethods() {
-//
-//            @Override
-//            public boolean onTriggerDragMenuTouched(MotionEvent event) {
-//                return triggerDragMenuByTouch(event);
-//            }
-//        });
-
-
-
 //        dragMenuViewHolder = new DragMenuViewHolder(this, new DragMenuViewHolderMethods() {
 //            @Override
 //            public void onDragMenuHideListener() {
@@ -83,14 +71,7 @@ public class DMMainActivity extends FragmentActivity implements DMMainActivityMe
 //            }
 //        }, frameLayoutDragMenu);
 //
-//        actionBarViewHolder = new SHMDMActionBarViewHolder(this, new ActionBarViewHolderMethods() {
-//
-//            @Override
-//            public boolean onTriggerDragMenuTouched(MotionEvent event) {
-//                return triggerDragMenuByTouch(event);
-//            }
-//        });
-//
+
 
 //        // cent point y of screen
 //        screenCentY = DeviceInfoUtil.getDeviceScreenHeight(DMMainActivity.this) * 0.5f;

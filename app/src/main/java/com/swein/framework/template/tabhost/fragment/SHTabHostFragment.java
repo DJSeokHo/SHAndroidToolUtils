@@ -16,7 +16,10 @@ import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentFour
 import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentOne;
 import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentThree;
 import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentTwo;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.shandroidtoolutils.R;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,16 +27,20 @@ import com.swein.shandroidtoolutils.R;
 public class SHTabHostFragment extends Fragment implements TabHost.OnTabChangeListener{
 
 
-    private Fragment[] fragments;
-    private FragmentTabHost fragmentTabHost;
     private View rootView;
-
-    private String          currentTapTag;
 
     private final static String HOME_TAB = "HOME_TAB";
     private final static String FRIEND_TAB = "FRIEND_TAB";
     private final static String EVENT_TAB = "EVENT_TAB";
     private final static String PROFILE_TAB = "PROFILE_TAB";
+
+    private ImageButton imageButtonHome;
+    private ImageButton imageButtonFriend;
+    private ImageButton imageButtonEvent;
+    private ImageButton imageButtonProfile;
+
+    private String currentTapTag = HOME_TAB;
+    private String lastTapTag = "";
 
     public SHTabHostFragment() {
 
@@ -45,49 +52,44 @@ public class SHTabHostFragment extends Fragment implements TabHost.OnTabChangeLi
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_shtab_host, container, false);
         findViews();
+        changeTab(currentTapTag);
         return rootView;
     }
 
     void findViews() {
-        fragmentTabHost = (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
-        fragmentTabHost.setup(getActivity(), getActivity().getSupportFragmentManager(), R.id.shTabFragmentContainer);
-        fragmentTabHost.setOnTabChangedListener(this);
 
-        // add fragment tab
-        SHTabHostSubFragmentOne shTabHostSubFragmentOne = new SHTabHostSubFragmentOne();
-        SHTabHostSubFragmentTwo shTabHostSubFragmentTwo = new SHTabHostSubFragmentTwo();
-        SHTabHostSubFragmentThree shTabHostSubFragmentThree = new SHTabHostSubFragmentThree();
-        SHTabHostSubFragmentFour shTabHostSubFragmentFour = new SHTabHostSubFragmentFour();
+        imageButtonHome = rootView.findViewById(R.id.imageButtonHome);
+        imageButtonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTab(HOME_TAB);
+            }
+        });
 
+        imageButtonFriend = rootView.findViewById(R.id.imageButtonFriend);
+        imageButtonFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTab(FRIEND_TAB);
+            }
+        });
 
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(HOME_TAB).setIndicator(tabButtonResource( 0, R.drawable.tab_home_icon_state )),
-                shTabHostSubFragmentOne.getClass(), null);
+        imageButtonEvent = rootView.findViewById(R.id.imageButtonEvent);
+        imageButtonEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTab(EVENT_TAB);
+            }
+        });
 
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(FRIEND_TAB).setIndicator(tabButtonResource( 0, R.drawable.tab_friend_icon_state )),
-                shTabHostSubFragmentTwo.getClass(), null);
+        imageButtonProfile = rootView.findViewById(R.id.imageButtonProfile);
+        imageButtonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTab(PROFILE_TAB);
+            }
+        });
 
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(EVENT_TAB).setIndicator(tabButtonResource( 0, R.drawable.tab_event_icon_state )),
-                shTabHostSubFragmentThree.getClass(), null);
-
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(PROFILE_TAB).setIndicator(tabButtonResource( 0, R.drawable.tab_profile_icon_state )),
-                shTabHostSubFragmentFour.getClass(), null);
-
-        fragmentTabHost.getTabWidget().setDividerDrawable(null);
-
-        fragmentTabHost.setCurrentTab(0);
-
-
-    }
-
-    View tabButtonResource(int titleId, int drawableId ) {
-        ImageButton btn = new ImageButton( getActivity() );
-
-        btn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btn.setBackgroundColor( Color.TRANSPARENT );
-        btn.setId( android.R.id.content );
-        btn.setImageResource( drawableId );
-
-        return btn;
     }
 
     @Override
@@ -97,27 +99,109 @@ public class SHTabHostFragment extends Fragment implements TabHost.OnTabChangeLi
 
     void changeTab( String tabId ) {
 
-        if ( getActivity() == null || getFragmentManager() == null ) {
+        if (getFragmentManager() == null) {
             return;
         }
 
-        if ( HOME_TAB.compareTo( tabId ) == 0 ) {
+        resetTabState();
+
+        Fragment currentFragment;
+        Fragment lastFragment;
+
+        if (HOME_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
+            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+
+            if(lastFragment != null) {
+                ActivityUtil.hideFragment(getActivity(), lastFragment);
+            }
+
+            if(currentFragment == null) {
+                currentFragment = new SHTabHostSubFragmentOne();
+                ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
+            }
+            else {
+                ActivityUtil.showFragment(getActivity(), currentFragment);
+            }
+
+            lastTapTag = currentTapTag;
+            imageButtonHome.setSelected(true);
         }
-        else if ( FRIEND_TAB.compareTo( tabId ) == 0 ) {
+        else if(FRIEND_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
+            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+
+            if(lastFragment != null) {
+                ActivityUtil.hideFragment(getActivity(), lastFragment);
+            }
+
+            if(currentFragment == null) {
+                currentFragment = new SHTabHostSubFragmentTwo();
+                ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
+            }
+            else {
+                ActivityUtil.showFragment(getActivity(), currentFragment);
+            }
+
+            lastTapTag = currentTapTag;
+
+            imageButtonFriend.setSelected(true);
         }
-        else if ( EVENT_TAB.compareTo( tabId ) == 0 ) {
+        else if(EVENT_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
-        }
-        else if ( PROFILE_TAB.compareTo( tabId ) == 0 ) {
-            currentTapTag = tabId;
-        }
+            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
 
-        fragmentTabHost.setCurrentTabByTag( tabId );
+            if(lastFragment != null) {
+                ActivityUtil.hideFragment(getActivity(), lastFragment);
+            }
+
+            if(currentFragment == null) {
+                currentFragment = new SHTabHostSubFragmentThree();
+                ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
+            }
+            else {
+                ActivityUtil.showFragment(getActivity(), currentFragment);
+            }
+
+            lastTapTag = currentTapTag;
+
+            imageButtonEvent.setSelected(true);
+        }
+        else if(PROFILE_TAB.compareTo(tabId) == 0) {
+            currentTapTag = tabId;
+
+            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+
+            if(lastFragment != null) {
+                ActivityUtil.hideFragment(getActivity(), lastFragment);
+            }
+
+            if(currentFragment == null) {
+                currentFragment = new SHTabHostSubFragmentFour();
+                ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
+            }
+            else {
+                ActivityUtil.showFragment(getActivity(), currentFragment);
+            }
+
+            lastTapTag = currentTapTag;
+
+            imageButtonProfile.setSelected(true);
+        }
+    }
+
+    private void resetTabState() {
+        imageButtonHome.setSelected(false);
+        imageButtonFriend.setSelected(false);
+        imageButtonEvent.setSelected(false);
+        imageButtonProfile.setSelected(false);
     }
 
 }
