@@ -7,10 +7,10 @@ public class LocationModel {
 
     public String provider;
 
-    /* 경도 */
+    /* 위도 */
     public double latitude;
 
-    /* 위도 */
+    /* 경도 */
     public double longitude;
 
     /* 수평 정확도 */

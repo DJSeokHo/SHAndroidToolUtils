@@ -25,9 +25,9 @@ public class PopupWindowUtil {
      * @param gravity
      * @param popupWindowShowAtX
      * @param popupWindowShowAtY
-     * @param parnet
+     * @param parent
      */
-    public static void createPopupWindowWithView(final Activity activity, int viewResource, int popupWindowWidth, int popupWindowHeight, int gravity, int popupWindowShowAtX, int popupWindowShowAtY, View parnet) {
+    public static void createPopupWindowWithView(final Activity activity, int viewResource, int popupWindowWidth, int popupWindowHeight, int gravity, int popupWindowShowAtX, int popupWindowShowAtY, View parent) {
 
         View root = activity.getLayoutInflater().inflate( viewResource, null);
 
@@ -47,7 +47,7 @@ public class PopupWindowUtil {
 
         // for edit text input enable
         popupWindow.setFocusable(true);
-        popupWindow.showAtLocation(parnet, gravity, popupWindowShowAtX, popupWindowShowAtY);
+        popupWindow.showAtLocation(parent, gravity, popupWindowShowAtX, popupWindowShowAtY);
     }
 
 }

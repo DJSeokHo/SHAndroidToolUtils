@@ -143,7 +143,7 @@ public class FileIOUtil {
         byte[] bytes = null;
         if(file!=null)
         {
-            InputStream is = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(file);
             int length = (int) file.length();
             if(length > Integer.MAX_VALUE)
             {
@@ -153,7 +153,7 @@ public class FileIOUtil {
             bytes = new byte[length];
             int offset = 0;
             int numRead = 0;
-            while(offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0)
+            while(offset < bytes.length && (numRead = inputStream.read(bytes, offset, bytes.length - offset)) >= 0)
             {
                 offset += numRead;
             }
@@ -163,7 +163,7 @@ public class FileIOUtil {
                 ILog.iLogDebug(FileIOUtil.class.getName(), "file length is error");
                 return null;
             }
-            is.close();
+            inputStream.close();
         }
         return bytes;
     }
