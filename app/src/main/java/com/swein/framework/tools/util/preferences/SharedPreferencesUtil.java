@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.swein.shandroidtoolutils.BuildConfig;
+
 import java.util.Map;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Map;
  */
 public class SharedPreferencesUtil {
 
-    private final static String KEY = "com.swein.shandroidtoolutils";
+    private final static String KEY = BuildConfig.APPLICATION_ID;
 
     /**
      *  MODE_PRIVATE: can only edit by this app
