@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment">
+
+    <com.swein.framework.module.camera.custom.camera2.custom.AutoFitTextureView
+        android:id="@+id/autoFitTextureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ImageButton
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:src="@drawable/btn_camera"
+        android:scaleType="fitCenter"
+        android:id="@+id/imageButtonTakePhoto"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+</FrameLayout>

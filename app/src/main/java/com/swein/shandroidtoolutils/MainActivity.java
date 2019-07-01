@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity;
+import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
 import com.swein.framework.module.camera.system.SHCameraIntent;
 import com.swein.framework.module.camera.system.SystemCameraDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
@@ -263,7 +265,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, CameraColorFilterActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, NestedScrollWithFixedBarActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
 
 
 

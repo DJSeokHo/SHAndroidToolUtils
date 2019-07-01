@@ -18,6 +18,7 @@ import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Window;
 
+import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.List;
@@ -174,6 +175,10 @@ public class ActivityUtil {
 
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.add(containerViewId, fragment, tag).commit();
+    }
+
+    public static void replaceFragment(FragmentActivity activity, int containerViewId, Fragment fragment) {
+        activity.getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment).commit();
     }
 
     public static Fragment findFragmentByTAG(FragmentActivity activity, String fragmentTAGString) {
