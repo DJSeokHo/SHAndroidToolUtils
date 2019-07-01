@@ -53,9 +53,10 @@ public class CrashExceptionReportHandler implements Thread.UncaughtExceptionHand
         if (!handleException(exception) && uncaughtExceptionHandler != null) {
 
             uncaughtExceptionHandler.uncaughtException(thread, exception);
+            exception.printStackTrace();
         }
         else {
-
+            exception.printStackTrace();
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             Intent intent = new Intent(context, AppCrashReportActivity.class);

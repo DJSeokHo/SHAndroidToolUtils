@@ -18,13 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
-import com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity;
-import com.swein.framework.module.qrcodescanner.constants.QRConstants;
-import com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity;
-import com.swein.framework.template.tabhost.activity.SHTabHostActivity;
+import com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -150,7 +147,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+//                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
+                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
             }
         });
 
@@ -211,7 +209,6 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
 
 
-
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -264,7 +261,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, WebViewTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, CameraColorFilterActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, NestedScrollWithFixedBarActivity.class);
-
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
 
 
         SHVolley shVolley = new SHVolley(this);
@@ -316,7 +314,7 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
 

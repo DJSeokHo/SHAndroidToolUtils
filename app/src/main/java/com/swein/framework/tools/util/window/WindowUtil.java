@@ -81,4 +81,17 @@ public class WindowUtil {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    public static void setTitleBarColor(Activity activity, int color) {
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            activity.getWindow().setStatusBarColor(color);
+        }
+    }
+
+    public static void setTitleBarColor(Activity activity, String color) {
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            activity.getWindow().setStatusBarColor(Color.parseColor(color));
+        }
+    }
 }
