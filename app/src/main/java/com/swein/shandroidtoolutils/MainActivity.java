@@ -19,9 +19,9 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity;
+import com.swein.framework.module.camera.system.SHCameraIntent;
+import com.swein.framework.module.camera.system.SystemCameraDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
     private SHLocation location;
+
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
 
@@ -148,7 +149,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 //                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraOneActivity.class);
-                ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
+
             }
         });
 
@@ -261,8 +262,9 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, WebViewTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, CameraColorFilterActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, NestedScrollWithFixedBarActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
+
 
 
         SHVolley shVolley = new SHVolley(this);

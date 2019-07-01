@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.swein.framework.tools.util.bitmaps.BitmapUtil;
+import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.util.Date;
  * https://developer.android.com/training/camera/photobasics?hl=zh-cn
  */
 public class SHCameraIntent {
+
+    private final static String TAG = "SHCameraIntent";
 
     private Context context;
 
@@ -104,8 +107,7 @@ public class SHCameraIntent {
     public void onActivityResult(int requestCode, int resultCode) {
 
         if (REQUEST_CODE_IMAGE_CHOOSER_BASE_64 == requestCode && resultCode == Activity.RESULT_OK) {
-            BitmapUtil.rotateImage(photoFile.getPath());
-            BitmapUtil.ResizeImages(photoFile.getPath(), IMAGE_COMPRESS_RATE);
+            ILog.iLogDebug(TAG, photoFile.getPath());
         }
     }
 
