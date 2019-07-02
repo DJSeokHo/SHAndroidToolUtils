@@ -45,14 +45,11 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
-import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera2.custom.AutoFitTextureView;
 import com.swein.framework.module.camera.custom.camera2.tool.CameraTwoTool;
 import com.swein.framework.module.camera.custom.camera2.tool.CompareSizesByArea;
@@ -60,7 +57,6 @@ import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
-import com.swein.framework.tools.util.volley.SHVolley;
 import com.swein.shandroidtoolutils.R;
 
 import java.io.DataOutputStream;
@@ -74,9 +70,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -192,13 +186,15 @@ public class CameraTwoFragment extends Fragment {
                                     }
                                 }
 
-                                uploadLogFile(getContext(), "http://192.168.0.84:8080/product_restful_api/upload_file", imageStorageFile.getAbsolutePath());
+//                                uploadLogFile("http://192.168.0.84:8080/product_restful_api/upload_file", imageStorageFile.getAbsolutePath());
+                                uploadLogFile("http://172.30.1.56:8080/product_restful_api/upload_file",
+                                        imageStorageFile.getAbsolutePath(), imageStorageFile.getName());
+
+
                                 ThreadUtil.startUIThread(0, new Runnable() {
                                     @Override
                                     public void run() {
                                         ToastUtil.showShortToastNormal(getContext(), "Saved: " + imageStorageFile);
-
-
                                         imageStorageFile = null;
                                     }
                                 });
@@ -210,9 +206,9 @@ public class CameraTwoFragment extends Fragment {
         }
     };
 
-    public static void uploadLogFile(Context context, String uploadUrl, String oldFilePath) {
-        ILog.iLogDebug(TAG, oldFilePath);
-        File file = new File(oldFilePath);
+    public static void uploadLogFile(String uploadUrl, String filePath, String fileName) {
+        ILog.iLogDebug(TAG, filePath);
+        File file = new File(filePath);
         if(!file.exists()) {
             ILog.iLogDebug(TAG, "no file");
             return;
@@ -233,20 +229,20 @@ public class CameraTwoFragment extends Fragment {
             con.setRequestProperty("Connection", "Keep-Alive");
 
             con.setRequestProperty("Content-Type", "image/jpeg");
-            con.addRequestProperty("oldFilePath", oldFilePath);
+            con.addRequestProperty("File-Path", filePath);
+            con.addRequestProperty("File-Name", fileName);
 
             DataOutputStream ds = new DataOutputStream(con.getOutputStream());
 
 
-            FileInputStream fStream = new FileInputStream(oldFilePath);
-            // 设置每次写入1024bytes
+            FileInputStream fStream = new FileInputStream(filePath);
+
             int bufferSize = 1024;
             byte[] buffer = new byte[bufferSize];
 
             int length = -1;
-            // 从文件读取数据至缓冲区
+
             while ((length = fStream.read(buffer)) != -1) {
-                // 将资料写入DataOutputStream中
                 ds.write(buffer, 0, length);
             }
             ds.flush();
@@ -255,13 +251,13 @@ public class CameraTwoFragment extends Fragment {
 
             if(con.getResponseCode() == 200) {
                 ILog.iLogDebug(TAG, con.getResponseMessage());
-                ILog.iLogDebug(TAG, "文件上传成功！上传文件为：" + oldFilePath);
+                ILog.iLogDebug(TAG, "file upload success：" + filePath);
             }
         }
         catch (Exception e) {
             e.printStackTrace();
-            ILog.iLogDebug(TAG, "文件上传失败！上传文件为：" + oldFilePath);
-            ILog.iLogDebug(TAG, "报错信息toString：" + e.toString());
+            ILog.iLogDebug(TAG, "file upload failed：" + filePath);
+            ILog.iLogDebug(TAG, "error message：" + e.toString());
         }
     }
 
@@ -441,7 +437,6 @@ public class CameraTwoFragment extends Fragment {
     }
 
     /**
-     * Configures the necessary {@link android.graphics.Matrix} transformation to `mTextureView`.
      * This method should be called after the camera preview size is determined in
      * setUpCameraOutputs and also the size of `mTextureView` is fixed.
      *

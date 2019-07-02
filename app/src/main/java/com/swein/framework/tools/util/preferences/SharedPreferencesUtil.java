@@ -26,7 +26,7 @@ public class SharedPreferencesUtil {
         SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static void putValue(Context context, String key, int value)
@@ -34,7 +34,7 @@ public class SharedPreferencesUtil {
         SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static void putValue(Context context, String key, boolean value)
@@ -42,7 +42,7 @@ public class SharedPreferencesUtil {
         SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean getValue(Context context, String key, boolean dftValue)
@@ -96,6 +96,7 @@ public class SharedPreferencesUtil {
         SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
+        editor.apply();
     }
 
     public static void removeValue(Context context, String key)
@@ -103,6 +104,7 @@ public class SharedPreferencesUtil {
         SharedPreferences pref = context.getSharedPreferences(KEY, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove(key);
+        editor.apply();
     }
 
 
