@@ -31,7 +31,22 @@ public class DateUtil
         );
 
         return s;
+    }
 
+    public static String getCurrentDateTimeStringWithNoSpace(String connectionString) {
+        Calendar calendar = Calendar.getInstance();
+
+        String s = String.format("%d-%02d-%02d%s%02d:%02d:%02d",
+                calendar.get(Calendar.YEAR),
+                (calendar.get(Calendar.MONTH) + 1),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                connectionString,
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND)
+        );
+
+        return s;
     }
 
     public static String dateFormat(int date) {

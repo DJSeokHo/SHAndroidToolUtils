@@ -24,4 +24,5 @@ public class ESSArrows {
     public final static String ESS_DEVICE_DISABLE_SCREEN_CAPTURE = "ESS_DEVICE_DISABLE_SCREEN_CAPTURE";
 
     public final static String ESS_UPDATE_UI = "ESS_UPDATE_UI";
+
 }
