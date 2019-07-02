@@ -40,7 +40,9 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import com.swein.framework.module.camera.custom.camera2.custom.AutoFitTextureView;
 import com.swein.framework.module.camera.custom.camera2.tool.CameraTwoTool;
@@ -77,6 +79,7 @@ public class CameraTwoFragment extends Fragment {
     private AutoFitTextureView autoFitTextureView;
     private ImageButton imageButtonTakePhoto;
     private ImageButton imageButtonSwitchCamera;
+    private Switch switchLimit;
 
 
     private HandlerThread backgroundThread;
@@ -92,6 +95,7 @@ public class CameraTwoFragment extends Fragment {
 
     // preview
     private Size previewSize;
+    private boolean previewSizeLimit = false;
     private static final int MAX_PREVIEW_WIDTH = 1920;
     private static final int MAX_PREVIEW_HEIGHT = 1080;
     private TextureView.SurfaceTextureListener surfaceTextureListener = new TextureView.SurfaceTextureListener() {
@@ -511,12 +515,14 @@ public class CameraTwoFragment extends Fragment {
                 maxPreviewHeight = displaySize.x;
             }
 
-            if (maxPreviewWidth > MAX_PREVIEW_WIDTH) {
-                maxPreviewWidth = MAX_PREVIEW_WIDTH;
-            }
+            if(previewSizeLimit) {
+                if (maxPreviewWidth > MAX_PREVIEW_WIDTH) {
+                    maxPreviewWidth = MAX_PREVIEW_WIDTH;
+                }
 
-            if (maxPreviewHeight > MAX_PREVIEW_HEIGHT) {
-                maxPreviewHeight = MAX_PREVIEW_HEIGHT;
+                if (maxPreviewHeight > MAX_PREVIEW_HEIGHT) {
+                    maxPreviewHeight = MAX_PREVIEW_HEIGHT;
+                }
             }
 
             // Danger, W.R.! Attempting to use too large a preview size could  exceed the camera
@@ -809,6 +815,7 @@ public class CameraTwoFragment extends Fragment {
         autoFitTextureView = rootView.findViewById(R.id.autoFitTextureView);
         imageButtonTakePhoto = rootView.findViewById(R.id.imageButtonTakePhoto);
         imageButtonSwitchCamera = rootView.findViewById(R.id.imageButtonSwitchCamera);
+        switchLimit = rootView.findViewById(R.id.switchLimit);
     }
 
     private void setListener() {
@@ -824,6 +831,14 @@ public class CameraTwoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 switchCamera();
+            }
+        });
+
+        switchLimit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                previewSizeLimit = isChecked;
+                resetCamera();
             }
         });
     }
@@ -844,6 +859,38 @@ public class CameraTwoFragment extends Fragment {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private void resetCamera() {
+        imageButtonTakePhoto.setVisibility(View.GONE);
+        imageButtonSwitchCamera.setVisibility(View.GONE);
+
+        ThreadUtil.startThread(new Runnable() {
+            @Override
+            public void run() {
+
+                closeCamera();
+                stopBackgroundThread();
+
+                currentCameraId = cameraIdList.get(0);
+
+                startBackgroundThread();
+
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        activeAutoFitTextureView();
+                        ThreadUtil.startUIThread(500, new Runnable() {
+                            @Override
+                            public void run() {
+                                imageButtonTakePhoto.setVisibility(View.VISIBLE);
+                                imageButtonSwitchCamera.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private void switchCamera() {
@@ -881,8 +928,6 @@ public class CameraTwoFragment extends Fragment {
                 });
             }
         });
-
-
     }
 
     /**
