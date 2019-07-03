@@ -36,13 +36,17 @@ public class DateUtil
     public static String getCurrentDateTimeStringWithNoSpace(String connectionString) {
         Calendar calendar = Calendar.getInstance();
 
-        String s = String.format("%d-%02d-%02d%s%02d:%02d:%02d",
+        String s = String.format("%d%s%02d%s%02d%s%02d%s%02d%s%02d",
                 calendar.get(Calendar.YEAR),
+                connectionString,
                 (calendar.get(Calendar.MONTH) + 1),
+                connectionString,
                 calendar.get(Calendar.DAY_OF_MONTH),
                 connectionString,
                 calendar.get(Calendar.HOUR_OF_DAY),
+                connectionString,
                 calendar.get(Calendar.MINUTE),
+                connectionString,
                 calendar.get(Calendar.SECOND)
         );
 

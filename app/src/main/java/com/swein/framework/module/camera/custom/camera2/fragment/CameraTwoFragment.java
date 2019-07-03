@@ -55,6 +55,7 @@ import com.swein.framework.module.camera.custom.camera2.tool.CameraTwoTool;
 import com.swein.framework.module.camera.custom.camera2.tool.CompareSizesByArea;
 import com.swein.framework.tools.util.date.DateUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.fileupload.FileUploadUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
@@ -186,18 +187,30 @@ public class CameraTwoFragment extends Fragment {
                                     }
                                 }
 
-//                                uploadLogFile("http://192.168.0.84:8080/product_restful_api/upload_file", imageStorageFile.getAbsolutePath());
-                                uploadLogFile("http://172.30.1.56:8080/product_restful_api/upload_file",
-                                        imageStorageFile.getAbsolutePath(), imageStorageFile.getName());
+                                FileUploadUtil.uploadFile("http://192.168.0.84:8080/product_restful_api/upload_file",
+                                        imageStorageFile.getAbsolutePath(), imageStorageFile.getName(), "image/jpeg", new FileUploadUtil.FileUploadUtilDelegate() {
+                                            @Override
+                                            public void onSuccess(String response) {
+                                                ThreadUtil.startUIThread(0, new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ToastUtil.showShortToastNormal(getContext(), "Saved: " + imageStorageFile);
+                                                        imageStorageFile = null;
+                                                    }
+                                                });
+                                            }
 
+                                            @Override
+                                            public void onFailed() {
 
-                                ThreadUtil.startUIThread(0, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtil.showShortToastNormal(getContext(), "Saved: " + imageStorageFile);
-                                        imageStorageFile = null;
-                                    }
-                                });
+                                            }
+
+                                            @Override
+                                            public void onError() {
+
+                                            }
+                                        });
+
                             }
                         }
                     });
@@ -205,61 +218,6 @@ public class CameraTwoFragment extends Fragment {
             });
         }
     };
-
-    public static void uploadLogFile(String uploadUrl, String filePath, String fileName) {
-        ILog.iLogDebug(TAG, filePath);
-        File file = new File(filePath);
-        if(!file.exists()) {
-            ILog.iLogDebug(TAG, "no file");
-            return;
-        }
-
-        try {
-            URL url = new URL(uploadUrl);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-
-            con.setDoInput(true);
-            con.setDoOutput(true);
-            con.setUseCaches(false);
-
-            con.setConnectTimeout(50000);
-            con.setReadTimeout(50000);
-
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Connection", "Keep-Alive");
-
-            con.setRequestProperty("Content-Type", "image/jpeg");
-            con.addRequestProperty("File-Path", filePath);
-            con.addRequestProperty("File-Name", fileName);
-
-            DataOutputStream ds = new DataOutputStream(con.getOutputStream());
-
-
-            FileInputStream fStream = new FileInputStream(filePath);
-
-            int bufferSize = 1024;
-            byte[] buffer = new byte[bufferSize];
-
-            int length = -1;
-
-            while ((length = fStream.read(buffer)) != -1) {
-                ds.write(buffer, 0, length);
-            }
-            ds.flush();
-            fStream.close();
-            ds.close();
-
-            if(con.getResponseCode() == 200) {
-                ILog.iLogDebug(TAG, con.getResponseMessage());
-                ILog.iLogDebug(TAG, "file upload success：" + filePath);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            ILog.iLogDebug(TAG, "file upload failed：" + filePath);
-            ILog.iLogDebug(TAG, "error message：" + e.toString());
-        }
-    }
 
 
     private Semaphore cameraOpenCloseLock = new Semaphore(1); // prevent the app from exiting before closing the camera.
