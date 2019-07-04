@@ -27,11 +27,18 @@ public class SHVolley {
 
     private RequestQueue queue;
 
-    public SHVolley(Context context) {
-        queue = Volley.newRequestQueue(context);
+    private SHVolley() {}
+
+    private static SHVolley instance = new SHVolley();
+    public static SHVolley getInstance() {
+        return instance;
     }
 
-    public void requestUrlGet(String url, final SHVolleyDelegate shVolleyDelegate) {
+    public void requestUrlGet(Context context, String url, final SHVolleyDelegate shVolleyDelegate) {
+
+        if(queue == null) {
+            queue = Volley.newRequestQueue(context);
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -51,8 +58,11 @@ public class SHVolley {
         queue.add(stringRequest);
     }
 
-    public void requestUrlPost(String url, final SHVolleyDelegate shVolleyDelegate, @Nullable final HashMap<String, String> hashMap) {
+    public void requestUrlPost(Context context, String url, final SHVolleyDelegate shVolleyDelegate, @Nullable final HashMap<String, String> hashMap) {
 
+        if(queue == null) {
+            queue = Volley.newRequestQueue(context);
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

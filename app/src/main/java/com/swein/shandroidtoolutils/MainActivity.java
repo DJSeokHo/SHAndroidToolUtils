@@ -270,8 +270,7 @@ public class MainActivity extends Activity {
 
 
 
-        SHVolley shVolley = new SHVolley(this);
-        shVolley.requestUrlGet("https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
+        SHVolley.getInstance().requestUrlGet(this, "https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
             @Override
             public void onResponse(String response) {
 

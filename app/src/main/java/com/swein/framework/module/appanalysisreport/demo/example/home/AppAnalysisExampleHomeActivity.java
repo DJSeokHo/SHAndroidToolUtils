@@ -94,8 +94,7 @@ public class AppAnalysisExampleHomeActivity extends Activity {
                 @Override
                 public void run() {
 
-                    SHVolley shVolley = new SHVolley(AppAnalysisExampleHomeActivity.this);
-                    shVolley.requestUrlGet(s, new SHVolley.SHVolleyDelegate() {
+                    SHVolley.getInstance().requestUrlGet(AppAnalysisExampleHomeActivity.this, s, new SHVolley.SHVolleyDelegate() {
                         @Override
                         public void onResponse(String response) {
 
