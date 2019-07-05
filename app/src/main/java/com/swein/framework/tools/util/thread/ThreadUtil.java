@@ -64,12 +64,27 @@ public class ThreadUtil {
         return handle;
     }
 
+//    public static Future<?> startThread(final Runnable runnable) {
+//        Future<?> future = executor.submit(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    runnable.run();
+//                } catch (Exception exception) {
+//                    exception.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        return future;
+//    }
+
     public static Future<?> startThread(final Runnable runnable) {
         Future<?> future = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    runnable.run();
+                    new Thread(runnable).start();
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
