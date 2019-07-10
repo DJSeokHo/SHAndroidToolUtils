@@ -125,6 +125,46 @@ public class NetWorkUtil {
         return netType;
     }
 
+
+    public static String getNetWorkTypeString(Context context) {
+        String typeString = "NONE";
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            return typeString;
+        }
+        int nType = networkInfo.getType();
+        if (nType == ConnectivityManager.TYPE_WIFI) {
+            //WIFI
+            typeString = "WIFI";
+        }
+        else if (nType == ConnectivityManager.TYPE_MOBILE) {
+            int              nSubType         = networkInfo.getSubtype();
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService( Context.TELEPHONY_SERVICE);
+
+            if (nSubType == TelephonyManager.NETWORK_TYPE_LTE
+                    && !telephonyManager.isNetworkRoaming()) {
+                typeString = "4G";
+            }
+            else if (nSubType == TelephonyManager.NETWORK_TYPE_UMTS
+                    || nSubType == TelephonyManager.NETWORK_TYPE_HSDPA
+                    || nSubType == TelephonyManager.NETWORK_TYPE_EVDO_0
+                    && !telephonyManager.isNetworkRoaming()) {
+                typeString = "3G";
+            }
+            else if (nSubType == TelephonyManager.NETWORK_TYPE_GPRS
+                    || nSubType == TelephonyManager.NETWORK_TYPE_EDGE
+                    || nSubType == TelephonyManager.NETWORK_TYPE_CDMA
+                    && !telephonyManager.isNetworkRoaming()) {
+                typeString = "2G";
+            }
+            else {
+                typeString = "2G";
+            }
+        }
+        return typeString;
+    }
+
     /**
      * current wifi ip address that connect with
      * @param context
