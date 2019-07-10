@@ -8,11 +8,13 @@ import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -23,6 +25,7 @@ import android.text.TextUtils;
 
 import com.swein.framework.module.noticenotification.constants.NoticeConstants;
 import com.swein.framework.tools.util.toast.ToastUtil;
+import com.swein.shandroidtoolutils.MainActivity;
 import com.swein.shandroidtoolutils.R;
 
 import io.reactivex.annotations.Nullable;
@@ -367,6 +370,82 @@ public class NoticeNotificationManager {
 
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         notificationManager.createNotificationChannel(chan);
+    }
+
+    public Notification showNonRemovableNotification(Context context, String title, String msg, int smallIconResource, int largeIconResource) {
+
+        NotificationCompat.Builder builder;
+        String channelId = "";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channelId = createNotificationChannel(context, "my_service", "My Background Service");
+            builder = new NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(smallIconResource)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setOngoing(true)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), largeIconResource));
+        }
+        else {
+            builder = new NotificationCompat.Builder(context)
+                    .setSmallIcon(smallIconResource)
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setOngoing(true)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), largeIconResource));
+        }
+
+        // Creates an explicit intent for an Activity in your app
+
+        Intent resultIntent = new Intent(context, MainActivity.class);
+
+        /*
+            in your MainActivity
+            add
+            if (getIntent().getStringExtra("key").equals("value")) {
+            }
+            in the onCreate() to check your PendingIntent
+         */
+//        resultIntent.putExtra("key", "value");
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+
+
+        // click to do what ???
+//        PendingIntent resultPendingIntent =
+//                stackBuilder.getPendingIntent(
+//                        1,
+//                        PendingIntent.FLAG_UPDATE_CURRENT
+//                );
+
+//        mBuilder.setContentIntent(resultPendingIntent);
+
+        return builder.build();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private String createNotificationChannel(Context context, String channelId, String channelName){
+        NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE);
+        notificationChannel.setLightColor(Color.BLUE);
+        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(notificationChannel);
+        return channelId;
+    }
+
+    public void hideNonRemovableNotification(Context context, int id) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(id);
     }
 
 }

@@ -16,8 +16,16 @@ import java.util.Map;
 
 /**
  * Created by seokho on 01/02/2018.
+ *
+ * After Android 9.0
+ * volley can not access http
+ *
+ * so add this in AndroidManifest.xml between the <application></application>
+ *
+ * <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+ *
+ * and add android:usesCleartextTraffic="true" in the <application>
  */
-
 public class SHVolley {
 
     public interface SHVolleyDelegate {
