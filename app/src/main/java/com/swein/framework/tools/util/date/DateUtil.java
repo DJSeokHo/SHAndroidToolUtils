@@ -18,6 +18,11 @@ public class DateUtil
         return date;
     }
 
+    public static String getCurrentDateTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(new Date(System.currentTimeMillis()));
+    }
+
     public static String getCurrentDateTimeString() {
         Calendar calendar = Calendar.getInstance();
 
