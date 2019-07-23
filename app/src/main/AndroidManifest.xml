@@ -48,7 +48,8 @@
         android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity"></activity>
+        <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity"></activity>
+        <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
         <activity android:name="com.swein.framework.module.camera.system.SystemCameraDemoActivity" />
         <activity android:name="com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity" />
         <activity
