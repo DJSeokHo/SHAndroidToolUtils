@@ -14,6 +14,7 @@ import com.swein.shandroidtoolutils.R;
  */
 public class SubTwoFragment extends Fragment {
 
+    private View rootView;
 
     public SubTwoFragment() {
         // Required empty public constructor
@@ -24,7 +25,20 @@ public class SubTwoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sub_two, container, false);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_sub_two, container, false);
+            // findView
+        }
+
+        return rootView;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (null != rootView) {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
+    }
 }
