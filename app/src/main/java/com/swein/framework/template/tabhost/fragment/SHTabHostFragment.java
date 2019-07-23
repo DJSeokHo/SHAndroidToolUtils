@@ -24,7 +24,7 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SHTabHostFragment extends Fragment implements TabHost.OnTabChangeListener{
+public class SHTabHostFragment extends Fragment {
 
 
     private View rootView;
@@ -90,11 +90,6 @@ public class SHTabHostFragment extends Fragment implements TabHost.OnTabChangeLi
             }
         });
 
-    }
-
-    @Override
-    public void onTabChanged(String tabId) {
-        changeTab(tabId);
     }
 
     void changeTab( String tabId ) {
