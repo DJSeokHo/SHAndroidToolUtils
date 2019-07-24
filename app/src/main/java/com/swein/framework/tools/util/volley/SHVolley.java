@@ -28,6 +28,8 @@ import java.util.Map;
  */
 public class SHVolley {
 
+    private final static String TAG = "SHVolley";
+
     public interface SHVolleyDelegate {
         void onResponse(String response);
         void onErrorResponse(VolleyError error);
@@ -63,6 +65,7 @@ public class SHVolley {
                 }
         );
 
+        stringRequest.setTag(TAG);
         queue.add(stringRequest);
     }
 
@@ -105,7 +108,16 @@ public class SHVolley {
             }
         };
 
+        stringRequest.setTag(TAG);
         queue.add(stringRequest);
     }
 
+    /**
+     * add this when MainActivity finish
+     */
+    public void close() {
+        if (queue != null) {
+            queue.cancelAll(TAG);
+        }
+    }
 }
