@@ -66,6 +66,10 @@ public class TabCustomSlidingLayoutActivity extends FragmentActivity {
         fragmentList.add(subTwoFragment);
         fragmentList.add(subThreeFragment);
 
+        /*
+        when you use tab layout in fragment
+        change getSupportFragmentManager() to getChildFragmentManager()
+         */
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager())
         {
 
