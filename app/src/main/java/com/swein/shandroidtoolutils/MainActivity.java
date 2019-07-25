@@ -25,6 +25,7 @@ import com.swein.framework.module.camera.system.SHCameraIntent;
 import com.swein.framework.module.camera.system.SystemCameraDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity;
+import com.swein.framework.template.tabhost.activity.SHTabHostActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -320,7 +321,7 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
 

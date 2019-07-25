@@ -94,10 +94,6 @@ public class SHTabHostFragment extends Fragment {
 
     void changeTab( String tabId ) {
 
-        if (getFragmentManager() == null) {
-            return;
-        }
-
         resetTabState();
 
         Fragment currentFragment;
@@ -106,11 +102,11 @@ public class SHTabHostFragment extends Fragment {
         if (HOME_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
-            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
-            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+            currentFragment = getChildFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getChildFragmentManager().findFragmentByTag(lastTapTag);
 
             if(lastFragment != null) {
-                ActivityUtil.hideFragment(getActivity(), lastFragment);
+                ActivityUtil.hideFragment(getChildFragmentManager(), lastFragment);
             }
 
             if(currentFragment == null) {
@@ -118,7 +114,7 @@ public class SHTabHostFragment extends Fragment {
                 ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
             }
             else {
-                ActivityUtil.showFragment(getActivity(), currentFragment);
+                ActivityUtil.showFragment(getChildFragmentManager(), currentFragment);
             }
 
             lastTapTag = currentTapTag;
@@ -127,11 +123,11 @@ public class SHTabHostFragment extends Fragment {
         else if(FRIEND_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
-            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
-            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+            currentFragment = getChildFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getChildFragmentManager().findFragmentByTag(lastTapTag);
 
             if(lastFragment != null) {
-                ActivityUtil.hideFragment(getActivity(), lastFragment);
+                ActivityUtil.hideFragment(getChildFragmentManager(), lastFragment);
             }
 
             if(currentFragment == null) {
@@ -139,7 +135,7 @@ public class SHTabHostFragment extends Fragment {
                 ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
             }
             else {
-                ActivityUtil.showFragment(getActivity(), currentFragment);
+                ActivityUtil.showFragment(getChildFragmentManager(), currentFragment);
             }
 
             lastTapTag = currentTapTag;
@@ -149,11 +145,11 @@ public class SHTabHostFragment extends Fragment {
         else if(EVENT_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
-            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
-            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+            currentFragment = getChildFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getChildFragmentManager().findFragmentByTag(lastTapTag);
 
             if(lastFragment != null) {
-                ActivityUtil.hideFragment(getActivity(), lastFragment);
+                ActivityUtil.hideFragment(getChildFragmentManager(), lastFragment);
             }
 
             if(currentFragment == null) {
@@ -161,7 +157,7 @@ public class SHTabHostFragment extends Fragment {
                 ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
             }
             else {
-                ActivityUtil.showFragment(getActivity(), currentFragment);
+                ActivityUtil.showFragment(getChildFragmentManager(), currentFragment);
             }
 
             lastTapTag = currentTapTag;
@@ -171,11 +167,11 @@ public class SHTabHostFragment extends Fragment {
         else if(PROFILE_TAB.compareTo(tabId) == 0) {
             currentTapTag = tabId;
 
-            currentFragment = getFragmentManager().findFragmentByTag(currentTapTag);
-            lastFragment = getFragmentManager().findFragmentByTag(lastTapTag);
+            currentFragment = getChildFragmentManager().findFragmentByTag(currentTapTag);
+            lastFragment = getChildFragmentManager().findFragmentByTag(lastTapTag);
 
             if(lastFragment != null) {
-                ActivityUtil.hideFragment(getActivity(), lastFragment);
+                ActivityUtil.hideFragment(getChildFragmentManager(), lastFragment);
             }
 
             if(currentFragment == null) {
@@ -183,7 +179,7 @@ public class SHTabHostFragment extends Fragment {
                 ActivityUtil.addFragmentWithTAG(getActivity(), R.id.shTabFragmentContainer, currentFragment, currentTapTag);
             }
             else {
-                ActivityUtil.showFragment(getActivity(), currentFragment);
+                ActivityUtil.showFragment(getChildFragmentManager(), currentFragment);
             }
 
             lastTapTag = currentTapTag;
