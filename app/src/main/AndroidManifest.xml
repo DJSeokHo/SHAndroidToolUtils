@@ -49,8 +49,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity"></activity>
+        <activity android:name="com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity"></activity>
+        <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity" />
         <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
         <activity android:name="com.swein.framework.module.camera.system.SystemCameraDemoActivity" />
         <activity android:name="com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity" />
@@ -224,8 +224,9 @@
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>
