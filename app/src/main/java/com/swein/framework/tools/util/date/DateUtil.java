@@ -12,6 +12,15 @@ import java.util.TimeZone;
 public class DateUtil
 {
 
+    public static String getDateFromMilliSeconds(long milliSeconds)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
+
     public static String getCurrentDateFromFastDateFormat(String DATE_FORMAT) {
         FastDateFormat fastDateFormat = FastDateFormat.getInstance( DATE_FORMAT, TimeZone.getDefault(), Locale.getDefault());
         String         date           = fastDateFormat.format( new Date( ) );

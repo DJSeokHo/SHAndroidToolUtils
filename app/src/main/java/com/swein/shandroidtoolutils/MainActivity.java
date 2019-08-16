@@ -20,13 +20,8 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity;
-import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
-import com.swein.framework.module.camera.system.SHCameraIntent;
-import com.swein.framework.module.camera.system.SystemCameraDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity;
-import com.swein.framework.template.tabhost.activity.SHTabHostActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -278,7 +273,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, TabCustomSlidingLayoutActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, TabCustomSlidingLayoutActivity.class);
 
 
 
@@ -331,7 +326,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, OKHttpDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, OKHttpDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
 
