@@ -1,5 +1,6 @@
 package com.swein.shandroidtoolutils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,13 +20,8 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity;
-import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
-import com.swein.framework.module.camera.system.SHCameraIntent;
-import com.swein.framework.module.camera.system.SystemCameraDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity;
-import com.swein.framework.template.tabhost.activity.SHTabHostActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -33,6 +29,7 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.location.SHLocation;
 import com.swein.framework.tools.util.location.geo.SHGeoCoder;
+import com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.regularexpression.RegularExpressionUtil;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
@@ -69,6 +66,12 @@ public class MainActivity extends Activity {
 
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
+    };
+
 
     boolean closeFlag = false;
 
@@ -214,13 +217,14 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
 
 
-        int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
-
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_READ_PHONE_STATE);
         }
         else {
             //TODO
+            finish();
         }
 
         TestObject testObject = new TestObject();
@@ -269,7 +273,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, TabCustomSlidingLayoutActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, TabCustomSlidingLayoutActivity.class);
 
 
 
@@ -321,7 +325,8 @@ public class MainActivity extends Activity {
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHCardViewActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, SHTabHostActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, OKHttpDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHTabSlidingHostActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHViewPagerFragmentActivity.class);
 
