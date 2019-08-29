@@ -52,7 +52,6 @@
         <activity android:name="com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity" />
         <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity" />
         <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
-        <activity android:name="com.swein.framework.module.camera.system.SystemCameraDemoActivity" />
         <activity android:name="com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity" />
         <activity
             android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"
@@ -235,8 +234,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-            </provider>
-
+        </provider>
     </application>
 
 </manifest>
