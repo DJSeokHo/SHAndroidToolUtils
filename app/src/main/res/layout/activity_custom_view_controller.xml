@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerDemoActivity"
-    android:id="@+id/rootContainer">
+    tools:context="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity">
 
     <FrameLayout
         android:id="@+id/frameLayoutNavigation"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
-
-
+        android:layout_height="80dp"></FrameLayout>
 </FrameLayout>

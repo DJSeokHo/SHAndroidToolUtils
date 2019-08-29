@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -267,6 +269,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, SystemCameraDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CameraTwoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, TabCustomSlidingLayoutActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomViewControllerActivity.class);
 
 
 

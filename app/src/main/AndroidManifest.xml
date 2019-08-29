@@ -49,6 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity"></activity>
         <activity android:name="com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity" />
         <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity" />
         <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
