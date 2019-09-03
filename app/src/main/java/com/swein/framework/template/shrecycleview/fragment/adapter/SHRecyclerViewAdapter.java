@@ -41,8 +41,8 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
     public void loadMoreList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
         this.shRecyclerViewItemDataModelList.addAll(shRecyclerViewItemDataModelList);
-
-        notifyDataSetChanged();
+        notifyItemRangeChanged(this.shRecyclerViewItemDataModelList.size() - shRecyclerViewItemDataModelList.size() + 1, shRecyclerViewItemDataModelList.size());
+//        notifyDataSetChanged();
     }
 
     public void reloadList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
