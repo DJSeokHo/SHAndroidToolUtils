@@ -171,7 +171,16 @@ public class BitmapUtil {
         return canvasBitmap;
     }
 
-
+    /**
+     * use this when OOM
+     */
+    public static Bitmap getBitmapWithoutOOM(String file) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
+        return BitmapFactory.decodeFile(file, options);
+    }
 
     public static void rotateImage(String file, int angle){
 
