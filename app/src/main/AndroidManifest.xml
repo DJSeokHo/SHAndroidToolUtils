@@ -3,7 +3,211 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.swein.shandroidtoolutils">
     <!-- 允许程序监视、修改或放弃拨打电话 -->
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- 录音权限 -->
+    <application
+        android:name=".application.SHAndroidToolUtilsApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name="com.swein.framework.module.customcalender.demo.CustomCalenderActivity"></activity>
+        <activity android:name="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity" />
+        <activity android:name="com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity" />
+        <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity" />
+        <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
+        <activity android:name="com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity" />
+        <activity
+            android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"
+            android:theme="@android:style/Theme.NoTitleBar" /> <!-- google analytics -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.IMAGE_CAPTURE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.swein.framework.module.spacemanage.ManageSpaceActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.swein.framework.template.toolbar.ToolbarActivity"
+            android:theme="@style/AppThemeToolbar" /> <!-- google analytics -->
+        <!--
+            add android:configChanges="orientation|screenSize"
+            can make activity not re-create when screen size and orientation changed
+        -->
+        <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
+        <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
+        <!--
+        ATTENTION: This was auto-generated to add Google Play services to your project for
+        App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
+
+        <activity android:name="com.swein.pattern.observer.activity.JustActivity" />
+        <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity" />
+        <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
+        <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
+
+        <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity" />
+
+        <activity
+            android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
+        <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity" />
+        <activity android:name="com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity" />
+        <activity android:name="com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage" />
+        <activity
+            android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
+            android:screenOrientation="portrait" /> <!-- GCM -->
+        <!-- FCM -->
+        <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" />
+        <activity
+            android:name="com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity android:name="com.swein.framework.template.doublescroll.SHDoubleScrollActivity" />
+
+        <activity android:name="com.swein.framework.module.screenrecording.activity.ScreenRecordingActivity" />
+        <activity android:name="com.swein.framework.module.screenshot.screenshotmethod.ScreenShotActivity" />
+        <activity
+            android:name="com.swein.framework.module.easyscreenrecord.activity.ScreenRecordActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
+        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
+        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" /> <!-- phone call recorder -->
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name="com.swein.framework.module.aop.demo.main.AOPExampleMainActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> <!-- <receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.NEW_OUTGOING_CALL"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- phone call recorder -->
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name="com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity
+            android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name="com.swein.framework.module.cameracolorfilter.demo.CameraColorFilterActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.swein.shandroidtoolutils.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.swein.framework.tools.util.shortcut.ShortcutReceiver"
+            android:exported="false" />
+        <receiver android:name="com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver">
+            <intent-filter>
+                <action android:name="com.android.broadcast.RECEIVER_ACTION" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+        <service android:name="com.swein.framework.module.fcmpush.service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.swein.framework.module.fcmpush.service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService"
+            android:process=":recording" />
+        <service android:name="com.swein.framework.module.easyscreenrecord.service.ScreenRecordModeService" />
+
+        <uses-library android:name="android.test.runner" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application> <!-- 录音权限 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
@@ -29,213 +233,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
-
-    <application
-        android:name=".application.SHAndroidToolUtilsApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:manageSpaceActivity="com.swein.framework.module.spacemanage.ManageSpaceActivity"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity"></activity>
-        <activity android:name="com.swein.framework.tools.util.okhttp.demo.OKHttpDemoActivity" />
-        <activity android:name="com.swein.framework.template.tabcustomslidinglayout.activity.TabCustomSlidingLayoutActivity" />
-        <activity android:name="com.swein.framework.module.camera.custom.camera2.activity.CameraTwoActivity" />
-        <activity android:name="com.swein.framework.template.handlerthread.HandlerThreadTemplateActivity" />
-        <activity
-            android:name="com.swein.framework.template.nestedscrollwithfixedbar.NestedScrollWithFixedBarActivity"
-            android:theme="@android:style/Theme.NoTitleBar" /> <!-- google analytics -->
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.swein.framework.tools.util.shortcut.ShortcutReceiver"
-            android:exported="false" />
-
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" /> <!-- google analytics -->
-        <!--
-            add android:configChanges="orientation|screenSize"
-            can make activity not re-create when screen size and orientation changed
-        -->
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.media.action.IMAGE_CAPTURE" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.swein.framework.module.spacemanage.ManageSpaceActivity"
-            android:screenOrientation="portrait" />
-        <!--
-        ATTENTION: This was auto-generated to add Google Play services to your project for
-        App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <activity
-            android:name="com.swein.framework.template.toolbar.ToolbarActivity"
-            android:theme="@style/AppThemeToolbar" />
-        <activity android:name="com.swein.framework.module.devicepolicymanager.activity.DevicePolicyManagerActivity" />
-        <activity android:name="com.swein.framework.module.navertranslation.activity.NaverTranslationActivity" />
-        <activity android:name="com.swein.framework.module.dragmenu.view.activity.DMMainActivity" />
-
-        <uses-library android:name="android.test.runner" />
-
-        <activity android:name="com.swein.pattern.observer.activity.JustActivity" />
-        <activity android:name="com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity" />
-        <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
-        <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
-        <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity" />
-        <activity
-            android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
-            android:launchMode="singleTask" /> <!-- GCM -->
-        <!-- FCM -->
-        <service android:name="com.swein.framework.module.fcmpush.service.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name="com.swein.framework.module.fcmpush.service.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
-        <receiver android:name="com.swein.framework.module.fcmpush.receiver.FirebaseIntentReceiver">
-            <intent-filter>
-                <action android:name="com.android.broadcast.RECEIVER_ACTION" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name="com.swein.framework.module.datepicker.activity.DatePickerActivity" />
-        <activity android:name="com.swein.framework.template.tabslidinghost.activity.SHTabSlidingHostActivity" />
-        <activity android:name="com.swein.framework.template.viewpagerfragment.activity.SHViewPagerFragmentActivity" />
-        <activity android:name="com.swein.framework.module.fcmpush.activity.FirebaseCloudMessage" />
-        <activity
-            android:name="com.swein.framework.module.camera.custom.camera1.activity.CameraOneActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name="com.swein.framework.module.devicestoragescanner.activity.DeviceStorageScannerActivity" /> <!-- phone call recorder -->
-        <activity
-            android:name="com.swein.framework.module.phonecallrecoder.demo.PhoneCallRecorderDemoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <service
-            android:name="com.swein.framework.module.phonecallrecoder.service.PhoneCallRecordService"
-            android:process=":recording" /> <!-- <receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.NEW_OUTGOING_CALL"/> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-        <!-- phone call recorder -->
-        <activity android:name="com.swein.framework.template.doublescroll.SHDoubleScrollActivity" />
-        <activity android:name="com.swein.framework.module.screenrecording.activity.ScreenRecordingActivity" />
-        <activity android:name="com.swein.framework.module.screenshot.screenshotmethod.ScreenShotActivity" />
-
-        <service android:name="com.swein.framework.module.easyscreenrecord.service.ScreenRecordModeService" />
-
-        <activity
-            android:name="com.swein.framework.module.easyscreenrecord.activity.ScreenRecordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
-        <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
-        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
-        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.aop.demo.main.AOPExampleMainActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.template.webview.demo.WebViewTemplateActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.noticenotification.demo.NoticeNotificationActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.videosplash.demo.VideoSplashActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.cameracolorfilter.demo.CameraColorFilterActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.swein.shandroidtoolutils.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-    </application>
 
 </manifest>
