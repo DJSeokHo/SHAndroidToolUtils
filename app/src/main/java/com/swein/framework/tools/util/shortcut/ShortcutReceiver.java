@@ -6,6 +6,13 @@ import android.content.Intent;
 
 import com.swein.framework.tools.util.toast.ToastUtil;
 
+/**
+ * in AndroidManifest.xml
+ *
+ * <receiver
+ *             android:name="com.swein.framework.tools.util.shortcut.ShortcutReceiver"
+ *             android:exported="false" />
+ */
 public class ShortcutReceiver extends BroadcastReceiver {
 
     @Override

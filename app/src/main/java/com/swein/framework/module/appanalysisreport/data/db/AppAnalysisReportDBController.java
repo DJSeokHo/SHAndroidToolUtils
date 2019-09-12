@@ -225,7 +225,7 @@ public class AppAnalysisReportDBController extends SQLiteOpenHelper {
 
             id = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
         }
-
+        cursor.close();
         return id;
     }
 

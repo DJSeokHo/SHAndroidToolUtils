@@ -1,5 +1,6 @@
 package com.swein.framework.tools.util.views;
 
+import android.content.Context;
 import android.graphics.Outline;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -12,6 +13,11 @@ import android.view.ViewOutlineProvider;
  */
 
 public class ViewUtil {
+
+    public static View inflateView(Context context, int resource, ViewGroup viewGroup) {
+        return LayoutInflater.from(context).inflate(resource, viewGroup);
+    }
+
 
     public static View viewLayoutInflater(int resourceId, ViewGroup parent, boolean attachToRoot) {
         return LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, attachToRoot);

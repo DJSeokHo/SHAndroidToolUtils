@@ -30,7 +30,7 @@ public class SHAndroidToolUtilsApplication extends Application {
 //        CrashExceptionHandler.getInstance().init(getApplicationContext());
 
         // app analysis report
-        Logger.getInstance().init(getApplicationContext(), LoggerProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
+//        Logger.getInstance().init(getApplicationContext(), LoggerProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
 
     }
 
@@ -48,7 +48,7 @@ public class SHAndroidToolUtilsApplication extends Application {
 
     @Override
     protected void finalize() throws Throwable {
-        Logger.getInstance().close();
+//        Logger.getInstance().close();
         super.finalize();
     }
 }
