@@ -3,6 +3,7 @@ package com.swein.framework.tools.util.picasso;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -19,6 +20,11 @@ public class SHPicasso {
         return instance;
     }
 
+    public void loadImage(Context context, String url, ImageView imageView) {
+
+        Picasso.with(context).load(url).fit().memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE).into(imageView);
+    }
+
     public void loadImage(Context context, String url, ImageView imageView, boolean placeHolder, int resource) {
         if(placeHolder) {
             Picasso.with(context).load(url).placeholder(resource).error(resource).into(imageView);
@@ -27,6 +33,7 @@ public class SHPicasso {
 
         Picasso.with(context).load(url).into(imageView);
     }
+
 
     public void loadImage(Context context, int imageResource, ImageView imageView, boolean placeHolder, int resource) {
         if(placeHolder) {

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.swein.framework.template.mvp.MVPDemoActivity"></activity>
+        <activity android:name="com.swein.framework.template.svg.demo.SVGDemoActivity"></activity>
+        <activity android:name="com.swein.framework.template.mvp.MVPDemoActivity" />
         <activity android:name="com.swein.framework.template.mvc.MVCDemoActivity" />
         <activity android:name="com.swein.framework.module.customcalender.demo.CustomCalenderActivity" />
         <activity android:name="com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity" />

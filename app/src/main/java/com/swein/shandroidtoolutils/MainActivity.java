@@ -4,6 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,11 +38,15 @@ import com.swein.framework.tools.util.location.geo.SHGeoCoder;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.shortcut.ShortCutUtil;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 
@@ -222,7 +229,6 @@ public class MainActivity extends Activity {
         }
         else {
             //TODO
-            finish();
         }
 
         TestObject testObject = new TestObject();
@@ -275,7 +281,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomViewControllerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCalenderActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVCDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
 
 
 
@@ -292,6 +298,43 @@ public class MainActivity extends Activity {
         });
 
         imageViewMain1 = findViewById(R.id.imageViewMain1);
+
+        ThreadUtil.startThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+//                    String imageUrl= "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR";
+//                    URL url = new URL(imageUrl);
+//                    HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
+//
+//                    InputStream is = connection.getInputStream();
+//                    Bitmap img = BitmapFactory.decodeStream(is);
+
+
+                    URL url = new URL("http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR");
+                    Object content = url.getContent();
+
+                    InputStream is = (InputStream) content;
+                    Drawable d = Drawable.createFromStream(is, "src");
+
+
+                    ThreadUtil.startUIThread(0, new Runnable() {
+                        @Override
+                        public void run() {
+//                            imageViewMain1.setImageBitmap(img);
+                            imageViewMain1.setImageDrawable(d);
+                        }
+                    });
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+//        SHPicasso.getInstance().loadImage(this, "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR", imageViewMain1);
 
         imageViewMain2 = findViewById(R.id.imageViewMain2);
 

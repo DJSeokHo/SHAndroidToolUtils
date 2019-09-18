@@ -13,6 +13,8 @@ package com.swein.framework.tools.util.eventsplitshot.subject;
 public class ESSArrows {
 
 
+    public final static String NETWORK_DISCONNECTED = "NETWORK_DISCONNECTED";
+
     //TODO add your subjects here
     public final static String ESS_DEVICE_MANAGER_USABLE = "ESS_DEVICE_MANAGER_USABLE";
     public final static String ESS_DEVICE_MANAGER_DISABLE = "ESS_DEVICE_MANAGER_DISABLE";

@@ -372,14 +372,15 @@ public class NoticeNotificationManager {
         notificationManager.createNotificationChannel(chan);
     }
 
+    NotificationCompat.Builder nonRemoveableNotificationbuilder;
+
     public Notification showNonRemovableNotification(Context context, String title, String msg, int smallIconResource, int largeIconResource) {
 
-        NotificationCompat.Builder builder;
         String channelId = "";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             channelId = createNotificationChannel(context, "my_service", "My Background Service");
-            builder = new NotificationCompat.Builder(context, channelId)
+            nonRemoveableNotificationbuilder = new NotificationCompat.Builder(context, channelId)
                     .setSmallIcon(smallIconResource)
                     .setContentTitle(title)
                     .setContentText(msg)
@@ -387,7 +388,7 @@ public class NoticeNotificationManager {
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), largeIconResource));
         }
         else {
-            builder = new NotificationCompat.Builder(context)
+            nonRemoveableNotificationbuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(smallIconResource)
                     .setContentTitle(title)
                     .setContentText(msg)
@@ -428,7 +429,7 @@ public class NoticeNotificationManager {
 
 //        mBuilder.setContentIntent(resultPendingIntent);
 
-        return builder.build();
+        return nonRemoveableNotificationbuilder.build();
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -446,6 +447,11 @@ public class NoticeNotificationManager {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(id);
+    }
+
+    public void updateNotification(NotificationManager notificationManager, int id, String msg) {
+        nonRemoveableNotificationbuilder.setContentText("uploading " + msg);
+        notificationManager.notify(id, nonRemoveableNotificationbuilder.build());
     }
 
 }

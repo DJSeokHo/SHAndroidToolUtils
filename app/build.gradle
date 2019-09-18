@@ -94,6 +94,8 @@ dependencies {
     implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
 
     implementation 'org.jsoup:jsoup:1.10.2'
+    implementation group: 'com.jcraft', name: 'jsch', version: '0.1.52'
+    implementation 'commons-net:commons-net:3.5'
 
     runtimeOnly files('libs/supportlib.jar')
     implementation project(path: ':zxinglite')
