@@ -1,4 +1,4 @@
-package com.swein.framework.template.shrecycleview.shrecycleviewconstants;
+package com.swein.framework.template.shrecycleview.normalmode.shrecycleviewconstants;
 
 /**
  * Created by seokho on 01/02/2018.

@@ -1,4 +1,4 @@
-package com.swein.framework.template.shrecycleview.fragment;
+package com.swein.framework.template.shrecycleview.normalmode.fragment;
 
 
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.swein.framework.template.shrecycleview.fragment.adapter.SHRecyclerViewAdapter;
-import com.swein.framework.template.shrecycleview.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
-import com.swein.framework.template.shrecycleview.shrecycleviewconstants.Constants;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.SHRecyclerViewAdapter;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.normalmode.shrecycleviewconstants.Constants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.views.ViewUtil;
 import com.swein.shandroidtoolutils.R;
