@@ -59,7 +59,6 @@ public class MainActivity extends Activity {
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
-    private SHLocation location;
 
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
@@ -106,15 +105,11 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(location != null) {
-                    return;
-                }
+                SHLocation.getInstance().init(MainActivity.this);
 
-                location = new SHLocation(MainActivity.this, new SHLocation.SHLocationDelegate() {
-
+                SHLocation.getInstance().requestLocation(new SHLocation.SHLocationDelegate() {
                     @Override
                     public void onLocation(double longitude, double latitude, long time) {
-
                         try {
 
                             List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
@@ -122,19 +117,13 @@ public class MainActivity extends Activity {
                                 ILog.iLogDebug(TAG, address.toString());
                             }
 
-                            location.clear();
-                            location = null;
+                            SHLocation.getInstance().clear();
                         }
                         catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, false);
-
-
-                location.requestLocation();
-
             }
         });
 

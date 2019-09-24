@@ -26,4 +26,32 @@ public class SHGeoCoder {
 
     }
 
+    public String getCountryName(Address address) {
+        return address.getCountryName();
+    }
+
+    public String getPostalCode(Address address) {
+        return address.getPostalCode();
+    }
+
+    public String getCountryCode(Address address) {
+        return address.getCountryCode();
+    }
+
+    public String getAdminArea(Address address) {
+        return address.getAdminArea();
+    }
+
+    public String getSubAdminArea(Address address) {
+        return address.getSubAdminArea();
+    }
+
+    public String getThoroughfare(Address address) {
+        return address.getThoroughfare();
+    }
+
+    public String getSubLocality(Address address) {
+        return address.getSubLocality();
+    }
+
 }

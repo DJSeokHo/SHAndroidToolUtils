@@ -1,10 +1,14 @@
 package com.swein.framework.module.location;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.module.location.model.LocationModel;
@@ -20,13 +24,12 @@ import com.swein.framework.module.location.model.LocationModel;
 public class SHLocation {
 
     private final static String TAG = "SHLocation";
+    private final static int LOCATION_SERVICE_REQUEST_CODE = 801;
 
-    /* gps max wait time */
-    public static final int GPS_WATI_TIME_ONE_MINUTES = 1000 * 60 * 1;
-
-    /* if network accuracy small than 100 meter than will use it */
-    /* 20 is same as gps */
-    public static final float NETWORK_ACCURACY_MIN = 20.0f;
+    private static SHLocation instance = new SHLocation();
+    public static SHLocation getInstance() {
+        return instance;
+    }
 
     public interface SHLocationDelegate {
         void onLocation(double longitude, double latitude, long time);
@@ -35,6 +38,7 @@ public class SHLocation {
     private LocationManager locationManager;
     private Context context;
     private SHLocationDelegate shLocationDelegate;
+
 
     private Location bestLocation;
 
@@ -59,7 +63,7 @@ public class SHLocation {
             }
 
             ILog.iLogDebug(TAG, locationModel.toJSONString());
-            showLocation(location, shLocationDelegate);
+            showLocation(location);
         }
 
         @Override
@@ -69,7 +73,7 @@ public class SHLocation {
 
         @Override
         public void onProviderEnabled(String provider) {
-            requestLocation();
+
         }
 
         @Override
@@ -97,7 +101,7 @@ public class SHLocation {
             }
 
             ILog.iLogDebug(TAG, locationModel.toJSONString());
-            showLocation(location, shLocationDelegate);
+            showLocation(location);
         }
 
         @Override
@@ -107,7 +111,7 @@ public class SHLocation {
 
         @Override
         public void onProviderEnabled(String provider) {
-            requestLocation();
+
         }
 
         @Override
@@ -127,22 +131,41 @@ public class SHLocation {
             locationModel.accuracy = location.getAccuracy();
         }
 
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            if(location.hasVerticalAccuracy()) {
-//                locationModel.verticalAccuracy = location.getVerticalAccuracyMeters();
-//            }
-//        }
-
         return locationModel;
     }
 
-    public SHLocation(Context context, SHLocationDelegate shLocationDelegate, boolean requestLocationJustOnce) {
-        this.requestLocationJustOnce = requestLocationJustOnce;
-        this.context = context;
-        this.shLocationDelegate = shLocationDelegate;
+    private SHLocation() {
     }
 
-    public void requestLocation() {
+    public void init(Context context) {
+        this.context = context;
+    }
+
+    public boolean isLocationServiceEnable(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        return gps || network;
+    }
+
+    public void openLocationServiceSetting(Activity activity) {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        activity.startActivityForResult(intent , LOCATION_SERVICE_REQUEST_CODE);
+    }
+
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        if (requestCode == LOCATION_SERVICE_REQUEST_CODE) {
+            if (!isLocationServiceEnable(activity)) {
+                // not open gps
+            }
+            else {
+                // open gps
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    public void requestLocation(SHLocationDelegate shLocationDelegate, boolean requestLocationJustOnce) {
 
         if (locationManager == null) {
             locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -152,12 +175,14 @@ public class SHLocation {
             return;
         }
 
+        this.requestLocationJustOnce = requestLocationJustOnce;
+        this.shLocationDelegate = shLocationDelegate;
+
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkLocationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsLocationListener);
     }
 
-    private void showLocation(Location location, SHLocationDelegate shLocationDelegate) {
-        ILog.iLogDebug(TAG, location.getLatitude() + " " + location.getLongitude());
+    private void showLocation(Location location) {
         shLocationDelegate.onLocation(location.getLongitude(), location.getLatitude(), System.currentTimeMillis());
     }
 
@@ -180,6 +205,9 @@ public class SHLocation {
         locationManager.removeUpdates(gpsLocationListener);
 
         bestLocation = null;
+
+        locationManager = null;
+        shLocationDelegate = null;
     }
 
     @Override
