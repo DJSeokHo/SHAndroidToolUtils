@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
                     public void onLocation(double longitude, double latitude, long time) {
                         try {
 
-                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
+                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 2);
                             for(Address address : addressList) {
                                 ILog.iLogDebug(TAG, address.toString());
                             }
