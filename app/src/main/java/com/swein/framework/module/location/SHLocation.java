@@ -205,9 +205,6 @@ public class SHLocation {
         locationManager.removeUpdates(gpsLocationListener);
 
         bestLocation = null;
-
-        locationManager = null;
-        shLocationDelegate = null;
     }
 
     @Override
