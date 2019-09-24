@@ -38,7 +38,7 @@ import com.swein.framework.template.webview.javascript.JSResponder;
 import com.swein.framework.tools.util.bitmaps.BitmapUtil;
 import com.swein.framework.tools.util.cookie.CookieUtil;
 import com.swein.framework.tools.util.endec.EndecUtil;
-import com.swein.framework.tools.util.location.SHLocation;
+import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 

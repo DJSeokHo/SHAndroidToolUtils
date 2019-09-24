@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.location.geo;
+package com.swein.framework.module.location.geo;
 
 import android.content.Context;
 import android.location.Address;

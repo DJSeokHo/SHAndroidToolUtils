@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.location;
+package com.swein.framework.module.location;
 
 import android.content.Context;
 import android.location.Location;
@@ -7,7 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.swein.framework.tools.util.debug.log.ILog;
-import com.swein.framework.tools.util.location.model.LocationModel;
+import com.swein.framework.module.location.model.LocationModel;
 
 /**
  * target api <= 22 just use this

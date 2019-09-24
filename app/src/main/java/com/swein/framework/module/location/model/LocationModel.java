@@ -1,4 +1,4 @@
-package com.swein.framework.tools.util.location.model;
+package com.swein.framework.module.location.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
