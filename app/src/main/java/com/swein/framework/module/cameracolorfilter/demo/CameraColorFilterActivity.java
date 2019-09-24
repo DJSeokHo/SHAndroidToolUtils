@@ -1,6 +1,7 @@
 package com.swein.framework.module.cameracolorfilter.demo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -18,9 +19,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import android.util.Size;
 import android.util.SparseArray;
 import android.view.Surface;
@@ -291,6 +293,7 @@ public class CameraColorFilterActivity extends FragmentActivity {
         }
     }
 
+    @SuppressLint("MissingPermission")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void connectCamera() {
         CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);

@@ -2,8 +2,9 @@ package com.swein.framework.module.aop.networkcheck;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import androidx.fragment.app.Fragment;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.network.NetWorkUtil;

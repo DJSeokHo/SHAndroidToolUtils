@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -22,12 +23,14 @@ import android.widget.RelativeLayout;
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.location.SHLocation;
+import com.swein.framework.module.location.geo.SHGeoCoder;
+import com.swein.framework.module.locationapi.LocationAPI;
+import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
-import com.swein.framework.module.location.SHLocation;
-import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.shortcut.ShortCutUtil;
@@ -105,6 +108,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                Permissions.getInstance().requestPermission(MainActivity.this);
                 SHLocation.getInstance().init(MainActivity.this);
 
                 SHLocation.getInstance().requestLocation(new SHLocation.SHLocationDelegate() {
@@ -124,6 +128,22 @@ public class MainActivity extends Activity {
                         }
                     }
                 }, false);
+
+
+                LocationAPI.getInstance().requestLocation(MainActivity.this, new LocationAPI.LocationAPIDelegate() {
+                    @Override
+                    public void onLocation(Location location) {
+                        try {
+                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(location.getLatitude(), location.getLongitude(), 2);
+                            for(Address address : addressList) {
+                                ILog.iLogDebug(TAG, address.toString());
+                            }
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 

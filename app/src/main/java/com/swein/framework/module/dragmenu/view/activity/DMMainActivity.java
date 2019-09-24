@@ -1,9 +1,10 @@
 package com.swein.framework.module.dragmenu.view.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.module.dragmenu.presenter.DMPresenter;
 import com.swein.framework.module.dragmenu.presenter.method.DMPresenterMethod;

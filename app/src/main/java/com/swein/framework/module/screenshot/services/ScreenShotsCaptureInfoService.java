@@ -16,7 +16,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.swein.framework.module.screenshot.datas.UsageData;
 import com.swein.framework.module.screenshot.javainterface.IGetCurrentAppName;

@@ -9,15 +9,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Window;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
 import com.swein.shandroidtoolutils.R;

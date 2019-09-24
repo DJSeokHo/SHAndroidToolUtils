@@ -2,11 +2,12 @@ package com.swein.framework.template.viewpagerfragment.subfragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.shandroidtoolutils.R;

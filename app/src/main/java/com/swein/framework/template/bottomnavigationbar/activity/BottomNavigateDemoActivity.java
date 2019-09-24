@@ -2,14 +2,15 @@ package com.swein.framework.template.bottomnavigationbar.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.swein.framework.template.bottomnavigationbar.adapter.BottomNavigateViewPagerAdapter;
 import com.swein.framework.template.bottomnavigationbar.fragments.BottomEventFragment;
 import com.swein.framework.template.bottomnavigationbar.fragments.BottomFriendFragment;

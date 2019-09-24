@@ -2,10 +2,6 @@ package com.swein.framework.template.tabslidinghost.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +9,11 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTabHost;
+import androidx.viewpager.widget.ViewPager;
 
 import com.swein.framework.template.tabslidinghost.adapter.SHFragmentTabAdapter;
 import com.swein.framework.template.tabslidinghost.subfragment.SHFriendFragment;

@@ -3,10 +3,12 @@ package com.swein.framework.tools.util.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +27,7 @@ public class FragmentUtil {
         return rootView;
     }
 
-    public static void replaceFragmentv4Commit(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId) {
+    public static void replaceFragmentv4Commit(FragmentActivity activity, Fragment fragment, int containerViewId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(containerViewId, fragment).commit();
     }
@@ -34,7 +36,7 @@ public class FragmentUtil {
         activity.getFragmentManager().beginTransaction().replace(containerViewId, fragment).addToBackStack(null).commit();
     }
 
-    public void replaceFragmentv4CommitWithBundle(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
+    public void replaceFragmentv4CommitWithBundle(FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
 
         if(null == bundle) {
             ILog.iLogError(FragmentUtil.class.getName(), "Input bundle first");
@@ -57,7 +59,7 @@ public class FragmentUtil {
         return bundle.getString(key);
     }
 
-    public void replaceFragmentv4CommitWithAddToBackStack(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId) {
+    public void replaceFragmentv4CommitWithAddToBackStack(FragmentActivity activity, Fragment fragment, int containerViewId) {
 
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
@@ -67,7 +69,7 @@ public class FragmentUtil {
 
     }
 
-    public void replaceFragmentv4CommitWithBundleWithAddToBackStack(android.support.v4.app.FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
+    public void replaceFragmentv4CommitWithBundleWithAddToBackStack(FragmentActivity activity, Fragment fragment, int containerViewId, Bundle bundle) {
 
         if(null == bundle) {
             Log.e(FragmentUtil.class.getName(), "Input bundle first");

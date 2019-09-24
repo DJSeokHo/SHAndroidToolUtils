@@ -1,16 +1,16 @@
 package com.swein.framework.template.tabcustomslidinglayout.activity;
 
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.FrameLayout;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+
+import android.os.Bundle;
+
+import com.google.android.material.tabs.TabLayout;
 import com.swein.framework.template.tabcustomslidinglayout.fragments.SubOneFragment;
 import com.swein.framework.template.tabcustomslidinglayout.fragments.SubThreeFragment;
 import com.swein.framework.template.tabcustomslidinglayout.fragments.SubTwoFragment;
@@ -86,7 +86,7 @@ public class TabCustomSlidingLayoutActivity extends FragmentActivity {
             }
 
             @Override
-            public android.support.v4.app.Fragment getItem(int arg0)
+            public Fragment getItem(int arg0)
             {
                 return fragmentList.get(arg0);
             }

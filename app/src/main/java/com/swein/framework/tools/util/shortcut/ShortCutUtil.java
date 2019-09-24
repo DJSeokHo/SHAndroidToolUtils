@@ -9,7 +9,7 @@ import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />

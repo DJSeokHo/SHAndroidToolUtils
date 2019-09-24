@@ -1,9 +1,10 @@
 package com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;

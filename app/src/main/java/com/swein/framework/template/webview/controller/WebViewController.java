@@ -626,18 +626,18 @@ public class WebViewController {
             return;
         }
 
-        SHLocation shLocation = new SHLocation(context, new SHLocation.SHLocationDelegate() {
-
-            // 위치정보 받기
-            @Override
-            public void onLocation(double longitude, double latitude, long time) {
-
-
-            }
-
-        },  false);
-
-        shLocation.requestLocation();
+//        SHLocation shLocation = new SHLocation(context, new SHLocation.SHLocationDelegate() {
+//
+//            // 위치정보 받기
+//            @Override
+//            public void onLocation(double longitude, double latitude, long time) {
+//
+//
+//            }
+//
+//        },  false);
+//
+//        shLocation.requestLocation();
 
     }
 

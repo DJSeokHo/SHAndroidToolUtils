@@ -20,7 +20,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.swein.framework.module.noticenotification.constants.NoticeConstants;
@@ -197,7 +197,7 @@ public class NoticeNotificationManager {
             }
             case LONG_BIG: {
 
-                android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+                androidx.core.app.NotificationCompat.BigTextStyle style = new androidx.core.app.NotificationCompat.BigTextStyle();
 
                 style.setBigContentTitle(title);
 
@@ -213,7 +213,7 @@ public class NoticeNotificationManager {
             }
             case BIG_IMAGE: {
 
-                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                androidx.core.app.NotificationCompat.BigPictureStyle style = new androidx.core.app.NotificationCompat.BigPictureStyle();
                 style.setBigContentTitle(title);
                 style.setSummaryText(message);
                 style.bigPicture(bigImage);
@@ -291,7 +291,7 @@ public class NoticeNotificationManager {
             }
             case LONG_BIG: {
 
-                android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+                androidx.core.app.NotificationCompat.BigTextStyle style = new androidx.core.app.NotificationCompat.BigTextStyle();
 
                 style.setBigContentTitle(title);
 
@@ -307,7 +307,7 @@ public class NoticeNotificationManager {
             }
             case BIG_IMAGE: {
 
-                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                androidx.core.app.NotificationCompat.BigPictureStyle style = new androidx.core.app.NotificationCompat.BigPictureStyle();
                 style.setBigContentTitle(title);
                 style.setSummaryText(message);
                 style.bigPicture(bigImage);

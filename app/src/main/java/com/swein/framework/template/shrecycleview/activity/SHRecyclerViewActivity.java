@@ -1,7 +1,8 @@
 package com.swein.framework.template.shrecycleview.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.template.shrecycleview.normalmode.fragment.SHRecyclerViewFragment;
 import com.swein.framework.tools.util.activity.ActivityUtil;

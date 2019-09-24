@@ -1,16 +1,13 @@
 package com.swein.framework.template.tabhost.fragment;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TabHost;
+
+import androidx.fragment.app.Fragment;
 
 import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentFour;
 import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentOne;
@@ -19,11 +16,7 @@ import com.swein.framework.template.tabhost.subfragment.SHTabHostSubFragmentTwo;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.shandroidtoolutils.R;
 
-import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SHTabHostFragment extends Fragment {
 
 

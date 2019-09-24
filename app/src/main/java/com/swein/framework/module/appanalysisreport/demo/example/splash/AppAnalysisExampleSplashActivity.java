@@ -1,7 +1,7 @@
 package com.swein.framework.module.appanalysisreport.demo.example.splash;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.swein.framework.module.appanalysisreport.data.parser.LoggerParser;
 import com.swein.framework.module.appanalysisreport.logger.Logger;

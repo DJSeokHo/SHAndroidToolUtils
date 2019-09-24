@@ -1,7 +1,7 @@
 package com.swein.framework.module.dragmenu.presenter;
 
 import android.content.Context;
-import android.support.v4.view.VelocityTrackerCompat;
+import androidx.core.view.VelocityTrackerCompat;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 

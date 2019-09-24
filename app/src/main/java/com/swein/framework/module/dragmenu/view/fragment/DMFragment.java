@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
-/**
- * A simple {@link android.support.v4.app.Fragment} subclass.
- */
-public class DMFragment extends android.support.v4.app.Fragment {
+
+public class DMFragment extends Fragment {
 
     private TextView textViewDragMenuFragment;
 

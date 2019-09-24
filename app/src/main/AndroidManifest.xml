@@ -149,7 +149,7 @@
             android:value="@integer/google_play_services_version" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.swein.shandroidtoolutils.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
