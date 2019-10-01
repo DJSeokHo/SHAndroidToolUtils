@@ -22,11 +22,13 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.customtimepicker.demo.CustomTimePickerDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -283,6 +285,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCalenderActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVCDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
 
 
 
