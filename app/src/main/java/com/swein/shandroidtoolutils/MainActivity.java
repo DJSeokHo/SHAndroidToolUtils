@@ -571,15 +571,14 @@ public class MainActivity extends Activity {
 //        ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
 //        ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
 
-
+        List<Object> a = new ArrayList<>();
         DBOperationItem dbOperationItem;
         for(int i = 0; i < 3; i++) {
             dbOperationItem = new DBOperationItem();
-            dbOperationItem.sql = "sql " + i;
-            QueueManager.getInstance().addObjectToQueue(dbOperationItem);
+            dbOperationItem.sql = "aaaaa " + i;
+            a.add(dbOperationItem);
         }
-
-        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
+        QueueManager.getInstance().addObjectListToQueue(a, new Runnable() {
             @Override
             public void run() {
                 ThreadUtil.startUIThread(0, new Runnable() {
@@ -591,37 +590,13 @@ public class MainActivity extends Activity {
             }
         });
 
-
-        for(int i = 0; i < 3; i++) {
-            dbOperationItem = new DBOperationItem();
-            dbOperationItem.sql = "a " + i;
-            QueueManager.getInstance().addObjectToQueue(dbOperationItem);
-        }
-
-        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
-            @Override
-            public void run() {
-                ThreadUtil.startUIThread(0, new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
-                    }
-                });
-            }
-        });
-
-
-
-        List<Object> list = new ArrayList<>();
+        List<Object> b = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "bbbbbb " + i;
-            list.add(dbOperationItem);
-
+            b.add(dbOperationItem);
         }
-        QueueManager.getInstance().addObjectListToQueue(list);
-
-        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
+        QueueManager.getInstance().addObjectListToQueue(b, new Runnable() {
             @Override
             public void run() {
                 ThreadUtil.startUIThread(0, new Runnable() {
@@ -632,7 +607,6 @@ public class MainActivity extends Activity {
                 });
             }
         });
-
 
     }
 

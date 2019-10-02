@@ -1,14 +1,9 @@
 package com.swein.framework.module.queuemanager;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class QueueManager {
 
@@ -20,7 +15,6 @@ public class QueueManager {
     private QueueManager() {}
 
     private Thread threadProcess;
-    private static ExecutorService executorSequential = Executors.newSingleThreadExecutor();
 
     private LinkedList linkedList = new LinkedList<>();
 
@@ -29,37 +23,23 @@ public class QueueManager {
         linkedList.clear();
     }
 
-    public boolean isQueueEmpty()
+    private boolean isQueueEmpty()
     {
         return linkedList.isEmpty();
     }
 
-    public void addObjectToQueue(Object object)
+    public void addObjectListToQueue(List<Object> objectList, Runnable runnable)
     {
-        executorSequential.submit(new Runnable() {
-            @Override
-            public void run() {
-                linkedList.addLast(object);
-            }
-        });
+        for(Object object : objectList) {
+            ILog.iLogDebug("===>", object.toString());
+            linkedList.addLast(object);
+        }
 
-        ILog.iLogDebug("===>", object.toString());
+        readyToProcessQueueObject(runnable);
     }
 
-    public void addObjectListToQueue(List<Object> objectList)
-    {
-        executorSequential.submit(new Runnable() {
-            @Override
-            public void run() {
-                for(Object object : objectList) {
-                    ILog.iLogDebug("===>", object.toString());
-                    linkedList.addLast(object);
-                }
-            }
-        });
-    }
+    private void readyToProcessQueueObject(Runnable runnable) {
 
-    public void readyToProcessQueueObject(Runnable runnable) {
         //初始化处理线程
         if(threadProcess == null) {
             threadProcess = new Thread(new Runnable() {
@@ -93,9 +73,6 @@ public class QueueManager {
                         runnable.run();
                         ILog.iLogDebug("???", "finish thread");
                         threadProcess = null;
-                        if (executorSequential != null && !executorSequential.isShutdown()) {
-                            executorSequential.shutdown();
-                        }
                     }
                 }
             });
