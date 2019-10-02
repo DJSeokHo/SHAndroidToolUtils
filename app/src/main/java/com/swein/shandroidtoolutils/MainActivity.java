@@ -4,13 +4,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -20,26 +22,31 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.customcalender.demo.CustomCalenderActivity;
+import com.swein.framework.module.customtimepicker.demo.CustomTimePickerDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
-import com.swein.framework.template.customviewcontroller.demo.CustomViewControllerActivity;
-import com.swein.framework.template.mvc.MVCDemoActivity;
-import com.swein.framework.template.mvp.MVPDemoActivity;
+import com.swein.framework.module.location.SHLocation;
+import com.swein.framework.module.location.geo.SHGeoCoder;
+import com.swein.framework.module.locationapi.LocationAPI;
+import com.swein.framework.module.permissions.Permissions;
+import com.swein.framework.module.queuemanager.QueueManager;
+import com.swein.framework.module.queuemanager.dboperationitem.DBOperationItem;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.device.DeviceInfoUtil;
-import com.swein.framework.tools.util.location.SHLocation;
-import com.swein.framework.tools.util.location.geo.SHGeoCoder;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.shortcut.ShortCutUtil;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -60,7 +67,6 @@ public class MainActivity extends Activity {
 
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
-    private SHLocation location;
 
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
@@ -107,35 +113,42 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(location != null) {
-                    return;
-                }
+                Permissions.getInstance().requestPermission(MainActivity.this);
+                SHLocation.getInstance().init(MainActivity.this);
 
-                location = new SHLocation(MainActivity.this, new SHLocation.SHLocationDelegate() {
-
+                SHLocation.getInstance().requestLocation(new SHLocation.SHLocationDelegate() {
                     @Override
                     public void onLocation(double longitude, double latitude, long time) {
-
                         try {
 
-                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 100);
+                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(latitude, longitude, 2);
                             for(Address address : addressList) {
                                 ILog.iLogDebug(TAG, address.toString());
                             }
 
-                            location.clear();
-                            location = null;
+                            SHLocation.getInstance().clear();
                         }
                         catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, false);
 
 
-                location.requestLocation();
-
+                LocationAPI.getInstance().requestLocation(MainActivity.this, new LocationAPI.LocationAPIDelegate() {
+                    @Override
+                    public void onLocation(Location location) {
+                        try {
+                            List<Address> addressList = new SHGeoCoder(MainActivity.this).getFromLocation(location.getLatitude(), location.getLongitude(), 2);
+                            for(Address address : addressList) {
+                                ILog.iLogDebug(TAG, address.toString());
+                            }
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 
@@ -212,7 +225,6 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenShotActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, EasyScreenRecordingActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenRecordingActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
 
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
@@ -222,7 +234,6 @@ public class MainActivity extends Activity {
         }
         else {
             //TODO
-            finish();
         }
 
         TestObject testObject = new TestObject();
@@ -275,7 +286,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomViewControllerActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCalenderActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVCDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
 
 
 
@@ -292,6 +304,43 @@ public class MainActivity extends Activity {
         });
 
         imageViewMain1 = findViewById(R.id.imageViewMain1);
+
+        ThreadUtil.startThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+//                    String imageUrl= "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR";
+//                    URL url = new URL(imageUrl);
+//                    HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
+//
+//                    InputStream is = connection.getInputStream();
+//                    Bitmap img = BitmapFactory.decodeStream(is);
+
+
+                    URL url = new URL("http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR");
+                    Object content = url.getContent();
+
+                    InputStream is = (InputStream) content;
+                    Drawable d = Drawable.createFromStream(is, "src");
+
+
+                    ThreadUtil.startUIThread(0, new Runnable() {
+                        @Override
+                        public void run() {
+//                            imageViewMain1.setImageBitmap(img);
+                            imageViewMain1.setImageDrawable(d);
+                        }
+                    });
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+//        SHPicasso.getInstance().loadImage(this, "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR", imageViewMain1);
 
         imageViewMain2 = findViewById(R.id.imageViewMain2);
 
@@ -521,6 +570,43 @@ public class MainActivity extends Activity {
 //        ILog.iLogDebug(TAG, "reg p14 " + RegularExpressionUtil.isMatchEmail("djseokho@.co"));
 //        ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
 //        ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
+
+        List<Object> a = new ArrayList<>();
+        DBOperationItem dbOperationItem;
+        for(int i = 0; i < 3; i++) {
+            dbOperationItem = new DBOperationItem();
+            dbOperationItem.sql = "aaaaa " + i;
+            a.add(dbOperationItem);
+        }
+        QueueManager.getInstance().addObjectListToQueue(a, new Runnable() {
+            @Override
+            public void run() {
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
+                    }
+                });
+            }
+        });
+
+        List<Object> b = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            dbOperationItem = new DBOperationItem();
+            dbOperationItem.sql = "bbbbbb " + i;
+            b.add(dbOperationItem);
+        }
+        QueueManager.getInstance().addObjectListToQueue(b, new Runnable() {
+            @Override
+            public void run() {
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
+                    }
+                });
+            }
+        });
 
     }
 

@@ -1,7 +1,8 @@
 package com.swein.framework.module.camera.custom.camera1.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.module.camera.custom.camera1.fragment.CameraOneFragment;
 import com.swein.framework.tools.util.activity.ActivityUtil;

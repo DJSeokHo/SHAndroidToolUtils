@@ -5,7 +5,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.TaskStackBuilder;
+import androidx.core.app.TaskStackBuilder;
 
 import static com.swein.framework.module.easyscreenrecord.data.global.key.NotificationKey.FROM_APP_UI_NOTIFICATION_CENTER;
 import static com.swein.framework.module.easyscreenrecord.data.global.key.NotificationKey.TURN_OFF_SCREEN_RECORD_VIDEO_MODE;

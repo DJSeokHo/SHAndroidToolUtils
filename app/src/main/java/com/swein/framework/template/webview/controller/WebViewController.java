@@ -38,7 +38,7 @@ import com.swein.framework.template.webview.javascript.JSResponder;
 import com.swein.framework.tools.util.bitmaps.BitmapUtil;
 import com.swein.framework.tools.util.cookie.CookieUtil;
 import com.swein.framework.tools.util.endec.EndecUtil;
-import com.swein.framework.tools.util.location.SHLocation;
+import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
@@ -626,18 +626,18 @@ public class WebViewController {
             return;
         }
 
-        SHLocation shLocation = new SHLocation(context, new SHLocation.SHLocationDelegate() {
-
-            // 위치정보 받기
-            @Override
-            public void onLocation(double longitude, double latitude, long time) {
-
-
-            }
-
-        },  false);
-
-        shLocation.requestLocation();
+//        SHLocation shLocation = new SHLocation(context, new SHLocation.SHLocationDelegate() {
+//
+//            // 위치정보 받기
+//            @Override
+//            public void onLocation(double longitude, double latitude, long time) {
+//
+//
+//            }
+//
+//        },  false);
+//
+//        shLocation.requestLocation();
 
     }
 

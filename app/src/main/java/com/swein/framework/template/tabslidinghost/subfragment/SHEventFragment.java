@@ -2,16 +2,15 @@ package com.swein.framework.template.tabslidinghost.subfragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.swein.shandroidtoolutils.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class SHEventFragment extends Fragment {
 
 

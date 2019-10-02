@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.swein.framework.template.toolbar.ToolbarActivity">
     
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         toolbar:popupTheme="@style/ToolbarPopupTheme">
         
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
     
 </RelativeLayout>

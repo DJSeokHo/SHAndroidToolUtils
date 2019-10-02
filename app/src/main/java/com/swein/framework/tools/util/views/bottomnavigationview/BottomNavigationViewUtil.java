@@ -1,13 +1,17 @@
 package com.swein.framework.tools.util.views.bottomnavigationview;
 
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
+
+import android.annotation.SuppressLint;
+
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.lang.reflect.Field;
 
 public class BottomNavigationViewUtil {
 
+    @SuppressLint("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView navigationView) {
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
@@ -19,7 +23,7 @@ public class BottomNavigationViewUtil {
 
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
-                itemView.setShiftingMode(false);
+                itemView.setShifting(false);
                 itemView.setChecked(itemView.getItemData().isChecked());
             }
 

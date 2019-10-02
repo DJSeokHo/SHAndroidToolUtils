@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 

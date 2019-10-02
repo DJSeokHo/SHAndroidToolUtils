@@ -3,6 +3,10 @@
     <string name="exception_count">오류 발생했습니다.\n오류 정보를 이미 담당자에게 보냈습니다.\n앱 다시 시동하시기 바람니다.</string>
     <string name="exception_save">오류 발생했습니다.\n오류 정보 저장 되었습니다.\n오류 처리 화면 이동하겠습니다.</string>
 
+    <string name="upload_start_toast">업로드 시작합니다</string>
+    <string name="upload_success_toast">업로드 성공하였습니다</string>
+    <string name="upload_failed_toast">업로드 실패하였습니다</string>
+
     <string name="title_fragment_home">Home</string>
     <string name="title_fragment_friends">Friends</string>
     <string name="title_fragment_event">Event</string>

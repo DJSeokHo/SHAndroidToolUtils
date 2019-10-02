@@ -1,10 +1,12 @@
 package com.swein.framework.template.mvc;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.template.mvc.bean.User;
 import com.swein.framework.template.mvc.model.MVCModel;
@@ -14,7 +16,7 @@ import com.swein.shandroidtoolutils.R;
  * in MVC
  * activity is the controller
  */
-public class MVCDemoActivity extends AppCompatActivity {
+public class MVCDemoActivity extends FragmentActivity {
 
     private TextView textView;
     private Button button;

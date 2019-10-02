@@ -48,7 +48,7 @@ public class ThreadUtil {
         if (executor != null && executor.isShutdown()) {
             executor.shutdown();
         }
-        if (executorSequential != null && executorSequential.isShutdown()) {
+        if (executorSequential != null && !executorSequential.isShutdown()) {
             executorSequential.shutdown();
         }
         super.finalize();

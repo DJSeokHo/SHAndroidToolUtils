@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.swein.framework.module.easyscreenrecord.data.singleton.ScreenRecordData;
 import com.swein.framework.module.easyscreenrecord.manager.permission.PermissionManager;

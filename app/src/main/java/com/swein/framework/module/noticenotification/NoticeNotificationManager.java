@@ -20,7 +20,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.swein.framework.module.noticenotification.constants.NoticeConstants;
@@ -197,7 +197,7 @@ public class NoticeNotificationManager {
             }
             case LONG_BIG: {
 
-                android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+                androidx.core.app.NotificationCompat.BigTextStyle style = new androidx.core.app.NotificationCompat.BigTextStyle();
 
                 style.setBigContentTitle(title);
 
@@ -213,7 +213,7 @@ public class NoticeNotificationManager {
             }
             case BIG_IMAGE: {
 
-                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                androidx.core.app.NotificationCompat.BigPictureStyle style = new androidx.core.app.NotificationCompat.BigPictureStyle();
                 style.setBigContentTitle(title);
                 style.setSummaryText(message);
                 style.bigPicture(bigImage);
@@ -291,7 +291,7 @@ public class NoticeNotificationManager {
             }
             case LONG_BIG: {
 
-                android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+                androidx.core.app.NotificationCompat.BigTextStyle style = new androidx.core.app.NotificationCompat.BigTextStyle();
 
                 style.setBigContentTitle(title);
 
@@ -307,7 +307,7 @@ public class NoticeNotificationManager {
             }
             case BIG_IMAGE: {
 
-                android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+                androidx.core.app.NotificationCompat.BigPictureStyle style = new androidx.core.app.NotificationCompat.BigPictureStyle();
                 style.setBigContentTitle(title);
                 style.setSummaryText(message);
                 style.bigPicture(bigImage);
@@ -372,14 +372,15 @@ public class NoticeNotificationManager {
         notificationManager.createNotificationChannel(chan);
     }
 
+    NotificationCompat.Builder nonRemoveableNotificationbuilder;
+
     public Notification showNonRemovableNotification(Context context, String title, String msg, int smallIconResource, int largeIconResource) {
 
-        NotificationCompat.Builder builder;
         String channelId = "";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             channelId = createNotificationChannel(context, "my_service", "My Background Service");
-            builder = new NotificationCompat.Builder(context, channelId)
+            nonRemoveableNotificationbuilder = new NotificationCompat.Builder(context, channelId)
                     .setSmallIcon(smallIconResource)
                     .setContentTitle(title)
                     .setContentText(msg)
@@ -387,7 +388,7 @@ public class NoticeNotificationManager {
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), largeIconResource));
         }
         else {
-            builder = new NotificationCompat.Builder(context)
+            nonRemoveableNotificationbuilder = new NotificationCompat.Builder(context)
                     .setSmallIcon(smallIconResource)
                     .setContentTitle(title)
                     .setContentText(msg)
@@ -428,7 +429,7 @@ public class NoticeNotificationManager {
 
 //        mBuilder.setContentIntent(resultPendingIntent);
 
-        return builder.build();
+        return nonRemoveableNotificationbuilder.build();
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -446,6 +447,11 @@ public class NoticeNotificationManager {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(id);
+    }
+
+    public void updateNotification(NotificationManager notificationManager, int id, String msg) {
+        nonRemoveableNotificationbuilder.setContentText("uploading " + msg);
+        notificationManager.notify(id, nonRemoveableNotificationbuilder.build());
     }
 
 }

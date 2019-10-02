@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.swein.framework.template.shrecycleview.fragment.SHRecyclerViewFragment">
+    tools:context="com.swein.framework.template.shrecycleview.normalmode.fragment.SHRecyclerViewFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.core.widget.SwipeRefreshLayout
         android:id="@+id/shSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +15,6 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.core.widget.SwipeRefreshLayout>
 
 </FrameLayout>

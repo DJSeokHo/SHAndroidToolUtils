@@ -4,13 +4,14 @@ package com.swein.framework.module.camera.custom.camera1.fragment;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.swein.framework.module.camera.custom.camera1.cameracontroller.CameraController;
 import com.swein.framework.module.camera.custom.camera1.cameracontroller.delegate.CameraControllerDelegate;

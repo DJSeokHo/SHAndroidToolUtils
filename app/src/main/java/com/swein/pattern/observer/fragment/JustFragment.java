@@ -2,17 +2,16 @@ package com.swein.pattern.observer.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.fragment.app.Fragment;
+
 import com.swein.shandroidtoolutils.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class JustFragment extends Fragment {
 
     private Button buttonChangeActivityContent;

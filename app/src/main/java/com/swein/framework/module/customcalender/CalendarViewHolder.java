@@ -2,8 +2,6 @@ package com.swein.framework.module.customcalender;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +12,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.swein.framework.tools.util.debug.log.ILog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.swein.shandroidtoolutils.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CalendarViewHolder extends LinearLayout {
+
+    public interface CalendarViewHolderDelegate {
+        void onSelected(Date date);
+    }
 
     private ImageView btnPrev;
     private ImageView btnNext;
@@ -31,6 +36,10 @@ public class CalendarViewHolder extends LinearLayout {
     private GridView grid;
 
     private Calendar curDate = Calendar.getInstance();
+
+    private List<View> cellList = new ArrayList<>();
+
+    private CalendarViewHolderDelegate calendarViewHolderDelegate;
 
     public CalendarViewHolder(Context context) {
         super(context);
@@ -82,6 +91,9 @@ public class CalendarViewHolder extends LinearLayout {
     }
 
     private void renderCalendar() {
+
+        cellList.clear();
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM yyyy");
         txtDate.setText(simpleDateFormat.format(curDate.getTime()));
 
@@ -90,7 +102,6 @@ public class CalendarViewHolder extends LinearLayout {
         Calendar calendar = (Calendar) curDate.clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        // 当月之前的月剩下的天数
         int prevDays = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         calendar.add(Calendar.DAY_OF_MONTH, -prevDays);
 
@@ -98,10 +109,14 @@ public class CalendarViewHolder extends LinearLayout {
         while (cells.size() < maxCellCount) {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-            ILog.iLogDebug("???", calendar.getTime());
+//            ILog.iLogDebug("???", calendar.getTime());
         }
 
         grid.setAdapter(new CalendarAdapter(getContext(), cells));
+    }
+
+    public void setDelegate(CalendarViewHolderDelegate calendarViewHolderDelegate) {
+        this.calendarViewHolderDelegate = calendarViewHolderDelegate;
     }
 
     private class CalendarAdapter extends ArrayAdapter<Date> {
@@ -122,7 +137,7 @@ public class CalendarViewHolder extends LinearLayout {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
             Date date = getItem(position);
-            ILog.iLogDebug("??? ", date);
+//            ILog.iLogDebug("??? ", date);
             if(convertView == null) {
                 convertView = inflater.inflate(R.layout.view_holder_calendar_text_day, parent, false);
             }
@@ -132,6 +147,8 @@ public class CalendarViewHolder extends LinearLayout {
                 day = day.replace("0", "");
             }
             ((TextView)convertView).setText(day);
+
+            cellList.add(convertView);
 
             Date now = new Date();
             boolean isSameMonth = false;
@@ -150,6 +167,22 @@ public class CalendarViewHolder extends LinearLayout {
             if(simpleDateFormatFull.format(now).equals(simpleDateFormatFull.format(date))) {
                 ((TextView)convertView).setTextColor(Color.RED);
             }
+
+            View finalConvertView = convertView;
+            convertView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    for(View view : cellList) {
+                        view.setBackgroundColor(Color.TRANSPARENT);
+                    }
+
+                    finalConvertView.setBackgroundResource(R.drawable.calendar_circle_bg);
+
+                    calendarViewHolderDelegate.onSelected(date);
+
+                }
+            });
 
             return convertView;
         }

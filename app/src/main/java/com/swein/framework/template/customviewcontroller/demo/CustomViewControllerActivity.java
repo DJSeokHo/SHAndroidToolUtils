@@ -1,13 +1,14 @@
 package com.swein.framework.template.customviewcontroller.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.template.customviewcontroller.NavigationViewController;
 import com.swein.shandroidtoolutils.R;
 
-public class CustomViewControllerActivity extends AppCompatActivity {
+public class CustomViewControllerActivity extends FragmentActivity {
 
     private FrameLayout frameLayoutNavigation;
 

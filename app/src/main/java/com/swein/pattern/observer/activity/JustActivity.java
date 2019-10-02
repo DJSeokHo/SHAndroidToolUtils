@@ -1,10 +1,11 @@
 package com.swein.pattern.observer.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.pattern.observer.fragment.JustFragment;
