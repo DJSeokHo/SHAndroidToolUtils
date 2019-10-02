@@ -28,6 +28,8 @@ import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
+import com.swein.framework.module.queuemanager.QueueManager;
+import com.swein.framework.module.queuemanager.dboperationitem.DBOperationItem;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -44,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -284,7 +287,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCalenderActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVCDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
 
 
 
@@ -567,6 +570,41 @@ public class MainActivity extends Activity {
 //        ILog.iLogDebug(TAG, "reg p14 " + RegularExpressionUtil.isMatchEmail("djseokho@.co"));
 //        ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
 //        ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
+
+
+        DBOperationItem dbOperationItem;
+        for(int i = 0; i < 10; i++) {
+            dbOperationItem = new DBOperationItem();
+            dbOperationItem.sql = "sql " + i;
+            QueueManager.getInstance().addObjectToQueue(dbOperationItem);
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < 10; i++) {
+            dbOperationItem = new DBOperationItem();
+            dbOperationItem.sql = "a " + i;
+            QueueManager.getInstance().addObjectToQueue(dbOperationItem);
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<Object> list = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            dbOperationItem = new DBOperationItem();
+            dbOperationItem.sql = "bbbbbb " + i;
+            list.add(dbOperationItem);
+
+        }
+        QueueManager.getInstance().addObjectListToQueue(list);
 
     }
 
