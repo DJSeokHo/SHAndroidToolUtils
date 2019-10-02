@@ -7,6 +7,8 @@ import com.swein.framework.tools.util.debug.log.ILog;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class QueueManager {
 
@@ -18,6 +20,7 @@ public class QueueManager {
     private QueueManager() {}
 
     private Thread threadProcess;
+    private static ExecutorService executorSequential = Executors.newSingleThreadExecutor();
 
     private LinkedList linkedList = new LinkedList<>();
 
@@ -33,57 +36,19 @@ public class QueueManager {
 
     public void addObjectToQueue(Object object)
     {
-        new Thread(new Runnable() {
+        executorSequential.submit(new Runnable() {
             @Override
             public void run() {
                 linkedList.addLast(object);
             }
-        }).start();
+        });
 
         ILog.iLogDebug("===>", object.toString());
-        if(threadProcess == null) {
-            threadProcess = new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    while (true) {
-                        ILog.iLogDebug("???", "\n");
-                        ILog.iLogDebug("before size===========================", getQueueLength());
-
-                        try {
-                            Thread.sleep(1000);
-                            ILog.iLogDebug("doing ", getFirstObject().toString());
-                        }
-                        catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        Object object = removeObjectFromQueue();
-                        ILog.iLogDebug("remove", object.toString());
-
-                        ILog.iLogDebug("after size==============================", getQueueLength());
-                        ILog.iLogDebug("???", "\n");
-                        if(isQueueEmpty()) {
-                            ILog.iLogDebug("???", "finish");
-                            break;
-                        }
-                    }
-
-                    if(threadProcess != null) {
-                        ILog.iLogDebug("???", "finish thread");
-                        threadProcess = null;
-                    }
-                }
-            });
-
-            threadProcess.start();
-        }
-
     }
 
     public void addObjectListToQueue(List<Object> objectList)
     {
-        new Thread(new Runnable() {
+        executorSequential.submit(new Runnable() {
             @Override
             public void run() {
                 for(Object object : objectList) {
@@ -91,30 +56,32 @@ public class QueueManager {
                     linkedList.addLast(object);
                 }
             }
-        }).start();
+        });
+    }
 
-
+    public void readyToProcessQueueObject(Runnable runnable) {
+        //初始化处理线程
         if(threadProcess == null) {
             threadProcess = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    //处理线程开始工作，直到队列为空时自动跳出，单线程处理
+                    while (true) {
 
-                    while (!isQueueEmpty()) {
+                        if(isQueueEmpty()) {
+                            continue;
+                        }
 
+                        ILog.iLogDebug("???", "\n");
                         ILog.iLogDebug("before size===========================", getQueueLength());
 
-                        try {
-                            Thread.sleep(1000);
-                            ILog.iLogDebug("doing ", getFirstObject().toString());
-                        }
-                        catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        ILog.iLogDebug("doing ", getFirstObject().toString());
 
                         Object object = removeObjectFromQueue();
                         ILog.iLogDebug("remove", object.toString());
 
                         ILog.iLogDebug("after size==============================", getQueueLength());
+                        ILog.iLogDebug("???", "\n");
 
                         if(isQueueEmpty()) {
                             ILog.iLogDebug("???", "finish");
@@ -123,15 +90,18 @@ public class QueueManager {
                     }
 
                     if(threadProcess != null) {
+                        runnable.run();
                         ILog.iLogDebug("???", "finish thread");
                         threadProcess = null;
+                        if (executorSequential != null && !executorSequential.isShutdown()) {
+                            executorSequential.shutdown();
+                        }
                     }
                 }
             });
 
             threadProcess.start();
         }
-
     }
 
     private Object removeObjectFromQueue()

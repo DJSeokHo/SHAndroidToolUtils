@@ -573,38 +573,66 @@ public class MainActivity extends Activity {
 
 
         DBOperationItem dbOperationItem;
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 3; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "sql " + i;
             QueueManager.getInstance().addObjectToQueue(dbOperationItem);
         }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
+            @Override
+            public void run() {
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
+                    }
+                });
+            }
+        });
 
-        for(int i = 0; i < 10; i++) {
+
+        for(int i = 0; i < 3; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "a " + i;
             QueueManager.getInstance().addObjectToQueue(dbOperationItem);
         }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
+            @Override
+            public void run() {
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
+                    }
+                });
+            }
+        });
+
+
 
         List<Object> list = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 3; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "bbbbbb " + i;
             list.add(dbOperationItem);
 
         }
         QueueManager.getInstance().addObjectListToQueue(list);
+
+        QueueManager.getInstance().readyToProcessQueueObject(new Runnable() {
+            @Override
+            public void run() {
+                ThreadUtil.startUIThread(0, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
+                    }
+                });
+            }
+        });
+
 
     }
 
