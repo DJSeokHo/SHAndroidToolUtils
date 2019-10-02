@@ -222,7 +222,6 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenShotActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, EasyScreenRecordingActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenRecordingActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, ExceptionReportDemoActivity.class);
 
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||

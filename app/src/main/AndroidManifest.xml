@@ -93,7 +93,6 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
-        <activity android:name="com.swein.framework.module.exceptionreport.ExceptionReportDemoActivity" />
         <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" /> <!-- phone call recorder -->
         <activity
             android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
