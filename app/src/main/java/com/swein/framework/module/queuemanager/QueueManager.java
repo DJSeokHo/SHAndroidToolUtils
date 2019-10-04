@@ -40,12 +40,12 @@ public class QueueManager {
 
     private void readyToProcessQueueObject(Runnable runnable) {
 
-        //初始化处理线程
+        // 初始化处理线程
         if(threadProcess == null) {
             threadProcess = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //处理线程开始工作，直到队列为空时自动跳出，单线程处理
+                    // 处理线程开始工作，直到队列为空时自动跳出，单线程处理
                     while (true) {
 
                         if(isQueueEmpty()) {
