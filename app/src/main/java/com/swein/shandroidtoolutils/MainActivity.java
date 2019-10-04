@@ -573,7 +573,7 @@ public class MainActivity extends Activity {
 
         List<Object> a = new ArrayList<>();
         DBOperationItem dbOperationItem;
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 30; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "aaaaa " + i;
             a.add(dbOperationItem);
@@ -591,7 +591,7 @@ public class MainActivity extends Activity {
         });
 
         List<Object> b = new ArrayList<>();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 30; i++) {
             dbOperationItem = new DBOperationItem();
             dbOperationItem.sql = "bbbbbb " + i;
             b.add(dbOperationItem);
