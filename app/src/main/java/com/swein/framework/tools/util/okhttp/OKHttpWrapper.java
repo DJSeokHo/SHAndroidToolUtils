@@ -5,6 +5,7 @@ import android.os.Environment;
 import com.swein.framework.tools.util.debug.log.ILog;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -130,6 +131,34 @@ public class OKHttpWrapper {
         });
     }
 
+    public void requestGetWithAuthorizationBearer(String url, OKHttpWrapperDelegate okHttpWrapperDelegate, String token) {
+
+        if(okHttpClient == null) {
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            okHttpClient = builder.build();
+        }
+
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(url).addHeader("Authorization", "Bearer " + token).build();
+
+        Call call = okHttpClient.newCall(request);
+
+        // auto  thread
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                okHttpWrapperDelegate.onFailure(call, e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                okHttpWrapperDelegate.onResponse(call, response);
+
+            }
+        });
+    }
+
     public void requestDownloadFile(String url, OKHttpWrapperDelegate okHttpWrapperDelegate) {
 
         if(okHttpClient == null) {
@@ -154,10 +183,16 @@ public class OKHttpWrapper {
         });
     }
 
-    public void requestPostWithJSON(String url, OKHttpWrapperDelegate okHttpWrapperDelegate, String jsonString) {
+    public void requestPostWithJSON(String url, OKHttpWrapperDelegate okHttpWrapperDelegate, JSONObject jsonObject) {
 
-        MediaType JSON = MediaType.get("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(jsonString, JSON);
+        if(okHttpClient == null) {
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            okHttpClient = builder.build();
+        }
+
+        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+        RequestBody requestBody = RequestBody.create(String.valueOf(jsonObject), mediaType);
         Request.Builder builder = new Request.Builder();
 
         Request request = builder.url(url).post(requestBody).build();
