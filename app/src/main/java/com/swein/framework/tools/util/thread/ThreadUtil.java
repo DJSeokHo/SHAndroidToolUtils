@@ -25,18 +25,23 @@ public class ThreadUtil {
      *
      * FixedThreadPool
      * 只有核心线程数，并且没有超时机制，因此核心线程即使闲置时，也不会被回收，因此能更快的响应外界的请求.
+     * 这种形式可以控制最大并发数量，超出的线程会等待
      *
      * CachedThreadPool
      * 没有核心线程，非核心线程数量没有限制， 超时为60秒.
      * 适用于执行大量耗时较少的任务，当线程闲置超过60秒时就会被系统回收掉，当所有线程都被系统回收后，它几乎不占用任何系统资源.
+     * 创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。
+     * 线程池为无限大，当执行第二个任务时第一个任务已经完成，会复用执行第一个任务的线程，而不用每次新建线程
      *
      * ScheduledThreadPool
      * 核心线程数是固定的，非核心线程数量没有限制， 没有超时机制.
      * 主要用于执行定时任务和具有固定周期的重复任务.
+     * 创建一个定长线程池，支持定时及周期性任务执行
      *
      * SingleThreadExecutor
      * 只有一个核心线程，并没有超时机制.
      * 意义在于统一所有的外界任务到一个线程中， 这使得在这些任务之间不需要处理线程同步的问题.
+     * 它只会用唯一的工作线程来执行任务，可以理解为线程数量为1的FixedThreadPool
      */
     // fixed number thread pool, can reuse
     static private ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
