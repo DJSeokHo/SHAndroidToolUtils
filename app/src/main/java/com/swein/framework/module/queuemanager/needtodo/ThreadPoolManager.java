@@ -20,6 +20,9 @@ public class ThreadPoolManager {
     // 线程安全队列
     private LinkedBlockingDeque<Runnable> queue = new LinkedBlockingDeque<>();
 
+    // 还需要一个失败的任务的队列，以便重试
+    // TODO 失败队列
+
     // 将请求放入队列
     public void addTask(Runnable runnable) {
         if(runnable != null) {
