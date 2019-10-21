@@ -2,9 +2,6 @@ package com.swein.shandroidtoolutils.application;
 
 import android.app.Application;
 
-import com.swein.framework.module.appanalysisreport.logger.Logger;
-import com.swein.framework.module.appanalysisreport.loggerproperty.LoggerProperty;
-
 
 /**
  * Created by seokho on 15/11/2016.
@@ -29,9 +26,6 @@ public class SHAndroidToolUtilsApplication extends Application {
         // google
 //        CrashExceptionHandler.getInstance().init(getApplicationContext());
 
-        // app analysis report
-//        Logger.getInstance().init(getApplicationContext(), LoggerProperty.REPORT_RECORD_MANAGE_TYPE.ONE_MONTH);
-
     }
 
     /**
@@ -48,7 +42,6 @@ public class SHAndroidToolUtilsApplication extends Application {
 
     @Override
     protected void finalize() throws Throwable {
-//        Logger.getInstance().close();
         super.finalize();
     }
 }

@@ -130,10 +130,6 @@
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
         <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" /> <!-- phone call recorder -->
         <activity
-            android:name="com.swein.framework.module.appanalysisreport.applicationhandler.ui.AppCrashReportActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
             android:name="com.swein.framework.module.aop.demo.main.AOPExampleMainActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> <!-- <receiver android:name="com.swein.framework.module.phonecallrecoder.callreceiver.PhoneCallReceiver"> -->
@@ -142,22 +138,12 @@
         <!-- </intent-filter> -->
         <!-- </receiver> -->
         <!-- phone call recorder -->
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.splash.AppAnalysisExampleSplashActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.login.AppAnalysisExampleLoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <activity
             android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name="com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <activity
             android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
             android:launchMode="singleTask"

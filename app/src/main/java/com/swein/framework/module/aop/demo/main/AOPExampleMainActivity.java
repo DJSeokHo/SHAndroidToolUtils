@@ -7,8 +7,6 @@ import android.view.View;
 import com.swein.framework.module.aop.authlogin.AuthLogin;
 import com.swein.framework.module.aop.networkcheck.NetworkCheckAnnotation;
 import com.swein.framework.module.aop.runningtime.RunningTime;
-import com.swein.framework.module.appanalysisreport.demo.example.home.AppAnalysisExampleHomeActivity;
-import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.shandroidtoolutils.R;
@@ -67,7 +65,6 @@ public class AOPExampleMainActivity extends AppCompatActivity {
     private void authLogin() {
 
         ILog.iLogDebug(TAG, "authLogin");
-        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleHomeActivity.class);
     }
 
 }
