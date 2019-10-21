@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Location;
 import android.os.Build;
@@ -22,15 +21,12 @@ import android.widget.RelativeLayout;
 
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.customtimepicker.demo.CustomTimePickerDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
-import com.swein.framework.module.queuemanager.dboperationitem.DBOperationItem;
-import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -38,14 +34,11 @@ import com.swein.framework.tools.util.device.DeviceInfoUtil;
 import com.swein.framework.tools.util.picasso.SHPicasso;
 import com.swein.framework.tools.util.serializalbe.SerializableUtil;
 import com.swein.framework.tools.util.shortcut.ShortCutUtil;
-import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.framework.tools.util.volley.SHVolley;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +55,8 @@ public class MainActivity extends Activity {
     private Button buttonCrash;
 
     private Button buttonLocation;
+
+    private Button buttonAddTask;
 
     private RelativeLayout relativeLayoutFakeCameraOnePreview;
 
@@ -199,6 +194,67 @@ public class MainActivity extends Activity {
             }
         });
 
+        buttonAddTask = findViewById(R.id.buttonAddTask);
+        buttonAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ILog.iLogDebug(TAG, "add");
+
+                QueueManager.getInstance().addTask(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            ILog.iLogDebug(TAG, "task a 1");
+                            Thread.sleep(1000);
+                            ILog.iLogDebug(TAG, "task a 2");
+                            Thread.sleep(1000);
+                            ILog.iLogDebug(TAG, "task a 3");
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+//                QueueManager.getInstance().addRunnableToQueue(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        try {
+//                            ILog.iLogDebug(TAG, "task b 1");
+//                            Thread.sleep(1000);
+//                            ILog.iLogDebug(TAG, "task b 2");
+//                            Thread.sleep(1000);
+//                            ILog.iLogDebug(TAG, "task b 3");
+//                        }
+//                        catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+
+//                List<Runnable> runnableList = new ArrayList<>();
+//                for(int i = 0; i < 100; i++) {
+//                    int index = i;
+//                    runnableList.add(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                Thread.sleep(100);
+//                                ILog.iLogDebug(TAG, "task list " + index);
+//                            }
+//                            catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    });
+//                }
+//
+//                QueueManager.getInstance().addRunnableListToQueue(runnableList);
+            }
+        });
+
         boolean push = AppInfoUtil.isPushNotificationEnable(this);
         if(!push) {
             AppInfoUtil.moveToAppPushSetting(this);
@@ -305,40 +361,40 @@ public class MainActivity extends Activity {
 
         imageViewMain1 = findViewById(R.id.imageViewMain1);
 
-        ThreadUtil.startThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-//                    String imageUrl= "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR";
-//                    URL url = new URL(imageUrl);
-//                    HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
+//        ThreadUtil.startThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
 //
-//                    InputStream is = connection.getInputStream();
-//                    Bitmap img = BitmapFactory.decodeStream(is);
-
-
-                    URL url = new URL("http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR");
-                    Object content = url.getContent();
-
-                    InputStream is = (InputStream) content;
-                    Drawable d = Drawable.createFromStream(is, "src");
-
-
-                    ThreadUtil.startUIThread(0, new Runnable() {
-                        @Override
-                        public void run() {
-//                            imageViewMain1.setImageBitmap(img);
-                            imageViewMain1.setImageDrawable(d);
-                        }
-                    });
-
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+////                    String imageUrl= "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR";
+////                    URL url = new URL(imageUrl);
+////                    HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
+////
+////                    InputStream is = connection.getInputStream();
+////                    Bitmap img = BitmapFactory.decodeStream(is);
+//
+//
+//                    URL url = new URL("http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR");
+//                    Object content = url.getContent();
+//
+//                    InputStream is = (InputStream) content;
+//                    Drawable d = Drawable.createFromStream(is, "src");
+//
+//
+//                    ThreadUtil.startUIThread(0, new Runnable() {
+//                        @Override
+//                        public void run() {
+////                            imageViewMain1.setImageBitmap(img);
+//                            imageViewMain1.setImageDrawable(d);
+//                        }
+//                    });
+//
+//                }
+//                catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
 //        SHPicasso.getInstance().loadImage(this, "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR", imageViewMain1);
 
@@ -571,42 +627,7 @@ public class MainActivity extends Activity {
 //        ILog.iLogDebug(TAG, "reg p15 " + RegularExpressionUtil.isMatchEmail("djseokho@vip.qq.com"));
 //        ILog.iLogDebug(TAG, "reg p16 " + RegularExpressionUtil.isMatchEmail("@gmail.com"));
 
-        List<Object> a = new ArrayList<>();
-        DBOperationItem dbOperationItem;
-        for(int i = 0; i < 30; i++) {
-            dbOperationItem = new DBOperationItem();
-            dbOperationItem.sql = "aaaaa " + i;
-            a.add(dbOperationItem);
-        }
-        QueueManager.getInstance().addObjectListToQueue(a, new Runnable() {
-            @Override
-            public void run() {
-                ThreadUtil.startUIThread(0, new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
-                    }
-                });
-            }
-        });
 
-        List<Object> b = new ArrayList<>();
-        for(int i = 0; i < 30; i++) {
-            dbOperationItem = new DBOperationItem();
-            dbOperationItem.sql = "bbbbbb " + i;
-            b.add(dbOperationItem);
-        }
-        QueueManager.getInstance().addObjectListToQueue(b, new Runnable() {
-            @Override
-            public void run() {
-                ThreadUtil.startUIThread(0, new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtil.showShortToastNormal(MainActivity.this, "haha");
-                    }
-                });
-            }
-        });
 
     }
 
@@ -652,8 +673,8 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        ILog.iLogDebug(TAG, "onDestroy");
         super.onDestroy();
-
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.swein.framework.module.queuemanager;
 
-import com.swein.framework.tools.util.debug.log.ILog;
-
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class QueueManager {
 
@@ -12,98 +13,59 @@ public class QueueManager {
         return instance;
     }
 
-    private QueueManager() {}
+    private LinkedBlockingDeque<Runnable> queue = new LinkedBlockingDeque<>();
+    private ThreadPoolExecutor threadPoolExecutor;
 
-    private Thread threadProcess;
+    private QueueManager() {
+        threadPoolExecutor = new ThreadPoolExecutor(3, 10, 15, TimeUnit.SECONDS,
+                new ArrayBlockingQueue<Runnable>(4), new RejectedExecutionHandler() {
+            @Override
+            public void rejectedExecution(Runnable runnable, ThreadPoolExecutor threadPoolExecutor) {
+                addTask(runnable);
+            }
+        });
 
-    private LinkedList linkedList = new LinkedList<>();
+        Runnable processThread = new Runnable() {
 
-    public void clear()
-    {
-        linkedList.clear();
-    }
+            Runnable runnable;
 
-    private boolean isQueueEmpty()
-    {
-        return linkedList.isEmpty();
-    }
+            @Override
+            public void run() {
 
-    public void addObjectListToQueue(List<Object> objectList, Runnable runnable)
-    {
-        for(Object object : objectList) {
-            ILog.iLogDebug("===>", object.toString());
-            linkedList.addLast(object);
-        }
+                while (true) {
 
-        readyToProcessQueueObject(runnable);
-    }
-
-    private void readyToProcessQueueObject(Runnable runnable) {
-
-        // 初始化处理线程
-        if(threadProcess == null) {
-            threadProcess = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // 处理线程开始工作，直到队列为空时自动跳出，单线程处理
-                    while (true) {
-
-                        if(isQueueEmpty()) {
-                            continue;
-                        }
-
-                        ILog.iLogDebug("???", "\n");
-                        ILog.iLogDebug("before size===========================", getQueueLength());
-
-                        ILog.iLogDebug("doing ", getFirstObject().toString());
-
-                        Object object = removeObjectFromQueue();
-                        ILog.iLogDebug("remove", object.toString());
-
-                        ILog.iLogDebug("after size==============================", getQueueLength());
-                        ILog.iLogDebug("???", "\n");
-
-                        if(isQueueEmpty()) {
-                            ILog.iLogDebug("???", "finish");
-                            break;
-                        }
+                    try {
+                        runnable = queue.take();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
-                    if(threadProcess != null) {
-                        runnable.run();
-                        ILog.iLogDebug("???", "finish thread");
-                        threadProcess = null;
+                    if (runnable != null) {
+                        threadPoolExecutor.execute(runnable);
                     }
                 }
-            });
+            }
+        };
 
-            threadProcess.start();
+        threadPoolExecutor.execute(processThread);
+    }
+
+    public void addTask(Runnable runnable) {
+        if(runnable != null) {
+            try {
+                queue.put(runnable);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private Object removeObjectFromQueue()
-    {
-        if(!linkedList.isEmpty())
-        {
-            return linkedList.removeFirst();
-        }
-
-        return null;
-    }
-
-    public int getQueueLength()
-    {
-        return linkedList.size();
-    }
-
-    public Object getFirstObject()
-    {
-        return linkedList.getFirst();
-    }
-
-    public Object getLastObject()
-    {
-        return linkedList.getLast();
+    @Override
+    protected void finalize() throws Throwable {
+        threadPoolExecutor.shutdown();
+        super.finalize();
     }
 
 }
