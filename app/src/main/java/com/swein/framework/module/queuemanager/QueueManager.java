@@ -1,7 +1,5 @@
 package com.swein.framework.module.queuemanager;
 
-import com.swein.framework.tools.util.debug.log.ILog;
-
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.RejectedExecutionHandler;
