@@ -17,6 +17,7 @@ public class QueueManager {
     private ThreadPoolExecutor threadPoolExecutor;
 
     private QueueManager() {
+
         threadPoolExecutor = new ThreadPoolExecutor(3, 10, 15, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(4), new RejectedExecutionHandler() {
             @Override
