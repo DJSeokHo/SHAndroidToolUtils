@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     private InputFilter filter = new InputFilter() {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-            Pattern ko = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎ가-힣]+$");
+            Pattern ko = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+$");
 
             if (ko.matcher(source).matches()) {
                 ILog.iLogDebug(TAG, "match  ?? " + source);
