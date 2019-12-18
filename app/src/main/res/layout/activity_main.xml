@@ -70,5 +70,13 @@
         android:layout_height="wrap_content"
         android:text="Add Task" />
 
+    <EditText
+        android:inputType="text"
+        android:maxLength="1"
+        android:id="@+id/editText"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

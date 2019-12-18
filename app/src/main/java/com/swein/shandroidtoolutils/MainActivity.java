@@ -12,10 +12,14 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -41,6 +45,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity {
@@ -63,6 +69,7 @@ public class MainActivity extends Activity {
     private ViewOutlineProvider viewOutlineProvider1;
     private ViewOutlineProvider viewOutlineProvider2;
 
+    private EditText editText;
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
     private static String[] PERMISSIONS_STORAGE = {
@@ -73,6 +80,23 @@ public class MainActivity extends Activity {
 
 
     boolean closeFlag = false;
+
+    private InputFilter filter = new InputFilter() {
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            Pattern ko = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎ가-힣]+$");
+
+            if (ko.matcher(source).matches()) {
+                ILog.iLogDebug(TAG, "match  ?? " + source);
+                return source;
+            }
+            else {
+                ILog.iLogDebug(TAG, "not match  ?? " + source);
+                return "";
+            }
+        }
+    };
+
 
     @TimerTrace
     @Override
@@ -99,6 +123,11 @@ public class MainActivity extends Activity {
 //                checkAppInstallInfoJSONObject(getApplicationContext());
 //            }
 //        });
+
+
+        editText = findViewById(R.id.editText);
+
+        editText.setFilters(new InputFilter[]{filter});
 
         relativeLayoutFakeCameraOnePreview = findViewById(R.id.rl_fake);
         relativeLayoutFakeCameraOnePreview.addView(new FakeCameraOnePreview(this));
