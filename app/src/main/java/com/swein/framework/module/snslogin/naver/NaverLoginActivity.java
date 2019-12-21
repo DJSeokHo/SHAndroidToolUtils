@@ -59,9 +59,13 @@ public class NaverLoginActivity extends AppCompatActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
 
-                                    String id = jsonObject.getString("id");
-                                    String email = jsonObject.getString("email");
-                                    ILog.iLogDebug(TAG, id + " " + email);
+                                    if(jsonObject.getString("message").equals("success")) {
+                                        JSONObject response = jsonObject.getJSONObject("response");
+                                        String id = response.getString("id");
+                                        String email = response.getString("email");
+                                        ILog.iLogDebug(TAG, id + " " + email);
+                                    }
+
                                 }
                                 catch (JSONException e) {
                                     e.printStackTrace();
