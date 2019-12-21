@@ -31,7 +31,7 @@ import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
-import com.swein.framework.module.snslogin.facebook.FacebookLoginActivity;
+import com.swein.framework.module.snslogin.naver.NaverLoginActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -456,7 +456,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        ActivityUtil.startNewActivityWithoutFinish(this, FacebookLoginActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, FacebookLoginActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, NaverLoginActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
