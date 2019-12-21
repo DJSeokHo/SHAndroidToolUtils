@@ -9,10 +9,6 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.KeyEvent;
@@ -23,6 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.VolleyError;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
@@ -31,6 +31,8 @@ import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
+import com.swein.framework.module.snslogin.facebook.FacebookLoginActivity;
+import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
 import com.swein.framework.tools.util.debug.log.ILog;
@@ -43,9 +45,7 @@ import com.swein.framework.tools.util.volley.SHVolley;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -456,7 +456,7 @@ public class MainActivity extends Activity {
             }
         });
 
-
+        ActivityUtil.startNewActivityWithoutFinish(this, FacebookLoginActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);

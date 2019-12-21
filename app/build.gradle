@@ -61,10 +61,10 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.mcxiaoke.volley:library:1.0.19'
-    implementation 'androidx.annotation:annotation:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.android.gms:play-services-analytics:16.0.5'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
     implementation 'org.lucasr.twowayview:twowayview:0.1.4'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'org.apache.commons:commons-lang3:3.5'
@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.aspectj:aspectjrt:1.8.10'
     implementation 'javax.inject:javax.inject:1'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -86,9 +86,9 @@ dependencies {
     implementation 'com.google.android:flexbox:0.3.1'
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
@@ -101,6 +101,8 @@ dependencies {
     implementation project(path: ':zxinglite')
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
+    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+
 }
 
 final def log = project.logger
@@ -109,7 +111,7 @@ final def variants = project.android.applicationVariants
 variants.all { variant ->
     if (!variant.buildType.isDebuggable()) {
         log.debug("Skipping non-debuggable build type '${variant.buildType.name}'.")
-        return;
+        return
     }
 
     JavaCompile javaCompile = variant.javaCompile
@@ -123,24 +125,24 @@ variants.all { variant ->
                          "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
         log.debug "ajc args: " + Arrays.toString(args)
 
-        MessageHandler handler = new MessageHandler(true);
-        new Main().run(args, handler);
+        MessageHandler handler = new MessageHandler(true)
+        new Main().run(args, handler)
         for (IMessage message : handler.getMessages(null, true)) {
             switch (message.getKind()) {
                 case IMessage.ABORT:
                 case IMessage.ERROR:
                 case IMessage.FAIL:
                     log.error message.message, message.thrown
-                    break;
+                    break
                 case IMessage.WARNING:
                     log.warn message.message, message.thrown
-                    break;
+                    break
                 case IMessage.INFO:
                     log.info message.message, message.thrown
-                    break;
+                    break
                 case IMessage.DEBUG:
                     log.debug message.message, message.thrown
-                    break;
+                    break
             }
         }
     }
