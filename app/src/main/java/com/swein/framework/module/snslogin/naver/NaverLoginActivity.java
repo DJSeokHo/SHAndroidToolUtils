@@ -13,11 +13,8 @@ import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.shandroidtoolutils.R;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class NaverLoginActivity extends AppCompatActivity {
 
@@ -35,6 +32,7 @@ public class NaverLoginActivity extends AppCompatActivity {
         OAuthLogin.getInstance().init(this, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_CLIENT_NAME);
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+
             @SuppressLint("HandlerLeak")
             @Override
             public void onClick(View view) {
@@ -52,12 +50,23 @@ public class NaverLoginActivity extends AppCompatActivity {
                             ILog.iLogDebug(TAG, OAuthLogin.getInstance().getState(NaverLoginActivity.this).toString());
 
                             ThreadUtil.startThread(() -> {
-                                String url = "https://openapi.naver.com/v1/nid/getUserProfile.xml";
+                                String url = "https://openapi.naver.com/v1/nid/me";
                                 String at = OAuthLogin.getInstance().getAccessToken(NaverLoginActivity.this);
 
                                 String result = OAuthLogin.getInstance().requestApi(NaverLoginActivity.this, at, url);
                                 ILog.iLogDebug(TAG, result);
-                                ParsingVersionData(result);
+
+                                try {
+                                    JSONObject jsonObject = new JSONObject(result);
+
+                                    String id = jsonObject.getString("id");
+                                    String email = jsonObject.getString("email");
+                                    ILog.iLogDebug(TAG, id + " " + email);
+                                }
+                                catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
                             });
                         }
                         else {
@@ -73,89 +82,6 @@ public class NaverLoginActivity extends AppCompatActivity {
 
     }
 
-    private void ParsingVersionData(String data) {
-
-        String f_array[] = new String[9];
-
-        try {
-            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = parserCreator.newPullParser();
-            InputStream input = new ByteArrayInputStream(data.getBytes("UTF-8"));
-            parser.setInput(input, "UTF-8");
-
-            int parserEvent = parser.getEventType();
-            String tag;
-            boolean inText = false;
-            boolean lastMatTag = false;
-
-            int colIdx = 0;
-
-            while (parserEvent != XmlPullParser.END_DOCUMENT) {
-
-                switch (parserEvent) {
-                    case XmlPullParser.START_TAG:
-
-                        tag = parser.getName();
-                        if ( 0 == tag.compareTo("xml") ) {
-                            inText = false;
-                        }
-                        else if ( 0 == tag.compareTo("data") ) {
-                            inText = false;
-                        }
-                        else if ( 0 == tag.compareTo("result") ) {
-                            inText = false;
-                        }
-                        else if ( 0 == tag.compareTo("resultcode") ) {
-                            inText = false;
-                        }
-                        else if ( 0 == tag.compareTo("message") ) {
-                            inText = false;
-                        }
-                        else if ( 0 == tag.compareTo("response") ) {
-                            inText = false;
-                        }
-                        else {
-                            inText = true;
-                        }
-
-                        break;
-
-                    case XmlPullParser.TEXT:
-
-                        tag = parser.getName();
-                        if ( inText ) {
-                            if ( parser.getText() == null ) {
-                                f_array[colIdx] = "";
-                            }
-                            else {
-                                f_array[colIdx] = parser.getText().trim();
-                            }
-
-                            colIdx++;
-                        }
-                        inText = false;
-
-                        break;
-
-                    case XmlPullParser.END_TAG:
-
-                        tag = parser.getName();
-                        inText = false;
-
-                        break;
-                }
-                parserEvent = parser.next();
-            }
-        }
-        catch ( Exception e ) {
-            ILog.iLogDebug(TAG, "network error");
-        }
-
-        String id = f_array[0];
-        String email = f_array[6];
-
-        ILog.iLogDebug(TAG, id + " " + email);
-    }
 
     @Override
     protected void onDestroy() {
