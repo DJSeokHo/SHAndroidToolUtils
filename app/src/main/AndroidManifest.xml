@@ -46,7 +46,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.swein.framework.template.permission.PermissionTemplateActivity"></activity>
+        <activity android:name="com.swein.framework.template.permission.PermissionTemplateActivity" />
         <activity android:name="com.swein.framework.module.customtimepicker.demo.CustomTimePickerDemoActivity" />
         <activity android:name="com.swein.framework.template.svg.demo.SVGDemoActivity" />
         <activity android:name="com.swein.framework.template.mvp.MVPDemoActivity" />
@@ -138,12 +138,10 @@
         <!-- </intent-filter> -->
         <!-- </receiver> -->
         <!-- phone call recorder -->
-
         <activity
             android:name="com.swein.framework.template.bottomnavigationbar.activity.BottomNavigateDemoActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
         <activity
             android:name="com.swein.framework.template.transitionview.TransitionViewTemplateActivity"
             android:launchMode="singleTask"
