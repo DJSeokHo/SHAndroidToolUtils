@@ -123,13 +123,17 @@ public class SHRecyclerViewFragment extends Fragment {
         for (int i = offset; i < offset + limit; i++) {
             if (i % 5 == 0) {
                 url = "https://onestep4ward.com/wp-content/uploads/2019/06/Travel.jpg";
-            } else if (i % 7 == 0) {
+            }
+            else if (i % 7 == 0) {
                 url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQPy7raArvIo1T8Haw7Sq-KOg2-CfSx_ObFaX7ORD-OOjnFCHgrw&s";
-            } else if (i % 8 == 0) {
+            }
+            else if (i % 8 == 0) {
                 url = "https://independenttravelcats.com/wp-content/uploads/2018/03/Destinations.jpg";
-            } else if (i % 9 == 0) {
+            }
+            else if (i % 9 == 0) {
                 url = "https://cms.hostelworld.com/hwblog/wp-content/uploads/sites/2/2017/08/girlgoneabroad.jpg";
-            } else {
+            }
+            else {
                 url = "https://specials-images.forbesimg.com/imageserve/5de28d24ea103f000653be7c/960x0.jpg?cropX1=0&cropX2=3936&cropY1=320&cropY2=2166";
             }
 

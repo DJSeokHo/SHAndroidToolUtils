@@ -39,7 +39,7 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         textView = view.get().findViewById(R.id.textView);
         imageView = view.get().findViewById(R.id.imageView);
 
@@ -47,7 +47,7 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void updateView(SHRecyclerViewItemDataBean dataModel){
+    public void updateView(SHRecyclerViewItemDataBean dataModel) {
         this.dataModel = dataModel;
         textView.setText(dataModel.string);
         imageView.post(() -> {
