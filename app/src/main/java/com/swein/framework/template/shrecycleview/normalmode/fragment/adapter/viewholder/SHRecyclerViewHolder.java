@@ -51,7 +51,6 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
         this.dataModel = dataModel;
         textView.setText(dataModel.string);
         imageView.post(() -> {
-//            Glide.with(view.get().getContext()).asBitmap().centerCrop().load(dataModel.imageUrl).override(imageView.getWidth(), imageView.getHeight()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).thumbnail(0.1f).into(imageView);
             ILog.iLogDebug(TAG, imageView.getWidth() + " " + imageView.getHeight());
             SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0);
         });
