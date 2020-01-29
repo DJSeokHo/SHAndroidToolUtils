@@ -1,15 +1,20 @@
 package com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder;
 
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
-import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.bean.SHRecyclerViewItemDataBean;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.glide.SHGlide;
 import com.swein.shandroidtoolutils.R;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by seokho on 02/01/2018.
@@ -19,38 +24,37 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private static final String TAG = "SHRecyclerViewHolder";
 
-    private View itemView;
+    private WeakReference<View> view;
     private TextView textView;
+    private ImageView imageView;
 
-    private FrameLayout shRecyclerViewItem;
-
-    private SHRecyclerViewItemDataModel dataModel;
+    private SHRecyclerViewItemDataBean dataModel;
 
     private SHRecyclerViewHolderDelegate shRecyclerViewHolderDelegate;
 
     public SHRecyclerViewHolder(View itemView, SHRecyclerViewHolderDelegate shRecyclerViewHolderDelegate) {
         super(itemView);
-        this.itemView = itemView;
+        this.view = new WeakReference<>(itemView);
         this.shRecyclerViewHolderDelegate = shRecyclerViewHolderDelegate;
         findView();
     }
 
     private void findView(){
-        shRecyclerViewItem = (FrameLayout) this.itemView.findViewById(R.id.shRecyclerViewItem);
-        textView = (TextView) this.itemView.findViewById(R.id.textView);
+        textView = view.get().findViewById(R.id.textView);
+        imageView = view.get().findViewById(R.id.imageView);
 
-        shRecyclerViewItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shRecyclerViewHolderDelegate.onSHRecyclerViewHolderClicked(dataModel);
-            }
-        });
+        view.get().setOnClickListener(v -> shRecyclerViewHolderDelegate.onSHRecyclerViewHolderClicked(dataModel));
 
     }
 
-    public void updateView(SHRecyclerViewItemDataModel dataModel){
+    public void updateView(SHRecyclerViewItemDataBean dataModel){
         this.dataModel = dataModel;
         textView.setText(dataModel.string);
+        imageView.post(() -> {
+//            Glide.with(view.get().getContext()).asBitmap().centerCrop().load(dataModel.imageUrl).override(imageView.getWidth(), imageView.getHeight()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).thumbnail(0.1f).into(imageView);
+            ILog.iLogDebug(TAG, imageView.getWidth() + " " + imageView.getHeight());
+            SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0);
+        });
     }
 
     @Override

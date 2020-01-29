@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
@@ -31,7 +32,9 @@ import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
+import com.swein.framework.module.snslogin.facebook.FacebookLoginActivity;
 import com.swein.framework.module.snslogin.naver.NaverLoginActivity;
+import com.swein.framework.template.shrecycleview.activity.SHRecyclerViewActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -305,7 +308,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, RxJava2Activity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, JustActivity.class);
-//        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SHRecyclerViewActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDoubleScrollActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenShotActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, EasyScreenRecordingActivity.class);
@@ -427,10 +430,13 @@ public class MainActivity extends Activity {
 
 //        SHPicasso.getInstance().loadImage(this, "http://bmtonnoffcompany.xcache.kinxcdn.com/kinxcdn-thumbnail&application=onnoffcompany_trans&streamname=SuxIAR", imageViewMain1);
 
+
+        Glide.with(this).load("https://www.ltteps.org/wp-content/uploads/2019/06/travel-editor-favorite-products.jpg").into(imageViewMain1);
+
         imageViewMain2 = findViewById(R.id.imageViewMain2);
 
-
-        SHPicasso.getInstance().loadImage(this, "http://img3.imgtn.bdimg.com/it/u=1332377433,2524957434&fm=27&gp=0.jpg", imageViewMain2, false, 0);
+        // https://www.theforumbarrow.co.uk/wp-content/uploads/2019/12/wine-tasting.jpg
+        SHPicasso.getInstance().loadImage(this, "https://cdn.ventrata.com/image/upload/ar_1.5,c_fill,dpr_3.0,f_jpg,w_400/v1500684095/itjki4cai6huwbtmnzol.jpg", imageViewMain2, false, 0);
 
         imageViewMain2.setOnClickListener(new View.OnClickListener() {
 
@@ -457,7 +463,7 @@ public class MainActivity extends Activity {
         });
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, FacebookLoginActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, NaverLoginActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, NaverLoginActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHDemoMVCActivity.class);
 
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);

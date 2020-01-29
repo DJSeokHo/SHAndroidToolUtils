@@ -106,6 +106,8 @@ dependencies {
     // naver
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.5'
 
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+
 }
 
 final def log = project.logger

@@ -1,6 +1,6 @@
 package com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate;
 
-import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.bean.SHRecyclerViewItemDataBean;
 
 /**
  * Created by seokho on 02/01/2018.
@@ -8,6 +8,6 @@ import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.vi
 
 public interface SHRecyclerViewHolderDelegate {
 
-    void onSHRecyclerViewHolderClicked(SHRecyclerViewItemDataModel shRecyclerViewItemDataModel);
+    void onSHRecyclerViewHolderClicked(SHRecyclerViewItemDataBean shRecyclerViewItemDataBean);
 
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.SHRecyclerViewHolder;
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
-import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.bean.SHRecyclerViewItemDataBean;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
@@ -25,7 +25,7 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
     private final static String TAG = "SHRecyclerViewAdapter";
 
-    private List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList = new ArrayList<>();
+    private List<SHRecyclerViewItemDataBean> shRecyclerViewItemDataBeanList = new ArrayList<>();
 
     private Context context;
 
@@ -40,15 +40,14 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
         return new SHRecyclerViewHolder(view, this);
     }
 
-    public void loadMoreList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
-        this.shRecyclerViewItemDataModelList.addAll(shRecyclerViewItemDataModelList);
-        notifyItemRangeChanged(this.shRecyclerViewItemDataModelList.size() - shRecyclerViewItemDataModelList.size() + 1, shRecyclerViewItemDataModelList.size());
-//        notifyDataSetChanged();
+    public void loadMoreList(List<SHRecyclerViewItemDataBean> shRecyclerViewItemDataBeanList) {
+        this.shRecyclerViewItemDataBeanList.addAll(shRecyclerViewItemDataBeanList);
+        notifyItemRangeChanged(this.shRecyclerViewItemDataBeanList.size() - shRecyclerViewItemDataBeanList.size() + 1, shRecyclerViewItemDataBeanList.size());
     }
 
-    public void reloadList(List<SHRecyclerViewItemDataModel> shRecyclerViewItemDataModelList) {
-        this.shRecyclerViewItemDataModelList.clear();
-        this.shRecyclerViewItemDataModelList.addAll(shRecyclerViewItemDataModelList);
+    public void reloadList(List<SHRecyclerViewItemDataBean> shRecyclerViewItemDataBeanList) {
+        this.shRecyclerViewItemDataBeanList.clear();
+        this.shRecyclerViewItemDataBeanList.addAll(shRecyclerViewItemDataBeanList);
 
         notifyDataSetChanged();
     }
@@ -59,7 +58,7 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
             SHRecyclerViewHolder shRecyclerViewHolder = (SHRecyclerViewHolder) holder;
 
-            shRecyclerViewHolder.updateView(shRecyclerViewItemDataModelList.get(position));
+            shRecyclerViewHolder.updateView(shRecyclerViewItemDataBeanList.get(position));
 
         }
 
@@ -74,13 +73,13 @@ public class SHRecyclerViewAdapter extends RecyclerView.Adapter implements SHRec
 
     @Override
     public int getItemCount() {
-        return shRecyclerViewItemDataModelList.size();
+        return shRecyclerViewItemDataBeanList.size();
     }
 
     @Override
-    public void onSHRecyclerViewHolderClicked(SHRecyclerViewItemDataModel shRecyclerViewItemDataModel) {
+    public void onSHRecyclerViewHolderClicked(SHRecyclerViewItemDataBean shRecyclerViewItemDataBean) {
 
-        ToastUtil.showShortToastNormal(context, shRecyclerViewItemDataModel.string);
+        ToastUtil.showShortToastNormal(context, shRecyclerViewItemDataBean.string);
 
     }
 

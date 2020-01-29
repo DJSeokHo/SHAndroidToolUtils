@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.SHRecyclerViewAdapter;
-import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.model.SHRecyclerViewItemDataModel;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.bean.SHRecyclerViewItemDataBean;
 import com.swein.framework.template.shrecycleview.normalmode.shrecycleviewconstants.Constants;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.views.ViewUtil;
@@ -53,10 +53,10 @@ public class SHRecyclerViewFragment extends Fragment {
         return rootView;
     }
 
-    private void findView(){
+    private void findView() {
 
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.shSwipeRefreshLayout);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.shRecyclerView);
+        swipeRefreshLayout = rootView.findViewById(R.id.shSwipeRefreshLayout);
+        recyclerView = rootView.findViewById(R.id.shRecyclerView);
 
         switch (recyclerViewLayoutMode) {
             case GRID:
@@ -70,15 +70,12 @@ public class SHRecyclerViewFragment extends Fragment {
 
         adapter = new SHRecyclerViewAdapter();
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
 
-                // reload here
-                adapter.reloadList(createTempData());
+            // reload here
+            adapter.reloadList(createTempData(0, 15));
 
-                swipeRefreshLayout.setRefreshing(false);
-            }
+            swipeRefreshLayout.setRefreshing(false);
         });
 
         recyclerView.setLayoutManager(layoutManager);
@@ -101,7 +98,7 @@ public class SHRecyclerViewFragment extends Fragment {
                         && visibleItemCount > 0) {
 
                     // load more here
-                    adapter.loadMoreList(createTempData());
+                    adapter.loadMoreList(createTempData(adapter.getItemCount(), 15));
                 }
 
             }
@@ -112,19 +109,32 @@ public class SHRecyclerViewFragment extends Fragment {
             }
         });
 
-        adapter.loadMoreList(createTempData());
+        adapter.loadMoreList(createTempData(0, 15));
     }
 
 
-    private List<SHRecyclerViewItemDataModel> createTempData() {
+    private List<SHRecyclerViewItemDataBean> createTempData(int offset, int limit) {
 
-        List<SHRecyclerViewItemDataModel> list = new ArrayList<>();
+        List<SHRecyclerViewItemDataBean> list = new ArrayList<>();
 
-        SHRecyclerViewItemDataModel shRecyclerViewItemDataModel;
+        SHRecyclerViewItemDataBean shRecyclerViewItemDataBean;
 
-        for(int i = 0; i < 100; i++) {
-            shRecyclerViewItemDataModel = new SHRecyclerViewItemDataModel(i + " item");
-            list.add(shRecyclerViewItemDataModel);
+        String url;
+        for (int i = offset; i < offset + limit; i++) {
+            if (i % 5 == 0) {
+                url = "https://onestep4ward.com/wp-content/uploads/2019/06/Travel.jpg";
+            } else if (i % 7 == 0) {
+                url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQPy7raArvIo1T8Haw7Sq-KOg2-CfSx_ObFaX7ORD-OOjnFCHgrw&s";
+            } else if (i % 8 == 0) {
+                url = "https://independenttravelcats.com/wp-content/uploads/2018/03/Destinations.jpg";
+            } else if (i % 9 == 0) {
+                url = "https://cms.hostelworld.com/hwblog/wp-content/uploads/sites/2/2017/08/girlgoneabroad.jpg";
+            } else {
+                url = "https://specials-images.forbesimg.com/imageserve/5de28d24ea103f000653be7c/960x0.jpg?cropX1=0&cropX2=3936&cropY1=320&cropY2=2166";
+            }
+
+            shRecyclerViewItemDataBean = new SHRecyclerViewItemDataBean(i + " item", url);
+            list.add(shRecyclerViewItemDataBean);
         }
 
         return list;
