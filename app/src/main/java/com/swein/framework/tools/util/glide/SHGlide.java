@@ -37,7 +37,11 @@ public class SHGlide {
             requestBuilder = requestBuilder.thumbnail(thumbnailSize);
         }
 
-        requestBuilder.skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+        requestBuilder.skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imageView);
 
+    }
+
+    public void clearDiskCache(Context context) {
+        Glide.get(context).clearDiskCache();
     }
 }

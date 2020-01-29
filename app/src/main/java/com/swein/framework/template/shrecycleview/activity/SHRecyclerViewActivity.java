@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.swein.framework.template.shrecycleview.normalmode.fragment.SHRecyclerViewFragment;
 import com.swein.framework.tools.util.activity.ActivityUtil;
+import com.swein.framework.tools.util.glide.SHGlide;
+import com.swein.framework.tools.util.thread.ThreadUtil;
 import com.swein.shandroidtoolutils.R;
 
 public class SHRecyclerViewActivity extends FragmentActivity {
@@ -21,5 +23,13 @@ public class SHRecyclerViewActivity extends FragmentActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        ThreadUtil.startThread(() -> {
+            SHGlide.getInstance().clearDiskCache(this);
+        });
+        super.onDestroy();
     }
 }
