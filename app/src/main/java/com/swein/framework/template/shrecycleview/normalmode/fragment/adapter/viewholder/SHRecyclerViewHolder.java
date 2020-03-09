@@ -52,7 +52,7 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
         textView.setText(dataModel.string);
         imageView.post(() -> {
             ILog.iLogDebug(TAG, imageView.getWidth() + " " + imageView.getHeight());
-            SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0);
+            SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0, 0);
         });
     }
 
