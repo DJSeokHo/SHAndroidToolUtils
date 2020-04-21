@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SHAndroidToolUtils.iml" filepath="$PROJECT_DIR$/SHAndroidToolUtils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zxinglite/zxinglite.iml" filepath="$PROJECT_DIR$/zxinglite/zxinglite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SHAndroidToolUtils.iml" filepath="$PROJECT_DIR$/SHAndroidToolUtils.iml" group="SHAndroidToolUtils" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="SHAndroidToolUtils/app" />
+      <module fileurl="file://$PROJECT_DIR$/zxinglite/zxinglite.iml" filepath="$PROJECT_DIR$/zxinglite/zxinglite.iml" group="SHAndroidToolUtils/zxinglite" />
     </modules>
   </component>
 </project>

@@ -10,6 +10,9 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.SET_TIME_ZONE"
+        tools:ignore="ProtectedPermissions" />
+
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -46,6 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="com.swein.framework.module.alarm.demo.AlarmDemoActivity"></activity>
         <activity android:name="com.swein.framework.module.snslogin.naver.NaverLoginActivity" />
         <activity android:name="com.swein.framework.module.snslogin.facebook.FacebookLoginActivity" />
 
@@ -199,6 +203,10 @@
                 <action android:name="com.android.broadcast.RECEIVER_ACTION" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name="com.swein.framework.module.alarm.receiver.AlarmBroadcastReceiver"
+            android:process=":remote" />
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"

@@ -6,10 +6,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
 import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.bean.SHRecyclerViewItemDataBean;
+import com.swein.framework.template.shrecycleview.normalmode.fragment.adapter.viewholder.delegate.SHRecyclerViewHolderDelegate;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.glide.SHGlide;
 import com.swein.shandroidtoolutils.R;
@@ -52,7 +50,7 @@ public class SHRecyclerViewHolder extends RecyclerView.ViewHolder {
         textView.setText(dataModel.string);
         imageView.post(() -> {
             ILog.iLogDebug(TAG, imageView.getWidth() + " " + imageView.getHeight());
-            SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0);
+            SHGlide.getInstance().setImageBitmap(view.get().getContext(), dataModel.imageUrl, imageView, null, imageView.getWidth(), imageView.getHeight(), 0, 0);
         });
     }
 
