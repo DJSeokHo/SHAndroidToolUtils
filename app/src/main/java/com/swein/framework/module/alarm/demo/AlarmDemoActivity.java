@@ -60,6 +60,7 @@ public class AlarmDemoActivity extends AppCompatActivity {
 //                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 //                    }
 
+
                     // 重复闹钟，4.4以上不精确
                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60 * 1000, pendingIntent);
                 }
