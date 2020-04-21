@@ -206,7 +206,7 @@
 
         <receiver
             android:name="com.swein.framework.module.alarm.receiver.AlarmBroadcastReceiver"
-            android:process=":remote" />
+            />
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"

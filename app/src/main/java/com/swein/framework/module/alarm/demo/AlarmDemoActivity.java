@@ -3,6 +3,7 @@ package com.swein.framework.module.alarm.demo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -12,9 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.swein.framework.module.alarm.receiver.AlarmBroadcastReceiver;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
+import com.swein.framework.tools.util.eventsplitshot.subject.ESSArrows;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 public class AlarmDemoActivity extends AppCompatActivity {
 
@@ -37,6 +42,14 @@ public class AlarmDemoActivity extends AppCompatActivity {
 
         switchAlarm = findViewById(R.id.switchAlarm);
 
+        EventCenter.getInstance().addEventObserver(ESSArrows.ALARM_UPDATE, this, new EventCenter.EventRunnable() {
+            @Override
+            public void run(String arrow, Object poster, HashMap<String, Object> data) {
+                String date = new Date().toString();
+//                ILog.iLogDebug(TAG, date);
+                textView.setText(date);
+            }
+        });
 
         switchAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -45,24 +58,28 @@ public class AlarmDemoActivity extends AppCompatActivity {
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 45);
+                    calendar.set(Calendar.HOUR_OF_DAY, 2);
+                    calendar.set(Calendar.MINUTE, 34);
+                    calendar.set(Calendar.SECOND, 0);
+
+//                    AlarmManager.AlarmClockInfo info = new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(), pendingIntent);
+//                    alarmManager.setAlarmClock(info, pendingIntent);
 
                     ILog.iLogDebug(TAG, calendar.getTime().toString());
 
-//                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//                    }
-//                    else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//                    }
-//                    else {
-//                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//                    }
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    }
+                    else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    }
+                    else {
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    }
 
 
                     // 重复闹钟，4.4以上不精确
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60 * 1000, pendingIntent);
+//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60 * 1000, pendingIntent);
                 }
                 else {
                     alarmManager.cancel(pendingIntent);
@@ -140,6 +157,7 @@ public class AlarmDemoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         alarmManager.cancel(pendingIntent);
+        EventCenter.getInstance().removeAllObserver(this);
         super.onDestroy();
     }
 }

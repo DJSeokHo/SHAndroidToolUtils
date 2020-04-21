@@ -27,4 +27,5 @@ public class ESSArrows {
 
     public final static String ESS_UPDATE_UI = "ESS_UPDATE_UI";
 
+    public final static String ALARM_UPDATE = "ALARM_UPDATE";
 }
