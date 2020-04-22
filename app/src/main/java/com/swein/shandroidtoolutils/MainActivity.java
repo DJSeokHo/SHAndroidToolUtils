@@ -25,7 +25,6 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.swein.framework.module.alarm.demo.AlarmDemoActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
@@ -33,6 +32,7 @@ import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
+import com.swein.framework.module.sqlite.demo.SQLiteDemoActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -312,7 +312,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenShotActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, EasyScreenRecordingActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, ScreenRecordingActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, AlarmDemoActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, AlarmDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(this, SQLiteDemoActivity.class);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||

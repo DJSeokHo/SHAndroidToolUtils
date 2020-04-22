@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.swein.framework.tools.util.debug.log.ILog;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SHSQLiteController extends SQLiteOpenHelper {
@@ -18,11 +16,11 @@ public class SHSQLiteController extends SQLiteOpenHelper {
     private final static String TAG = "SHSQLiteController";
 
     private final static int DB_VERSION = 1;
-    private final static String DB_NAME = "RolTech.db";
-    private final static String TABLE_NAME = "TB_OTP";
-    private final static String OTP_TABLE_COL_UUID = "UUID";
-    private final static String OTP_TABLE_COL_NUMBER = "NUMBER";
-    private final static String OTP_TABLE_COL_CREATE_DATE = "CREATE_DATE";
+    private final static String DB_NAME = "Test.db";
+    private final static String TABLE_NAME = "TEST_TABLE";
+    private final static String TABLE_COL_UUID = "UUID";
+    private final static String TABLE_COL_CONTENT = "CONTENT";
+    private final static String TABLE_COL_CREATE_DATE = "CREATE_DATE";
 
     private Context context;
 
@@ -38,9 +36,9 @@ public class SHSQLiteController extends SQLiteOpenHelper {
                 .append("CREATE TABLE IF NOT EXISTS ")
                 .append(TABLE_NAME)
                 .append('(')
-                .append(OTP_TABLE_COL_UUID).append(" TEXT NOT NULL PRIMARY KEY,")
-                .append(OTP_TABLE_COL_NUMBER).append(" TEXT,")
-                .append(OTP_TABLE_COL_CREATE_DATE).append(" TEXT")
+                .append(TABLE_COL_UUID).append(" TEXT NOT NULL PRIMARY KEY,")
+                .append(TABLE_COL_CONTENT).append(" TEXT,")
+                .append(TABLE_COL_CREATE_DATE).append(" DATE")
                 .append(')');
         db.execSQL(stringBuilder.toString());
     }
@@ -53,18 +51,16 @@ public class SHSQLiteController extends SQLiteOpenHelper {
     }
 
 
-    public void insert(String uuid, String otpNumber) {
+    public void insert(String uuid, String content, String date) {
         SQLiteDatabase db = null;
         try {
-
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             db = getWritableDatabase();
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(OTP_TABLE_COL_UUID, uuid);
-            contentValues.put(OTP_TABLE_COL_NUMBER, otpNumber);
-            contentValues.put(OTP_TABLE_COL_CREATE_DATE, formatter.format(new Date(System.currentTimeMillis())));
+            contentValues.put(TABLE_COL_UUID, uuid);
+            contentValues.put(TABLE_COL_CONTENT, content);
+            contentValues.put(TABLE_COL_CREATE_DATE, date);
 
             db.insertOrThrow(TABLE_NAME, null, contentValues);
             db.setTransactionSuccessful();
@@ -83,15 +79,15 @@ public class SHSQLiteController extends SQLiteOpenHelper {
 
     public List<DataModel> getData(int offset, int limit) {
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + OTP_TABLE_COL_CREATE_DATE + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + TABLE_COL_CREATE_DATE + " DESC" + " LIMIT " + limit + " OFFSET " + offset, null);
 
         ArrayList<DataModel> dataModelArrayList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             DataModel dataModel = new DataModel();
-            dataModel.uuid = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_UUID));
-            dataModel.otpNumber = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_NUMBER));
-            dataModel.date = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_CREATE_DATE));
+            dataModel.uuid = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
+            dataModel.content = cursor.getString(cursor.getColumnIndex(TABLE_COL_CONTENT));
+            dataModel.date = cursor.getString(cursor.getColumnIndex(TABLE_COL_CREATE_DATE));
             dataModelArrayList.add(dataModel);
         }
 
@@ -102,15 +98,36 @@ public class SHSQLiteController extends SQLiteOpenHelper {
 
     public List<DataModel> getAllData() {
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + OTP_TABLE_COL_CREATE_DATE + " DESC", null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + TABLE_COL_CREATE_DATE + " DESC", null);
 
         ArrayList<DataModel> dataModelArrayList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             DataModel dataModel = new DataModel();
-            dataModel.uuid = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_UUID));
-            dataModel.otpNumber = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_NUMBER));
-            dataModel.date = cursor.getString(cursor.getColumnIndex(OTP_TABLE_COL_CREATE_DATE));
+            dataModel.uuid = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
+            dataModel.content = cursor.getString(cursor.getColumnIndex(TABLE_COL_CONTENT));
+            dataModel.date = cursor.getString(cursor.getColumnIndex(TABLE_COL_CREATE_DATE));
+            dataModelArrayList.add(dataModel);
+        }
+
+        close();
+        return dataModelArrayList;
+    }
+
+    public List<DataModel> getTestData(String targetDate) {
+
+
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM TEST_TABLE WHERE strftime('%Y%m%d', TEST_TABLE.CREATE_DATE) = strftime('%Y%m%d', '" + targetDate + "')", null);
+//        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM TEST_TABLE WHERE strftime('%Y%m%d', date(TEST_TABLE.CREATE_DATE)) = strftime('%Y%m%d', date(" + targetDate + "))", null);
+//        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM TEST_TABLE WHERE TEST_TABLE.CREATE_DATE = '" + targetDate + "'", null);
+
+        ArrayList<DataModel> dataModelArrayList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            DataModel dataModel = new DataModel();
+            dataModel.uuid = cursor.getString(cursor.getColumnIndex(TABLE_COL_UUID));
+            dataModel.content = cursor.getString(cursor.getColumnIndex(TABLE_COL_CONTENT));
+            dataModel.date = cursor.getString(cursor.getColumnIndex(TABLE_COL_CREATE_DATE));
             dataModelArrayList.add(dataModel);
         }
 
@@ -126,14 +143,13 @@ public class SHSQLiteController extends SQLiteOpenHelper {
 
     public class DataModel {
         public String uuid;
-        public String otpNumber;
+        public String content;
         public String date;
 
         @Override
         public String toString() {
-            return uuid + " " + otpNumber + " " + date;
+            return uuid + " " + content + " " + date;
         }
     }
-
 
 }
