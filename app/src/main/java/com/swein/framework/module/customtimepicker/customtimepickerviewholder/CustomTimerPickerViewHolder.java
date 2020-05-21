@@ -81,7 +81,7 @@ public class CustomTimerPickerViewHolder {
         customNumberPickerHour.setMinValue(0);
         customNumberPickerHour.setValue(0);
         customNumberPickerHour.setBackgroundColor(Color.WHITE);
-        customNumberPickerHour.setNumberPickerDividerColor(Color.BLACK);
+        customNumberPickerHour.setNumberPickerDividerColor(Color.TRANSPARENT);
 
         List<String> minuteList = new ArrayList<>();
         for(int i = 0; i <= 59; i++) {
@@ -93,7 +93,7 @@ public class CustomTimerPickerViewHolder {
         customNumberPickerMinute.setMinValue(0);
         customNumberPickerMinute.setValue(0);
         customNumberPickerMinute.setBackgroundColor(Color.WHITE);
-        customNumberPickerMinute.setNumberPickerDividerColor(Color.BLACK);
+        customNumberPickerMinute.setNumberPickerDividerColor(Color.TRANSPARENT);
 
         List<String> localList = new ArrayList<>();
         localList.add("AM");
@@ -103,7 +103,7 @@ public class CustomTimerPickerViewHolder {
         customNumberPickerLocal.setMinValue(0);
         customNumberPickerLocal.setMaxValue(localList.size() - 1);
         customNumberPickerLocal.setBackgroundColor(Color.WHITE);
-        customNumberPickerLocal.setNumberPickerDividerColor(Color.BLACK);
+        customNumberPickerLocal.setNumberPickerDividerColor(Color.TRANSPARENT);
 
     }
 
