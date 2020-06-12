@@ -49,7 +49,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.swein.framework.module.sqlite.demo.SQLiteDemoActivity"></activity>
+        <activity android:name="com.swein.framework.module.imageselector.demo.ImageSelectorActivity"/>
+        <activity android:name="com.swein.framework.module.sqlite.demo.SQLiteDemoActivity" />
         <activity android:name="com.swein.framework.module.alarm.demo.AlarmDemoActivity" />
         <activity android:name="com.swein.framework.module.snslogin.naver.NaverLoginActivity" />
         <activity android:name="com.swein.framework.module.snslogin.facebook.FacebookLoginActivity" />

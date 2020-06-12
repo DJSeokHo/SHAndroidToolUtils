@@ -26,8 +26,8 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.customtimepicker.demo.CustomTimePickerDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
+import com.swein.framework.module.imageselector.demo.ImageSelectorActivity;
 import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
@@ -377,8 +377,8 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomCalenderActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVCDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
-
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ImageSelectorActivity.class);
 
 
         SHVolley.getInstance().requestUrlGet(this, "https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
