@@ -22,6 +22,29 @@ public class SHGlide {
         return instance;
     }
 
+    public void setImageBitmap(Context context, Bitmap bitmap, ImageView imageView, @Nullable Drawable placeHolder, int width, int height, float rate, float thumbnailSize) {
+
+        RequestBuilder<Bitmap> requestBuilder = Glide.with(context).asBitmap().load(bitmap).transition(withCrossFade());
+        if(placeHolder != null) {
+            requestBuilder = requestBuilder.placeholder(placeHolder);
+        }
+
+        if(width != 0 && height != 0) {
+
+            if(rate != 0) {
+                width = (int)((float)width * rate);
+                height = (int)((float)height * rate);
+            }
+
+            requestBuilder = requestBuilder.override(width, height);
+        }
+
+        if(thumbnailSize != 0) {
+            requestBuilder = requestBuilder.thumbnail(thumbnailSize);
+        }
+
+        requestBuilder.skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView);
+    }
 
     public void setImageBitmap(Context context, String url, ImageView imageView, @Nullable Drawable placeHolder, int width, int height, float rate, float thumbnailSize) {
 

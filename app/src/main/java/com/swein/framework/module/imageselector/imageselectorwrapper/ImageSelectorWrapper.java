@@ -8,7 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.swein.framework.module.imageselector.ImageFolderItemBean;
-import com.swein.framework.module.imageselector.ImageItemBean;
+import com.swein.framework.module.imageselector.selector.adapter.item.ImageSelectorItemBean;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
 import java.io.File;
@@ -27,14 +27,14 @@ public class ImageSelectorWrapper {
     private ImageSelectorWrapper() {}
 
     public interface ImageSelectorWrapperDelegate {
-        void onSuccess(List<ImageFolderItemBean> imageFolderItemBeans, List<ImageItemBean> imageItemBeanList);
+        void onSuccess(List<ImageFolderItemBean> imageFolderItemBeans, List<ImageSelectorItemBean> imageSelectorItemBeanList);
         void onError();
     }
 
     public void scanImageFile(Context context, ImageSelectorWrapperDelegate imageSelectorWrapperDelegate) {
 
         List<ImageFolderItemBean> imageFolderItemBeanList = new ArrayList<>();
-        List<ImageItemBean> imageItemBeanList = new ArrayList<>();
+        List<ImageSelectorItemBean> imageSelectorItemBeanList = new ArrayList<>();
 
         if(!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             // storage error
@@ -89,12 +89,12 @@ public class ImageSelectorWrapper {
                     imageFolderItemBeanList.add(imageFolderItemBean);
                 }
 
-                ImageItemBean imageItemBean = new ImageItemBean();
-                imageItemBean.dirPath = dirPath;
-                imageItemBean.filePath = path;
-                imageItemBean.isSelected = false;
+                ImageSelectorItemBean imageSelectorItemBean = new ImageSelectorItemBean();
+                imageSelectorItemBean.dirPath = dirPath;
+                imageSelectorItemBean.filePath = path;
+                imageSelectorItemBean.isSelected = false;
 
-                imageItemBeanList.add(imageItemBean);
+                imageSelectorItemBeanList.add(imageSelectorItemBean);
 
                 if(dirPath.equals("")) {
                     continue;
@@ -126,7 +126,7 @@ public class ImageSelectorWrapper {
 
             cursor.close();
 
-            ThreadUtil.startUIThread(0, () -> imageSelectorWrapperDelegate.onSuccess(imageFolderItemBeanList, imageItemBeanList));
+            ThreadUtil.startUIThread(0, () -> imageSelectorWrapperDelegate.onSuccess(imageFolderItemBeanList, imageSelectorItemBeanList));
 
         });
     }

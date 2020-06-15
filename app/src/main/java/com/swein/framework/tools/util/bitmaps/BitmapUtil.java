@@ -304,5 +304,53 @@ public class BitmapUtil {
         return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 
+    public static Bitmap rotateImageWithoutStore(String file, int angle, float scaleRate) {
+
+        Bitmap originalBitmap = getBitmapWithoutOOM(file);
+
+        originalBitmap = getScaleBitmap(originalBitmap, (int)(originalBitmap.getWidth() * scaleRate), (int)(originalBitmap.getHeight() * scaleRate));
+        Bitmap returnBitmap = null;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        try {
+            returnBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+        }
+
+        if (returnBitmap == null) {
+            returnBitmap = originalBitmap;
+        }
+
+
+//        saveBitmapToJpeg(returnBitmap, tempFileName, 90);
+
+        return returnBitmap;
+    }
+
+    public static int readPictureDegree(String path) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
 
 }

@@ -28,4 +28,7 @@ public class ESSArrows {
     public final static String ESS_UPDATE_UI = "ESS_UPDATE_UI";
 
     public final static String ALARM_UPDATE = "ALARM_UPDATE";
+
+    public final static String ENABLE_LIST_ITEM_CLICK = "ENABLE_LIST_ITEM_CLICK";
+    public final static String DISABLE_LIST_ITEM_CLICK = "DISABLE_LIST_ITEM_CLICK";
 }
