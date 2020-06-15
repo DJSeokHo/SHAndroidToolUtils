@@ -74,6 +74,7 @@ public class ImageSelectorViewHolder {
                 ImageSelectorViewHolder.this.imageSelectorItemBeanList.clear();
                 ImageSelectorViewHolder.this.imageSelectorItemBeanList.addAll(imageSelectorItemBeanList);
 
+
                 initList();
 
                 imageSelectorViewHolderDelegate.onInitFinish();
@@ -129,7 +130,7 @@ public class ImageSelectorViewHolder {
         ThreadUtil.startThread(() -> {
 
             ThreadUtil.startUIThread(0, () -> {
-                imageSelectorAdapter.reload(getImageSelectorItemBeanList(0, 20));
+                imageSelectorAdapter.reload(getImageSelectorItemBeanList(0, 30));
             });
         });
 
@@ -141,10 +142,9 @@ public class ImageSelectorViewHolder {
         ThreadUtil.startThread(() -> {
 
             ThreadUtil.startUIThread(0, () -> {
-                imageSelectorAdapter.loadMore(getImageSelectorItemBeanList(imageSelectorAdapter.getItemCount(), 20));
+                imageSelectorAdapter.loadMore(getImageSelectorItemBeanList(imageSelectorAdapter.getItemCount(), 30));
             });
         });
-
     }
 
     public View getView() {

@@ -92,6 +92,9 @@ public class ImageSelectorItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateView() {
+        bitmap = null;
+        imageView.setImageBitmap(null);
+
         initESS();
         toggleCheck();
 
@@ -100,9 +103,11 @@ public class ImageSelectorItemViewHolder extends RecyclerView.ViewHolder {
             int degree = BitmapUtil.readPictureDegree(imageSelectorItemBean.filePath);
             bitmap = BitmapUtil.rotateImageWithoutStore(imageSelectorItemBean.filePath, degree, 0.5f);
 
-            ThreadUtil.startUIThread(0, () -> imageView.post(() -> SHGlide.getInstance().setImageBitmap(view.get().getContext(), bitmap, imageView, null,
-                    imageView.getWidth(), imageView.getHeight(), 0.7f, 0)));
+            ThreadUtil.startUIThread(0, () -> SHGlide.getInstance().setImageBitmap(view.get().getContext(), bitmap, imageView, null,
+                    imageView.getWidth(), imageView.getHeight(), 0.7f, 0));
+
         });
+
     }
 
     private void toggleCheck() {
@@ -118,6 +123,7 @@ public class ImageSelectorItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void removeESS() {
+        ILog.iLogDebug(TAG, "removeESS");
         EventCenter.getInstance().removeAllObserver(this);
     }
 
