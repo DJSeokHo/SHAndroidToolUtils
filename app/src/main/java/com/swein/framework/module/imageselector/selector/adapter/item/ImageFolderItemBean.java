@@ -1,4 +1,4 @@
-package com.swein.framework.module.imageselector;
+package com.swein.framework.module.imageselector.selector.adapter.item;
 
 public class ImageFolderItemBean {
 

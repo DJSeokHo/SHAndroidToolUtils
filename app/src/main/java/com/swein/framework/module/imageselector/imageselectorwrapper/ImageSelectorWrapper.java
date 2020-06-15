@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
-import com.swein.framework.module.imageselector.ImageFolderItemBean;
+import com.swein.framework.module.imageselector.selector.adapter.item.ImageFolderItemBean;
 import com.swein.framework.module.imageselector.selector.adapter.item.ImageSelectorItemBean;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 

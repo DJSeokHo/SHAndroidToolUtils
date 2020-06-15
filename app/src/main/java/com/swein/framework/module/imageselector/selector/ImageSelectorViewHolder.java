@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.swein.framework.module.imageselector.ImageFolderItemBean;
+import com.swein.framework.module.imageselector.selector.adapter.item.ImageFolderItemBean;
 import com.swein.framework.module.imageselector.imageselectorwrapper.ImageSelectorWrapper;
 import com.swein.framework.module.imageselector.selector.adapter.ImageSelectorAdapter;
 import com.swein.framework.module.imageselector.selector.adapter.item.ImageSelectorItemBean;
