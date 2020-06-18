@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -52,6 +54,10 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
 
+    // textView not support span tag
+//    private final static String HTML_STRING = "<p><b><span>괌</span></b><span> 최대 규모의 <span style=\"background-color: rgb(0, 153, 153); color: rgb(255, 255, 255);\">아울렛</span>이라 관광객 뿐만 아니라 현지인들도 많이 방문하는 곳입니다.&nbsp;</span></p><p><span>다양한 브랜드가 즐비해 있고 </span><span style=\"color: rgb(255, 255, 255); background-color: rgb(255, 167, 0); >할인 쿠폰</span><span>을 이용하면 더더욱 <span style=\" color:=\"\" rgb(0,=\"\" 158,=\"\" 37);=\"\">저렴하게</span> 물건을 구매할 수 있습니다.&nbsp;</p><p><b><span style=\"color: rgb(255, 0, 0);\">타미, 게스, 캘빈 클라인</span></b>&nbsp;등 다양한 브랜드가 입점해 있습니다.<br></p><p><u></u></p>";
+    private final static String HTML_STRING = "<p><b><span>괌</span></b><span> 최대 규모의 <span style=\"background-color: rgb(0, 153, 153); color: rgb(255, 255, 255);\">아울렛</span>이라 관광객 뿐만 아니라 현지인들도 많이 방문하는 곳입니다.&nbsp;</span></p><p><span>다양한 브랜드가 즐비해 있고 </span><span style=\"color: rgb(255, 255, 255); background-color: rgb(255, 167, 0); >할인 쿠폰</span><span>을 이용하면 더더욱 <span style=\" color:=\"\" rgb(0,=\"\" 158,=\"\" 37);=\"\">저렴하게</span> 물건을 구매할 수 있습니다.&nbsp;</p><p><b><span style=\"color: rgb(255, 0, 0);\">타미, 게스, 캘빈 클라인</span></b>&nbsp;등 다양한 브랜드가 입점해 있습니다.<br></p><p><u></u></p>";
+
     private final static String TAG = "MainActivity";
 
     private ImageView imageViewMain1;
@@ -71,6 +77,8 @@ public class MainActivity extends Activity {
     private ViewOutlineProvider viewOutlineProvider2;
 
     private EditText editText;
+
+    private TextView textViewHtml;
 
     private final static int REQUEST_READ_PHONE_STATE = 998;
     private static String[] PERMISSIONS_STORAGE = {
@@ -125,6 +133,19 @@ public class MainActivity extends Activity {
 //                checkAppInstallInfoJSONObject(getApplicationContext());
 //            }
 //        });
+
+
+        textViewHtml = findViewById(R.id.textViewHtml);
+
+//        SpannableStringBuilder spanText = new SpannableStringBuilder(HTML_STRING);
+//        spanText.setSpan(new StrikethroughSpan(), 0, HTML_STRING.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        textViewHtml.setText(spanText);
+
+        textViewHtml.setText(Html.fromHtml(HTML_STRING));
+//        textViewHtml.setText(Html.fromHtml("테스트 " + "<font color=\"#2a7de2\"><u>파란색</u></font>" + "입니다 "));
+
+
+        출처: https://blog.gibsonkim.dev/9 [김형섭의 개발공간]
 
 
         editText = findViewById(R.id.editText);
