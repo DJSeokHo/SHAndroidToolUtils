@@ -11,8 +11,8 @@ import java.util.Map;
 /**
  * Created by seokho on 22/11/2016.
  *
- * commit is better than apply
- *
+ * Commit need wait for return value
+ * apply need not wait
  */
 public class SharedPreferencesUtil {
 
