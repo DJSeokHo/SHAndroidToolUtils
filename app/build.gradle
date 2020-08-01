@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
@@ -37,8 +38,6 @@ android {
     }
     configurations.all {
         resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
-        /* 防止重复引用 */
-        exclude group: 'com.google.zxing'
     }
     productFlavors {
     }
@@ -74,21 +73,18 @@ dependencies {
     implementation 'javax.inject:javax.inject:1'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation("com.squareup.okhttp3:okhttp:4.0.1")
 
-    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
-    implementation 'me.dm7.barcodescanner:core:1.9.8'
-
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'net.zetetic:android-database-sqlcipher:3.5.4'
@@ -98,7 +94,7 @@ dependencies {
     implementation 'commons-net:commons-net:3.5'
 
     runtimeOnly files('libs/supportlib.jar')
-    implementation project(path: ':zxinglite')
+
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
@@ -108,6 +104,22 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+
+    implementation 'com.google.zxing:core:3.3.3'
+
+    implementation 'androidx.camera:camera-core:1.0.0-beta07'
+    implementation 'androidx.camera:camera-camera2:1.0.0-beta07'
+    implementation 'androidx.camera:camera-lifecycle:1.0.0-beta07'
+    implementation 'androidx.camera:camera-view:1.0.0-alpha14'
+    implementation "androidx.core:core-ktx:1.3.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+}
+
+repositories {
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    mavenCentral()
 }
 
 final def log = project.logger

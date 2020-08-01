@@ -22,4 +22,5 @@
     <color name="gray_light">#AFAFAF</color>
 
     <color name="transparent">#00000000</color>
+    <color name="image_selector_item_check_bg_color">#00000000</color>
 </resources>

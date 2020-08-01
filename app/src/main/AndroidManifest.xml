@@ -49,6 +49,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <activity android:name="com.swein.framework.module.cameramodule.scan.ScanBankCardActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name="com.swein.framework.module.cameramodule.BindingBankCardActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
         <activity android:name="com.swein.framework.module.imageselector.demo.ImageSelectorActivity"/>
         <activity android:name="com.swein.framework.module.sqlite.demo.SQLiteDemoActivity" />
         <activity android:name="com.swein.framework.module.alarm.demo.AlarmDemoActivity" />
@@ -112,9 +122,7 @@
         <activity android:name="com.swein.framework.template.slidingtabs.activity.SHSlidingTabViewPagerContainerActivity" />
         <activity android:name="com.swein.framework.template.cardview.activity.SHCardViewActivity" />
         <activity android:name="com.swein.framework.template.tabhost.activity.SHTabHostActivity" />
-        <activity
-            android:name="com.swein.framework.module.qrcodescanner.activity.SHQRCodeScannerActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <activity
             android:name="com.swein.framework.module.gcmpush.activity.GoogleCloudMessageActivity"
             android:launchMode="singleTask" />
@@ -141,7 +149,6 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.swein.framework.module.easyscreenrecord.EasyScreenRecordingActivity" />
-        <activity android:name="com.swein.framework.module.qrcodescannerlite.QRCodeScannerLiteActivity" /> <!-- phone call recorder -->
         <activity
             android:name="com.swein.framework.module.aop.demo.main.AOPExampleMainActivity"
             android:launchMode="singleTask"
@@ -179,6 +186,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
