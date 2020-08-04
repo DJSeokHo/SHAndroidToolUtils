@@ -20,10 +20,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.swein.framework.module.camera.custom.camera2.fragment.CameraTwoFragment;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.List;
+
+import static com.swein.constants.Constants.BUNDLE_KEY;
 
 /**
  * Created by seokho on 29/12/2016.
@@ -41,6 +42,12 @@ public class ActivityUtil {
 
     public static void startNewActivityWithoutFinish(Context packageContext, Class<?> cls) {
         Intent intent = new Intent(packageContext, cls);
+        packageContext.startActivity(intent);
+    }
+
+    public static void startNewActivityWithoutFinish(Context packageContext, Class<?> cls, Bundle bundle) {
+        Intent intent = new Intent(packageContext, cls);
+        intent.putExtra(BUNDLE_KEY, bundle);
         packageContext.startActivity(intent);
     }
 

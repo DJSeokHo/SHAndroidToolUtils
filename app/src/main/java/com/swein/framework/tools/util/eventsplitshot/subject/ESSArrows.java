@@ -31,4 +31,5 @@ public class ESSArrows {
 
     public final static String ENABLE_LIST_ITEM_CLICK = "ENABLE_LIST_ITEM_CLICK";
     public final static String DISABLE_LIST_ITEM_CLICK = "DISABLE_LIST_ITEM_CLICK";
+
 }

@@ -13,27 +13,44 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.swein.constants.Constants;
 import com.swein.framework.tools.util.debug.log.ILog;
+import com.swein.framework.tools.util.toast.ToastUtil;
 import com.swein.shandroidtoolutils.R;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ScanBankCardActivity extends FragmentActivity {
+public class ScannerActivity extends FragmentActivity {
 
-    private final static String TAG = "ScanBankCardActivity";
+    private final static String TAG = "ScannerActivity";
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private PreviewView previewView;
     private ExecutorService cameraExecutor = Executors.newSingleThreadExecutor();
 
+    private Camera camera;
+    private int type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_bank_card);
+        setContentView(R.layout.activity_scanner);
+
+        checkBundle();
 
         findView();
         initCamera();
+    }
+
+    private void checkBundle() {
+        Bundle bundle = getIntent().getBundleExtra(Constants.BUNDLE_KEY);
+        if(bundle != null) {
+            type = bundle.getInt("type");
+        }
+        else {
+            finish();
+        }
     }
 
     private void findView() {
@@ -62,24 +79,60 @@ public class ScanBankCardActivity extends FragmentActivity {
         int width = previewView.getWidth();
         int height = previewView.getHeight();
 
-        Preview preview = new Preview.Builder().setTargetResolution(new Size(width, height)).build();
+        Size size;
+        if(width > 600) {
+            float rate = 600f / (float)width;
+            ILog.iLogDebug(TAG, "rate is " + rate);
 
+            width = (int)((float)width * rate);
+            height = (int)((float)height * rate);
+        }
+
+        ILog.iLogDebug(TAG, width + " " + height);
+
+        size = new Size(width, height);
+
+        Preview preview = new Preview.Builder().setTargetResolution(size).build();
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
-                .setTargetResolution(new Size(width, height))
+                .setTargetResolution(size)
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build();
 
-        imageAnalysis.setAnalyzer(cameraExecutor, new QrCodeAnalyzer(result -> {
-            previewView.post(() -> {
-                ILog.iLogDebug(TAG, "scanned: " + result.getText());
-                finish();
-            });
-            return null;
-        }));
+        if(type == 0) {
+            imageAnalysis.setAnalyzer(cameraExecutor, new QrCodeAnalyzer(result -> {
+                previewView.post(() -> {
+                    ILog.iLogDebug(TAG, "scanned: " + result.getText());
+                    ToastUtil.showCustomLongToastNormal(this, result.getText());
+                    finish();
+                });
+                return null;
+            }));
+        }
+        else if(type == 1) {
+            imageAnalysis.setAnalyzer(cameraExecutor, new TextAnalyzer(new TextAnalyzer.TextAnalyzerDelegate() {
+                @Override
+                public void onTextDetected(String result) {
+                    ILog.iLogDebug(TAG, "scanned: " + result);
+                    finish();
+                }
+
+                @Override
+                public int getRotation() {
+
+                    int angle = 0;
+                    if(camera != null) {
+                        angle = camera.getCameraInfo().getSensorRotationDegrees();
+                    }
+
+//                ILog.iLogDebug(TAG, "angle is " + angle);
+                    return angle;
+                }
+            }));
+        }
 
         cameraProvider.unbindAll();
 
-        Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
+        camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
     }
 
