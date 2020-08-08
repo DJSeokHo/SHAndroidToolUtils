@@ -10,21 +10,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 
-import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.module.location.model.LocationModel;
+import com.swein.framework.tools.util.debug.log.ILog;
 
-/**
- * target api <= 22 just use this
- * <p>
- * but of api > 22, must request permission dynamic
- * <p>
- * Created by seokho on 2018/3/14.
- */
 
 public class SHLocation {
 
     private final static String TAG = "SHLocation";
     private final static int LOCATION_SERVICE_REQUEST_CODE = 801;
+
+    public static double latitude = 0;
+    public static double longitude = 0;
+
 
     private static SHLocation instance = new SHLocation();
     public static SHLocation getInstance() {
@@ -32,7 +29,7 @@ public class SHLocation {
     }
 
     public interface SHLocationDelegate {
-        void onLocation(double longitude, double latitude, long time);
+        void onLocation(double latitude, double longitude, long time);
     }
 
     private LocationManager locationManager;
@@ -157,7 +154,7 @@ public class SHLocation {
         if (requestCode == LOCATION_SERVICE_REQUEST_CODE) {
             if (!isLocationServiceEnable(activity)) {
                 // not open gps
-            }
+        }
             else {
                 // open gps
             }
@@ -183,7 +180,7 @@ public class SHLocation {
     }
 
     private void showLocation(Location location) {
-        shLocationDelegate.onLocation(location.getLongitude(), location.getLatitude(), System.currentTimeMillis());
+        shLocationDelegate.onLocation(location.getLatitude(), location.getLongitude(), System.currentTimeMillis());
     }
 
     private Location getBestLocation(Location knownPosition, Location newPosition) {

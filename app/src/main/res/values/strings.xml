@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- naver map -->
+    <string name="naver_map_client_id">t2ryjofq99</string>
+
     <string name="facebook_app_id">1282430322144553</string>
     <string name="fb_login_protocol_scheme">fb1282430322144553</string>
 
