@@ -21,6 +21,10 @@ import com.swein.shandroidtoolutils.R;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * add apply plugin: 'com.google.gms.google-services' at last line to module level build.gradle
+ * add classpath 'com.google.gms:google-services:4.3.3' to project level build.gradle
+ */
 public class ScannerActivity extends FragmentActivity {
 
     private final static String TAG = "ScannerActivity";
