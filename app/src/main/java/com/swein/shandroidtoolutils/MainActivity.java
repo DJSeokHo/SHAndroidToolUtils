@@ -403,6 +403,7 @@ public class MainActivity extends Activity {
         ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ReadyToScanActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, NaverMapDemoActivity.class);
 
+
         SHVolley.getInstance().requestUrlGet(this, "https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {
             @Override
             public void onResponse(String response) {
