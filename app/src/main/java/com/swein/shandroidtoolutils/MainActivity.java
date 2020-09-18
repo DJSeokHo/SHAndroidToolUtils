@@ -27,8 +27,8 @@ import androidx.core.content.ContextCompat;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.swein.framework.module.basicpermission.demo.PermissionDemoActivity;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
-import com.swein.framework.module.cameramodule.ReadyToScanActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
@@ -400,8 +400,9 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, MVPDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, CustomTimePickerDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ImageSelectorActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ReadyToScanActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ReadyToScanActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, NaverMapDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, PermissionDemoActivity.class);
 
 
         SHVolley.getInstance().requestUrlGet(this, "https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {

@@ -49,7 +49,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.swein.framework.module.navermap.NaverMapDemoActivity"></activity>
+        <activity android:name="com.swein.framework.module.basicpermission.demo.PermissionDemoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name="com.swein.framework.module.navermap.NaverMapDemoActivity" />
         <activity
             android:name="com.swein.framework.module.cameramodule.scan.ScannerActivity"
             android:launchMode="singleTask"
