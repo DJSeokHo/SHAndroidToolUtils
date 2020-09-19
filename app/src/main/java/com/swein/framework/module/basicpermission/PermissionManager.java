@@ -155,6 +155,10 @@ public class PermissionManager {
 
     void onActivityResult(int requestCode, int resultCode) {
 
+        if(activity == null || currentPermissionsList == null) {
+            return;
+        }
+
         List<String> deniedPermissionList = new ArrayList<>();
 
         if(resultCode == Activity.RESULT_CANCELED) {
