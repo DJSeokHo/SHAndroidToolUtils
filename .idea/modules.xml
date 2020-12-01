@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SHAndroidToolUtils.iml" filepath="$PROJECT_DIR$/SHAndroidToolUtils.iml" group="SHAndroidToolUtils" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="SHAndroidToolUtils/app" />
+      <module fileurl="file://$PROJECT_DIR$/SHAndroidToolUtils.iml" filepath="$PROJECT_DIR$/SHAndroidToolUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SHAndroidToolUtils.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SHAndroidToolUtils.app.iml" />
     </modules>
   </component>
 </project>
