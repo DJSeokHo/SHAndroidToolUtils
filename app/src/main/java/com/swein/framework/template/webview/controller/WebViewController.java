@@ -3,6 +3,7 @@ package com.swein.framework.template.webview.controller;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,10 +20,12 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
+import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -38,14 +41,17 @@ import com.swein.framework.template.webview.javascript.JSResponder;
 import com.swein.framework.tools.util.bitmaps.BitmapUtil;
 import com.swein.framework.tools.util.cookie.CookieUtil;
 import com.swein.framework.tools.util.endec.EndecUtil;
-import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.tools.util.storage.files.FileIOUtil;
 import com.swein.framework.tools.util.thread.ThreadUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
 
 /**
  * Created by seokho on 17/01/2018.
@@ -75,6 +81,33 @@ public class WebViewController {
         setupWebChromeClient();
         setupWebViewClient();
 //        setupWebViewCookie();
+
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                ILog.iLogDebug(TAG, "????");
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
+                String realContent = null;
+                ILog.iLogDebug(TAG, "1");
+                try {
+                    realContent = URLDecoder.decode(contentDisposition,"utf-8");
+                    ILog.iLogDebug(TAG, "2");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    ILog.iLogDebug(TAG, "3");
+                    realContent = contentDisposition;
+                }
+
+                ILog.iLogDebug(TAG, "4");
+                request.setMimeType(mimetype);
+                request.setTitle(URLUtil.guessFileName(url, realContent, mimetype));
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); //Notify client once download is completed!
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(url, contentDisposition, mimetype));
+                DownloadManager dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
+                dm.enqueue(request);
+            }
+        });
     }
 
     private void setupWebViewCookie() {
