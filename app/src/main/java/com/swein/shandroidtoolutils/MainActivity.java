@@ -28,13 +28,13 @@ import androidx.core.content.ContextCompat;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.swein.framework.module.camera.custom.camera1.preview.surfaceview.FakeCameraOnePreview;
+import com.swein.framework.module.datastore.demo.DataStoreDemoActivity;
 import com.swein.framework.module.googleanalytics.aop.monitor.processtimer.TimerTrace;
 import com.swein.framework.module.location.SHLocation;
 import com.swein.framework.module.location.geo.SHGeoCoder;
 import com.swein.framework.module.locationapi.LocationAPI;
 import com.swein.framework.module.permissions.Permissions;
 import com.swein.framework.module.queuemanager.QueueManager;
-import com.swein.framework.template.webview.demo.WebViewTemplateActivity;
 import com.swein.framework.tools.util.activity.ActivityUtil;
 import com.swein.framework.tools.util.animation.AnimationUtil;
 import com.swein.framework.tools.util.appinfo.AppInfoUtil;
@@ -387,7 +387,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(this, AppAnalysisExampleLoginActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, TransitionViewTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, SHSlidingTabViewPagerContainerActivity.class);
-        ActivityUtil.startNewActivityWithoutFinish(this, WebViewTemplateActivity.class);
+//        ActivityUtil.startNewActivityWithoutFinish(this, WebViewTemplateActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, CameraColorFilterActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(this, NestedScrollWithFixedBarActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, HandlerThreadTemplateActivity.class);
@@ -403,6 +403,7 @@ public class MainActivity extends Activity {
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, ReadyToScanActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, NaverMapDemoActivity.class);
 //        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, PermissionDemoActivity.class);
+        ActivityUtil.startNewActivityWithoutFinish(MainActivity.this, DataStoreDemoActivity.class);
 
 
         SHVolley.getInstance().requestUrlGet(this, "https://m.baidu.com/", new SHVolley.SHVolleyDelegate() {

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.swein.framework.module.sound.effert.SoundEffect;
 import com.swein.framework.tools.util.debug.log.ILog;
 import com.swein.framework.tools.util.eventsplitshot.eventcenter.EventCenter;
@@ -39,8 +39,21 @@ public class FirebaseCloudMessage extends Activity {
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
         // Get token
-        String token = FirebaseInstanceId.getInstance().getToken();
-        ILog.iLogDebug(TAG, token);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                ILog.iLogDebug(TAG, "getInstanceId failed " + task.getException());
+                return;
+            }
+
+            if (task.getResult() == null) {
+                return;
+            }
+
+            // Get new Instance ID token
+            String token = task.getResult();
+            ILog.iLogDebug(TAG, "fcm push : [" + token + "]");
+
+        });
 
 //        example = true;
 
